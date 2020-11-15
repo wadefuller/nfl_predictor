@@ -1,5 +1,5 @@
 # nfl_predictor
-Lightweight and inaccurate model used to predict NFL game outcomes.
+Lightweight and inaccurate model designed to predict NFL game outcomes.
 
 ### Model Features
 Features:
