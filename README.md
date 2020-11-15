@@ -1,2 +1,2 @@
 # nfl_predictor
-Lightweight model used to predict NFL game outcomes.
+Lightweight and inaccurate model used to predict NFL game outcomes.
