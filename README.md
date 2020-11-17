@@ -45,4 +45,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 Residual standard error: 13.95 on 5226 degrees of freedom
 Multiple R-squared:  0.104,	Adjusted R-squared:  0.1021 
-F-statistic: 55.15 on 11 and 5226 DF,  p-value: < 0.00000000000000022```
+F-statistic: 55.15 on 11 and 5226 DF,  p-value: < 0.00000000000000022
+```
+
+Model Performance
+----
+In addition to offline performance evaluations, I am also experimenting with this model live in the 2020 season.  [Live results](https://docs.google.com/spreadsheets/d/1xBt9tT3g6OpUco3cZJhfPTVls3azX_ZlFwWvIU3gjMA/edit?usp=sharing)
