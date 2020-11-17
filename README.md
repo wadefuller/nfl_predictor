@@ -50,4 +50,4 @@ F-statistic: 55.15 on 11 and 5226 DF,  p-value: < 0.00000000000000022
 
 Model Performance
 ----
-In addition to offline performance evaluations, I am also experimenting with this model live in the 2020 season.  [Live results](https://docs.google.com/spreadsheets/d/1xBt9tT3g6OpUco3cZJhfPTVls3azX_ZlFwWvIU3gjMA/edit?usp=sharing)
+In addition to offline performance evaluations, I am also experimenting with this model live in the 2020 season.  [Live results here](https://docs.google.com/spreadsheets/d/1xBt9tT3g6OpUco3cZJhfPTVls3azX_ZlFwWvIU3gjMA/edit?usp=sharing).
