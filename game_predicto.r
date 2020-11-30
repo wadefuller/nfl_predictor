@@ -1,12 +1,16 @@
 ## Improvement log
 ## // Move to a machine learning style model
-## //// Add preprocessing and hyper-parameter tuning
+#### // Add preprocessing and hyper-parameter tuning
 ## // Evaluation accuracy of model on past seasons
+#### // A.Rsq = .0709
+#### // B.Rsq = .1025
+#### // C.Rsq = .1027
 ## // Improve model with new features
-## //// Offense & Defensive rankings
+#### // Rankings: Passing / Rushing Offense & Defense
+#### // Deltas on either side of the ball
+#### // Strength of win
 ##
-## Inspired by the excellent work here: https://www.nflfastr.com/articles/nflfastR.html
-
+## Inspired by the beautiful work here: https://www.nflfastr.com/articles/nflfastR.html
 library(tidyverse)
 library(ggrepel)
 library(ggimage)
@@ -14,10 +18,13 @@ library(nflfastR)
 library(lfe)
 library(zoo)
 library(caret)
+library(corrplot)
+library(ggplot2)
+
 
 options(scipen = 9999)
 
-## PBP Data
+## PBP Data - Use these for future feature development
 # data <- readRDS(url('https://raw.githubusercontent.com/guga31bb/nflfastR-data/master/data/play_by_play_2019.rds'))
 # dim(data)
 # View(data)
@@ -47,7 +54,6 @@ home_results <- home %>%
   mutate(home_win_pct = coalesce(home_win_pct_8,home_win_pct_7,home_win_pct_6,home_win_pct_5,home_win_pct_4,home_win_pct_3,home_win_pct_2,home_win_pct_lg,0)) %>%
   select(game_id,team,home_win_pct)
 
-
 ## Overall (Home and away combined)
 home_games <- games %>%
   filter(game_type == 'REG' & season >= 2000 & is.na(result) == FALSE) %>%
@@ -68,7 +74,7 @@ str(away_games) # check n rows
 game_split <- rbind(home_games,away_games)
 str(game_split) # check that these are the sum of those above
 game_split$win <- if_else(game_split$home == 1 & game_split$result > 0,1,if_else(game_split$home == 0 & game_split$result < 0,1,0))
-# View(game_split)
+
 tr <- game_split %>%
   select(game_id,team,season,week,result,rest_diff,home_rest,div_game,primetime,weekday,gametime,spread_line,total_line,result,win) %>%
   arrange(team,season,week) %>%
@@ -93,7 +99,6 @@ tr <- game_split %>%
          point_diff = coalesce(point_diff_l8,point_diff_l7,point_diff_l6,point_diff_l5,point_diff_l4,point_diff_l3,point_diff_l2,point_diff_lg,0))
 tr_trim <- tr %>%
   select(game_id,team,win_pct,point_diff)
-# View(tr)
 
 gm_aug <- games %>%
   inner_join(tr_trim,by=c('game_id'='game_id','home_team'='team')) %>%
@@ -105,52 +110,103 @@ gm_aug <- games %>%
   inner_join(home_results,by=c('game_id'='game_id','home_team'='team')) %>%
   mutate(win = if_else(result > 0, 1, 0),
          rest_diff = home_rest - away_rest,
-         primetime = if_else(weekday == 'Thursday' | weekday == 'Monday' | (weekday == 'Sunday' & gametime > '20:00'),1,0)) 
+         primetime = if_else(weekday == 'Thursday' | weekday == 'Monday' | (weekday == 'Sunday' & gametime > '20:00'),1,0),
+         pt_diff = home.point_diff - away.point_diff,
+         win_pct_diff = home.win_pct - away.win_pct) 
 
-## Modeling
-summary(lm(result ~ spread_line, gm_aug))
+glimpse(gm_aug)
+model_only <- gm_aug %>%
+  select (result,week,home_win_pct,div_game,rest_diff,home_rest,away_rest,primetime,total_line,home.point_diff,home.win_pct,away.point_diff,away.win_pct,win_pct_diff,pt_diff)
+
+# Investigate the data correlations manually
+corr_matrix <- cor(model_only) # create a correlation matrix
+summary(corr_matrix[upper.tri(corr_matrix)]) # check out the correlation summary
+sum(abs(corr_matrix[upper.tri(corr_matrix)]) > .999) # check for nearly perfectly correlated predictors (should output zero)
+findCorrelation(corr_matrix, cutoff = .75) # check for highly correlated predictors
+ggcorrplot(corr_matrix, 
+           hc.order = FALSE, 
+           type = "lower",
+           lab = TRUE) # visually inspect correlations
+nearZeroVar(corr_matrix, saveMetrics= TRUE) # check that there are no zero-variance predictors
+# pairs(model_only) # check out the distributions of the predictors <- this may crash your R session
+
+## Simple Modeling
+## I want to create features that don't need to leverage the spread in order to produce an accurate result. 
+## Theoretically, a model with high performance should be able to eventually 
+
+# Result ~ Spread: .1798 adjusted R-squared
+summary(lm(result ~ spread_line, gm_aug)) 
+# Result ~ Non-spread features : .1027
 summary(lm(result ~ week + home_win_pct + div_game + rest_diff + home_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct, gm_aug))
+# Win ~ Non-spread features : .0796
 summary(lm(win ~ week + home_win_pct + div_game + rest_diff + home_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct, gm_aug))
-summary(lm(result ~ week + home_win_pct + div_game + rest_diff + home_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct, gm_aug))
+# Result ~ Non-spread features + season, away_rest, win_pct_diff : .1036
+summary(lm(result ~ season + week + home_win_pct + div_game + rest_diff + home_rest + away_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct + win_pct_diff, gm_aug))
+
+# Trim down the data frame to only include the target features
+id_clean <- model_only[!rowSums(is.na(model_only)) > 0,] # scrub out rows with NAs
+lapply(id_clean, function(x) any(is.na(x))) # make sure none are TRUE - these all need to be non-NA
+
+# Split training and test data 70/30
+trainIndex <- createDataPartition(id_clean$result, p = .7,
+                                  list = FALSE,
+                                  times = 1)
+train <- id_clean[ trainIndex,]
+test  <- id_clean[-trainIndex,]
+
+## Simple linear model using Caret. R-Sq: .1059
+lm.tune <- train(result ~ .
+                 ,data = train
+                 ,method = "lm")
+summary(lm.tune)
+
+# Use some ML techniques and try a few modeling methods
+# Set up 10 fold cross validation (repeating 10 times)
+fitControl <- trainControl(method = "repeatedcv"
+                          ,number = 10
+                          ,repeats = 10
+                          ,search = 'random')
+mtry <- ncol(train) - 1
+
+rfGrid <-  expand.grid(mtry=c(1:mtry)
+                       ,splitrule = "variance"
+                       ,min.node.size = 10)
+
+rf.tune <- train(result ~ .
+                 ,data = train
+                 ,trControl = fitControl
+                 ,tuneGrid = rfGrid
+                 ,tuneLength = 15
+                 ,importance = TRUE
+                 ,method = "ranger")
+summary(rf.tune)
+result_pred <- predict(rf.tune, test)
+postResample(pred = result_pred, obs = test$result)
+plot(rf.tune) # 1 predictor produces the best RMSE (likely the win diff pct)
+
+## Implement gradient boosting
+gbmGrid <-  expand.grid(interaction.depth = c(1, 5, 9)
+                        ,n.trees = (1:30)*50
+                        ,shrinkage = 0.1
+                        ,n.minobsinnode = 20)
+gbm.tune <- train(result ~ .
+                 ,data = train
+                 ,method = "gbm"
+                 ,verbose = FALSE
+                 ,trControl = fitControl
+                 ,tuneGrid = gbmGrid)
+summary(gbm.tune) # Observe the important features
+ggplot(gbm.tune) # Visualize the grid of parameters
+
+# Compare the models to each other
+result_pred_gbm <- predict(gbm.tune, test)
+result_pred_lm <- predict(lm.tune, test)
+result_pred_rf <- predict(rf.tune, test)
+postResample(pred = result_pred_gbm, obs = test$result) # RMSE: 13.9744 // R-Sq: .0990
+postResample(pred = result_pred_rf, obs = test$result) # RMSE: 14.0845 // R-Sq: .0871
+postResample(pred = result_pred_lm, obs = test$result) # RMSE: 13.9865 // R-Sq: .0970
 
 ## Final Models
-model_a <-    lm(win ~ week + home_win_pct + div_game + rest_diff + home_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct, gm_aug)
+model_a <- lm(win ~ week + home_win_pct + div_game + rest_diff + home_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct, gm_aug)
 model_b <- lm(result ~ week + home_win_pct + div_game + rest_diff + home_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct, gm_aug)
-
-## Playing with some more interesting methods for improving the model. Non-linear model will ultimately be a more accurate way to go once additional features are added.
-# input_data <- gm_aug %>%
-#   select(result, game_id, win, week , home_win_pct , div_game , rest_diff , home_rest , primetime , spread_line , total_line, home.point_diff, home.win_pct, away.point_diff, away.win_pct)
-# id_clean <- input_data[!rowSums(is.na(input_data)) > 0,]
-# lapply(id_clean, function(x) any(is.na(x)))
-# 
-# trainIndex <- createDataPartition(id_clean$result, p = .7, 
-#                                   list = FALSE, 
-#                                   times = 1)
-# train <- id_clean[ trainIndex,]
-# test  <- id_clean[-trainIndex,]
-# 
-# rf.tune <- train(result ~ week + home_win_pct + div_game + rest_diff + home_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct
-#                  ,data = train
-#                  ,method = "ranger")
-# rf.tune.2 <- train(result ~ week + home_win_pct + div_game + rest_diff + home_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct
-#                  ,data = train
-#                  ,method = "ranger"
-#                  ,preProcess = c("center", "scale"))
-#,ntrees = treeNum
-#,tuneLength = tunelen)
-# ,trControl = trControl)
-# lm.tune <- train(result ~ week + home_win_pct + div_game + rest_diff + home_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct
-#                  ,data = train
-#                  ,method = "lm")
-# lm.tune.2 <- train(result ~ week + home_win_pct + div_game + rest_diff + home_rest + primetime + total_line + home.point_diff + home.win_pct + away.point_diff + away.win_pct
-#                  ,data = train
-#                  ,method = "lm"
-#                  ,preProcess = c("center", "scale"))
-# model_b_rf <- predict(rf.tune, test)
-# model_b_lm <- predict(lm.tune, test)
-
-## Evaluate models 
-# model_list <- list(rf = rf.tune, rf2 = rf.tune.2, lm = lm.tune, lm2 = lm.tune.2)
-# res <- resamples(model_list)
-# summary(res)
-# compare_models(rf.tune, lm.tune)
+model_c <- gbm.tune
