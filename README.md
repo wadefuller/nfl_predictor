@@ -3,49 +3,52 @@ Lightweight and inaccurate model designed to predict NFL game outcomes.
 
 ### Model Features
 Features:
+- season: which season the game was played.
 - week: which week of the season the game was played.
-- home_win_pct: the home teams trailing 8 wk average win percentage.
-- div_game: whether the game was played within a division.
-- rest_diff: the difference in days of rest between the home and away team.
-- home_rest: the days of rest that the home team had.
-- primetime: whether or not the game was played in the evening (MNF, SNF, TNF).
 - total_line: the predicted number of points that Vegas thinks will be scored.
-- home.point_diff: the home team's point differential over the past 8 games.
-- home.win_pct: the home team's win percentage over the past 8 games.
-- away.point_diff: the away team's point differential over the past 8 games.
-- away.win_pct: the away team's win percentage over the past 8 games.
+- div_game: whether the game was played within a division.
+- primetime: whether or not the game was played in the evening (MNF, SNF, TNF).
+- home_win_pct: the trailing 8 wk average win percentage at home for the home team.
+- home_rest: the days of rest for the home team.
+- rest_diff: the difference in days of rest between the home and away team.
+- home.point_diff: the aggregate point differential for the home team (sum of win margin for the given season).
+- pt_diff: the difference in aggregate point differential of the two teams (home minus away).
+- home.win_pct: the win percentage for the home team that season.
+- win_pct_diff: the difference in win percentage of the two teams (home minus away).
+
 
 Model Summary
 ----
 ```Call:
-lm(formula = result ~ week + home_win_pct + div_game + rest_diff + 
-    home_rest + primetime + total_line + home.point_diff + home.win_pct + 
-    away.point_diff + away.win_pct, data = gm_aug)
+lm(formula = result ~ season + week + total_line + div_game + 
+    primetime + home_win_pct + home_rest + rest_diff + home.point_diff + 
+    pt_diff + home.win_pct + win_pct_diff, data = gm_aug)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--47.176  -8.740  -0.212   8.424  51.208 
+-46.190  -8.714  -0.178   8.355  50.816 
 
 Coefficients:
                   Estimate Std. Error t value             Pr(>|t|)    
-(Intercept)       1.007554   2.023869   0.498              0.61862    
-week              0.042382   0.039075   1.085              0.27814    
-home_win_pct      6.345792   1.272276   4.988          0.000000631 ***
-div_game         -1.062778   0.399584  -2.660              0.00784 ** 
-rest_diff         0.223811   0.099094   2.259              0.02395 *  
-home_rest        -0.093945   0.125639  -0.748              0.45465    
-primetime         0.239780   0.520941   0.460              0.64533    
-total_line        0.004226   0.039950   0.106              0.91577    
-home.point_diff  -0.014643   0.005467  -2.679              0.00742 ** 
-home.win_pct     10.740953   1.224223   8.774 < 0.0000000000000002 ***
-away.point_diff  -0.001946   0.004987  -0.390              0.69639    
-away.win_pct    -13.466940   0.857539 -15.704 < 0.0000000000000002 ***
+(Intercept)     188.416604  70.532464   2.671              0.00758 ** 
+season           -0.094235   0.035416  -2.661              0.00782 ** 
+week              0.038329   0.039011   0.983              0.32588    
+total_line        0.053418   0.043236   1.236              0.21670    
+div_game         -1.103347   0.397780  -2.774              0.00556 ** 
+primetime         0.233918   0.518356   0.451              0.65181    
+home_win_pct      6.396367   1.266165   5.052          0.000000453 ***
+home_rest        -0.084625   0.124804  -0.678              0.49776    
+rest_diff         0.204131   0.097912   2.085              0.03713 *  
+home.point_diff  -0.018460   0.007268  -2.540              0.01112 *  
+pt_diff           0.002871   0.004971   0.578              0.56360    
+home.win_pct     -3.032467   1.484198  -2.043              0.04109 *  
+win_pct_diff     13.633647   0.853599  15.972 < 0.0000000000000002 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 13.95 on 5226 degrees of freedom
-Multiple R-squared:  0.104,	Adjusted R-squared:  0.1021 
-F-statistic: 55.15 on 11 and 5226 DF,  p-value: < 0.00000000000000022
+Residual standard error: 13.93 on 5266 degrees of freedom
+Multiple R-squared:  0.1057,	Adjusted R-squared:  0.1036 
+F-statistic: 51.84 on 12 and 5266 DF,  p-value: < 0.00000000000000022
 ```
 
 Model Performance
