@@ -45,7 +45,7 @@ rmse = 13.7193
 
 Model MAE vs market spread:
 
-<img src="https://github.com/wadefuller/nfl_predictor/blob/wadefuller-delete-img/img/model_error_by_season.jpg" width="700" height="700">
+<img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/model_error_by_season.jpg" width="700" height="700">
 
 Model Performance
 ----
