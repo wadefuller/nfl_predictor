@@ -5,13 +5,11 @@ Lightweight and inaccurate model designed to predict NFL game outcomes.
 Features:
 - season: which season the game was played.
 - week: which week of the season the game was played.
-- total_line: the predicted number of points that Vegas thinks will be scored.
-- div_game: whether the game was played within a division.
-- primetime: whether or not the game was played in the evening (MNF, SNF, TNF).
+- spread_line: the predicted number of points that Vegas thinks will be scored.
 - home_win_pct: the trailing 8 wk average win percentage at home for the home team.
 - home_rest: the days of rest for the home team.
 - rest_diff: the difference in days of rest between the home and away team.
-- home.point_diff: the aggregate point differential for the home team (sum of win margin for the given season).
+- home_point_diff: the aggregate point differential for the home team (sum of win margin for the given season).
 - pt_diff: the difference in aggregate point differential of the two teams (home minus away).
 - home.win_pct: the win percentage for the home team that season.
 - win_pct_diff: the difference in win percentage of the two teams (home minus away).
