@@ -43,6 +43,10 @@ rsq = 0.1357
 rmse = 13.7193
 ```
 
+Model MAE vs market spread:
+
+<img src="https://github.com/wadefuller/nfl_predictor/blob/main/model_error_by_season.jpg" width="700" height="700">
+
 Model Performance
 ----
 In addition to offline performance evaluations, I am also experimenting with this model live in the 2020 season.
