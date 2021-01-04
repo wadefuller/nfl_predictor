@@ -1,4 +1,4 @@
-# nfl_predictor
+### `nfl_predictor`
 Lightweight model designed to predict NFL game outcomes using team performance and market data.
 
 ### Model Features
