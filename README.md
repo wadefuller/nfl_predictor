@@ -2,17 +2,23 @@
 Lightweight model designed to predict NFL game outcomes using team performance and market data.
 
 ### Model Features
-Features:
+
+Metadata:
 - season: which season the game was played.
 - week: which week of the season the game was played.
-- spread_line: the predicted number of points that Vegas thinks will be scored.
-- home_win_pct: the trailing 8 wk average win percentage at home for the home team.
+- div_game: boolean indicating whether the teams share a division.
 - home_rest: the days of rest for the home team.
 - rest_diff: the difference in days of rest between the home and away team.
-- home_point_diff: the aggregate point differential for the home team (sum of win margin for the given season).
-- pt_diff: the difference in aggregate point differential of the two teams (home minus away).
-- home.win_pct: the win percentage for the home team that season.
-- win_pct_diff: the difference in win percentage of the two teams (home minus away).
+
+Market data:
+- spread_line: the predicted number of points that the betting markets thinks will be scored.
+
+Performance data:
+- home_point_diff_trend: the trailing 8 wk point differential for the home team (sum of win margin for the given team).
+- home_win_pct_trend: the trailing 8 wk win percentage for the home team.
+- point_diff_ats_season: the season-long difference between the market expected points scored and the actual points scored for the home team. 
+- point_diff_trend_diff: the trailing 8 wk point differential for the home team minus the same figure for the away team.
+- win_pct_trend_diff: the trailing 8 wk average win percentage at home for the home team minus the same figure for the away team.
 
 
 Model Summary
@@ -52,3 +58,10 @@ Model Performance
 In addition to offline performance evaluations, I am also experimenting with this model live in the 2020 season.
 
 [Live results here](httpst://docs.google.com/spreadsheets/d/1xBt9tT3g6OpUco3cZJhfPTVls3azX_ZlFwWvIU3gjMA/edit?usp=sharing).
+
+Further improvements
+----
+A few feature improvements that are on the backlog:
+- [Expected Points Added](https://www.espn.com/nfl/story/_/id/8379024/nfl-explaining-expected-points-metric): Team EPA, Starting Quarterback EPA, Defensive EPA, Offensive EPA
+- [Pythagorean wins](http://grantland.com/features/breaking-best-nfl-stats/)
+- Market Signals: Moneylines & Odds
