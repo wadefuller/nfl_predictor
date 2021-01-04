@@ -19,36 +19,30 @@ Features:
 
 Model Summary
 ----
-```Call:
-lm(formula = result ~ season + week + total_line + div_game + 
-    primetime + home_win_pct + home_rest + rest_diff + home.point_diff + 
-    pt_diff + home.win_pct + win_pct_diff, data = gm_aug)
+```
+══ Workflow ═════════════════════════════════════════════════════════════════════════════════════
+Preprocessor: Formula
+Model: boost_tree()
 
-Residuals:
-    Min      1Q  Median      3Q     Max 
--46.190  -8.714  -0.178   8.355  50.816 
+── Preprocessor ─────────────────────────────────────────────────────────────────────────────────
+home_result ~ .
 
-Coefficients:
-                  Estimate Std. Error t value             Pr(>|t|)    
-(Intercept)     188.416604  70.532464   2.671              0.00758 ** 
-season           -0.094235   0.035416  -2.661              0.00782 ** 
-week              0.038329   0.039011   0.983              0.32588    
-total_line        0.053418   0.043236   1.236              0.21670    
-div_game         -1.103347   0.397780  -2.774              0.00556 ** 
-primetime         0.233918   0.518356   0.451              0.65181    
-home_win_pct      6.396367   1.266165   5.052          0.000000453 ***
-home_rest        -0.084625   0.124804  -0.678              0.49776    
-rest_diff         0.204131   0.097912   2.085              0.03713 *  
-home.point_diff  -0.018460   0.007268  -2.540              0.01112 *  
-pt_diff           0.002871   0.004971   0.578              0.56360    
-home.win_pct     -3.032467   1.484198  -2.043              0.04109 *  
-win_pct_diff     13.633647   0.853599  15.972 < 0.0000000000000002 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+── Model ────────────────────────────────────────────────────────────────────────────────────────
+Boosted Tree Model Specification (regression)
 
-Residual standard error: 13.93 on 5266 degrees of freedom
-Multiple R-squared:  0.1057,	Adjusted R-squared:  0.1036 
-F-statistic: 51.84 on 12 and 5266 DF,  p-value: < 0.00000000000000022
+Main Arguments:
+  mtry = 14
+  trees = 1000
+  min_n = 9
+  tree_depth = 13
+  learn_rate = 0.00300016862336822
+  loss_reduction = 2.09922836365263e-06
+  sample_size = 0.292054141357075
+
+Computational engine: xgboost
+
+rsq = 0.1357
+rmse = 13.7193
 ```
 
 Model Performance
