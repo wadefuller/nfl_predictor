@@ -1,0 +1,730 @@
+---
+title: "NFL Score Prediction Model"
+author: "Wade Fuller"
+date: "12/22/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
+                      message = FALSE, dpi = 180,
+                      fig.width = 8, fig.height = 5)
+library(tidymodels)
+library(nflfastR)
+library(ggthemes)
+library(zoo)
+library(doParallel)
+library(vip)
+theme_set(theme_minimal(base_size = 10))
+```
+
+## Introduction
+I have recently come across a fascinating [R package](https://github.com/mrcaseb/nflfastR) called `nflfastR` which aggregates and simplifies a wide range of NFL data. In finding this data, my imagination started running through all the possible analyses that could be done with it. There is much to be explored with this data, but in order to move forward efficiently I want to limit my scope to one project for now.
+
+### Goal: Create a model from publicly available data that predicts the outcome of NFL games.
+
+This is purely a passion project and not intended to be a model that is used for betting on NFL games. The inputs are fairly nacent at this point and will require further iteration in order to lift overall accuracy. I lay out my ideas for this at the end of this document.
+
+```{r init}
+games <- readRDS(url("http://www.habitatring.com/games.rds"))
+games
+```
+This data frame contains every game since 1999 as well as a treasure trove of metadata about each game.
+
+### Split data
+The data is imported such that each record represents one game. This means that we have information about both the home and away team on the same line. To make this data easier to manipulate, we have to split this data into home and away frames.
+
+You will see I also add a few columns here:
+- `spread_adjusted_result`: this is simply the real result plus the spread. This helps me understand what the result was vs what was expected.
+-`spread_cover`: this helps me understand whether the team covered the spread or not. Said differently, did the team achieve expectations for the game. Only one team can cover the spread for each game.
+-`rest_diff`: the difference in the number of days of rest for each team. The number of days of rest is simply how many days since their last game.
+
+```{r split_data}
+home_games <- games %>%
+  filter(game_type == 'REG' & season >= 2000) %>%
+  transmute(
+         game_id,
+         team = home_team,
+         opposing_team = away_team,
+         points_for = home_score,
+         points_against = away_score,
+         result,
+         total_points_scored = total,
+         season,
+         week,
+         gameday,
+         weekday,
+         gametime,
+         team_rest = home_rest,
+         opponent_rest = away_rest,
+         spread_line = spread_line * -1, # making this easier to calcuate with
+         div_game,
+         home = 1
+         )
+away_games <- games %>%
+  filter(game_type == 'REG' & season >= 2000) %>%
+  transmute(
+         game_id,
+         team = away_team,
+         opposing_team = home_team,
+         points_for = away_score,
+         points_against = home_score,
+         result = result * -1,
+         total_points_scored = total,
+         season,
+         week,
+         gameday,
+         weekday,
+         gametime,
+         team_rest = away_rest,
+         opponent_rest = home_rest,
+         spread_line,
+         div_game,
+         home = 0
+         )
+game_df <- bind_rows(home_games, away_games) %>%
+  mutate_if(is.character, factor) %>%
+  mutate(home = as.factor(home))
+game_df <- game_df %>% mutate(
+  win = if_else(game_df$result > 0,1,0) # fully recognizing that this misattributes ties to losses.
+ ,spread_adjusted_result = spread_line + result
+ ,spread_cover = if_else(spread_line + result > 0,1,0)
+ ,rest_diff = team_rest - opponent_rest
+)
+```
+
+### Generate features
+- `win_pct_trend`: win percentage over the last 8 games.
+- `win_pct_season`: win percentage in the given season.
+- `win_pct_ats_season`: win percentage against the spread in the given season.
+- `point_diff_trend`: point differential over the last 8 games.
+- `point_diff_ats_season`: point differential in the given season.
+- `point_diff_season`: point differential against the spread in a given season.
+
+*Note: my methods for creating these are a bit choppy - definitely a WIP*
+```{r feature_set}
+trending_fs <- game_df %>%
+  select(game_id,team,season,week,win,result) %>%
+  arrange(team,season,week) %>%
+  group_by(team) %>%
+  mutate(win_pct_lg = rollapply(win, width = list(-(1:1)), mean, fill = NA),
+         win_pct_last_2 = rollapply(win, width = list(-(2:1)), mean, fill = NA),
+         win_pct_last_3 = rollapply(win, width = list(-(3:1)), mean, fill = NA),
+         win_pct_last_4 = rollapply(win, width = list(-(4:1)), mean, fill = NA),
+         win_pct_last_5 = rollapply(win, width = list(-(5:1)), mean, fill = NA),
+         win_pct_last_6 = rollapply(win, width = list(-(6:1)), mean, fill = NA),
+         win_pct_last_7 = rollapply(win, width = list(-(7:1)), mean, fill = NA),
+         win_pct_last_8 = rollapply(win, width = list(-(8:1)), mean, fill = NA),
+         point_diff_lg = rollapply(result, width = list(-(1:1)), sum, fill = NA),
+         point_diff_l2 = rollapply(result, width = list(-(2:1)), sum, fill = NA),
+         point_diff_l3 = rollapply(result, width = list(-(3:1)), sum, fill = NA),
+         point_diff_l4 = rollapply(result, width = list(-(4:1)), sum, fill = NA),
+         point_diff_l5 = rollapply(result, width = list(-(5:1)), sum, fill = NA),
+         point_diff_l6 = rollapply(result, width = list(-(6:1)), sum, fill = NA),
+         point_diff_l7 = rollapply(result, width = list(-(7:1)), sum, fill = NA),
+         point_diff_l8 = rollapply(result, width = list(-(8:1)), sum, fill = NA)) %>% ## coalesce these win pcts
+  mutate(win_pct_trend = coalesce(
+    win_pct_last_8
+    ,win_pct_last_7
+    ,win_pct_last_6
+    ,win_pct_last_5
+    ,win_pct_last_4
+    ,win_pct_last_3
+    ,win_pct_last_2
+    ,win_pct_lg
+    ,0)
+,point_diff_trend = coalesce(
+  point_diff_l8
+  ,point_diff_l7
+  ,point_diff_l6
+  ,point_diff_l5
+  ,point_diff_l4
+  ,point_diff_l3
+  ,point_diff_l2
+  ,point_diff_lg
+  ,0)
+  ) %>%
+  select(game_id,team,win_pct_trend,point_diff_trend)
+
+season_fs <- game_df %>%
+  select(game_id,team,season,week,win,result,spread_adjusted_result,spread_cover) %>%
+  arrange(team,season,week) %>%
+  group_by(team,season) %>%
+  mutate(win_pct_lg = rollapply(win, width = list(-(1:1)), mean, fill = NA),
+         win_pct_last_2 = rollapply(win, width = list(-(2:1)), mean, fill = NA),
+         win_pct_last_3 = rollapply(win, width = list(-(3:1)), mean, fill = NA),
+         win_pct_last_4 = rollapply(win, width = list(-(4:1)), mean, fill = NA),
+         win_pct_last_5 = rollapply(win, width = list(-(5:1)), mean, fill = NA),
+         win_pct_last_6 = rollapply(win, width = list(-(6:1)), mean, fill = NA),
+         win_pct_last_7 = rollapply(win, width = list(-(7:1)), mean, fill = NA),
+         win_pct_last_8 = rollapply(win, width = list(-(8:1)), mean, fill = NA),
+         win_pct_last_9 = rollapply(win, width = list(-(9:1)), mean, fill = NA),
+         win_pct_last_10 = rollapply(win, width = list(-(10:1)), mean, fill = NA),
+         win_pct_last_11 = rollapply(win, width = list(-(11:1)), mean, fill = NA),
+         win_pct_last_12 = rollapply(win, width = list(-(12:1)), mean, fill = NA),
+         win_pct_last_13 = rollapply(win, width = list(-(13:1)), mean, fill = NA),
+         win_pct_last_14 = rollapply(win, width = list(-(14:1)), mean, fill = NA),
+         win_pct_last_15 = rollapply(win, width = list(-(15:1)), mean, fill = NA),
+         win_pct_last_16 = rollapply(win, width = list(-(16:1)), mean, fill = NA),
+
+         point_diff_lg = rollapply(result, width = list(-(1:1)), sum, fill = NA),
+         point_diff_l2 = rollapply(result, width = list(-(2:1)), sum, fill = NA),
+         point_diff_l3 = rollapply(result, width = list(-(3:1)), sum, fill = NA),
+         point_diff_l4 = rollapply(result, width = list(-(4:1)), sum, fill = NA),
+         point_diff_l5 = rollapply(result, width = list(-(5:1)), sum, fill = NA),
+         point_diff_l6 = rollapply(result, width = list(-(6:1)), sum, fill = NA),
+         point_diff_l7 = rollapply(result, width = list(-(7:1)), sum, fill = NA),
+         point_diff_l8 = rollapply(result, width = list(-(8:1)), sum, fill = NA),
+         point_diff_l9 = rollapply(result, width = list(-(9:1)), sum, fill = NA),
+         point_diff_l10 = rollapply(result, width = list(-(10:1)), sum, fill = NA),
+         point_diff_l11 = rollapply(result, width = list(-(11:1)), sum, fill = NA),
+         point_diff_l12 = rollapply(result, width = list(-(12:1)), sum, fill = NA),
+         point_diff_l13 = rollapply(result, width = list(-(13:1)), sum, fill = NA),
+         point_diff_l14 = rollapply(result, width = list(-(14:1)), sum, fill = NA),
+         point_diff_l15 = rollapply(result, width = list(-(15:1)), sum, fill = NA),
+         point_diff_l16 = rollapply(result, width = list(-(16:1)), sum, fill = NA),
+
+         win_pct_ats_lg = rollapply(spread_cover, width = list(-(1:1)), mean, fill = NA),
+         win_pct_ats_l2 = rollapply(spread_cover, width = list(-(2:1)), mean, fill = NA),
+         win_pct_ats_l3 = rollapply(spread_cover, width = list(-(3:1)), mean, fill = NA),
+         win_pct_ats_l4 = rollapply(spread_cover, width = list(-(4:1)), mean, fill = NA),
+         win_pct_ats_l5 = rollapply(spread_cover, width = list(-(5:1)), mean, fill = NA),
+         win_pct_ats_l6 = rollapply(spread_cover, width = list(-(6:1)), mean, fill = NA),
+         win_pct_ats_l7 = rollapply(spread_cover, width = list(-(7:1)), mean, fill = NA),
+         win_pct_ats_l8 = rollapply(spread_cover, width = list(-(8:1)), mean, fill = NA),
+         win_pct_ats_l9 = rollapply(spread_cover, width = list(-(9:1)), mean, fill = NA),
+         win_pct_ats_l10 = rollapply(spread_cover, width = list(-(10:1)), mean, fill = NA),
+         win_pct_ats_l11 = rollapply(spread_cover, width = list(-(11:1)), mean, fill = NA),
+         win_pct_ats_l12 = rollapply(spread_cover, width = list(-(12:1)), mean, fill = NA),
+         win_pct_ats_l13 = rollapply(spread_cover, width = list(-(13:1)), mean, fill = NA),
+         win_pct_ats_l14 = rollapply(spread_cover, width = list(-(14:1)), mean, fill = NA),
+         win_pct_ats_l15 = rollapply(spread_cover, width = list(-(15:1)), mean, fill = NA),
+         win_pct_ats_l16 = rollapply(spread_cover, width = list(-(16:1)), mean, fill = NA),
+
+         point_diff_ats_lg = rollapply(spread_adjusted_result, width = list(-(1:1)), sum, fill = NA),
+         point_diff_ats_l2 = rollapply(spread_adjusted_result, width = list(-(2:1)), sum, fill = NA),
+         point_diff_ats_l3 = rollapply(spread_adjusted_result, width = list(-(3:1)), sum, fill = NA),
+         point_diff_ats_l4 = rollapply(spread_adjusted_result, width = list(-(4:1)), sum, fill = NA),
+         point_diff_ats_l5 = rollapply(spread_adjusted_result, width = list(-(5:1)), sum, fill = NA),
+         point_diff_ats_l6 = rollapply(spread_adjusted_result, width = list(-(6:1)), sum, fill = NA),
+         point_diff_ats_l7 = rollapply(spread_adjusted_result, width = list(-(7:1)), sum, fill = NA),
+         point_diff_ats_l8 = rollapply(spread_adjusted_result, width = list(-(8:1)), sum, fill = NA),
+         point_diff_ats_l9 = rollapply(spread_adjusted_result, width = list(-(9:1)), sum, fill = NA),
+         point_diff_ats_l10 = rollapply(spread_adjusted_result, width = list(-(10:1)), sum, fill = NA),
+         point_diff_ats_l11 = rollapply(spread_adjusted_result, width = list(-(11:1)), sum, fill = NA),
+         point_diff_ats_l12 = rollapply(spread_adjusted_result, width = list(-(12:1)), sum, fill = NA),
+         point_diff_ats_l13 = rollapply(spread_adjusted_result, width = list(-(13:1)), sum, fill = NA),
+         point_diff_ats_l14 = rollapply(spread_adjusted_result, width = list(-(14:1)), sum, fill = NA),
+         point_diff_ats_l15 = rollapply(spread_adjusted_result, width = list(-(15:1)), sum, fill = NA),
+         point_diff_ats_l16 = rollapply(spread_adjusted_result, width = list(-(16:1)), sum, fill = NA)         
+         ) %>% ## coalesce these to get a rolling view
+mutate(
+win_pct_season = coalesce(
+    win_pct_last_16
+    ,win_pct_last_15
+    ,win_pct_last_14
+    ,win_pct_last_13
+    ,win_pct_last_12
+	  ,win_pct_last_11
+	  ,win_pct_last_10
+	  ,win_pct_last_9
+	  ,win_pct_last_8
+	  ,win_pct_last_7
+	  ,win_pct_last_6
+	  ,win_pct_last_5
+	  ,win_pct_last_4
+	  ,win_pct_last_3
+	  ,win_pct_last_2
+	  ,win_pct_lg
+	  ,0)
+,point_diff_season = coalesce(
+	point_diff_l16
+	,point_diff_l15
+	,point_diff_l14
+	,point_diff_l13
+	,point_diff_l12
+	,point_diff_l11
+	,point_diff_l10
+	,point_diff_l9
+	,point_diff_l8
+	,point_diff_l7
+	,point_diff_l6
+	,point_diff_l5
+	,point_diff_l4
+	,point_diff_l3
+	,point_diff_l2
+	,point_diff_lg
+	,0)
+,win_pct_ats_season = coalesce(
+	win_pct_ats_l16
+	,win_pct_ats_l15
+	,win_pct_ats_l14
+	,win_pct_ats_l13
+	,win_pct_ats_l12
+	,win_pct_ats_l11
+	,win_pct_ats_l10
+	,win_pct_ats_l9
+	,win_pct_ats_l8
+	,win_pct_ats_l7
+	,win_pct_ats_l6
+	,win_pct_ats_l5
+	,win_pct_ats_l4
+	,win_pct_ats_l3
+	,win_pct_ats_l2
+	,win_pct_ats_lg
+	,0)
+,point_diff_ats_season = coalesce(
+	point_diff_ats_l16
+	,point_diff_ats_l15
+	,point_diff_ats_l14
+	,point_diff_ats_l13
+	,point_diff_ats_l12
+	,point_diff_ats_l11
+	,point_diff_ats_l10
+	,point_diff_ats_l9
+	,point_diff_ats_l8
+	,point_diff_ats_l7
+	,point_diff_ats_l6
+	,point_diff_ats_l5
+	,point_diff_ats_l4
+	,point_diff_ats_l3
+	,point_diff_ats_l2
+	,point_diff_ats_lg
+	,0)
+) %>%
+  select(game_id,team,win_pct_season,week,point_diff_season,point_diff_ats_season,win_pct_ats_season)
+
+fs_blend <- season_fs %>% inner_join(trending_fs,by=c('game_id'='game_id','team'='team'))
+```
+
+### Blend Features w/ Original Data Frame
+
+```{r}
+game_features_df <- game_df %>%
+  inner_join(fs_blend,by=c('game_id'='game_id','team'='team','season'='season','week'='week'))
+home_df <- game_features_df %>%
+  filter(home == 1)
+away_df <- game_features_df %>%
+  filter(home == 0)
+game_w_features <- home_df %>% 
+   inner_join(away_df,by=c('game_id'='game_id')) %>%
+   transmute(
+       game_id
+      ,season = season.x
+      ,week = week.x
+      ,home_team = team.x
+      ,away_team = opposing_team.x 
+      ,spread_line = spread_line.x
+
+      ,home_points = points_for.x 
+      ,away_points = points_against.x
+      ,total_points_scored = total_points_scored.x 
+      ,home_result = result.x 
+      ,away_result = result.y
+      ,home_win = win.x
+
+      ,spread_adj_result = spread_adjusted_result.x
+      ,home_spread_cover = spread_cover.x
+      ,away_spread_cover = spread_cover.y
+      ,home_rest = team_rest.x 
+      ,away_rest = opponent_rest.x 
+      ,rest_diff = rest_diff.x
+
+      ,home_win_pct_season = win_pct_season.x
+      ,away_win_pct_season = win_pct_season.y
+      ,win_pct_season_diff = win_pct_season.x - win_pct_season.y
+      ,home_point_diff_season = point_diff_season.x
+      ,away_point_diff_season = point_diff_season.y
+      ,point_diff_season_diff = point_diff_season.x - point_diff_season.y
+      ,home_win_pct_ats_season = win_pct_ats_season.x
+      ,away_win_pct_ats_season = win_pct_ats_season.y
+      ,win_pct_ats_season_diff = win_pct_ats_season.x - win_pct_ats_season.y
+      ,home_point_diff_ats_season = point_diff_ats_season.x
+      ,away_point_diff_ats_season = point_diff_ats_season.y
+      ,point_diff_ats_season_diff = point_diff_ats_season.x - point_diff_ats_season.y
+
+      ,home_win_pct_trend = win_pct_trend.x
+      ,away_win_pct_trend = win_pct_trend.y
+      ,win_pct_trend_diff = win_pct_trend.x - win_pct_trend.y
+      ,home_point_diff_trend = point_diff_trend.x
+      ,away_point_diff_trend = point_diff_trend.y
+      ,point_diff_trend_diff = point_diff_trend.x - point_diff_trend.y
+
+      ,weekday = weekday.x
+      ,gameday = gameday.x
+      ,gametime = gametime.x
+      ,div_game = div_game.x
+   )
+```
+
+### Plot the Inputs
+
+```{r}
+game_w_features %>% filter(is.na(home_spread_cover) == FALSE) %>%
+  pivot_longer(c('point_diff_ats_season_diff','win_pct_ats_season_diff','point_diff_season_diff','win_pct_season_diff','win_pct_trend_diff','point_diff_trend_diff'), names_to = "stat", values_to = "value") %>%
+  ggplot(aes(as.factor(home_spread_cover), value, fill = as.factor(home_spread_cover), color = as.factor(home_spread_cover))) +
+  geom_boxplot(alpha= 0.4) +
+  facet_wrap(~stat, scales = "free_y", nrow = 2) +
+  labs(y = NULL, color = NULL, fill = NULL)
+```
+## Make the model
+
+# Build a Model
+Here, I experiment with the `tidymodels` package to create this model. This is an easy interface to create, train, and tune machine learning models. I'll try to fit an xgboost model for this one. 
+
+```{r}
+gm_fts_only <- game_w_features %>%
+  filter(is.na(home_result) == FALSE) %>%
+  select( 
+       home_result
+      ,season
+      ,week
+      ,spread_line
+      ,home_win_pct_season
+      ,win_pct_season_diff
+      ,home_point_diff_season
+      ,point_diff_season_diff
+      ,home_win_pct_trend
+      ,win_pct_trend_diff
+      ,home_point_diff_trend
+      ,point_diff_trend_diff
+      ,home_win_pct_ats_season
+      ,win_pct_ats_season_diff
+      ,home_point_diff_ats_season
+      ,point_diff_ats_season_diff
+      ,home_rest
+      ,rest_diff
+      ,div_game
+  )
+set.seed(989)
+gm_split <- initial_split(gm_fts_only,strata = 'home_result')
+gm_train <- training(gm_split)
+gm_test <- testing(gm_split)
+```
+
+Define the various hyperparameters. These will be tuned in the section after this one.
+
+```{r}
+xgb_spec <- boost_tree(
+  trees = 1000
+  ,tree_depth = tune()
+  ,min_n = tune()
+  ,loss_reduction = tune()
+  ,sample_size = tune()
+  ,mtry = tune()
+  ,learn_rate = tune()
+  ) %>%
+  set_engine("xgboost") %>%
+  set_mode("regression")
+xgb_spec
+```
+
+Define a grid to tune the hyperparameters.
+
+```{r}
+xgb_grid <- grid_latin_hypercube(
+  tree_depth(),
+  min_n(),
+  loss_reduction(),
+  sample_size = sample_prop(),
+  finalize(mtry(), gm_train),
+  learn_rate(),
+  size = 30
+)
+xgb_grid
+```
+Define a workflow for the xgboost model.
+
+```{r}
+xgb_wf <- workflow() %>%
+  add_formula(home_result ~ .) %>%
+  add_model(xgb_spec)
+
+xgb_wf
+```
+Define the cross validation pattern. In this case I am using a 10-fold pattern.
+
+```{r}
+set.seed(989)
+gm_folds <- vfold_cv(gm_train)
+
+gm_folds
+```
+Enable parallel processing and run the model.
+
+```{r}
+doParallel::registerDoParallel()
+
+set.seed(234)
+xgb_res <- tune_grid(
+  xgb_wf,
+  resamples = gm_folds,
+  grid = xgb_grid,
+  control = control_grid(save_pred = TRUE)
+)
+
+collect_metrics(xgb_res)
+```
+Visualize the hyperparameter grid outcomes for RMSE.
+
+```{r}
+ xgb_res %>%
+   collect_metrics() %>%
+   filter(.metric == "rmse") %>%
+   select(mean, mtry:sample_size) %>%
+   pivot_longer(mtry:sample_size,
+                values_to = "value",
+                names_to = "parameter"
+   ) %>%
+   ggplot(aes(value, mean, color = parameter)) +
+   geom_point(alpha = 0.8, show.legend = FALSE) +
+   facet_wrap(~parameter, scales = "free_x") +
+   labs(x = NULL, y = "Rmse")
+```
+Determine the best model to use based on the target metric: RMSE
+
+```{r}
+ show_best(xgb_res, "rsq")
+ best_rmse <- select_best(xgb_res, "rmse")
+ best_rsq <- select_best(xgb_res, "rsq")
+ best_rmse
+ best_rsq
+```
+Finalize the workflow with our best model.
+
+```{r}
+ final_xgb_rmse <- finalize_workflow(
+   xgb_wf,
+   best_rmse
+ )
+
+final_xgb_rmse
+```
+
+Leverage the finalized workflow to fit training data and identify the most important variables.
+
+```{r}
+final_xgb_rmse %>%
+  fit(data = gm_train) %>%
+  pull_workflow_fit() %>%
+  vip(geom = "col", aesthetics = list(fill = "midnightblue", alpha = 0.8))
+```
+Run the model on all data and observe the key metrics.
+
+```{r}
+final_preds_rmse <- last_fit(final_xgb_rmse, gm_split)
+collect_metrics(final_preds_rmse)
+
+score_preds_rmse <- final_preds_rmse %>% collect_predictions() %>% rename(rmse_pred = .pred)
+```
+
+Plot the output of the predictions.
+
+```{r}
+score_preds %>%
+  ggplot() +
+  geom_density(aes(x = rmse_pred),alpha = 0.5)
+```
+Run the model on all of the data.
+
+```{r}
+pred_score_model <- fit(final_xgb_rmse, gm_fts_only)
+pred_score_model
+```
+Clean up the data frame and prepare for visualization.
+
+```{r}
+model_preds <- predict(pred_score_model, new_data = gm_fts_only)
+game_w_preds <- game_w_features %>%
+  filter(is.na(home_result) == FALSE) %>%
+  bind_cols(model_preds) %>%
+  rename(pred_score = .pred) %>%
+  mutate(pred_score_error = pred_score - home_result) %>%
+  transmute(
+      game_id
+     ,pred_spread_adj_winner_m = if_else(pred_score + spread_line > 0,home_team,away_team)
+     ,pred_score
+     ,home_result
+     ,pred_score_error
+     ,spread_line
+     ,spread_adj_result
+     ,home_spread_cover
+     ,away_spread_cover
+     ,home_team
+     ,away_team
+     ,season
+     ,week
+     )
+game_pred_df <- game_w_preds %>%
+  transmute(
+    game_id
+    ,home_result
+    ,spread_line
+    ,pred_score
+    ,pred_score_error
+    ,spread_error = (-1*spread_line) - home_result
+    ,spread_adj_result
+    ,spread_adj_winner = if_else(-1*spread_line + home_result > 0,home_team,away_team)
+    ,pred_spread_adj_winner = if_else(pred_score + home_result > 0,home_team,away_team)
+    ,home_spread_cover = home_spread_cover
+    ,away_spread_cover = away_spread_cover
+    ,home_team = home_team
+    ,away_team = away_team
+    ,season
+    ,week
+  )
+summary(game_pred_df)
+```
+This shows two primary improvements vs the market spread:
+- the error peaks are higher around zero for all years
+- the error in the tails is lower for most years
+
+```{r}
+game_pred_df %>%
+  ggplot() +
+  theme(legend.position="bottom",axis.title.x=element_blank()) +
+  geom_density(aes(x = pred_score_error),alpha = 0.75, size=.5,color = 'midnightblue') +
+  geom_density(aes(x = spread_error),alpha = 0.75, size=.5,color = 'gray') + 
+  geom_density(aes(x = pred_score_error,colour = 'Model Prediction Error'),alpha = 0.75, size=.5) + 
+  geom_density(aes(x = spread_error,colour = 'Spread Prediction Error'),alpha = 0.75, size=.5) + 
+  geom_vline(xintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("Model Prediction Error"="orange","Spread Prediction Error"="gray"), guide='legend') +
+  ylab("Game Result Density") +
+  labs(title="Error Distribution vs Actual Score") +
+  facet_wrap(~season, scales = "free_y")
+```
+A couple of observations:
+- The model predicts slightly larger tails than the spread.
+- The spread has some consistent peaks around +/- 3. This is likely because of the point value of a field goal (3).
+- The acutal results have much fatter tails than my model or the market spread. The likelihood of blowout results is much higher than our models account for. This is something to be covered in a later iteration.
+
+
+```{r}
+game_pred_df %>%
+  ggplot() +
+  theme(legend.position="bottom",axis.title.x=element_blank()) +
+  geom_density(aes(x = pred_score,colour = 'Model Prediction'),alpha = 0.75, size=.5) + 
+  geom_density(aes(x = (-1*spread_line),colour = 'Spread Prediction'),alpha = 0.75, size=.5) + 
+  geom_density(aes(x = home_result,colour = 'Actual Result'),alpha = 0.75, size=.5) + 
+  geom_vline(xintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("Model Prediction"="orange","Spread Prediction"="gray",'Actual Result' = 'black'), guide='legend') +
+  facet_wrap(~season, scales = "free_y") +
+  ylab("Game Result Density") +
+  labs(title="Predicted Score Distribution") +
+  facet_wrap(~season, scales = "free_y")
+```
+
+Plotting the absolute error by week. Lower in this case is better since it indicates that the sum of error in games in a given season/week is lower.
+
+```{r}
+week_pred_df <- game_pred_df %>% group_by(season,week) %>% arrange(season,week) %>%
+             summarise(pred_score_error = mean(abs(pred_score_error), na.rm = TRUE)
+                       ,spread_error = mean(abs(spread_error), na.rm = TRUE)
+                       ) %>%
+            mutate(cum_pred_score_error = cumsum(pred_score_error)
+                  ,cum_spread_error = cumsum(spread_error))
+week_pred_df %>%
+  ggplot(aes(x = week)) +
+  theme(legend.position="bottom") +
+  geom_line(aes(y = pred_score_error,colour = 'Model Error')) +
+  geom_line(aes(y = spread_error,colour = 'Market Spread Error')) +
+  geom_hline(yintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("Model Error"="orange", "Market Spread Error"="gray")) +
+  facet_wrap(~season, scales = "free_y") +
+  ylab("Model Error") +
+  labs(title="Model Prediction Error by Week & Season")
+```
+This is the same chart but using a cumulative approach across any given season. This generally shows that the model produces lower error than the spread in each season.
+
+```{r}
+week_pred_df %>%
+  ggplot(aes(x = week)) +
+  theme(legend.position="bottom",legend.box = "horizontal") +
+  geom_line(aes(y = cum_pred_score_error,colour = 'Model Error')) +
+  geom_line(aes(y = cum_spread_error,colour = 'Spread Error')) +
+  geom_hline(yintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("Model Error"="orange", "Spread Error"="gray")) +
+  facet_wrap(~season, scales = "free_y") +
+  ylab("Cumulative Model Error") +
+  labs(title="Cumulative Model Prediction Error by Week & Season")
+```
+Take a look at the cumulative pct error vs spread.
+
+```{r}
+cum_pred_error_df <- game_pred_df %>% filter(season >= 2000) %>%
+  unite(season_week, c("season", "week")) %>% group_by(season_week) %>%
+  transmute(
+          season_week
+         ,season = substr(season_week, 1, 4)
+         ,agg_pred_score_error = sum(abs(pred_score_error))
+         ,agg_spread_error = sum(abs(spread_error))
+         ) %>%
+  distinct() %>% 
+  ungroup() %>%
+  mutate(cum_pred_score_error = cumsum(agg_pred_score_error)
+         ,cum_spread_error = cumsum(agg_spread_error)) %>%
+  mutate(agg_pct_diff = cum_pred_score_error / cum_spread_error - 1
+   ,row_number = 1:n())
+
+cum_pred_error_df %>%
+  ggplot(aes(x = row_number, group = 1)) +
+  theme(legend.position="bottom",legend.box = "horizontal",axis.text.x = element_text(angle = 90,size=3)) +
+  geom_line(aes(y = agg_pct_diff,colour = 'Model Spread Error')) +
+  geom_hline(yintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("Model Spread Error"="midnightblue")) +
+  ylab("Cumulative Model Error vs Spread Error") +
+  xlab("Game Number") +
+  labs(title="Cumulative Model Prediction Error by Week & Season")
+```
+Take a look at the cumulative pct error vs spread by season.
+
+```{r}
+cum_pred_error_df_2 <- game_pred_df %>% filter(season >= 2000) %>%
+  group_by(season,week) %>%
+  mutate(
+          agg_pred_score_error = sum(abs(pred_score_error))
+         ,agg_spread_error = sum(abs(spread_error))
+         ) %>%
+  mutate(cum_pred_score_error = cumsum(agg_pred_score_error)
+         ,cum_spread_error = cumsum(agg_spread_error)) %>%
+  mutate(agg_pct_diff = agg_pred_score_error / agg_spread_error - 1
+  )
+
+cum_pred_error_df_2 %>%
+  ggplot(aes(x = week, group = 1)) +
+  theme(legend.position="bottom",legend.box = "horizontal",axis.text.x = element_text(angle = 90,size=3)) +
+  geom_line(aes(y = agg_pct_diff,colour = 'Model Error')) +
+  geom_hline(yintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("Model Error"="midnightblue")) +
+  facet_wrap(~season, scales = "free_y") +
+  ylab("Cumulative Model Percent Error vs Spread Error") +
+  xlab("Week") +
+  labs(title="Cumulative Model Prediction Pct Error by Week & Season [vs Spread Error]")
+```
+
+#Use the model to predict the current week.
+
+```{r}
+cur_wk <- game_w_features %>% filter(season == 2020 & week == 17)
+cur_wk_preds <- predict(model, new_data = cur_wk)
+cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>%
+  rename(model_d_pred = .pred) %>%
+  transmute(
+          game_id
+         ,pred_spread_adj_winner = if_else(model_d_pred + spread_line > 0,home_team,away_team)
+         ,model_d_pred
+         ,home_result
+         ,spread_line
+         ,spread_adj_result
+         ,model_adj_result = model_d_pred - home_result
+         ,home_spread_cover
+         ,away_spread_cover
+         ,home_team
+         ,away_team
+         )
+cur_wk_pred %>% View()
+```
