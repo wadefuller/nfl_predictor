@@ -49,9 +49,9 @@ rsq  =  0.1479
 rmse = 13.6909
 ```
 
-Model MAE vs market spread:
+Cumulative Model MAE vs market spread:
 
-<img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/model_error_by_season.jpg" width="700" height="700">
+<img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/cum_model_error_season.jpg" width="700" height="700">
 
 Model Performance
 ----
