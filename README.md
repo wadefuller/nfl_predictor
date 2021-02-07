@@ -57,7 +57,7 @@ Model Performance
 ----
 In addition to offline performance evaluations, I am also experimenting with this model live in the 2020 season.
 
-[Live results here](httpst://docs.google.com/spreadsheets/d/1xBt9tT3g6OpUco3cZJhfPTVls3azX_ZlFwWvIU3gjMA/edit?usp=sharing).
+[Live results here](https://docs.google.com/spreadsheets/d/1xBt9tT3g6OpUco3cZJhfPTVls3azX_ZlFwWvIU3gjMA/edit?usp=sharing).
 
 Further improvements
 ----
