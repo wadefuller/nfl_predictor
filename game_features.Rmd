@@ -46,7 +46,7 @@ You will see I also add a few columns here:
 
 ```{r split_data}
 home_games <- games %>%
-  filter(season >= 2000) %>%
+  filter(game_type == 'REG' & season >= 2000) %>%
   transmute(
          game_id,
          gameday,
@@ -69,7 +69,7 @@ home_games <- games %>%
          home = 1
          )
 away_games <- games %>%
-  filter(season >= 2000) %>%
+  filter(game_type == 'REG' & season >= 2000) %>%
   transmute(
          game_id,
          gameday,
