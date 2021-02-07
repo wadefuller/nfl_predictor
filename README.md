@@ -35,18 +35,18 @@ home_result ~ .
 Boosted Tree Model Specification (regression)
 
 Main Arguments:
-  mtry = 14
+  mtry = 13
   trees = 1000
-  min_n = 9
-  tree_depth = 13
-  learn_rate = 0.00300016862336822
-  loss_reduction = 2.09922836365263e-06
-  sample_size = 0.292054141357075
+  min_n = 40
+  tree_depth = 6
+  learn_rate = 0.00275162416666921
+  loss_reduction = 5.6634051459418e-07
+  sample_size = 0.717018291268032
 
-Computational engine: xgboost
+Computational engine: xgboost 
 
-rsq = 0.1357
-rmse = 13.7193
+rsq  =  0.1479
+rmse = 13.6909
 ```
 
 Model MAE vs market spread:
