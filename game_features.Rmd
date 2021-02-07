@@ -767,7 +767,7 @@ ggsave("pct_error_vs_spread_season.jpg",path = paste0(wd,"/img/"), units = 'in',
 #Use the model to predict the current week.
 
 ```{r}
-cur_wk <- game_w_features %>% filter(week == 20 & season == 2020)
+cur_wk <- game_w_features %>% filter(week == 17 & season == 2020)
 cur_wk_preds <- predict(model, new_data = cur_wk)
 cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>%
   rename(model_d_pred = .pred) %>%
