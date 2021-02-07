@@ -12,9 +12,9 @@ Metadata:
 
 Market data:
 - spread_line: the predicted number of points that the betting markets thinks will be scored.
-- elo_prob1: Fivethirtyeight's probability that the home team will win. ([538's model explained](https://fivethirtyeight.com/methodology/how-our-nfl-predictions-work/))
-- elo1_pre: Fivethirtyeight's pregame elo score for the home team.
-- elo2_pre: Fivethirtyeight's pregame elo score for the away team.
+- elo_prob1: 538's probability that the home team will win. ([538's model explained](https://fivethirtyeight.com/methodology/how-our-nfl-predictions-work/))
+- elo1_pre: 538's pregame elo score for the home team.
+- elo2_pre: 538's pregame elo score for the away team.
 
 Performance data:
 - home_point_diff_trend: the trailing 8 wk point differential for the home team (sum of win margin for the given team).
