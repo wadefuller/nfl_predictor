@@ -13,6 +13,7 @@ library(knitr)
 knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
                       message = FALSE, dpi = 180,
                       fig.width = 8, fig.height = 5)
+knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/pred")
 library(tidymodels)
 library(nflfastR)
 library(ggthemes)
@@ -48,6 +49,7 @@ home_games <- games %>%
   filter(game_type == 'REG' & season >= 2000) %>%
   transmute(
          game_id,
+         gameday,
          team = home_team,
          opposing_team = away_team,
          points_for = home_score,
@@ -62,6 +64,7 @@ home_games <- games %>%
          team_rest = home_rest,
          opponent_rest = away_rest,
          spread_line = spread_line * -1, # making this easier to calcuate with
+         total_line,
          div_game,
          home = 1
          )
@@ -69,6 +72,7 @@ away_games <- games %>%
   filter(game_type == 'REG' & season >= 2000) %>%
   transmute(
          game_id,
+         gameday,
          team = away_team,
          opposing_team = home_team,
          points_for = away_score,
@@ -83,6 +87,7 @@ away_games <- games %>%
          team_rest = away_rest,
          opponent_rest = home_rest,
          spread_line,
+         total_line,
          div_game,
          home = 0
          )
@@ -314,6 +319,7 @@ game_w_features <- home_df %>%
    inner_join(away_df,by=c('game_id'='game_id')) %>%
    transmute(
        game_id
+      ,gameday = gameday.x
       ,season = season.x
       ,week = week.x
       ,home_team = team.x
@@ -326,6 +332,7 @@ game_w_features <- home_df %>%
       ,home_result = result.x 
       ,away_result = result.y
       ,home_win = win.x
+      ,total_line = total_line.x
 
       ,spread_adj_result = spread_adjusted_result.x
       ,home_spread_cover = spread_cover.x
@@ -359,6 +366,45 @@ game_w_features <- home_df %>%
       ,gametime = gametime.x
       ,div_game = div_game.x
    )
+```
+
+### Add Fivethirtyeight Elo scores and probabilities
+
+```{r}
+fullElo <- read_csv("https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv")
+tail(fullElo)
+
+fte <- fullElo %>%
+  filter(season >= 2000) %>%
+  dplyr::mutate(
+    team1 = gsub("WSH", "WAS", team1),
+    team2 = gsub("WSH", "WAS", team2),
+    team1 = gsub("LAR", "LA", team1),
+    team2 = gsub("LAR", "LA", team2),
+    team1 = gsub('OAK','LV',team1),
+    team2 = gsub('OAK','LV',team2),
+    team1 = gsub('STL','LA',team1),
+    team2 = gsub('STL','LA',team2),
+    team1 = gsub('SD','LAC',team1),
+    team2 = gsub('SD','LAC',team2)
+  ) %>%
+  select(date,season,team1,team2,elo1_pre,elo2_pre,elo_prob1) %>%
+  as_tibble()
+
+gm_df <- game_w_features %>% 
+  filter(week <= 17) %>%
+  dplyr::mutate(
+    home_team = gsub('OAK','LV',home_team),
+    away_team = gsub('OAK','LV',away_team),
+    home_team = gsub('STL','LA',home_team),
+    away_team = gsub('STL','LA',away_team),
+    home_team = gsub('SD','LAC',home_team),
+    away_team = gsub('SD','LAC',away_team))
+
+game_w_features <- gm_df %>%
+  filter(week <= 17) %>%
+  dplyr::mutate(gameday = lubridate::as_date(gameday)) %>%
+  left_join(fte, by=c('gameday'='date','home_team'='team1','away_team'='team2',"season"))
 ```
 
 ### Plot the Inputs
@@ -399,6 +445,9 @@ gm_fts_only <- game_w_features %>%
       ,home_rest
       ,rest_diff
       ,div_game
+      ,elo1_pre
+      ,elo2_pre
+      ,elo_prob1
   )
 set.seed(989)
 gm_split <- initial_split(gm_fts_only,strata = 'home_result')
@@ -511,7 +560,8 @@ Leverage the finalized workflow to fit training data and identify the most impor
 final_xgb_rmse %>%
   fit(data = gm_train) %>%
   pull_workflow_fit() %>%
-  vip(geom = "col", aesthetics = list(fill = "midnightblue", alpha = 0.8))
+  vip(geom = "col", num_features = 20, include_type = TRUE, aesthetics = list(fill = "midnightblue", alpha = .9))
+ggsave("feat_importance_plot.jpg",path = paste0(wd,"/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
 Run the model on all data and observe the key metrics.
 
@@ -525,7 +575,7 @@ score_preds_rmse <- final_preds_rmse %>% collect_predictions() %>% rename(rmse_p
 Plot the output of the predictions.
 
 ```{r}
-score_preds %>%
+score_preds_rmse %>%
   ggplot() +
   geom_density(aes(x = rmse_pred),alpha = 0.5)
 ```
@@ -584,6 +634,7 @@ This shows two primary improvements vs the market spread:
 - the error in the tails is lower for most years
 
 ```{r}
+png(filename = paste0())
 game_pred_df %>%
   ggplot() +
   theme(legend.position="bottom",axis.title.x=element_blank()) +
@@ -596,6 +647,8 @@ game_pred_df %>%
   ylab("Game Result Density") +
   labs(title="Error Distribution vs Actual Score") +
   facet_wrap(~season, scales = "free_y")
+
+ggsave("error_dist.jpg",path = paste0(wd,"/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
 A couple of observations:
 - The model predicts slightly larger tails than the spread.
@@ -616,6 +669,7 @@ game_pred_df %>%
   ylab("Game Result Density") +
   labs(title="Predicted Score Distribution") +
   facet_wrap(~season, scales = "free_y")
+ggsave("predicted_score_dist.jpg",path = paste0(wd,"/img/"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
 
 Plotting the absolute error by week. Lower in this case is better since it indicates that the sum of error in games in a given season/week is lower.
@@ -637,6 +691,7 @@ week_pred_df %>%
   facet_wrap(~season, scales = "free_y") +
   ylab("Model Error") +
   labs(title="Model Prediction Error by Week & Season")
+ggsave("model_error_by_season.jpg",path = paste0(wd,"/img/"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
 This is the same chart but using a cumulative approach across any given season. This generally shows that the model produces lower error than the spread in each season.
 
@@ -651,6 +706,7 @@ week_pred_df %>%
   facet_wrap(~season, scales = "free_y") +
   ylab("Cumulative Model Error") +
   labs(title="Cumulative Model Prediction Error by Week & Season")
+ggsave("cum_model_error_season.jpg",path = paste0(wd,"/img/"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
 Take a look at the cumulative pct error vs spread.
 
@@ -679,6 +735,7 @@ cum_pred_error_df %>%
   ylab("Cumulative Model Error vs Spread Error") +
   xlab("Game Number") +
   labs(title="Cumulative Model Prediction Error by Week & Season")
+ggsave("pct_error_vs_spread.jpg",path = paste0(wd,"/img/"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
 Take a look at the cumulative pct error vs spread by season.
 
@@ -704,12 +761,13 @@ cum_pred_error_df_2 %>%
   ylab("Cumulative Model Percent Error vs Spread Error") +
   xlab("Week") +
   labs(title="Cumulative Model Prediction Pct Error by Week & Season [vs Spread Error]")
+ggsave("pct_error_vs_spread_season.jpg",path = paste0(wd,"/img/"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
 
 #Use the model to predict the current week.
 
 ```{r}
-cur_wk <- game_w_features %>% filter(season == 2020 & week == 17)
+cur_wk <- game_w_features %>% filter(week == 17 & season == 2020)
 cur_wk_preds <- predict(model, new_data = cur_wk)
 cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>%
   rename(model_d_pred = .pred) %>%
@@ -725,6 +783,7 @@ cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>%
          ,away_spread_cover
          ,home_team
          ,away_team
+         ,total_line
          )
 cur_wk_pred %>% View()
 ```
