@@ -763,7 +763,29 @@ cum_pred_error_df_2 %>%
   labs(title="Cumulative Model Prediction Pct Error by Week & Season [vs Spread Error]")
 ggsave("pct_error_vs_spread_season.jpg",path = paste0(wd,"/img/"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
+## Run some statistical tests to compare MAE to the market spread.
 
+```{r}
+results_df <- game_pred_df %>%
+  filter(season >= 2000) %>%
+  select(season,pred_score_error,spread_error) %>%
+  mutate(pred_score_error = abs(pred_score_error),spread_error = abs(spread_error)) %>%
+  group_by(season) %>%
+  summarise( mae_model = mean(pred_score_error)
+            ,mae_spread = mean(spread_error)
+            ,p_value = t.test(pred_score_error,spread_error,paired = TRUE)$p.value
+            ,statistic = t.test(pred_score_error,spread_error,paired = TRUE)$statistic
+            ,lower.bound = t.test(pred_score_error,spread_error,paired = TRUE)$conf.int[1]
+            ,upper.bound = t.test(pred_score_error,spread_error,paired = TRUE)$conf.int[2]
+            ,estimate = t.test(pred_score_error,spread_error,paired = TRUE)$estimate)
+
+ggplot(data=results_df, aes(x=estimate, y=as.factor(season))) +
+  scale_y_discrete(name ="Season") +
+  geom_vline(xintercept=0, color="red", linetype=3) +
+  geom_point(color="grey30") +
+  geom_errorbarh(aes(xmin=lower.bound, xmax=upper.bound), color="grey30", height=0.4)
+ggsave("season_mae_ttest.jpg", units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
 #Use the model to predict the current week.
 
 ```{r}
