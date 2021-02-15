@@ -65,6 +65,10 @@ home_games <- games %>%
          opponent_rest = away_rest,
          spread_line = spread_line * -1, # making this easier to calcuate with
          total_line,
+         home_spread_odds,
+         away_spread_odds,
+         home_moneyline,
+         away_moneyline,
          div_game,
          home = 1
          )
@@ -303,7 +307,21 @@ win_pct_season = coalesce(
 ) %>%
   select(game_id,team,win_pct_season,week,point_diff_season,point_diff_ats_season,win_pct_ats_season)
 
-fs_blend <- season_fs %>% inner_join(trending_fs,by=c('game_id'='game_id','team'='team'))
+pythag_df <- game_df %>%
+  group_by(season,team) %>%
+  arrange(season,week) %>%
+  mutate(gms = row_number()-1 
+        ,agg_pts_for = cumsum(points_for)
+        ,agg_pts_against = cumsum(points_against)
+        ,pts_for_entering = lag(agg_pts_for)
+        ,pts_against_entering = lag(agg_pts_against)) %>%
+  mutate(pythag_win_pct = (pts_for_entering^2.37)/((pts_for_entering^2.37)+(pts_against_entering^2.37))
+         ,pythag_wins = pythag_win_pct*gms) %>%
+        ungroup() %>%
+  select(game_id,team,pythag_win_pct,pythag_wins,gms)
+
+team_fs <- season_fs %>% inner_join(pythag_df,by=c('game_id'='game_id','team'='team'))
+fs_blend <- team_fs %>% inner_join(trending_fs,by=c('game_id'='game_id','team'='team'))
 ```
 
 ### Blend Features w/ Original Data Frame
@@ -318,6 +336,7 @@ away_df <- game_features_df %>%
 game_w_features <- home_df %>% 
    inner_join(away_df,by=c('game_id'='game_id')) %>%
    transmute(
+     # BASICS
        game_id
       ,gameday = gameday.x
       ,season = season.x
@@ -326,6 +345,7 @@ game_w_features <- home_df %>%
       ,away_team = opposing_team.x 
       ,spread_line = spread_line.x
 
+    # RESULT
       ,home_points = points_for.x 
       ,away_points = points_against.x
       ,total_points_scored = total_points_scored.x 
@@ -334,13 +354,12 @@ game_w_features <- home_df %>%
       ,home_win = win.x
       ,total_line = total_line.x
 
+    # RESULT DETAILS
       ,spread_adj_result = spread_adjusted_result.x
       ,home_spread_cover = spread_cover.x
       ,away_spread_cover = spread_cover.y
-      ,home_rest = team_rest.x 
-      ,away_rest = opponent_rest.x 
-      ,rest_diff = rest_diff.x
 
+    # TEAM PERFORMANCE METADATA
       ,home_win_pct_season = win_pct_season.x
       ,away_win_pct_season = win_pct_season.y
       ,win_pct_season_diff = win_pct_season.x - win_pct_season.y
@@ -360,11 +379,27 @@ game_w_features <- home_df %>%
       ,home_point_diff_trend = point_diff_trend.x
       ,away_point_diff_trend = point_diff_trend.y
       ,point_diff_trend_diff = point_diff_trend.x - point_diff_trend.y
+      
+      ,home_pythag_win_pct = pythag_win_pct.x
+      ,away_pythag_win_pct = pythag_win_pct.y
+      ,pythag_win_pct_diff = pythag_win_pct.x - pythag_win_pct.y
+      ,home_pythag_wins = pythag_wins.x
+      ,away_pythag_wins = pythag_wins.y
+      ,pythag_win_diff = pythag_wins.x - pythag_wins.y
+    
+      ,home_moneyline = home_moneyline.x
+      ,moneyline_diff = home_moneyline.x - away_moneyline.x
+      ,home_spread_odds = home_spread_odds.x
+      ,spread_odds_diff = home_spread_odds.x - away_spread_odds.x
 
+    # MATCHUP METADATA
       ,weekday = weekday.x
       ,gameday = gameday.x
       ,gametime = gametime.x
       ,div_game = div_game.x
+      ,home_rest = team_rest.x 
+      ,away_rest = opponent_rest.x 
+      ,rest_diff = rest_diff.x
    )
 ```
 
@@ -430,6 +465,10 @@ gm_fts_only <- game_w_features %>%
       ,season
       ,week
       ,spread_line
+      ,home_moneyline
+      ,moneyline_diff
+      ,home_spread_odds
+      ,spread_odds_diff
       ,home_win_pct_season
       ,win_pct_season_diff
       ,home_point_diff_season
@@ -442,12 +481,18 @@ gm_fts_only <- game_w_features %>%
       ,win_pct_ats_season_diff
       ,home_point_diff_ats_season
       ,point_diff_ats_season_diff
-      ,home_rest
+     #,home_rest
       ,rest_diff
-      ,div_game
+     #,div_game
       ,elo1_pre
       ,elo2_pre
       ,elo_prob1
+      ,home_pythag_win_pct
+      ,away_pythag_win_pct
+      ,pythag_win_pct_diff
+      ,home_pythag_wins
+      ,away_pythag_wins
+      ,pythag_win_diff
   )
 set.seed(989)
 gm_split <- initial_split(gm_fts_only,strata = 'home_result')
@@ -537,7 +582,7 @@ Visualize the hyperparameter grid outcomes for RMSE.
 Determine the best model to use based on the target metric: RMSE
 
 ```{r}
- show_best(xgb_res, "rsq")
+ show_best(xgb_res, "rmse")
  best_rmse <- select_best(xgb_res, "rmse")
  best_rsq <- select_best(xgb_res, "rsq")
  best_rmse
@@ -566,6 +611,8 @@ ggsave("feat_importance_plot.jpg",path = paste0(wd,"/img"), units = 'in',width =
 Run the model on all data and observe the key metrics.
 
 ```{r}
+## RMSE: 13.69 // RSQ: .1475
+## RMSE: 13.67 // RSQ: .1502 <- added moneylines
 final_preds_rmse <- last_fit(final_xgb_rmse, gm_split)
 collect_metrics(final_preds_rmse)
 
@@ -577,7 +624,7 @@ Plot the output of the predictions.
 ```{r}
 score_preds_rmse %>%
   ggplot() +
-  geom_density(aes(x = rmse_pred),alpha = 0.5)
+  geom_density(aes(x = rmse_pred),alpha = 1)
 ```
 Run the model on all of the data.
 
@@ -684,31 +731,31 @@ week_pred_df <- game_pred_df %>% group_by(season,week) %>% arrange(season,week) 
 week_pred_df %>%
   ggplot(aes(x = week)) +
   theme(legend.position="bottom") +
-  geom_line(aes(y = pred_score_error,colour = 'Model Error')) +
+  geom_line(aes(y = pred_score_error,colour = 'nfl_predictor Error')) +
   geom_line(aes(y = spread_error,colour = 'Market Spread Error')) +
   geom_hline(yintercept=0, linetype="dashed", color = "gray", size=.25) +  
-  scale_colour_manual("", values = c("Model Error"="orange", "Market Spread Error"="gray")) +
+  scale_colour_manual("", values = c("nfl_predictor Error"="orange", "Market Spread Error"="gray")) +
   facet_wrap(~season, scales = "free_y") +
   ylab("Model Error") +
   labs(title="Model Prediction Error by Week & Season")
 ggsave("model_error_by_season.jpg",path = paste0(wd,"/img/"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
-This is the same chart but using a cumulative approach across any given season. This generally shows that the model produces lower error than the spread in each season.
 
+# This is the same chart but using a cumulative approach across any given season. This generally shows that the model produces lower error than the spread in each season.
 ```{r}
 week_pred_df %>%
   ggplot(aes(x = week)) +
   theme(legend.position="bottom",legend.box = "horizontal") +
-  geom_line(aes(y = cum_pred_score_error,colour = 'Model Error')) +
+  geom_line(aes(y = cum_pred_score_error,colour = 'nfl_predictor Error')) +
   geom_line(aes(y = cum_spread_error,colour = 'Spread Error')) +
   geom_hline(yintercept=0, linetype="dashed", color = "gray", size=.25) +  
-  scale_colour_manual("", values = c("Model Error"="orange", "Spread Error"="gray")) +
+  scale_colour_manual("", values = c("nfl_predictor Error"="orange", "Spread Error"="gray")) +
   facet_wrap(~season, scales = "free_y") +
   ylab("Cumulative Model Error") +
   labs(title="Cumulative Model Prediction Error by Week & Season")
-ggsave("cum_model_error_season.jpg",path = paste0(wd,"/img/"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+ggsave("cum_model_error_season.jpg", units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
-Take a look at the cumulative pct error vs spread.
+# Take a look at the cumulative pct error vs spread.
 
 ```{r}
 cum_pred_error_df <- game_pred_df %>% filter(season >= 2000) %>%
@@ -737,7 +784,7 @@ cum_pred_error_df %>%
   labs(title="Cumulative Model Prediction Error by Week & Season")
 ggsave("pct_error_vs_spread.jpg",path = paste0(wd,"/img/"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
-Take a look at the cumulative pct error vs spread by season.
+# Take a look at the cumulative pct error vs spread by season.
 
 ```{r}
 cum_pred_error_df_2 <- game_pred_df %>% filter(season >= 2000) %>%
@@ -763,8 +810,7 @@ cum_pred_error_df_2 %>%
   labs(title="Cumulative Model Prediction Pct Error by Week & Season [vs Spread Error]")
 ggsave("pct_error_vs_spread_season.jpg",path = paste0(wd,"/img/"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
-## Run some statistical tests to compare MAE to the market spread.
-
+# Run a statistical test to determine the confidence intervals on the differences between models
 ```{r}
 results_df <- game_pred_df %>%
   filter(season >= 2000) %>%
@@ -783,14 +829,53 @@ ggplot(data=results_df, aes(x=estimate, y=as.factor(season))) +
   scale_y_discrete(name ="Season") +
   geom_vline(xintercept=0, color="red", linetype=3) +
   geom_point(color="grey30") +
-  geom_errorbarh(aes(xmin=lower.bound, xmax=upper.bound), color="grey30", height=0.4)
+  geom_errorbarh(aes(xmin=lower.bound, xmax=upper.bound), color="grey30", height=0.4) + 
+  labs(title="Score Prediction Error") +
 ggsave("season_mae_ttest.jpg", units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
+
+# Predict outcome of each game since 2010 and compare to the spread.
+```{r}
+game_pred_df %>% 
+  filter(season >= '2010') %>%
+  # group_by(season) %>%
+  mutate(sl_adj = spread_line * -1
+         ,pred_scr = round(pred_score,1)
+         ,pred_scr_er = round(pred_score_error,1)
+         ,diff = sl_adj - pred_scr) %>%
+  summarise(pct_model_correct = mean(if_else(sign(pred_scr) == sign(home_result),1,0))
+            ,pct_spread_correct = mean(if_else(sign(sl_adj) == sign(home_result),1,0)))
+```
+
+#Observe the prediction accuracy by season
+
+```{r}
+game_pred_df %>% 
+  filter(season >= '2010') %>%
+  group_by(season) %>%
+  mutate(sl_adj = spread_line * -1
+         ,pred_scr = round(pred_score,1)
+         ,pred_scr_er = round(pred_score_error,1)
+         ,diff = sl_adj - pred_scr) %>%
+  summarise(pct_model_correct = mean(if_else(sign(pred_scr) == sign(home_result),1,0))
+           ,pct_spread_correct = mean(if_else(sign(sl_adj) == sign(home_result),1,0))) %>%
+  ggplot(aes(x = factor(season),group=1)) +
+  theme(legend.position="bottom") +
+  geom_line(aes(y = pct_model_correct,colour = 'nfl_predictor')) +
+  geom_line(aes(y = pct_spread_correct,colour = 'Market')) +
+  geom_hline(yintercept=0, linetype="dashed", color = "gray", size=1) +  
+  scale_colour_manual("", values = c("nfl_predictor"="orange", "Market"="gray")) +
+  labs(title="Game Decision Accuracy by Model") +
+  ylab("Successful Pick Pct") + 
+  xlab("Season")
+ggsave("accuracy_vs_market.jpg", units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
+
 #Use the model to predict the current week.
 
 ```{r}
-cur_wk <- game_w_features %>% filter(week == 17 & season == 2020)
-cur_wk_preds <- predict(model, new_data = cur_wk)
+cur_wk <- game_w_features %>% filter(week == 22 & season == 2020)
+cur_wk_preds <- predict(pred_score_model, new_data = cur_wk)
 cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>%
   rename(model_d_pred = .pred) %>%
   transmute(
