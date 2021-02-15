@@ -22,6 +22,7 @@ Performance data:
 - point_diff_ats_season: the season-long difference between the market expected points scored and the actual points scored for the home team. 
 - point_diff_trend_diff: the trailing 8 wk point differential for the home team minus the same figure for the away team.
 - win_pct_trend_diff: the trailing 8 wk average win percentage at home for the home team minus the same figure for the away team.
+- pythag_wins: adapted from the work of Bill James in baseball to predict NFL wins based on points for and points against. ([pythagorean win expecatation explained](https://www.pro-football-reference.com/blog/indexf6a9.html?p=337))
 
 
 Model Summary
