@@ -57,6 +57,14 @@ Cumulative Model MAE vs market spread:
 
 <img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/cum_model_error_season.jpg" width="700" height="700">
 
+Season-level MAE comparison:
+
+<img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/season_mae_ttest.jpg" width="700" height="700">
+
+Game outcome prediction vs market:
+
+<img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/model_accuracy_vs_market.jpg" width="700" height="700">
+
 Model Performance
 ----
 In addition to offline performance evaluations, I am also experimenting with this model live in the 2020 season.
