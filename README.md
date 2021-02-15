@@ -63,7 +63,7 @@ Season-level MAE comparison:
 
 Game outcome prediction vs market:
 
-<img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/model_accuracy_vs_market.jpg" width="700" height="700">
+<img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/accuracy_vs_market.jpg" width="700" height="700">
 
 Model Performance
 ----
