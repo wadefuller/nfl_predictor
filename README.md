@@ -65,12 +65,6 @@ Game outcome prediction vs market:
 
 <img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/accuracy_vs_market.jpg" width="700" height="700">
 
-Model Performance
-----
-In addition to offline performance evaluations, I am also experimenting with this model live in the 2020 season.
-
-[Live results here](https://docs.google.com/spreadsheets/d/1xBt9tT3g6OpUco3cZJhfPTVls3azX_ZlFwWvIU3gjMA/edit?usp=sharing).
-
 Further improvements
 ----
 A few feature improvements that are on the backlog:
