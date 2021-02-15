@@ -1,5 +1,5 @@
 ### `nfl_predictor`
-Lightweight model designed to predict NFL game outcomes using team performance and market data.
+Lightweight model designed to predict NFL game outcomes using only team performance and market data that is available at kickoff.
 
 ### Model Features
 
@@ -27,18 +27,18 @@ Performance data:
 Model Summary
 ----
 ```
-══ Workflow ═════════════════════════════════════════════════════════════════════════════════════
+══ Workflow ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
 Preprocessor: Formula
 Model: boost_tree()
 
-── Preprocessor ─────────────────────────────────────────────────────────────────────────────────
+── Preprocessor ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 home_result ~ .
 
-── Model ────────────────────────────────────────────────────────────────────────────────────────
+── Model ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Boosted Tree Model Specification (regression)
 
 Main Arguments:
-  mtry = 13
+  mtry = 18
   trees = 1000
   min_n = 40
   tree_depth = 6
@@ -46,10 +46,10 @@ Main Arguments:
   loss_reduction = 5.6634051459418e-07
   sample_size = 0.717018291268032
 
-Computational engine: xgboost 
+Computational engine: xgboost
 
-rsq  =  0.1479
-rmse = 13.6909
+rsq  =  0.1502
+rmse = 13.57
 ```
 
 Cumulative Model MAE vs market spread:
@@ -66,5 +66,3 @@ Further improvements
 ----
 A few feature improvements that are on the backlog:
 - [Expected Points Added](https://www.espn.com/nfl/story/_/id/8379024/nfl-explaining-expected-points-metric): Team EPA, Starting Quarterback EPA, Defensive EPA, Offensive EPA
-- [Pythagorean wins](http://grantland.com/features/breaking-best-nfl-stats/)
-- Market Signals: Moneylines & Odds
