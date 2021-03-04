@@ -3,10 +3,10 @@ Lightweight model designed to predict NFL game outcomes using only team performa
 
 
 ### Repo construction
-1/ feature_engineering.rmd: Building the inputs to the model.
-2/ build_model.rmd: Leveraging Tidymodels to build an xgboost model.
-3/ prediction_visuals.rmd: Running some analytics on the outputs.
-4/ predict_week.rmd: Boilerplate code to run predictions for any given week.
+1. `feature_engineering.rmd`: Building the inputs to the model.
+2. `build_model.rmd`: Leveraging Tidymodels to build an xgboost model.
+3. `prediction_visuals.rmd`: Running some analytics on the predictions.
+4. `predict_week.rmd`: Derive predictions for any given week.
 
 ### Model Features
 
