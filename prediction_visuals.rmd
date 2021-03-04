@@ -1,0 +1,221 @@
+---
+title: "NFL Score Prediction Model: Visuals"
+author: "Wade Fuller"
+date: "03/03/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
+                      message = FALSE, dpi = 180,
+                      fig.width = 8, fig.height = 5)
+knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/pred")
+library(ggthemes)
+library(vip)
+theme_set(theme_minimal(base_size = 10))
+```
+
+This shows two primary improvements vs the market spread:
+- the error peaks are higher around zero for all years
+- the error in the tails is lower for most years
+
+```{r}
+game_pred_df %>%
+  ggplot() +
+  theme(legend.position="bottom",axis.title.x=element_blank()) +
+  geom_density(aes(x = pred_score_error),alpha = 0.75, size=.5,color = 'midnightblue') +
+  geom_density(aes(x = spread_error),alpha = 0.75, size=.5,color = 'gray') + 
+  geom_density(aes(x = pred_score_error,colour = 'Model Prediction Error'),alpha = 0.75, size=.5) + 
+  geom_density(aes(x = spread_error,colour = 'Spread Prediction Error'),alpha = 0.75, size=.5) + 
+  geom_vline(xintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("Model Prediction Error"="orange","Spread Prediction Error"="gray"), guide='legend') +
+  ylab("Game Result Density") +
+  labs(title="Error Distribution vs Actual Score") +
+  facet_wrap(~season, scales = "free_y")
+
+ggsave("error_dist.jpg",path = paste0(wd,"/pred/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
+A couple of observations:
+- The model predicts slightly larger tails than the spread.
+- The spread has some consistent peaks around +/- 3. This is likely because of the point value of a field goal (3).
+- The acutal results have much fatter tails than my model or the market spread. The likelihood of blowout results is much higher than our models account for. This is something to be covered in a later iteration.
+
+
+```{r}
+game_pred_df %>%
+  ggplot() +
+  theme(legend.position="bottom",axis.title.x=element_blank()) +
+  geom_density(aes(x = pred_score,colour = 'Model Prediction'),alpha = 0.75, size=.5) + 
+  geom_density(aes(x = (-1*spread_line),colour = 'Spread Prediction'),alpha = 0.75, size=.5) + 
+  geom_density(aes(x = home_result,colour = 'Actual Result'),alpha = 0.75, size=.5) + 
+  geom_vline(xintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("Model Prediction"="orange","Spread Prediction"="gray",'Actual Result' = 'black'), guide='legend') +
+  facet_wrap(~season, scales = "free_y") +
+  ylab("Game Result Density") +
+  labs(title="Predicted Score Distribution") +
+  facet_wrap(~season, scales = "free_y")
+ggsave("predicted_score_dist.jpg",path = paste0(wd,"/pred/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
+
+Plotting the absolute error by week. Lower in this case is better since it indicates that the sum of error in games in a given season/week is lower.
+
+```{r}
+week_pred_df <- game_pred_df %>% group_by(season,week) %>% arrange(season,week) %>%
+             summarise(pred_score_error = mean(abs(pred_score_error), na.rm = TRUE)
+                       ,spread_error = mean(abs(spread_error), na.rm = TRUE)
+                       ) %>%
+            mutate(cum_pred_score_error = cumsum(pred_score_error)
+                  ,cum_spread_error = cumsum(spread_error))
+week_pred_df %>%
+  ggplot(aes(x = week)) +
+  theme(legend.position="bottom") +
+  geom_line(aes(y = pred_score_error,colour = 'nfl_predictor Error')) +
+  geom_line(aes(y = spread_error,colour = 'Market Spread Error')) +
+  geom_hline(yintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("nfl_predictor Error"="orange", "Market Spread Error"="gray")) +
+  facet_wrap(~season, scales = "free_y") +
+  ylab("Model Error") +
+  labs(title="Model Prediction Error by Week & Season")
+ggsave("model_error_by_season.jpg",path = paste0(wd,"/pred/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
+
+# This is the same chart but using a cumulative approach across any given season. This generally shows that the model produces lower error than the spread in each season.
+```{r}
+week_pred_df %>%
+  ggplot(aes(x = week)) +
+  theme(legend.position="bottom",legend.box = "horizontal") +
+  geom_line(aes(y = cum_pred_score_error,colour = 'nfl_predictor Error')) +
+  geom_line(aes(y = cum_spread_error,colour = 'Spread Error')) +
+  geom_hline(yintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("nfl_predictor Error"="orange", "Spread Error"="gray")) +
+  facet_wrap(~season, scales = "free_y") +
+  ylab("Cumulative Model Error") +
+  labs(title="Cumulative Model Prediction Error by Week & Season")
+ggsave("cum_model_error_season.jpg", units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
+# Take a look at the cumulative pct error vs spread.
+
+```{r}
+cum_pred_error_df <- game_pred_df %>% filter(season >= 2000) %>%
+  unite(season_week, c("season", "week")) %>% group_by(season_week) %>%
+  transmute(
+          season_week
+         ,season = substr(season_week, 1, 4)
+         ,agg_pred_score_error = sum(abs(pred_score_error))
+         ,agg_spread_error = sum(abs(spread_error))
+         ) %>%
+  distinct() %>% 
+  ungroup() %>%
+  mutate(cum_pred_score_error = cumsum(agg_pred_score_error)
+         ,cum_spread_error = cumsum(agg_spread_error)) %>%
+  mutate(agg_pct_diff = cum_pred_score_error / cum_spread_error - 1
+   ,row_number = 1:n())
+
+cum_pred_error_df %>%
+  ggplot(aes(x = row_number, group = 1)) +
+  theme(legend.position="bottom",legend.box = "horizontal",axis.text.x = element_text(angle = 90,size=3)) +
+  geom_line(aes(y = agg_pct_diff,colour = 'Model Spread Error')) +
+  geom_hline(yintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("Model Spread Error"="midnightblue")) +
+  ylab("Cumulative Model Error vs Spread Error") +
+  xlab("Game Number") +
+  labs(title="Cumulative Model Prediction Error by Week & Season")
+ggsave("pct_error_vs_spread.jpg",path = paste0(wd,"/pred/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
+# Take a look at the cumulative pct error vs spread by season.
+
+```{r}
+cum_pred_error_df_2 <- game_pred_df %>% filter(season >= 2000) %>%
+  group_by(season,week) %>%
+  mutate(
+          agg_pred_score_error = sum(abs(pred_score_error))
+         ,agg_spread_error = sum(abs(spread_error))
+         ) %>%
+  mutate(cum_pred_score_error = cumsum(agg_pred_score_error)
+         ,cum_spread_error = cumsum(agg_spread_error)) %>%
+  mutate(agg_pct_diff = agg_pred_score_error / agg_spread_error - 1
+  )
+
+cum_pred_error_df_2 %>%
+  ggplot(aes(x = week, group = 1)) +
+  theme(legend.position="bottom",legend.box = "horizontal",axis.text.x = element_text(angle = 90,size=3)) +
+  geom_line(aes(y = agg_pct_diff,colour = 'Model Error')) +
+  geom_hline(yintercept=0, linetype="dashed", color = "gray", size=.25) +  
+  scale_colour_manual("", values = c("Model Error"="midnightblue")) +
+  facet_wrap(~season, scales = "free_y") +
+  ylab("Cumulative Model Percent Error vs Spread Error") +
+  xlab("Week") +
+  labs(title="Cumulative Model Prediction Pct Error by Week & Season [vs Spread Error]")
+ggsave("pct_error_vs_spread_season.jpg",path = paste0(wd,"/pred/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
+# Run a statistical test to determine the confidence intervals on the differences between models
+```{r}
+results_df <- game_pred_df %>%
+  filter(season >= 2000) %>%
+  select(season,pred_score_error,spread_error) %>%
+  mutate(pred_score_error = abs(pred_score_error),spread_error = abs(spread_error)) %>%
+  group_by(season) %>%
+  summarise( mae_model = mean(pred_score_error)
+            ,mae_spread = mean(spread_error)
+            ,p_value = t.test(pred_score_error,spread_error,paired = TRUE)$p.value
+            ,statistic = t.test(pred_score_error,spread_error,paired = TRUE)$statistic
+            ,lower.bound = t.test(pred_score_error,spread_error,paired = TRUE)$conf.int[1]
+            ,upper.bound = t.test(pred_score_error,spread_error,paired = TRUE)$conf.int[2]
+            ,estimate = t.test(pred_score_error,spread_error,paired = TRUE)$estimate)
+
+ggplot(data=results_df, aes(x=estimate, y=as.factor(season))) +
+  scale_y_discrete(name ="Season") +
+  geom_vline(xintercept=0, color="red", linetype=3) +
+  geom_point(color="grey30") +
+  geom_errorbarh(aes(xmin=lower.bound, xmax=upper.bound), color="grey30", height=0.4) + 
+  labs(title="Score Prediction Error") +
+ggsave("season_mae_ttest.jpg", path = paste0(wd,"/pred/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
+
+# Predict outcome of each game since 2010 and compare to the spread.
+2010 -> 2020 
+Model:  71.94% 
+Spread: 66.16%
+
+2000 -> 2020
+Model:  70.88% 
+Spread: 66.19%
+
+```{r}
+game_pred_df %>% 
+  filter(season >= '2000') %>%
+  # group_by(season) %>%
+  mutate(sl_adj = spread_line * -1
+         ,pred_scr = round(pred_score,1)
+         ,pred_scr_er = round(pred_score_error,1)
+         ,diff = sl_adj - pred_scr) %>%
+  summarise(pct_model_correct = mean(if_else(sign(pred_scr) == sign(home_result),1,0))
+            ,pct_spread_correct = mean(if_else(sign(sl_adj) == sign(home_result),1,0)))
+```
+
+#Observe the prediction accuracy by season
+
+```{r}
+game_pred_df %>% 
+  filter(season >= '2000') %>%
+  group_by(season) %>%
+  mutate(sl_adj = spread_line * -1
+         ,pred_scr = round(pred_score,1)
+         ,pred_scr_er = round(pred_score_error,1)
+         ,diff = sl_adj - pred_scr) %>%
+  summarise(pct_model_correct = mean(if_else(sign(pred_scr) == sign(home_result),1,0))
+           ,pct_spread_correct = mean(if_else(sign(sl_adj) == sign(home_result),1,0))) %>%
+  ggplot(aes(x = factor(season),group=1)) +
+  theme(legend.position="bottom") +
+  geom_line(aes(y = pct_model_correct,colour = 'nfl_predictor')) +
+  geom_line(aes(y = pct_spread_correct,colour = 'Market')) +
+  geom_hline(yintercept=0, linetype="dashed", color = "gray", size=1) +  
+  scale_colour_manual("", values = c("nfl_predictor"="orange", "Market"="gray")) +
+  labs(title="Game Decision Accuracy by Model") +
+  ylab("Successful Pick Pct") + 
+  xlab("Season")
+ggsave("accuracy_vs_market.jpg", path = paste0(wd,"/pred/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```

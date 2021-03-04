@@ -1,0 +1,253 @@
+---
+title: "NFL Score Prediction Model"
+author: "Wade Fuller"
+date: "03/03/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
+                      message = FALSE, dpi = 180,
+                      fig.width = 8, fig.height = 5)
+knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/pred/")
+library(tidymodels)
+library(doParallel)
+game_w_features <- read.csv(paste0(wd,"/pred/data/game_w_features.csv"))
+```
+
+## Make the model
+
+# Build a Model
+Here, I experiment with the `tidymodels` package to create this model. This is an easy interface to create, train, and tune machine learning models. Ill try to fit an xgboost model for this one. 
+
+```{r}
+gm_fts_only <- game_w_features %>%
+  filter(is.na(home_result) == FALSE) %>%
+  select( 
+       home_result
+      ,season
+      ,week
+      ,spread_line
+      ,home_moneyline
+      ,moneyline_diff
+      ,home_spread_odds
+      ,spread_odds_diff
+      ,home_win_pct_season
+      ,win_pct_season_diff
+      ,home_point_diff_season
+      ,point_diff_season_diff
+      ,home_win_pct_trend
+      ,win_pct_trend_diff
+      ,home_point_diff_trend
+      ,point_diff_trend_diff
+      ,home_win_pct_ats_season
+      ,win_pct_ats_season_diff
+      ,home_point_diff_ats_season
+      ,point_diff_ats_season_diff
+     #,home_rest
+      ,rest_diff
+     #,div_game
+      ,elo1_pre
+      ,elo2_pre
+      ,elo_prob1
+      ,home_pythag_win_pct
+      ,away_pythag_win_pct
+      ,pythag_win_pct_diff
+      ,home_pythag_wins
+      ,away_pythag_wins
+      ,pythag_win_diff
+  )
+set.seed(989)
+gm_split <- initial_split(gm_fts_only,strata = 'home_result')
+gm_train <- training(gm_split)
+gm_test <- testing(gm_split)
+```
+
+Define the various hyperparameters. These will be tuned in the section after this one.
+
+```{r}
+xgb_spec <- boost_tree(
+  trees = 1000
+  ,tree_depth = tune()
+  ,min_n = tune()
+  ,loss_reduction = tune()
+  ,sample_size = tune()
+  ,mtry = tune()
+  ,learn_rate = tune()
+  ) %>%
+  set_engine("xgboost") %>%
+  set_mode("regression")
+xgb_spec
+```
+
+Define a grid to tune the hyperparameters.
+
+```{r}
+xgb_grid <- grid_latin_hypercube(
+  tree_depth(),
+  min_n(),
+  loss_reduction(),
+  sample_size = sample_prop(),
+  finalize(mtry(), gm_train),
+  learn_rate(),
+  size = 30
+)
+xgb_grid
+```
+Define a workflow for the xgboost model.
+
+```{r}
+xgb_wf <- workflow() %>%
+  add_formula(home_result ~ .) %>%
+  add_model(xgb_spec)
+
+xgb_wf
+```
+Define the cross validation pattern. In this case I am using a 10-fold pattern.
+
+```{r}
+set.seed(989)
+gm_folds <- vfold_cv(gm_train)
+
+gm_folds
+```
+Enable parallel processing and run the model.
+RMSE: 13.37 
+RSQ:  .1731
+```{r}
+doParallel::registerDoParallel()
+
+set.seed(234)
+xgb_res <- tune_grid(
+  xgb_wf,
+  resamples = gm_folds,
+  grid = xgb_grid,
+  control = control_grid(save_pred = TRUE)
+)
+
+collect_metrics(xgb_res)
+```
+Visualize the hyper parameter grid outcomes for RMSE.
+
+```{r}
+ xgb_res %>%
+   collect_metrics() %>%
+   filter(.metric == "rmse") %>%
+   select(mean, mtry:sample_size) %>%
+   pivot_longer(mtry:sample_size,
+                values_to = "value",
+                names_to = "parameter"
+   ) %>%
+   ggplot(aes(value, mean, color = parameter)) +
+   geom_point(alpha = 0.8, show.legend = FALSE) +
+   facet_wrap(~parameter, scales = "free_x") +
+   labs(x = NULL, y = "Rmse")
+```
+Determine the best model to use based on the target metric: RMSE
+
+```{r}
+ show_best(xgb_res, "rmse")
+ best_rmse <- select_best(xgb_res, "rmse")
+ best_rsq <- select_best(xgb_res, "rsq")
+ best_rmse
+ best_rsq
+```
+Finalize the workflow with our best model.
+
+```{r}
+ final_xgb_rmse <- finalize_workflow(
+   xgb_wf,
+   best_rmse
+ )
+
+final_xgb_rmse
+```
+
+Leverage the finalized workflow to fit training data and identify the most important variables.
+
+```{r}
+final_xgb_rmse %>%
+  fit(data = gm_train) %>%
+  pull_workflow_fit() %>%
+  vip(geom = "col", num_features = 20, include_type = TRUE, aesthetics = list(fill = "midnightblue", alpha = .9))
+ggsave("feat_importance_plot.jpg",path = paste0(wd,"/pred/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
+Run the model on all data and observe the key metrics.
+
+```{r}
+## RMSE: 13.69 // RSQ: .1475
+## RMSE: 13.67 // RSQ: .1502 <- added moneylines
+## RMSE: 13.69 // RSQ: .1484 <- adjusted pipelines
+final_preds_rmse <- last_fit(final_xgb_rmse, gm_split)
+collect_metrics(final_preds_rmse)
+
+score_preds_rmse <- final_preds_rmse %>% collect_predictions() %>% rename(rmse_pred = .pred)
+```
+
+Plot the output of the predictions.
+
+```{r}
+score_preds_rmse %>%
+  ggplot() +
+  geom_density(aes(x = rmse_pred),alpha = 1)
+```
+Run the model on all of the data.
+
+```{r}
+pred_score_model <- fit(final_xgb_rmse, gm_fts_only)
+pred_score_model
+```
+Clean up the data frame and prepare for visualization.
+
+```{r}
+model_preds <- predict(pred_score_model, new_data = gm_fts_only)
+game_w_preds <- game_w_features %>%
+  filter(is.na(home_result) == FALSE) %>%
+  bind_cols(model_preds) %>%
+  rename(pred_score = .pred) %>%
+  mutate(pred_score_error = pred_score - home_result) %>%
+  transmute(
+      game_id
+     ,pred_spread_adj_winner_m = if_else(pred_score + spread_line > 0,home_team,away_team)
+     ,pred_score
+     ,home_result
+     ,pred_score_error
+     ,spread_line
+     ,spread_adj_result
+     ,home_spread_cover
+     ,away_spread_cover
+     ,home_team
+     ,away_team
+     ,season
+     ,week
+     )
+game_pred_df <- game_w_preds %>%
+  transmute(
+    game_id
+    ,home_result
+    ,spread_line
+    ,pred_score
+    ,pred_score_error
+    ,spread_error = (-1*spread_line) - home_result
+    ,spread_adj_result
+    ,spread_adj_winner = if_else(-1*spread_line + home_result > 0,home_team,away_team)
+    ,pred_spread_adj_winner = if_else(pred_score + home_result > 0,home_team,away_team)
+    ,home_spread_cover = home_spread_cover
+    ,away_spread_cover = away_spread_cover
+    ,home_team = home_team
+    ,away_team = away_team
+    ,season
+    ,week
+  )
+summary(game_pred_df)
+```
+
+Save the model for later.
+
+```{r}
+nfl_predictor_model <- final_preds_rmse$.workflow[[1]]
+saveRDS(nfl_predictor_model, paste0(wd,"nfl_predictor_model.rds"))
+```

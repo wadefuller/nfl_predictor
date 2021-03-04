@@ -1,0 +1,269 @@
+---
+title: "NFL Score Prediction Model: Feature Engineering"
+author: "Wade Fuller"
+date: "03/03/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
+                      message = FALSE, dpi = 180,
+                      fig.width = 8, fig.height = 5)
+knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/pred/")
+library(tidymodels)
+library(nflfastR)
+library(ggthemes)
+library(zoo)
+library(doParallel)
+library(vip)
+theme_set(theme_minimal(base_size = 10))
+```
+
+## Introduction
+I have recently come across a fascinating [R package](https://github.com/mrcaseb/nflfastR) called `nflfastR` which aggregates and simplifies a wide range of NFL data. In finding this data, my imagination started running through all the possible analyses that could be done with it. There is much to be explored with this data, but in order to move forward efficiently I want to limit my scope to one project for now.
+
+### Goal: Create a model from publicly available data that predicts the outcome of NFL games.
+
+This is purely a passion project and not intended to be a model that is used for betting on NFL games. The inputs are fairly nacent at this point and will require further iteration in order to lift overall accuracy. I lay out my ideas for this at the end of this document.
+
+```{r init}
+games <- readRDS(url("http://www.habitatring.com/games.rds"))
+games
+```
+This data frame contains every game since 1999 as well as a treasure trove of metadata about each game.
+
+### Split data
+The data is imported such that each record represents one game. This means that we have information about both the home and away team on the same line. To make this data easier to manipulate, we have to split this data into home and away frames.
+
+You will see I also add a few columns here:
+- `spread_adjusted_result`: this is simply the real result plus the spread. This helps me understand what the result was vs what was expected.
+-`spread_cover`: this helps me understand whether the team covered the spread or not. Said differently, did the team achieve expectations for the game. Only one team can cover the spread for each game.
+-`rest_diff`: the difference in the number of days of rest for each team. The number of days of rest is simply how many days since their last game.
+
+```{r split_data}
+home_games <- games %>%
+  filter(game_type == 'REG' & season >= 2000) %>%
+  transmute(
+         game_id,
+         gameday,
+         team = home_team,
+         opposing_team = away_team,
+         points_for = home_score,
+         points_against = away_score,
+         result,
+         total_points_scored = total,
+         season,
+         week,
+         gameday,
+         weekday,
+         gametime,
+         team_rest = home_rest,
+         opponent_rest = away_rest,
+         spread_line = spread_line * -1, # making this easier to calcuate with
+         total_line,
+         home_spread_odds,
+         away_spread_odds,
+         home_moneyline,
+         away_moneyline,
+         div_game,
+         home = 1
+         )
+away_games <- games %>%
+  filter(game_type == 'REG' & season >= 2000) %>%
+  transmute(
+         game_id,
+         gameday,
+         team = away_team,
+         opposing_team = home_team,
+         points_for = away_score,
+         points_against = home_score,
+         result = result * -1,
+         total_points_scored = total,
+         season,
+         week,
+         gameday,
+         weekday,
+         gametime,
+         team_rest = away_rest,
+         opponent_rest = home_rest,
+         spread_line,
+         total_line,
+         div_game,
+         home = 0
+         )
+game_df <- bind_rows(home_games, away_games) %>%
+  mutate_if(is.character, factor) %>%
+  mutate(home = as.factor(home))
+game_df <- game_df %>% mutate(
+  win = if_else(game_df$result > 0,1,0) # fully recognizing that this misattributes ties to losses.
+ ,spread_adjusted_result = spread_line + result
+ ,spread_cover = if_else(spread_line + result > 0,1,0)
+ ,rest_diff = team_rest - opponent_rest
+)
+```
+
+### Generate features
+- `win_pct_trend`: win percentage over the last 8 games.
+- `win_pct_season`: win percentage in the given season.
+- `win_pct_ats_season`: win percentage against the spread in the given season.
+- `point_diff_trend`: point differential over the last 8 games.
+- `point_diff_ats_season`: point differential in the given season.
+- `point_diff_season`: point differential against the spread in a given season.
+
+*Note: my methods for creating these are a bit choppy - definitely a WIP*
+```{r feature_set}
+trending_fs <- game_df %>%
+  arrange(season,team,week) %>%
+  group_by(team) %>%
+  mutate(win_pct_avg = rollapply(win, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+        ,point_diff_avg = rollapply(result, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+        ,points_for_avg = rollapply(points_for, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+        ,win_pct_ats_avg = rollapply(spread_cover, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+        ,point_diff_ats_avg = rollapply(spread_adjusted_result, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+        ,win_pct_trend = rollapply(win, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
+        ,point_diff_trend = rollapply(result, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
+        ,points_for_trend = rollapply(points_for, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
+        ,win_pct_ats_trend = rollapply(spread_cover, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
+        ,point_diff_ats_trend = rollapply(spread_adjusted_result, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)) %>%
+  select(game_id,season,week,team,win_pct_avg,point_diff_avg,points_for_avg,win_pct_ats_avg,point_diff_ats_avg,win_pct_trend,point_diff_trend,points_for_trend)
+
+pythag_df <- game_df %>%
+  group_by(season,team) %>%
+  arrange(season,team,week) %>%
+  mutate(gms = row_number()-1 
+        ,agg_pts_for = cumsum(points_for)
+        ,agg_pts_against = cumsum(points_against)
+        ,pts_for_entering = lag(agg_pts_for)
+        ,pts_against_entering = lag(agg_pts_against)) %>%
+  mutate(pythag_win_pct = (pts_for_entering^2.37)/((pts_for_entering^2.37)+(pts_against_entering^2.37))
+         ,pythag_wins = pythag_win_pct*gms) %>%
+        ungroup() %>%
+  select(game_id,team,pythag_win_pct,pythag_wins,gms)
+
+fs_blend <- trending_fs %>% inner_join(pythag_df,by=c('game_id'='game_id','team'='team'))
+```
+
+### Blend Features w/ Original Data Frame
+
+```{r}
+game_features_df <- game_df %>%
+  inner_join(fs_blend,by=c('game_id'='game_id','team'='team','season'='season','week'='week'))
+home_df <- game_features_df %>%
+  filter(home == 1)
+away_df <- game_features_df %>%
+  filter(home == 0)
+game_w_features <- home_df %>% 
+   inner_join(away_df,by=c('game_id'='game_id')) %>%
+   transmute(
+     # BASICS
+       game_id
+      ,gameday = gameday.x
+      ,season = season.x
+      ,week = week.x
+      ,home_team = team.x
+      ,away_team = opposing_team.x 
+      ,spread_line = spread_line.x
+
+      # RESULT
+      ,home_points = points_for.x 
+      ,away_points = points_against.x
+      ,total_points_scored = total_points_scored.x 
+      ,home_result = result.x 
+      ,away_result = result.y
+      ,home_win = win.x
+      ,total_line = total_line.x
+
+    # RESULT DETAILS
+      ,spread_adj_result = spread_adjusted_result.x
+      ,home_spread_cover = spread_cover.x
+      ,away_spread_cover = spread_cover.y
+
+    # TEAM PERFORMANCE METADATA
+      ,home_win_pct_season = win_pct_avg.x
+      ,away_win_pct_season = win_pct_avg.y
+      ,win_pct_season_diff = win_pct_avg.x - win_pct_avg.y
+      ,home_point_diff_season = point_diff_avg.x
+      ,away_point_diff_season = point_diff_avg.y
+      ,point_diff_season_diff = point_diff_avg.x - point_diff_avg.y
+      ,home_win_pct_ats_season = win_pct_ats_avg.x
+      ,away_win_pct_ats_season = win_pct_ats_avg.y
+      ,win_pct_ats_season_diff = win_pct_ats_avg.x - win_pct_ats_avg.y
+      ,home_point_diff_ats_season = point_diff_ats_avg.x
+      ,away_point_diff_ats_season = point_diff_ats_avg.y
+      ,point_diff_ats_season_diff = point_diff_ats_avg.x - point_diff_ats_avg.y
+
+      ,home_win_pct_trend = win_pct_trend.x
+      ,away_win_pct_trend = win_pct_trend.y
+      ,win_pct_trend_diff = win_pct_trend.x - win_pct_trend.y
+      ,home_point_diff_trend = point_diff_trend.x
+      ,away_point_diff_trend = point_diff_trend.y
+      ,point_diff_trend_diff = point_diff_trend.x - point_diff_trend.y
+      
+      ,home_pythag_win_pct = pythag_win_pct.x
+      ,away_pythag_win_pct = pythag_win_pct.y
+      ,pythag_win_pct_diff = pythag_win_pct.x - pythag_win_pct.y
+      ,home_pythag_wins = pythag_wins.x
+      ,away_pythag_wins = pythag_wins.y
+      ,pythag_win_diff = pythag_wins.x - pythag_wins.y
+    
+      ,home_moneyline = home_moneyline.x
+      ,moneyline_diff = home_moneyline.x - away_moneyline.x
+      ,home_spread_odds = home_spread_odds.x
+      ,spread_odds_diff = home_spread_odds.x - away_spread_odds.x
+
+    # MATCHUP METADATA
+      ,weekday = weekday.x
+      ,gameday = gameday.x
+      ,gametime = gametime.x
+      ,div_game = div_game.x
+      ,home_rest = team_rest.x 
+      ,away_rest = opponent_rest.x 
+      ,rest_diff = rest_diff.x
+   )
+```
+
+### Add Fivethirtyeight Elo scores and probabilities
+
+```{r}
+fullElo <- read_csv("https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv")
+tail(fullElo)
+
+fte <- fullElo %>%
+  filter(season >= 2000) %>%
+  dplyr::mutate(
+    team1 = gsub("WSH", "WAS", team1),
+    team2 = gsub("WSH", "WAS", team2),
+    team1 = gsub("LAR", "LA", team1),
+    team2 = gsub("LAR", "LA", team2),
+    team1 = gsub('OAK','LV',team1),
+    team2 = gsub('OAK','LV',team2),
+    team1 = gsub('STL','LA',team1),
+    team2 = gsub('STL','LA',team2),
+    team1 = gsub('SD','LAC',team1),
+    team2 = gsub('SD','LAC',team2)
+  ) %>%
+  select(date,season,team1,team2,elo1_pre,elo2_pre,elo_prob1) %>%
+  as_tibble()
+
+gm_df <- game_w_features %>% 
+  filter(week <= 17) %>%
+  dplyr::mutate(
+    home_team = gsub('OAK','LV',home_team),
+    away_team = gsub('OAK','LV',away_team),
+    home_team = gsub('STL','LA',home_team),
+    away_team = gsub('STL','LA',away_team),
+    home_team = gsub('SD','LAC',home_team),
+    away_team = gsub('SD','LAC',away_team))
+
+game_w_features <- gm_df %>%
+  filter(week <= 17) %>%
+  dplyr::mutate(gameday = lubridate::as_date(gameday)) %>%
+  left_join(fte, by=c('gameday'='date','home_team'='team1','away_team'='team2',"season"))
+
+# spit out a CSV 
+write.csv(game_w_features,paste0(wd,"/pred/data/game_w_features.csv"), row.names = TRUE)
+```

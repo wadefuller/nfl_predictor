@@ -1,0 +1,42 @@
+---
+title: "NFL Score Prediction Model: Make a Prediction"
+author: "Wade Fuller"
+date: "03/03/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
+                      message = FALSE, dpi = 180,
+                      fig.width = 8, fig.height = 5)
+knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/pred/")
+game_w_features <- read.csv(paste0(wd,"data/game_w_features.csv"))
+nfl_predictor_model <- readRDS(paste0(wd,"nfl_predictor_model.rds"))
+```
+
+#Use the model to predict the current week.
+
+```{r}
+cur_wk <- game_w_features %>% filter(week == 22 & season == 2020)
+cur_wk_preds <- predict(nfl_predictor_model, new_data = cur_wk)
+cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>%
+  rename(model_d_pred = .pred) %>%
+  transmute(
+          game_id
+         ,pred_spread_adj_winner = if_else(model_d_pred + spread_line > 0,home_team,away_team)
+         ,model_d_pred
+         ,home_result
+         ,spread_line
+         ,spread_adj_result
+         ,model_adj_result = model_d_pred - home_result
+         ,home_spread_cover
+         ,away_spread_cover
+         ,home_team
+         ,away_team
+         ,total_line
+         )
+cur_wk_pred %>% View()
+```
