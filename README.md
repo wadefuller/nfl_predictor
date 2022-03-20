@@ -38,7 +38,7 @@ Performance data:
 
 2021 Model Performance
 ----
-2021 Season Performance Summary ([here](https://docs.google.com/document/d/1oBsqR50n22NEk3VrfHNvaNSWzDg6si5GSx8yREjHen4/edit#)).
+2021 Season Performance Summary [here](https://docs.google.com/document/d/1oBsqR50n22NEk3VrfHNvaNSWzDg6si5GSx8yREjHen4/edit#).
 
 Model Summary
 ----
