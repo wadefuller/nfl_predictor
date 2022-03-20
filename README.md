@@ -82,7 +82,6 @@ Game outcome prediction vs market:
 
 Model Roadmap
 ----
-- 2021 season performance explained
 - Feature set explorations
 - Explore player performance models
 - Custom elo scores + probabilities
