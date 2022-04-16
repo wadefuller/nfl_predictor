@@ -40,6 +40,10 @@ Performance data:
 ----
 2021 Season Performance Summary [here](https://docs.google.com/document/d/1oBsqR50n22NEk3VrfHNvaNSWzDg6si5GSx8yREjHen4/edit#).
 
+Cumulative performance:
+
+<img src="https://github.com/wadefuller/nfl_predictor/blob/49e83dc277c50f1de6aba9ddb24ec807c755aac4/img/nfl_predictor_cml_perf.png" width="800" height="500">
+
 Model Summary
 ----
 ```
