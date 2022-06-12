@@ -1,7 +1,7 @@
 ---
 title: "NFL Score Prediction Model"
 author: "Wade Fuller"
-date: "06/12/2022"
+date: "04/18/2022"
 output:
   pdf_document: default
   html_document: default
@@ -23,12 +23,22 @@ game_w_features <- read.csv(paste0("~/Documents/Scripts/R/pred/game_w_features.c
 
 # Build a Model
 Here, I experiment with the `tidymodels` package to create this model. This is an easy interface to create, train, and tune machine learning models. Ill try to fit an xgboost model for this one. 
+```{r}
+reg_pred_dta <- game_w_features %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
+reg_preds <- predict(nfl_predictor_model, new_data = reg_pred_dta)
+gms_w_reg_preds <- cbind(reg_pred_dta,reg_preds) %>% rename(nfl_predictor_line = .pred)
+```
 
 ```{r}
-gm_fts_only <- game_w_features %>%
-  filter(is.na(home_result) == FALSE, season >= 2010) %>%
+gm_fts_only <- gms_w_reg_preds %>%
+  filter(is.na(home_result) == FALSE, as.numeric(as.character(season)) >= 2010) %>%
   select(-c('X','game_id','gameday','home_team','away_team','away_result','home_points','away_points','home_result','total_points_scored','spread_adj_result','home_spread_cover','away_spread_cover','gametime')) %>%
-    mutate(home_result = as.factor(home_win),season = as.factor(season), week = as.factor(week), weekday = as.factor(weekday), div_game = as.factor(div_game)) %>% select(-home_win)
+    mutate( home_result = as.factor(home_win)
+           ,season = as.factor(season)
+           ,week = as.factor(week)
+           ,weekday = as.factor(weekday)
+           ,div_game = as.factor(div_game)) %>% 
+    select(-home_win)
 set.seed(989)
 gm_split <- initial_split(gm_fts_only,strata = 'home_result')
 gm_train <- training(gm_split)
@@ -182,6 +192,7 @@ Run the model on all data and observe the key metrics.
 ## RFE: AUC: .7309 // Accuracy: .6660
 ## 4/18/22: AUC: .6929 // Accuracy: .6339
 ## 4/18/22: AUC: .6834 // Accuracy: .6404 <- expanded trees, 2010
+## 6/12/22: AUC: .7057 (+3.26%) // Accuracy: .6430 (+0.04%) <- added regression model output as a feature 
 final_preds_auc <- last_fit(final_xgb_auc, gm_split)
 final_preds_lgls <- last_fit(final_xgb_lgls, gm_split)
 collect_metrics(final_preds_auc)
