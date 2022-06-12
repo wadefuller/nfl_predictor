@@ -1,9 +1,9 @@
 ---
-  title: "NFL Score Prediction Model: Feature Engineering"
+title: "NFL Score Prediction Model: Feature Engineering"
 author: "Wade Fuller"
 date: "03/03/2021"
 output:
-  pdf_document: default
+pdf_document: default
 html_document: default
 ---
 
