@@ -1,12 +1,11 @@
 ---
-title: "NFL Score Prediction Model: Feature Engineering"
+  title: "NFL Score Prediction Model: Feature Engineering"
 author: "Wade Fuller"
-date: "06/12/2022"
+date: "03/03/2021"
 output:
   pdf_document: default
-  html_document: default
+html_document: default
 ---
-
 
 ```{r setup, include=FALSE}
 rm(list = ls())
@@ -27,11 +26,7 @@ theme_set(theme_minimal(base_size = 10))
 ```
 
 ## Introduction
-I have recently come across a fascinating [R package](https://github.com/mrcaseb/nflfastR) called `nflfastR` which aggregates and simplifies a wide range of NFL data. In finding this data, my imagination started running through all the possible analyses that could be done with it. There is much to be explored with this data, but in order to move forward efficiently I want to limit my scope to one project for now.
-
-### Goal: Create a model from publicly available data that predicts the outcome of NFL games.
-
-This is purely a passion project and not intended to be a model that is used for betting on NFL games. The inputs are fairly nacent at this point and will require further iteration in order to lift overall accuracy. I lay out my ideas for this at the end of this document.
+Trying to make some general data tables for each team with the performance metrics and model features that I care about for each week of a given season.
 
 ```{r init}
 games <- readRDS(url("http://www.habitatring.com/games.rds"))
@@ -42,125 +37,104 @@ This data frame contains every game since 1999 as well as a treasure trove of me
 ### Split data
 The data is imported such that each record represents one game. This means that we have information about both the home and away team on the same row To make this data easier to manipulate, we have to split this data into home and away frames.
 
-I modified these rows to put the data in the perspective of the home team. I also add a few columns here:
-- `spread_adjusted_result`: this is simply the real result plus the spread. This helps me understand what the result was vs what was expected.
--`spread_cover`: this helps me understand whether the team covered the spread or not. Said differently, did the team achieve expectations for the game. Only one team can cover the spread for each game.
--`rest_diff`: the difference in the number of days of rest for each team. The number of days of rest is simply how many days since their last game.
-
 ```{r split_data}
-games <- games %>% filter(game_type == 'REG')
 home_games <- games %>%
   filter(season >= 2000) %>%
   transmute(
-          game_id
-         ,gameday
-         ,team = home_team
-         ,opposing_team = away_team
-         ,points_for = home_score
-         ,points_against = away_score
-         ,result
-         ,total_points_scored = total
-         ,pct_points_scored = points_for/total_points_scored
-         ,season
-         ,week
-         ,gameday
-         ,weekday
-         ,gametime
-         ,team_rest = home_rest
-         ,opponent_rest = away_rest
-         ,spread_line = spread_line * -1
-         ,total_line
-         ,home_spread_odds
-         ,away_spread_odds
-         ,home_moneyline
-         ,away_moneyline
-         ,impl_prob_home = if_else(sign(home_moneyline)== -1,(-1*home_moneyline/((-1*home_moneyline)+100)),(100/(home_moneyline+100)))
-         ,impl_prob_away = if_else(sign(away_moneyline)== -1,(-1*away_moneyline/((-1*away_moneyline)+100)),(100/(away_moneyline+100)))
-         ,div_game
-         ,home = 1
-         )
+    game_id
+    ,gameday
+    ,team = home_team
+    ,opposing_team = away_team
+    ,points_for = home_score
+    ,points_against = away_score
+    ,result
+    ,total_points_scored = total
+    ,pct_points_scored = points_for/total_points_scored
+    ,season
+    ,week
+    ,gameday
+    ,weekday
+    ,gametime
+    ,team_rest = home_rest
+    ,opponent_rest = away_rest
+    ,spread_line = spread_line * -1
+    ,total_line
+    ,home_spread_odds
+    ,away_spread_odds
+    ,home_moneyline
+    ,away_moneyline
+    ,impl_prob_home = if_else(sign(home_moneyline)== -1,(-1*home_moneyline/((-1*home_moneyline)+100)),(100/(home_moneyline+100)))
+    ,impl_prob_away = if_else(sign(away_moneyline)== -1,(-1*away_moneyline/((-1*away_moneyline)+100)),(100/(away_moneyline+100)))
+    ,div_game
+    ,home = 1
+  )
 away_games <- games %>%
   filter(season >= 2000) %>%
   transmute(
-          game_id
-         ,gameday
-         ,team = away_team
-         ,opposing_team = home_team
-         ,points_for = away_score
-         ,points_against = home_score
-         ,result = result * -1
-         ,total_points_scored = total
-         ,pct_points_scored = points_for/total_points_scored
-         ,season
-         ,week
-         ,gameday
-         ,weekday
-         ,gametime
-         ,team_rest = away_rest
-         ,opponent_rest = home_rest
-         ,spread_line
-         ,total_line
-         ,home_spread_odds
-         ,away_spread_odds
-         ,home_moneyline
-         ,away_moneyline
-         ,impl_prob_home = if_else(sign(home_moneyline)== -1,(-1*home_moneyline/((-1*home_moneyline)+100)),(100/(home_moneyline+100)))
-         ,impl_prob_away = if_else(sign(away_moneyline)== -1,(-1*away_moneyline/((-1*away_moneyline)+100)),(100/(away_moneyline+100)))
-         ,div_game
-         ,home = 0
-         )
+    game_id
+    ,gameday
+    ,team = away_team
+    ,opposing_team = home_team
+    ,points_for = away_score
+    ,points_against = home_score
+    ,result = result * -1
+    ,total_points_scored = total
+    ,pct_points_scored = points_for/total_points_scored
+    ,season
+    ,week
+    ,gameday
+    ,weekday
+    ,gametime
+    ,team_rest = away_rest
+    ,opponent_rest = home_rest
+    ,spread_line
+    ,total_line
+    ,home_spread_odds
+    ,away_spread_odds
+    ,home_moneyline
+    ,away_moneyline
+    ,impl_prob_home = if_else(sign(home_moneyline)== -1,(-1*home_moneyline/((-1*home_moneyline)+100)),(100/(home_moneyline+100)))
+    ,impl_prob_away = if_else(sign(away_moneyline)== -1,(-1*away_moneyline/((-1*away_moneyline)+100)),(100/(away_moneyline+100)))
+    ,div_game
+    ,home = 0
+  )
 game_df <- bind_rows(home_games, away_games) %>%
   mutate_if(is.character, factor) %>%
   mutate(home = as.factor(home))
-
-# Adjust the names of teams to reflect current teams
-game_df <- game_df %>% dplyr::mutate(
-    team = gsub("SD", "LAC", team),
-    team = gsub("OAK", "LV", team),
-    team = gsub("STL", "LA", team))
-  
-
 game_df <- game_df %>% mutate(
   win = if_else(game_df$result > 0,1,0) # fully recognizing that this misattributes ties to losses.
- ,spread_adjusted_result = spread_line + result
- ,spread_cover = if_else(spread_line + result > 0,1,0)
- ,impl_win_prob = if_else(home == 1,impl_prob_home,impl_prob_away)
- ,game_info_gain = if_else(win == 1,pmax(1-2*impl_win_prob^3,0, na.rm = TRUE),pmax(1-2*impl_win_prob^3-1,-1, na.rm = TRUE))
- ,win_prob_captured = if_else(win == 1, impl_win_prob,-impl_win_prob)
- ,rest_diff = team_rest - opponent_rest
+  ,spread_adjusted_result = spread_line + result
+  ,spread_cover = if_else(spread_line + result > 0,1,0)
+  ,impl_win_prob = if_else(home == 1,impl_prob_home,impl_prob_away)
+  ,game_info_gain = if_else(win == 1,pmax(1-2*impl_win_prob^3,0, na.rm = TRUE),pmax(1-2*impl_win_prob^3-1,-1, na.rm = TRUE))
+  ,win_prob_captured = if_else(win == 1, impl_win_prob,-impl_win_prob)
+  ,rest_diff = team_rest - opponent_rest
 )
 game_df %>% filter(season == 2021, team == 'DAL') %>% arrange(week)
 ```
 
 ### Generate features
-- `win_pct_trend`: win percentage over the last 8 games.
-- `win_pct_season`: win percentage in the given season.
-- `win_pct_ats_season`: win percentage against the spread in the given season.
-- `point_diff_trend`: point differential over the last 8 games.
-- `point_diff_ats_season`: point differential in the given season.
-- `point_diff_season`: point differential against the spread in a given season.
 
-*Note: my methods for creating these are a bit choppy - definitely a WIP*
 ```{r feature_set}
 trending_fs <- game_df %>%
   arrange(season,team,week) %>%
-  group_by(team) %>%
+  group_by(season,team) %>%
   mutate(win_pct_avg = rollapply(win, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,point_diff_avg = rollapply(result, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,points_for_avg = rollapply(points_for, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,win_pct_ats_avg = rollapply(spread_cover, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,point_diff_ats_avg = rollapply(spread_adjusted_result, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,impl_win_prob_avg = rollapply(impl_win_prob, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,game_info_gain_avg = rollapply(game_info_gain, list(-(16:1)), sum, align = 'right' , fill = NA, partial = T)
-        ,win_prob_captured_avg = rollapply(win_prob_captured, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,win_pct_trend = rollapply(win, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,point_diff_trend = rollapply(result, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,points_for_trend = rollapply(points_for, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,win_pct_ats_trend = rollapply(spread_cover, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,point_diff_ats_trend = rollapply(spread_adjusted_result, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,impl_win_prob_trend = rollapply(impl_win_prob, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
-        ,game_info_gain_trend = rollapply(game_info_gain, list(-(4:1)), sum, align = 'right' , fill = NA, partial = T)
-        ,win_prob_captured_trend = rollapply(win_prob_captured, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)) %>%
+         ,point_diff_avg = rollapply(result, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,points_for_avg = rollapply(points_for, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,win_pct_ats_avg = rollapply(spread_cover, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,point_diff_ats_avg = rollapply(spread_adjusted_result, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,impl_win_prob_avg = rollapply(impl_win_prob, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,game_info_gain_avg = rollapply(game_info_gain, list(-(16:1)), sum, align = 'right' , fill = NA, partial = T)
+         ,win_prob_captured_avg = rollapply(win_prob_captured, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,win_pct_trend = rollapply(win, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,point_diff_trend = rollapply(result, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,points_for_trend = rollapply(points_for, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,win_pct_ats_trend = rollapply(spread_cover, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,point_diff_ats_trend = rollapply(spread_adjusted_result, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,impl_win_prob_trend = rollapply(impl_win_prob, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)
+         ,game_info_gain_trend = rollapply(game_info_gain, list(-(4:1)), sum, align = 'right' , fill = NA, partial = T)
+         ,win_prob_captured_trend = rollapply(win_prob_captured, list(-(4:1)), mean, align = 'right' , fill = NA, partial = T)) %>%
   select(game_id
          ,season
          ,week
@@ -181,22 +155,29 @@ trending_fs <- game_df %>%
          ,impl_win_prob_trend
          ,game_info_gain_trend
          ,win_prob_captured_trend
-         )
+  )
 
 pythag_df <- game_df %>%
   group_by(season,team) %>%
   arrange(season,team,week) %>%
   mutate(gms = row_number()-1
-        ,agg_pts_for = cumsum(points_for)
-        ,agg_pts_against = cumsum(points_against)
-        ,pts_for_entering = lag(agg_pts_for)
-        ,pts_against_entering = lag(agg_pts_against)) %>%
+         ,agg_pts_for = cumsum(points_for)
+         ,agg_pts_against = cumsum(points_against)
+         ,pts_for_entering = lag(agg_pts_for)
+         ,pts_against_entering = lag(agg_pts_against)) %>%
   mutate(pythag_win_pct = (pts_for_entering^2.37)/((pts_for_entering^2.37)+(pts_against_entering^2.37))
          ,pythag_wins = pythag_win_pct*gms) %>%
-        ungroup() %>%
+  ungroup() %>%
   select(game_id,team,pythag_win_pct,pythag_wins,gms)
 
 fs_blend <- trending_fs %>% inner_join(pythag_df,by=c('game_id'='game_id','team'='team'))
+```
+
+``` {r}
+fs_blend %>% 
+  select(-matches("_trend")) %>% 
+  filter(season == 2021, week == 18) %>% 
+  arrange(week,desc(pythag_win_pct))
 ```
 
 ``` {r}
@@ -247,17 +228,17 @@ plys %>%
   filter(game_id == '2021_01_DAL_TB',!is.na(epa), !is.na(ep), !is.na(posteam), !is.na(down), play_type == "pass" | play_type == "run" | penalty == 1, qb_kneel != 1) %>%
   group_by(defteam) %>%
   summarise( n()
-            ,sum(qb_epa)
-            ,mean(qb_epa)
-            ,mean(epa)
-            ,sum(epa)
-            ,sum(ep)
-            ,mean(ep))
+             ,sum(qb_epa)
+             ,mean(qb_epa)
+             ,mean(epa)
+             ,sum(epa)
+             ,sum(ep)
+             ,mean(ep))
 plys %>%
   filter(game_id == '2021_01_DAL_TB',!is.na(epa), !is.na(ep), !is.na(posteam), !is.na(down), play_type == "pass" | play_type == "run" | penalty == 1, qb_kneel != 1) %>%
-    group_by(game_id,season,week,posteam) %>%
-    summarise(
-     off_epa = mean(epa)
+  group_by(game_id,season,week,posteam) %>%
+  summarise(
+    off_epa = mean(epa)
     ,off_pass_epa = mean(epa[qb_dropback == 1])
     ,off_rush_epa = mean(epa[qb_dropback == 0])
     ,success_rate = mean(success[!is.na(success)])
@@ -274,7 +255,7 @@ init_oepa_df <- plys %>%
          ,play_type == "pass" | play_type == "run" | penalty == 1, qb_kneel != 1) %>%
   group_by(game_id,season,week,posteam) %>%
   summarise(
-     off_epa = mean(epa)
+    off_epa = mean(epa)
     ,off_pass_epa = mean(epa[qb_dropback == 1])
     ,off_rush_epa = mean(epa[qb_dropback == 0])
     ,success_rate = mean(success[!is.na(success)])
@@ -287,9 +268,7 @@ init_oepa_df <- plys %>%
 
 middle_epa_df <- fs_blend %>% select(-c(win_pct_avg:pythag_wins)) %>%
   left_join(init_oepa_df)
-  
 
-# Create a final EPA DF
 f_epa_df <- middle_epa_df %>%
   group_by(team) %>%
   arrange(team,season,week) %>%
@@ -306,46 +285,48 @@ f_epa_df <- middle_epa_df %>%
     ,r12_rush_epa = rollapply(off_rush_epa, list(-(12:1)), mean, align = 'right' , fill = NA, partial = T)
     ,r12_qb_epa = rollapply(qb_epa, list(-(12:1)), mean, align = 'right' , fill = NA, partial = T)
     ,r12_success_rt = rollapply(success_rate, list(-(12:1)), mean, align = 'right' , fill = NA, partial = T)
-    ,sea_epa_pp = rollapply(off_epa, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+    ,r16_epa_pp = rollapply(off_epa, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+    ,r16_pass_epa = rollapply(off_pass_epa, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+    ,r16_rush_epa = rollapply(off_rush_epa, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+    ,r16_qb_epa = rollapply(qb_epa, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+    ,r16_success_rt = rollapply(success_rate, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
+  ) %>%
+  ungroup() %>%
+  select(-game_id)
+
+sea_epa_df <- middle_epa_df %>%
+  group_by(team,season) %>%
+  arrange(team,season,week) %>%
+  mutate(
+     sea_epa_pp = rollapply(off_epa, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
     ,sea_pass_epa = rollapply(off_pass_epa, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
     ,sea_rush_epa = rollapply(off_rush_epa, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
     ,sea_qb_epa = rollapply(qb_epa, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
     ,sea_success_rt = rollapply(success_rate, list(-(16:1)), mean, align = 'right' , fill = NA, partial = T)
   ) %>%
-  ungroup()
+  ungroup() %>%
+  select(-game_id)
 
-sea_epa_df <- f_epa_df %>%
-  group_by(team,season,week) %>%
-  summarise(
-    ,epa_pp = mean(sea_epa_pp)
-    ,pass_epa = mean(sea_pass_epa)
-    ,rush_epa = mean(sea_rush_epa)
-    ,qb_epa = mean(sea_qb_epa)
-    ,success_rt = mean(sea_success_rt)
-  ) %>%
-  ungroup()
-
+# Create a final EPA DF
 sea_epa_ntiles <- sea_epa_df %>% 
-  filter(season >= 2007) %>% 
-  arrange(-epa_pp) %>% 
+  filter(season >= 2010) %>% 
+  arrange(-sea_epa_pp) %>% 
   mutate(
-    epa_pp_ntile = ntile(epa_pp,100)
-   ,pass_epa_ntile = ntile(pass_epa,100)
-   ,rush_epa_ntile = ntile(rush_epa,100)
-   ,qb_epa_ntile = ntile(qb_epa,100)
-   ,success_rt_ntile = ntile(success_rt,100)
+    epa_pp_ntile = ntile(sea_epa_pp,100)
+   ,pass_epa_ntile = ntile(sea_pass_epa,100)
+   ,rush_epa_ntile = ntile(sea_rush_epa,100)
+   ,qb_epa_ntile = ntile(sea_qb_epa,100)
+   ,success_rt_ntile = ntile(sea_success_rt,100)
   )
 
-f_epa_df %>% filter(team == 'ARI', season >= 2020)
-sea_epa_ntiles %>% filter(team == 'ARI', season >= 2020)
-
-f_epa_df %>% left_join(sea_epa_ntiles, by = c('season','week','team')) %>% filter(team == 'ARI', season >= 2020) %>% select(game_id,season, week, r1_epa_pp, r2_epa_pp, r4_epa_pp, r12_epa_pp, sea_epa_pp, epa_pp,epa_pp_ntile)
-
-fin_epa_df <- f_epa_df %>% left_join(sea_epa_ntiles, by = c('season','week','team'))
-
 fs_final <- fs_blend %>%
-  left_join(fin_epa_df,by = c('game_id','season','week','team')) %>%
-  select(-c(off_epa,off_pass_epa,off_rush_epa,success_rate,cpoe))
+  left_join(sea_epa_ntiles,by = c('season','team','week')) %>%
+  left_join(f_epa_df,by = c('season','team','week'))
+```
+
+``` {r}
+fs_final %>% select(-(game_id)) %>% filter(week == 1 , season == 2021) %>% arrange(-epa_pp_ntile)
+fs_final %>% str()
 ```
 
 
@@ -363,149 +344,169 @@ home_df <- game_features_df %>%
 away_df <- game_features_df %>%
   filter(home == 0)
 game_w_features <- home_df %>% 
-   inner_join(away_df,by=c('game_id'='game_id')) %>%
-   transmute(
-     # BASICS
-       game_id
-      ,gameday = gameday.x
-      ,season = season.x
-      ,week = week.x
-      ,home_team = team.x
-      ,away_team = opposing_team.x 
-      ,spread_line = spread_line.x
-
-      # RESULT
-      ,home_points = points_for.x 
-      ,away_points = points_against.x
-      ,total_points_scored = total_points_scored.x 
-      ,home_result = result.x 
-      ,away_result = result.y
-      ,home_win = win.x
-      ,total_line = total_line.x
-
+  inner_join(away_df,by=c('game_id'='game_id')) %>%
+  transmute(
+    # BASICS
+    game_id
+    ,gameday = gameday.x
+    ,season = season.x
+    ,week = week.x
+    ,home_team = team.x
+    ,away_team = opposing_team.x 
+    ,spread_line = spread_line.x
+    
+    # RESULT
+    ,home_points = points_for.x 
+    ,away_points = points_against.x
+    ,total_points_scored = total_points_scored.x 
+    ,home_result = result.x 
+    ,away_result = result.y
+    ,home_win = win.x
+    ,total_line = total_line.x
+    
     # RESULT DETAILS
-      ,spread_adj_result = spread_adjusted_result.x
-      ,home_spread_cover = spread_cover.x
-      ,away_spread_cover = spread_cover.y
-
+    ,spread_adj_result = spread_adjusted_result.x
+    ,home_spread_cover = spread_cover.x
+    ,away_spread_cover = spread_cover.y
+    
     # TEAM PERFORMANCE METADATA
-      ,home_win_pct_season = win_pct_avg.x
-      ,away_win_pct_season = win_pct_avg.y
-      ,win_pct_season_diff = win_pct_avg.x - win_pct_avg.y
-      ,home_point_diff_season = point_diff_avg.x
-      ,away_point_diff_season = point_diff_avg.y
-      ,point_diff_season_diff = point_diff_avg.x - point_diff_avg.y
-      ,home_win_pct_ats_season = win_pct_ats_avg.x
-      ,away_win_pct_ats_season = win_pct_ats_avg.y
-      ,win_pct_ats_season_diff = win_pct_ats_avg.x - win_pct_ats_avg.y
-      ,home_point_diff_ats_season = point_diff_ats_avg.x
-      ,away_point_diff_ats_season = point_diff_ats_avg.y
-      ,point_diff_ats_season_diff = point_diff_ats_avg.x - point_diff_ats_avg.y
+    ## WIN/LOSS RECORD, POINT DIFF VS EXPECTATION
+    ,home_win_pct_season = win_pct_avg.x
+    ,away_win_pct_season = win_pct_avg.y
+    ,win_pct_season_diff = win_pct_avg.x - win_pct_avg.y
+    ,home_point_diff_season = point_diff_avg.x
+    ,away_point_diff_season = point_diff_avg.y
+    ,point_diff_season_diff = point_diff_avg.x - point_diff_avg.y
+    ,home_win_pct_ats_season = win_pct_ats_avg.x
+    ,away_win_pct_ats_season = win_pct_ats_avg.y
+    ,win_pct_ats_season_diff = win_pct_ats_avg.x - win_pct_ats_avg.y
+    ,home_point_diff_ats_season = point_diff_ats_avg.x
+    ,away_point_diff_ats_season = point_diff_ats_avg.y
+    ,point_diff_ats_season_diff = point_diff_ats_avg.x - point_diff_ats_avg.y
     
-      ,home_win_pct_trend = win_pct_trend.x
-      ,away_win_pct_trend = win_pct_trend.y
-      ,win_pct_trend_diff = win_pct_trend.x - win_pct_trend.y
-      ,home_point_diff_trend = point_diff_trend.x
-      ,away_point_diff_trend = point_diff_trend.y
-      ,point_diff_trend_diff = point_diff_trend.x - point_diff_trend.y
-
-
-      ,home_impl_win_prob_avg = impl_win_prob_avg.x
-      ,away_impl_win_prob_avg = impl_win_prob_avg.y
-      ,home_game_info_gain_avg = game_info_gain_avg.x
-      ,away_game_info_gain_avg = game_info_gain_avg.y
-      ,home_win_prob_captured_avg = win_prob_captured_avg.x
-      ,away_win_prob_captured_avg = win_prob_captured_avg.y
-      ,home_impl_win_prob_trend = impl_win_prob_trend.x
-      ,away_impl_win_prob_trend = impl_win_prob_trend.y
-      ,impl_win_prob_trend_diff = impl_win_prob_trend.x - impl_win_prob_trend.y
-      ,home_game_info_gain_trend = game_info_gain_trend.x
-      ,away_game_info_gain_trend = game_info_gain_trend.y
-      ,game_info_gain_trend_diff = game_info_gain_trend.x - game_info_gain_trend.y
-      ,home_win_prob_captured_trend = win_prob_captured_trend.x
-      ,away_win_prob_captured_trend = win_prob_captured_trend.y
-      ,win_prob_captured_trend_diff = win_prob_captured_trend.x - win_prob_captured_trend.y
-          
-      ,home_pythag_win_pct = pythag_win_pct.x
-      ,away_pythag_win_pct = pythag_win_pct.y
-      ,pythag_win_pct_diff = pythag_win_pct.x - pythag_win_pct.y
-      ,home_pythag_wins = pythag_wins.x
-      ,away_pythag_wins = pythag_wins.y
-      ,pythag_win_diff = pythag_wins.x - pythag_wins.y
+    ## WIN/LOSS TREND
+    ,home_win_pct_trend = win_pct_trend.x
+    ,away_win_pct_trend = win_pct_trend.y
+    ,win_pct_trend_diff = win_pct_trend.x - win_pct_trend.y
+    ,home_point_diff_trend = point_diff_trend.x
+    ,away_point_diff_trend = point_diff_trend.y
+    ,point_diff_trend_diff = point_diff_trend.x - point_diff_trend.y
     
-      ,home_moneyline = home_moneyline.x
-      ,away_moneyline = away_moneyline.x
-      ,moneyline_diff = home_moneyline.x - away_moneyline.x
-      ,home_spread_odds = home_spread_odds.x
-      ,away_spread_odds = away_spread_odds.x
-      ,spread_odds_diff = home_spread_odds.x - away_spread_odds.x
-      ,home_impl_win_prob = impl_win_prob.x
-      ,away_impl_win_prob = impl_win_prob.y
-      ,impl_win_prob_diff = impl_win_prob.x - impl_win_prob.y
+    ## MARKET IMPLIED WIN PCT
+    ,home_impl_win_prob_avg = impl_win_prob_avg.x
+    ,away_impl_win_prob_avg = impl_win_prob_avg.y
+    ,home_game_info_gain_avg = game_info_gain_avg.x
+    ,away_game_info_gain_avg = game_info_gain_avg.y
+    ,home_win_prob_captured_avg = win_prob_captured_avg.x
+    ,away_win_prob_captured_avg = win_prob_captured_avg.y
+    ,home_impl_win_prob_trend = impl_win_prob_trend.x
+    ,away_impl_win_prob_trend = impl_win_prob_trend.y
+    ,impl_win_prob_trend_diff = impl_win_prob_trend.x - impl_win_prob_trend.y
+    ,home_game_info_gain_trend = game_info_gain_trend.x
+    ,away_game_info_gain_trend = game_info_gain_trend.y
+    ,game_info_gain_trend_diff = game_info_gain_trend.x - game_info_gain_trend.y
+    ,home_win_prob_captured_trend = win_prob_captured_trend.x
+    ,away_win_prob_captured_trend = win_prob_captured_trend.y
+    ,win_prob_captured_trend_diff = win_prob_captured_trend.x - win_prob_captured_trend.y
     
-      ,home_r1_epa_pp = r1_epa_pp.x
-      ,home_r2_epa_pp = r2_epa_pp.x
-      ,home_r4_epa_pp = r4_epa_pp.x
-      ,home_r4_pass_epa = r4_pass_epa.x
-      ,home_r4_rush_epa = r4_rush_epa.x
-      ,home_r4_qb_epa = r4_qb_epa.x
-      ,home_r4_success_rt = r4_success_rt.x
-      ,home_r12_epa_pp = r12_epa_pp.x
-      ,home_r12_pass_epa = r12_pass_epa.x
-      ,home_r12_rush_epa = r12_rush_epa.x
-      ,home_r12_qb_epa = r12_qb_epa.x
-      ,home_r12_success_rt = r12_success_rt.x
-      ,home_epa_pp_ntile = epa_pp_ntile.x
-      ,home_pass_epa_ntile = pass_epa_ntile.x
-      ,home_rush_epa_ntile = rush_epa_ntile.x
-      ,home_qb_epa_ntile = qb_epa_ntile.x
-      ,home_success_rt_ntile = success_rt_ntile.x
+    ## PYTHAG EXPECTATION
+    ,home_pythag_win_pct = pythag_win_pct.x
+    ,away_pythag_win_pct = pythag_win_pct.y
+    ,pythag_win_pct_diff = pythag_win_pct.x - pythag_win_pct.y
+    ,home_pythag_wins = pythag_wins.x
+    ,away_pythag_wins = pythag_wins.y
+    ,pythag_win_diff = pythag_wins.x - pythag_wins.y
     
-      ,away_r1_epa_pp = r1_epa_pp.y
-      ,away_r2_epa_pp = r2_epa_pp.y
-      ,away_r4_epa_pp = r4_epa_pp.y
-      ,away_r4_pass_epa = r4_pass_epa.y
-      ,away_r4_rush_epa = r4_rush_epa.y
-      ,away_r4_qb_epa = r4_qb_epa.y
-      ,away_r4_success_rt = r4_success_rt.y
-      ,away_r12_epa_pp = r12_epa_pp.y
-      ,away_r12_pass_epa = r12_pass_epa.y
-      ,away_r12_rush_epa = r12_rush_epa.y
-      ,away_r12_qb_epa = r12_qb_epa.y
-      ,away_r12_success_rt = r12_success_rt.y
-      ,away_epa_pp_ntile = epa_pp_ntile.y
-      ,away_pass_epa_ntile = pass_epa_ntile.y
-      ,away_rush_epa_ntile = rush_epa_ntile.y
-      ,away_qb_epa_ntile = qb_epa_ntile.y
-      ,away_success_rt_ntile = success_rt_ntile.y
+    ## SPORTSBOOK ODDS
+    ,home_moneyline = home_moneyline.x
+    ,away_moneyline = away_moneyline.x
+    ,moneyline_diff = home_moneyline.x - away_moneyline.x
+    ,home_spread_odds = home_spread_odds.x
+    ,away_spread_odds = away_spread_odds.x
+    ,spread_odds_diff = home_spread_odds.x - away_spread_odds.x
+    ,home_impl_win_prob = impl_win_prob.x
+    ,away_impl_win_prob = impl_win_prob.y
+    ,impl_win_prob_diff = impl_win_prob.x - impl_win_prob.y
     
-      ,r1_epa_pp_diff = r1_epa_pp.x - r1_epa_pp.y
-      ,r2_epa_pp_diff = r2_epa_pp.x - r2_epa_pp.y
-      ,r4_epa_pp_diff = r4_epa_pp.x - r4_epa_pp.y
-      ,r4_pass_epa_diff = r4_pass_epa.x - r4_pass_epa.y
-      ,r4_rush_epa_diff = r4_rush_epa.x - r4_rush_epa.y
-      ,r4_qb_epa_diff = r4_qb_epa.x - r4_qb_epa.y
-      ,r4_success_rt_diff = r4_success_rt.x - r4_success_rt.y
-      ,r12_epa_pp_diff = r12_epa_pp.x - r12_epa_pp.y
-      ,r12_pass_epa_diff = r12_pass_epa.x - r12_pass_epa.y
-      ,r12_rush_epa_diff = r12_rush_epa.x - r12_rush_epa.y
-      ,r12_qb_epa_diff = r12_qb_epa.x - r12_qb_epa.y
-      ,r12_success_rt_diff = r12_success_rt.x - r12_success_rt.y
-      ,epa_pp_ntile_diff = epa_pp_ntile.x - epa_pp_ntile.y
-      ,pass_epa_ntile_diff = pass_epa_ntile.x - pass_epa_ntile.y
-      ,rush_epa_ntile_diff = rush_epa_ntile.x - rush_epa_ntile.y
-      ,qb_epa_ntile_diff = qb_epa_ntile.x - qb_epa_ntile.y
-      ,success_rt_ntile_diff = success_rt_ntile.x - success_rt_ntile.y
-
+    ## PLAY-BY-PLAY ANALYSIS
+    ,home_r1_epa_pp = r1_epa_pp.x
+    ,home_r2_epa_pp = r2_epa_pp.x
+    ,home_r4_epa_pp = r4_epa_pp.x
+    ,home_r4_pass_epa = r4_pass_epa.x
+    ,home_r4_rush_epa = r4_rush_epa.x
+    ,home_r4_qb_epa = r4_qb_epa.x
+    ,home_r4_success_rt = r4_success_rt.x
+    ,home_r12_epa_pp = r12_epa_pp.x
+    ,home_r12_pass_epa = r12_pass_epa.x
+    ,home_r12_rush_epa = r12_rush_epa.x
+    ,home_r12_qb_epa = r12_qb_epa.x
+    ,home_r12_success_rt = r12_success_rt.x
+    ,home_r16_epa_pp = r16_epa_pp.x
+    ,home_r16_pass_epa = r16_pass_epa.x
+    ,home_r16_rush_epa = r16_rush_epa.x
+    ,home_r16_qb_epa = r16_qb_epa.x
+    ,home_r16_success_rt = r16_success_rt.x
+    ,home_epa_pp_ntile= epa_pp_ntile.x
+    ,home_pass_epa_ntile = pass_epa_ntile.x
+    ,home_rush_epa_ntile = rush_epa_ntile.x
+    ,home_qb_epa_ntile = qb_epa_ntile.x
+    ,home_success_rt_ntile = success_rt_ntile.x
+    
+    ,away_r1_epa_pp = r1_epa_pp.y
+    ,away_r2_epa_pp = r2_epa_pp.y
+    ,away_r4_epa_pp = r4_epa_pp.y
+    ,away_r4_pass_epa = r4_pass_epa.y
+    ,away_r4_rush_epa = r4_rush_epa.y
+    ,away_r4_qb_epa = r4_qb_epa.y
+    ,away_r4_success_rt = r4_success_rt.y
+    ,away_r12_epa_pp = r12_epa_pp.y
+    ,away_r12_pass_epa = r12_pass_epa.y
+    ,away_r12_rush_epa = r12_rush_epa.y
+    ,away_r12_qb_epa = r12_qb_epa.y
+    ,away_r12_success_rt = r12_success_rt.y
+    ,away_r16_epa_pp = r16_epa_pp.y
+    ,away_r16_pass_epa = r16_pass_epa.y
+    ,away_r16_rush_epa = r16_rush_epa.y
+    ,away_r16_qb_epa = r16_qb_epa.y
+    ,away_r16_success_rt = r16_success_rt.y
+    ,away_epa_pp_ntile= epa_pp_ntile.y
+    ,away_pass_epa_ntile = pass_epa_ntile.y
+    ,away_rush_epa_ntile = rush_epa_ntile.y
+    ,away_qb_epa_ntile = qb_epa_ntile.y
+    ,away_success_rt_ntile = success_rt_ntile.y
+    
+    ,r1_epa_pp_diff = r1_epa_pp.x - r1_epa_pp.y
+    ,r2_epa_pp_diff = r2_epa_pp.x - r2_epa_pp.y
+    ,r4_epa_pp_diff = r4_epa_pp.x - r4_epa_pp.y
+    ,r4_pass_epa_diff = r4_pass_epa.x - r4_pass_epa.y
+    ,r4_rush_epa_diff = r4_rush_epa.x - r4_rush_epa.y
+    ,r4_qb_epa_diff = r4_qb_epa.x - r4_qb_epa.y
+    ,r4_success_rt_diff = r4_success_rt.x - r4_success_rt.y
+    ,r12_epa_pp_diff = r12_epa_pp.x - r12_epa_pp.y
+    ,r12_pass_epa_diff = r12_pass_epa.x - r12_pass_epa.y
+    ,r12_rush_epa_diff = r12_rush_epa.x - r12_rush_epa.y
+    ,r12_qb_epa_diff = r12_qb_epa.x - r12_qb_epa.y
+    ,r12_success_rt_diff = r12_success_rt.x - r12_success_rt.y
+    ,r16_epa_pp_diff = r16_epa_pp.x - r16_epa_pp.y
+    ,r16_pass_epa_diff = r16_pass_epa.x - r16_pass_epa.y
+    ,r16_rush_epa_diff = r16_rush_epa.x - r16_rush_epa.y
+    ,r16_qb_epa_diff = r16_qb_epa.x - r16_qb_epa.y
+    ,r16_success_rt_diff = r16_success_rt.x - r16_success_rt.y
+    ,epa_pp_ntile_diff = epa_pp_ntile.x - epa_pp_ntile.y
+    ,pass_epa_ntile_diff  = pass_epa_ntile.x - pass_epa_ntile.y
+    ,rush_epa_ntile_diff  = rush_epa_ntile.x - rush_epa_ntile.y
+    ,qb_epa_ntile_diff  = qb_epa_ntile.x - qb_epa_ntile.y
+    ,success_rt_ntile_diff  = success_rt_ntile.x - success_rt_ntile.y
+    
     # MATCHUP METADATA
-      ,weekday = weekday.x
-      ,gameday = gameday.x
-      ,gametime = gametime.x
-      ,div_game = div_game.x
-      ,home_rest = team_rest.x 
-      ,away_rest = opponent_rest.x 
-      ,rest_diff = rest_diff.x
-   )
+    ,weekday = weekday.x
+    ,gameday = gameday.x
+    ,gametime = gametime.x
+    ,div_game = div_game.x
+    ,home_rest = team_rest.x 
+    ,away_rest = opponent_rest.x 
+    ,rest_diff = rest_diff.x
+  )
 ```
 
 ### Add Fivethirtyeight Elo scores and probabilities
@@ -532,7 +533,8 @@ fte <- fullElo %>%
   select(gameday,season,team1,team2,elo1_pre,elo2_pre,elo_prob1) %>%
   as_tibble()
 
-gm_df <- game_w_features %>%
+gm_df <- game_w_features %>% 
+  filter(week <= 17 | (season >= '2021' & week >= '18')) %>%
   dplyr::mutate(
     home_team = gsub('OAK','LV',home_team),
     away_team = gsub('OAK','LV',away_team),
@@ -543,6 +545,8 @@ gm_df <- game_w_features %>%
     gameday = lubridate::as_date(gameday))
 
 game_w_features <- gm_df %>%
+  filter(week <= 17 | (season == '2021' & week >= '18')) %>%
+  # mutate(gameday = lubridate::as_date(gameday)) %>%
   left_join(fte, by=c('gameday'='gameday','home_team'='team1','away_team'='team2',"season"))
 
 # spit out a CSV 
