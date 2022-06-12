@@ -1,0 +1,261 @@
+---
+title: "NFL Score Prediction Model"
+author: "Wade Fuller"
+date: "06/12/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+  
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
+                      message = FALSE, dpi = 180,
+                      fig.width = 8, fig.height = 5)
+knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/pred/")
+library(tidymodels)
+library(doParallel)
+library(recipeselectors)
+game_w_features <- read.csv(paste0("~/Documents/Scripts/R/pred/game_w_features.csv"))
+```
+
+## Make the model
+
+# Build a Model
+Here, I experiment with the `tidymodels` package to create this model. This is an easy interface to create, train, and tune machine learning models. Ill try to fit an xgboost model for this one. 
+
+```{r}
+gm_fts_only <- game_w_features %>%
+  filter(is.na(home_result) == FALSE, season >= 2010) %>%
+  select(-c('X','game_id','gameday','home_team','away_team','away_result','home_points','away_points','home_result','total_points_scored','spread_adj_result','home_spread_cover','away_spread_cover','gametime')) %>%
+    mutate(home_result = as.factor(home_win),season = as.factor(season), week = as.factor(week), weekday = as.factor(weekday), div_game = as.factor(div_game)) %>% select(-home_win)
+set.seed(989)
+gm_split <- initial_split(gm_fts_only,strata = 'home_result')
+gm_train <- training(gm_split)
+gm_test <- testing(gm_split)
+```
+
+Define the various hyperparameters. These will be tuned in the section after this one.
+
+```{r}
+xgb_spec <- boost_tree(
+  trees = 500
+  ,tree_depth = tune()
+  ,min_n = tune()
+  ,loss_reduction = tune()
+  ,sample_size = tune()
+  ,mtry = tune()
+  ,learn_rate = tune()
+) %>%
+  set_engine("xgboost") %>%
+  set_mode("classification")
+xgb_spec
+```
+
+Define a grid to tune the hyperparameters.
+
+```{r}
+xgb_grid <- grid_latin_hypercube(
+  tree_depth(),
+  min_n(),
+  loss_reduction(),
+  sample_size = sample_prop(),
+  finalize(mtry(), gm_train),
+  learn_rate(),
+  size = 40
+)
+xgb_grid
+```
+Define a workflow for the xgboost model.
+
+```{r}
+# rfe_model <- rand_forest(mode = 'classification') %>% set_engine('ranger',importance = 'impurity')
+model_rec <- gm_train %>%
+  recipe(home_result ~ .) %>%
+  step_impute_mean(all_numeric_predictors()) %>%
+  step_nzv(all_numeric_predictors()) %>%
+  # step_center(all_numeric_predictors()) %>%
+  # step_scale(all_numeric_predictors()) %>%
+  step_dummy(all_nominal_predictors(),-all_outcomes(),one_hot = TRUE)
+  # step_select_vip(all_predictors(),outcome = 'home_result', model = rfe_model,threshold = .8)
+
+c_metrics <- metric_set(roc_auc,mn_log_loss)
+
+xgb_wf <- workflow() %>%
+  add_model(xgb_spec) %>%
+  add_recipe(model_rec)
+xgb_wf
+```
+
+```{r}
+model_rec %>% 
+  prep() %>% 
+  juice() %>% 
+  select(-home_result) %>%
+  cor() %>% 
+  as_tibble(rownames = "features") %>% 
+  pivot_longer(-features) %>% 
+  drop_na() %>% 
+  filter(features > name) %>% 
+  arrange(desc(abs(value)))
+```
+Define the cross validation pattern. In this case I am using a 10-fold pattern.
+
+```{r}
+set.seed(989)
+gm_folds <- vfold_cv(gm_train)
+gm_folds
+```
+Enable parallel processing and run the model.
+Log Loss: .6921
+ROC:      .7035
+```{r}
+doParallel::registerDoParallel()
+
+set.seed(989)
+xgb_res <- tune_grid(
+  xgb_wf,
+  resamples = gm_folds,
+  grid = xgb_grid,
+  metrics = c_metrics,
+  control = control_grid(save_pred = TRUE, verbose = TRUE)
+)
+
+collect_metrics(xgb_res)
+```
+Visualize the hyper parameter grid outcomes for RMSE.
+
+```{r}
+xgb_res %>%
+  collect_metrics() %>%
+  filter(.metric == "roc_auc") %>%
+  select(mean, mtry:sample_size) %>%
+  pivot_longer(mtry:sample_size,
+               values_to = "value",
+               names_to = "parameter"
+  ) %>%
+  ggplot(aes(value, mean, color = parameter)) +
+  geom_point(alpha = 0.8, show.legend = FALSE) +
+  facet_wrap(~parameter, scales = "free_x") +
+  labs(x = NULL, y = "Rmse")
+```
+Determine the best model to use based on the target metric: RMSE
+
+```{r}
+show_best(xgb_res)
+best_auc <- select_best(xgb_res, "roc_auc")
+best_lgls <- select_best(xgb_res, "mn_log_loss")
+best_auc
+best_lgls
+```
+Finalize the workflow with our best model.
+
+```{r}
+final_xgb_auc <- finalize_workflow(
+  xgb_wf,
+  best_auc
+)
+
+final_xgb_lgls <- finalize_workflow(
+  xgb_wf,
+  best_lgls
+)
+
+final_xgb_lgls
+final_xgb_auc
+```
+
+Leverage the finalized workflow to fit training data and identify the most important variables.
+
+```{r}
+final_xgb_lgls %>%
+  fit(data = gm_train) %>%
+  pull_workflow_fit() %>%
+  vip(geom = "col", num_features = 30, include_type = TRUE, aesthetics = list(fill = "midnightblue", alpha = .9))
+ggsave("feat_importance_plot_class.jpg",path = paste0(wd,"/pred/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
+```
+Run the model on all data and observe the key metrics.
+
+```{r}
+##      AUC: .7275 // Accuracy: .6820
+##      AUC: .7127 // Accuracy: .6661
+## RFE: AUC: .7309 // Accuracy: .6660
+## 4/18/22: AUC: .6929 // Accuracy: .6339
+## 4/18/22: AUC: .6834 // Accuracy: .6404 <- expanded trees, 2010
+final_preds_auc <- last_fit(final_xgb_auc, gm_split)
+final_preds_lgls <- last_fit(final_xgb_lgls, gm_split)
+collect_metrics(final_preds_auc)
+collect_metrics(final_preds_lgls)
+
+score_preds_auc <- final_preds_auc %>% collect_predictions() %>% rename(auc_pred = .pred_1)
+score_preds_lgls <- final_preds_lgls %>% collect_predictions() %>% rename(lgls_pred = .pred_1)
+```
+
+Plot the output of the predictions. Log Loss is a better model for what we're trying to accomplish in this case (probability predictions)
+
+```{r}
+score_preds_lgls %>%
+  ggplot() +
+  geom_density(aes(x = lgls_pred),alpha = 1)
+
+score_preds_auc %>%
+  ggplot() +
+  geom_density(aes(x = auc_pred),alpha = 1)
+```
+Run the model on all of the data.
+
+```{r}
+pred_score_model <- fit(final_xgb_lgls, gm_fts_only)
+pred_score_model
+```
+Clean up the data frame and prepare for visualization.
+
+```{r}
+model_preds <- predict(pred_score_model, new_data = gm_fts_only, type = 'prob')
+game_w_preds <- game_w_features %>%
+  filter(is.na(home_result) == FALSE, season >= 2010) %>%
+  bind_cols(model_preds) %>%
+  rename(pred_win_pct = .pred_1) %>%
+  transmute(
+    game_id
+    ,pred_winner = if_else(pred_win_pct>.5,home_team,away_team)
+    ,pred_win_pct
+    ,home_result
+    # ,pred_score_error
+    ,spread_line
+    # ,spread_adj_result
+    ,home_spread_cover
+    ,away_spread_cover
+    ,home_team
+    ,away_team
+    ,season
+    ,week
+  )
+game_pred_df <- game_w_preds %>%
+  transmute(
+    game_id
+    ,home_result
+    ,spread_line
+    ,pred_winner
+    ,pred_win_pct
+    # ,pred_score_error
+    # ,spread_error = (-1*spread_line) - home_result
+    # ,spread_adj_result
+    # ,spread_adj_winner = if_else(-1*spread_line + home_result > 0,home_team,away_team)
+    # ,pred_spread_adj_winner = if_else(pred_score + home_result > 0,home_team,away_team)
+    ,home_spread_cover = home_spread_cover
+    ,away_spread_cover = away_spread_cover
+    ,home_team = home_team
+    ,away_team = away_team
+    ,season
+    ,week
+  )
+summary(game_pred_df)
+```
+
+Save the model for later.
+
+```{r}
+nfl_predictor_model_class <- final_preds_lgls$.workflow[[1]]
+saveRDS(nfl_predictor_model_class, paste0("~/Documents/Scripts/R/pred/nfl_predictor_model_class.rds"))
+```
