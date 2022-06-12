@@ -1,7 +1,7 @@
 ---
 title: "NFL Score Prediction Model: Make a Prediction"
 author: "Wade Fuller"
-date: "06/12/2022"
+date: "03/03/2021"
 output:
   pdf_document: default
   html_document: default
@@ -14,6 +14,9 @@ library(recipeselectors)
 library(knitr)
 library(dplyr)
 library(googlesheets4)
+library(googlesheets)
+library(ggplot2)
+library(ggrepel)
 knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
                       message = FALSE, dpi = 180,
                       fig.width = 8, fig.height = 5)
@@ -28,14 +31,15 @@ nfl_predictor_model_class <- readRDS("~/Documents/Scripts/R/pred/nfl_predictor_m
 #Use the model to predict the current week.
 
 ```{r}
-cur_wk <- game_w_features %>% filter(week == 22 & season == 2021)
+wk_num <- 17
+cur_wk <- game_w_features %>% filter(week == wk_num & season == 2021)
 cur_wk_reg <- cur_wk %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
 cur_wk_class <- cur_wk %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
 cur_wk_preds <- predict(nfl_predictor_model, new_data = cur_wk_reg)
-cur_wk_preds_class <- predict(nfl_predictor_model_class, new_data = cur_wk_class, type = 'prob')
+cur_wk_class_w_reg <- cbind(cur_wk_class,cur_wk_preds) %>% rename(nfl_predictor_line = .pred)
+cur_wk_preds_class <- predict(nfl_predictor_model_class, new_data = cur_wk_class_w_reg, type = 'prob')
 cur_wk_preds_class <- cur_wk_preds_class %>% transmute(pred_win_pct = .pred_1)
-cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>% bind_cols(cur_wk_preds_class) %>% 
-  rename(score_pred = .pred) %>%
+cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>% rename(nfl_predictor_line = .pred) %>% bind_cols(cur_wk_preds_class) %>%
   transmute(
           game_id
          ,home_team
@@ -43,8 +47,8 @@ cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>% bind_cols(cur_wk_preds_cla
          ,pred_winner = if_else(pred_win_pct>.5,home_team,away_team)
          ,pred_win_pct_adj = round(if_else(pred_win_pct>.5,pred_win_pct,1-pred_win_pct),2)
          ,home_win_pct = round(pred_win_pct,2)
-         ,pred_spread_adj_winner = if_else(score_pred + spread_line > 0,home_team,away_team)
-         ,score_pred = round(score_pred,1)
+         ,pred_spread_adj_winner = if_else(nfl_predictor_line + spread_line > 0,home_team,away_team)
+         ,nfl_predictor_line = round(nfl_predictor_line,1)
          ,spread_line
          ,total_line
          )
@@ -54,4 +58,77 @@ season_wk <- paste0("season_",cur_wk$season,"_wk_",cur_wk$week,'_curdate_',Sys.D
 # sheet_write(cur_wk_pred, ss = sht, sheet = season_wk)
 # googlesheets4::gs4_create("nfl_game_preds_2021", sheets = cur_wk_pred)
 googlesheets4::sheet_write(cur_wk_pred,ss = 'https://docs.google.com/spreadsheets/d/12paws_yDTUoXUsKpNcSzFGTxBtXsHzpRAG5RcBj0jX8/edit?usp=sharing',sheet = season_wk)
+```
+
+```{r}
+ytd_gms <- game_w_features %>% filter(week <= wk_num & season == 2021)
+ytd_reg <- ytd_gms %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
+ytd_class <- ytd_gms %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
+ytd_preds <- predict(nfl_predictor_model, new_data = ytd_reg)
+ytd_class_w_reg <- cbind(ytd_class,ytd_preds) %>% rename(nfl_predictor_line = .pred)
+ytd_preds_class <- predict(nfl_predictor_model_class, new_data = ytd_class_w_reg, type = 'prob')
+ytd_preds_class <- ytd_preds_class %>% transmute(pred_win_pct = .pred_1)
+ytd_pred <- ytd_gms %>% bind_cols(ytd_preds) %>% rename(nfl_predictor_line = .pred) %>% bind_cols(ytd_preds_class) %>%
+  transmute(
+          game_id
+         ,season
+         ,week
+         ,home_team
+         ,away_team
+         ,pred_win_pct_adj = round(if_else(pred_win_pct>.5,pred_win_pct,1-pred_win_pct),2)
+         ,home_win_pct = round(pred_win_pct,2)
+         ,pred_spread_adj_winner = if_else(nfl_predictor_line + spread_line > 0,home_team,away_team)
+         ,nfl_predictor_line = round(nfl_predictor_line,1)
+         ,spread_line
+         ,total_line
+         ,home_result
+         ,home_win
+         ,winning_team = if_else(home_win == 1,home_team,away_team)
+         ,wf_pred_winner = if_else(pred_win_pct>.5,home_team,away_team)
+         ,wf_correct_pred = if_else(wf_pred_winner==winning_team,1,0)
+         ,fte_pred_winner = if_else(elo_prob1>.5,home_team,away_team) 
+         ,fte_correct_pred = if_else(fte_pred_winner==winning_team,1,0)
+         ,veg_pred_winner = if_else(spread_line<0,home_team,away_team) 
+         ,veg_correct_pred = if_else(veg_pred_winner==winning_team,1,0)
+         )
+ytd_tbl <- ytd_pred %>%
+  group_by(season,week) %>%
+  arrange(-season,week) %>%
+  summarise(gms = n()
+           ,wk_wf_correct = sum(wf_correct_pred)
+           ,wk_veg_correct = sum(veg_correct_pred)
+           ,wk_fte_correct = sum(fte_correct_pred)
+           ,wk_wf_accuracy = mean(wf_correct_pred)
+           ,wk_veg_accuracy = mean(veg_correct_pred)
+           ,wk_fte_accuracy = mean(fte_correct_pred)
+           ) %>%
+  ungroup() %>%
+  mutate(cml_gms = cumsum(gms)
+        ,cml_wf_correct = cumsum(wk_wf_correct)
+        ,cml_veg_correct = cumsum(wk_veg_correct)
+        ,cml_fte_correct = cumsum(wk_fte_correct)
+        ,cml_wf_accuracy = cml_wf_correct/cml_gms
+        ,cml_veg_accuracy = cml_veg_correct/cml_gms
+        ,cml_fte_accuracy = cml_fte_correct/cml_gms
+  )
+ytd_gg <- ytd_tbl %>%
+  ggplot(aes(x=interaction(season, week, lex.order = TRUE), group = 1)) +
+  geom_line(aes(y = cml_wf_accuracy, colour = 'cml_wf_accuracy')) +
+  geom_line(aes(y = cml_veg_accuracy, colour = 'cml_veg_accuracy')) +
+  geom_line(aes(y = cml_fte_accuracy, colour = 'cml_fte_accuracy')) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90)) +
+  scale_y_continuous(labels = scales::percent) +
+  ggtitle("Model Accuracy: NFLPredictor vs Vegas vs Fivethirtyeight",subtitle = "2021 seasons") +
+  labs(y= "Cumulative Prediction Performance", x = "Season.Week") +
+  scale_colour_manual("", 
+    values = c("cml_wf_accuracy"="steelblue", "cml_veg_accuracy"="darkred", "cml_fte_accuracy"="darkgreen"))
+ytd_gg
+#sht <- gs4_find("nfl_game_preds_2021")
+#season_wk <- paste0("season_",cur_wk$season,"_wk_",cur_wk$week,'_curdate_',Sys.Date())[[1]]
+#sheet_write(ytd_tbl, ss = sht, sheet = season_wk)
+#x <- gs_edit_cells(ss=sht, ws = season_wk, input='=IMAGE("https://i.stack.imgur.com/FrDZc.jpg")')
+
+cml_perf <- "Prediction Performance"
+googlesheets4::sheet_write(ytd_tbl,ss = 'https://docs.google.com/spreadsheets/d/12paws_yDTUoXUsKpNcSzFGTxBtXsHzpRAG5RcBj0jX8/edit?usp=sharing',sheet = cml_perf)
 ```
