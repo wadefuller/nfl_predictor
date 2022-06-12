@@ -1,7 +1,7 @@
 ---
 title: "NFL Score Prediction Model"
 author: "Wade Fuller"
-date: "03/03/2021"
+date: "06/12/2022"
 output:
   pdf_document: default
   html_document: default
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
 knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/pred/")
 library(tidymodels)
 library(doParallel)
-game_w_features <- read.csv(paste0(wd,"/pred/data/game_w_features.csv"))
+game_w_features <- read.csv(paste0("~/Documents/Scripts/R/pred/game_w_features.csv"))
 ```
 
 ## Make the model
@@ -25,43 +25,11 @@ Here, I experiment with the `tidymodels` package to create this model. This is a
 
 ```{r}
 gm_fts_only <- game_w_features %>%
-  filter(is.na(home_result) == FALSE) %>%
-  select( 
-       home_result
-      ,season
-      ,week
-      ,spread_line
-      ,home_moneyline
-      ,moneyline_diff
-      ,home_spread_odds
-      ,spread_odds_diff
-      ,home_win_pct_season
-      ,win_pct_season_diff
-      ,home_point_diff_season
-      ,point_diff_season_diff
-      ,home_win_pct_trend
-      ,win_pct_trend_diff
-      ,home_point_diff_trend
-      ,point_diff_trend_diff
-      ,home_win_pct_ats_season
-      ,win_pct_ats_season_diff
-      ,home_point_diff_ats_season
-      ,point_diff_ats_season_diff
-     #,home_rest
-      ,rest_diff
-     #,div_game
-      ,elo1_pre
-      ,elo2_pre
-      ,elo_prob1
-      ,home_pythag_win_pct
-      ,away_pythag_win_pct
-      ,pythag_win_pct_diff
-      ,home_pythag_wins
-      ,away_pythag_wins
-      ,pythag_win_diff
-  )
+  filter(is.na(home_result) == FALSE, season > 2006) %>%
+  select(-c('X','game_id','gameday','home_team','away_team','away_result','home_points','away_points','home_win','total_points_scored','spread_adj_result','home_spread_cover','away_spread_cover','gametime')) %>%
+  mutate(season = as.factor(season), week = as.factor(week), weekday = as.factor(weekday), div_game = as.factor(div_game))
 set.seed(989)
-gm_split <- initial_split(gm_fts_only,strata = 'home_result')
+gm_split <- initial_split(gm_fts_only, strata = home_result)
 gm_train <- training(gm_split)
 gm_test <- testing(gm_split)
 ```
@@ -70,13 +38,14 @@ Define the various hyperparameters. These will be tuned in the section after thi
 
 ```{r}
 xgb_spec <- boost_tree(
-  trees = 1000
+  trees = 300
   ,tree_depth = tune()
   ,min_n = tune()
   ,loss_reduction = tune()
   ,sample_size = tune()
   ,mtry = tune()
   ,learn_rate = tune()
+  # ,stop_iter = tune() 
   ) %>%
   set_engine("xgboost") %>%
   set_mode("regression")
@@ -93,6 +62,7 @@ xgb_grid <- grid_latin_hypercube(
   sample_size = sample_prop(),
   finalize(mtry(), gm_train),
   learn_rate(),
+  # stop_iter(),
   size = 30
 )
 xgb_grid
@@ -100,18 +70,60 @@ xgb_grid
 Define a workflow for the xgboost model.
 
 ```{r}
-xgb_wf <- workflow() %>%
-  add_formula(home_result ~ .) %>%
-  add_model(xgb_spec)
+rfe_model <- rand_forest(mode = 'regression') %>% set_engine('ranger',importance = 'impurity')
+model_rec <-
+  recipe(home_result ~ ., data = gm_train) %>%
+  step_impute_mean(all_numeric_predictors(),-all_outcomes())%>%
+  step_nzv(all_numeric_predictors(),-all_outcomes()) %>%
+  step_dummy(all_nominal_predictors(),-all_outcomes(),one_hot = TRUE) %>%
+  step_select_vip(all_predictors(),outcome = 'home_result', model = rfe_model,threshold = .8)
+model_rec %>% prep() %>% juice() %>% summary()
 
-xgb_wf
+c_metrics <- metric_set(rmse,mae,rsq)
+
+xgb_wf <- workflow() %>%
+  add_model(xgb_spec) %>%
+  add_recipe(model_rec)
+```
+
+```{r}
+# library(ggforce)
+# plot_test_results <- function(recipe, dat = gm_test) {
+#   recipe %>%
+#     prep() %>%
+#     bake(new_data = dat) %>%
+#     ggplot() +
+#     geom_autopoint(aes(color = home_result), alpha = 0.4, size = 0.5) +
+#     geom_autodensity(alpha = .3) +
+#     facet_matrix(vars(-home_result), layer.diag = 2) +
+#     scale_color_distiller(palette = "BuPu", direction = 1) +
+#     labs(color = "Home Result")
+# }
+# 
+# model_rec_trained %>%
+#   step_pca(all_numeric_predictors(), num_comp = 20) %>%
+#   plot_test_results() +
+#   ggtitle("Principal Component Analysis")
+# 
+# 
+# model_rec_trained %>%
+#   step_pca(all_numeric_predictors(), num_comp = 10) %>%
+#   prep() %>%
+#   tidy(number = 6) %>%
+#   filter(component %in% paste0("PC", 1:10)) %>%
+#   group_by(component) %>%
+#   slice_max(abs(value), n = 5) %>%
+#   ungroup() %>%
+#   ggplot(aes(abs(value), terms, fill = value > 0)) +
+#   geom_col(alpha = 0.8) +
+#   facet_wrap(vars(component), scales = "free_y") +
+#   labs(x = "Contribution to principal component", y = NULL, fill = "Positive?")
 ```
 Define the cross validation pattern. In this case I am using a 10-fold pattern.
 
 ```{r}
 set.seed(989)
 gm_folds <- vfold_cv(gm_train)
-
 gm_folds
 ```
 Enable parallel processing and run the model.
@@ -120,15 +132,37 @@ RSQ:  .1731
 ```{r}
 doParallel::registerDoParallel()
 
-set.seed(234)
+set.seed(989)
 xgb_res <- tune_grid(
   xgb_wf,
   resamples = gm_folds,
   grid = xgb_grid,
+  metrics = c_metrics,
   control = control_grid(save_pred = TRUE)
 )
 
-collect_metrics(xgb_res)
+# xgb_res_pca <- tune_grid(
+#   xgb_wf_pca,
+#   resamples = gm_folds,
+#   grid = xgb_grid,
+#   metrics = c_metrics,
+#   control = control_grid(save_pred = TRUE)
+# )
+  
+
+# xgb_results <-
+#   xgb_wf_set %>%
+#   workflow_map(
+#     "tune_grid",
+#     resamples = gm_folds,
+#     grid = xgb_grid,
+#     metrics = c_metrics,
+#     control = control_grid(save_pred = TRUE)
+#   )
+
+# collect_metrics(xgb_res_pca)
+# xgb_res_pca %>% filter(id == 'Fold01') %>% unnest(.predictions) %>% summarise(max_pred = max(home_result), min_pred = min(home_result))
+xgb_res %>% collect_metrics() %>% filter(.metric == 'rsq', mean >= 0) %>% arrange(-mean)
 ```
 Visualize the hyper parameter grid outcomes for RMSE.
 
@@ -149,21 +183,26 @@ Visualize the hyper parameter grid outcomes for RMSE.
 Determine the best model to use based on the target metric: RMSE
 
 ```{r}
- show_best(xgb_res, "rmse")
+show_best(xgb_res, "rmse") %>%
+  mutate(rn = row_number()) %>%
+  filter(rn == 2)
+this <- show_best(xgb_res, "rmse") %>%
+  mutate(rn = row_number()) %>%
+  filter(rn == 3)
+ select_by_one_std_err(xgb_res, "rmse")
  best_rmse <- select_best(xgb_res, "rmse")
- best_rsq <- select_best(xgb_res, "rsq")
+ best_rsq <- select_best(xgb_res, "mae")
  best_rmse
  best_rsq
+ this
+
 ```
 Finalize the workflow with our best model.
 
 ```{r}
- final_xgb_rmse <- finalize_workflow(
-   xgb_wf,
-   best_rmse
- )
-
-final_xgb_rmse
+final_xgb_rmse <- finalize_workflow(xgb_wf,best_rmse)
+final_xgb_rsq <- finalize_workflow(xgb_wf,best_rsq)
+final_xgb_spd <- finalize_workflow(xgb_wf,this)
 ```
 
 Leverage the finalized workflow to fit training data and identify the most important variables.
@@ -181,10 +220,21 @@ Run the model on all data and observe the key metrics.
 ## RMSE: 13.69 // RSQ: .1475
 ## RMSE: 13.67 // RSQ: .1502 <- added moneylines
 ## RMSE: 13.69 // RSQ: .1484 <- adjusted pipelines
+## RMSE: 13.40 // RSQ: .1597 <- added EPA
+## RMSE: 13.68 // RSQ: .1487 <- removed EPA, tuned grid
+## RMSE: 13.66 // RSQ: .1771 <- 2007+, RFE, new feats
+
 final_preds_rmse <- last_fit(final_xgb_rmse, gm_split)
+final_preds_rsq <- last_fit(final_xgb_rsq, gm_split)
+final_preds_spd <- last_fit(final_xgb_spd, gm_split)
+
 collect_metrics(final_preds_rmse)
+collect_metrics(final_preds_rsq)
+collect_metrics(final_preds_spd)
 
 score_preds_rmse <- final_preds_rmse %>% collect_predictions() %>% rename(rmse_pred = .pred)
+score_preds_rsq <- final_preds_rsq %>% collect_predictions() %>% rename(rsq_pred = .pred)
+score_preds_spd <- final_preds_spd %>% collect_predictions() %>% rename(spd_pred = .pred)
 ```
 
 Plot the output of the predictions.
@@ -193,11 +243,17 @@ Plot the output of the predictions.
 score_preds_rmse %>%
   ggplot() +
   geom_density(aes(x = rmse_pred),alpha = 1)
+score_preds_rsq %>%
+  ggplot() +
+  geom_density(aes(x = rsq_pred),alpha = 1)
+score_preds_spd %>%
+  ggplot() +
+  geom_density(aes(x = spd_pred),alpha = 1)
 ```
 Run the model on all of the data.
 
 ```{r}
-pred_score_model <- fit(final_xgb_rmse, gm_fts_only)
+pred_score_model <- fit(final_xgb_spd, gm_fts_only)
 pred_score_model
 ```
 Clean up the data frame and prepare for visualization.
@@ -205,7 +261,7 @@ Clean up the data frame and prepare for visualization.
 ```{r}
 model_preds <- predict(pred_score_model, new_data = gm_fts_only)
 game_w_preds <- game_w_features %>%
-  filter(is.na(home_result) == FALSE) %>%
+  filter(is.na(home_result) == FALSE, season > 2006) %>%
   bind_cols(model_preds) %>%
   rename(pred_score = .pred) %>%
   mutate(pred_score_error = pred_score - home_result) %>%
@@ -249,5 +305,5 @@ Save the model for later.
 
 ```{r}
 nfl_predictor_model <- final_preds_rmse$.workflow[[1]]
-saveRDS(nfl_predictor_model, paste0(wd,"nfl_predictor_model.rds"))
+saveRDS(nfl_predictor_model, paste0("~/Documents/Scripts/R/pred/nfl_predictor_model.rds"))
 ```
