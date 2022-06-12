@@ -1,42 +1,57 @@
 ---
 title: "NFL Score Prediction Model: Make a Prediction"
 author: "Wade Fuller"
-date: "03/03/2021"
+date: "06/12/2022"
 output:
   pdf_document: default
   html_document: default
 ---
 
 ```{r setup, include=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(recipeselectors)
 library(knitr)
+library(dplyr)
+library(googlesheets4)
 knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
                       message = FALSE, dpi = 180,
                       fig.width = 8, fig.height = 5)
-knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/pred/")
-game_w_features <- read.csv(paste0(wd,"data/game_w_features.csv"))
-nfl_predictor_model <- readRDS(paste0(wd,"nfl_predictor_model.rds"))
+knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/")
+wd <- "~/Documents/Scripts/R/pred/"
+# source("~/Documents/Scripts/R/pred/feature_engineering.rmd")
+game_w_features <- read.csv("~/Documents/Scripts/R/pred/game_w_features.csv")
+nfl_predictor_model <- readRDS("~/Documents/Scripts/R/pred/nfl_predictor_model.rds")
+nfl_predictor_model_class <- readRDS("~/Documents/Scripts/R/pred/nfl_predictor_model_class.rds")
 ```
 
 #Use the model to predict the current week.
 
 ```{r}
-cur_wk <- game_w_features %>% filter(week == 22 & season == 2020)
-cur_wk_preds <- predict(nfl_predictor_model, new_data = cur_wk)
-cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>%
-  rename(model_d_pred = .pred) %>%
+cur_wk <- game_w_features %>% filter(week == 22 & season == 2021)
+cur_wk_reg <- cur_wk %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
+cur_wk_class <- cur_wk %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
+cur_wk_preds <- predict(nfl_predictor_model, new_data = cur_wk_reg)
+cur_wk_preds_class <- predict(nfl_predictor_model_class, new_data = cur_wk_class, type = 'prob')
+cur_wk_preds_class <- cur_wk_preds_class %>% transmute(pred_win_pct = .pred_1)
+cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>% bind_cols(cur_wk_preds_class) %>% 
+  rename(score_pred = .pred) %>%
   transmute(
           game_id
-         ,pred_spread_adj_winner = if_else(model_d_pred + spread_line > 0,home_team,away_team)
-         ,model_d_pred
-         ,home_result
-         ,spread_line
-         ,spread_adj_result
-         ,model_adj_result = model_d_pred - home_result
-         ,home_spread_cover
-         ,away_spread_cover
          ,home_team
          ,away_team
+         ,pred_winner = if_else(pred_win_pct>.5,home_team,away_team)
+         ,pred_win_pct_adj = round(if_else(pred_win_pct>.5,pred_win_pct,1-pred_win_pct),2)
+         ,home_win_pct = round(pred_win_pct,2)
+         ,pred_spread_adj_winner = if_else(score_pred + spread_line > 0,home_team,away_team)
+         ,score_pred = round(score_pred,1)
+         ,spread_line
          ,total_line
          )
 cur_wk_pred %>% View()
+season_wk <- paste0("season_",cur_wk$season,"_wk_",cur_wk$week,'_curdate_',Sys.Date())[[1]]
+# sht <- gs4_find("nfl_game_preds_2021")
+# sheet_write(cur_wk_pred, ss = sht, sheet = season_wk)
+# googlesheets4::gs4_create("nfl_game_preds_2021", sheets = cur_wk_pred)
+googlesheets4::sheet_write(cur_wk_pred,ss = 'https://docs.google.com/spreadsheets/d/12paws_yDTUoXUsKpNcSzFGTxBtXsHzpRAG5RcBj0jX8/edit?usp=sharing',sheet = season_wk)
 ```
