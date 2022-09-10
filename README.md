@@ -1,6 +1,8 @@
 ### `nfl_predictor`
 Lightweight model designed to predict NFL game outcomes using only team performance and market data that is available at kickoff.
 
+2022 Predictions [here](https://docs.google.com/spreadsheets/d/1bBT9MqBJO8FUqHRNk33IfHDlvAMWZS-NBgruz5EKhe8/edit#gid=1401699762).
+
 
 ### Repo construction
 1. `feature_engineering.rmd`: Build the model inputs.
