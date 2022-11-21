@@ -1,7 +1,7 @@
 ---
 title: "NFL Score Prediction Model: Make a Prediction"
 author: "Wade Fuller"
-date: "03/03/2021"
+date: "11/21/2022"
 output:
   pdf_document: default
   html_document: default
@@ -28,11 +28,13 @@ nfl_predictor_model <- readRDS("~/Documents/Scripts/R/pred/nfl_predictor_model.r
 nfl_predictor_model_class <- readRDS("~/Documents/Scripts/R/pred/nfl_predictor_model_class.rds")
 ```
 
-#Use the model to predict the current week.
+# Use the model to predict the current week.
 
 ```{r}
-wk_num <- 17
-cur_wk <- game_w_features %>% filter(week == wk_num & season == 2021)
+season_weeks <- game_w_features %>% transmute(season,week,gameday = as.Date(gameday)) %>% group_by(season,week) %>% summarise(first_gameday = min(gameday),last_gameday = max(gameday))
+cur_wk_num <- season_weeks %>% filter(season=='2022',Sys.Date() <= last_gameday) %>% ungroup() %>% head(1) %>% select(week)
+# wk_num <- 06
+cur_wk <- game_w_features %>% filter(week == cur_wk_num[[1]] & season == 2022)
 cur_wk_reg <- cur_wk %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
 cur_wk_class <- cur_wk %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
 cur_wk_preds <- predict(nfl_predictor_model, new_data = cur_wk_reg)
@@ -44,29 +46,30 @@ cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>% rename(nfl_predictor_line 
           game_id
          ,home_team
          ,away_team
-         ,pred_winner = if_else(pred_win_pct>.5,home_team,away_team)
-         ,pred_win_pct_adj = round(if_else(pred_win_pct>.5,pred_win_pct,1-pred_win_pct),2)
-         ,home_win_pct = round(pred_win_pct,2)
-         ,pred_spread_adj_winner = if_else(nfl_predictor_line + spread_line > 0,home_team,away_team)
-         ,nfl_predictor_line = round(nfl_predictor_line,1)
+         ,pred_winner = if_else(nfl_predictor_line*-1<0,home_team,away_team)
+         ,pred_win_pct = round(if_else(pred_win_pct>.5,pred_win_pct,1-pred_win_pct),2)
+         ,nfl_predictor_line = round(nfl_predictor_line*-1,1)
          ,spread_line
          ,total_line
+         ,home_impl_pts = round((total_line / 2) - (nfl_predictor_line / 2),1)
+         ,away_impl_pts = round((total_line / 2) + (nfl_predictor_line / 2),1)
          )
 cur_wk_pred %>% View()
-season_wk <- paste0("season_",cur_wk$season,"_wk_",cur_wk$week,'_curdate_',Sys.Date())[[1]]
+season_wk <- paste0("season_",cur_wk$season,"_wk_",cur_wk$week,'_',Sys.Date())[[1]]
 # sht <- gs4_find("nfl_game_preds_2021")
 # sheet_write(cur_wk_pred, ss = sht, sheet = season_wk)
 # googlesheets4::gs4_create("nfl_game_preds_2021", sheets = cur_wk_pred)
-googlesheets4::sheet_write(cur_wk_pred,ss = 'https://docs.google.com/spreadsheets/d/12paws_yDTUoXUsKpNcSzFGTxBtXsHzpRAG5RcBj0jX8/edit?usp=sharing',sheet = season_wk)
+googlesheets4::sheet_write(cur_wk_pred,ss = 'https://docs.google.com/spreadsheets/d/1bBT9MqBJO8FUqHRNk33IfHDlvAMWZS-NBgruz5EKhe8/edit?usp=sharing',sheet = season_wk)
+# 
 ```
 
 ```{r}
-ytd_gms <- game_w_features %>% filter(week <= wk_num & season == 2021)
+ytd_gms <- game_w_features %>% filter(week <= cur_wk_num[[1]] & season == 2022)
 ytd_reg <- ytd_gms %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
 ytd_class <- ytd_gms %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
 ytd_preds <- predict(nfl_predictor_model, new_data = ytd_reg)
 ytd_class_w_reg <- cbind(ytd_class,ytd_preds) %>% rename(nfl_predictor_line = .pred)
-ytd_preds_class <- predict(nfl_predictor_model_class, new_data = ytd_class_w_reg, type = 'prob')
+ytd_preds_class <- predict(nfl_predictor_model_class, new_data = ytd_class_w_reg, type = 'prob') 
 ytd_preds_class <- ytd_preds_class %>% transmute(pred_win_pct = .pred_1)
 ytd_pred <- ytd_gms %>% bind_cols(ytd_preds) %>% rename(nfl_predictor_line = .pred) %>% bind_cols(ytd_preds_class) %>%
   transmute(
@@ -75,60 +78,115 @@ ytd_pred <- ytd_gms %>% bind_cols(ytd_preds) %>% rename(nfl_predictor_line = .pr
          ,week
          ,home_team
          ,away_team
-         ,pred_win_pct_adj = round(if_else(pred_win_pct>.5,pred_win_pct,1-pred_win_pct),2)
-         ,home_win_pct = round(pred_win_pct,2)
-         ,pred_spread_adj_winner = if_else(nfl_predictor_line + spread_line > 0,home_team,away_team)
-         ,nfl_predictor_line = round(nfl_predictor_line,1)
+         ,pred_winner = if_else(nfl_predictor_line*-1<0,home_team,away_team)
+         ,pred_win_pct = round(if_else(pred_win_pct>.5,pred_win_pct,1-pred_win_pct),2)
+         ,nfl_predictor_line = round(nfl_predictor_line*-1,1)
          ,spread_line
+         ,nfl_predictor_line - spread_line
+         ,home_moneyline
+         ,away_moneyline
+         ,home_spread_odds
+         ,away_spread_odds
+         ,pred_spread_adj_winner = if_else(nfl_predictor_line - spread_line > 0,away_team,home_team)
          ,total_line
          ,home_result
          ,home_win
          ,winning_team = if_else(home_win == 1,home_team,away_team)
-         ,wf_pred_winner = if_else(pred_win_pct>.5,home_team,away_team)
+         ,spread_winner = if_else(home_result+spread_line>0,home_team,away_team)
+         # moneyline
+         ,wf_pred_winner = pred_winner
          ,wf_correct_pred = if_else(wf_pred_winner==winning_team,1,0)
          ,fte_pred_winner = if_else(elo_prob1>.5,home_team,away_team) 
          ,fte_correct_pred = if_else(fte_pred_winner==winning_team,1,0)
          ,veg_pred_winner = if_else(spread_line<0,home_team,away_team) 
          ,veg_correct_pred = if_else(veg_pred_winner==winning_team,1,0)
+         # vs spread
+         ,wf_pred_winner_spr = pred_spread_adj_winner
+         ,wf_correct_pred_spr = if_else(wf_pred_winner_spr==spread_winner,1,0)
+         ,veg_pred_winner_spr = if_else(spread_line<0,home_team,away_team) 
+         ,veg_correct_pred_spr = if_else(veg_pred_winner==spread_winner,1,0)
+         # ROI
+         ,wager = 100
+         ,ml_outcome = case_when(
+           # correct // home
+           wf_correct_pred == 1 & pred_winner == home_team & home_moneyline > 0 ~ round(home_moneyline,2)
+          ,wf_correct_pred == 1 & pred_winner == home_team & home_moneyline < 0 ~ round(100/abs(home_moneyline)*100,2)
+           # correct // away
+          ,wf_correct_pred == 1 & pred_winner == away_team & away_moneyline > 0 ~ round(away_moneyline,2)
+          ,wf_correct_pred == 1 & pred_winner == away_team & away_moneyline < 0 ~ round(100/abs(away_moneyline)*100,2)
+           # incorrect
+          ,TRUE ~ as.double((-1*wager))
          )
+         ,spr_outcome = case_when(
+           # correct // home
+           wf_correct_pred_spr == 1 & pred_spread_adj_winner == home_team & home_spread_odds > 0 ~ round(home_spread_odds,2)
+          ,wf_correct_pred_spr == 1 & pred_spread_adj_winner == home_team & home_spread_odds < 0 ~ round(100/abs(home_spread_odds)*100,2)
+           # correct // away
+          ,wf_correct_pred_spr == 1 & pred_spread_adj_winner == away_team & away_spread_odds > 0 ~ round(away_spread_odds,2)
+          ,wf_correct_pred_spr == 1 & pred_spread_adj_winner == away_team & away_spread_odds < 0 ~ round(100/abs(away_spread_odds)*100,2)
+           # incorrect
+          ,TRUE ~ as.double((-1*wager))
+         )
+         )
+ytd_pred %>% filter(week == 1) %>% View()
 ytd_tbl <- ytd_pred %>%
   group_by(season,week) %>%
   arrange(-season,week) %>%
   summarise(gms = n()
+            # moneyline
            ,wk_wf_correct = sum(wf_correct_pred)
            ,wk_veg_correct = sum(veg_correct_pred)
            ,wk_fte_correct = sum(fte_correct_pred)
            ,wk_wf_accuracy = mean(wf_correct_pred)
            ,wk_veg_accuracy = mean(veg_correct_pred)
            ,wk_fte_accuracy = mean(fte_correct_pred)
+           # spread
+           ,wk_wf_correct_spr = sum(wf_correct_pred_spr)
+           ,wk_veg_correct_spr = sum(veg_correct_pred_spr)
+           ,wk_wf_accuracy_spr = mean(wf_correct_pred_spr)
+           ,wk_veg_accuracy_spr = mean(veg_correct_pred_spr)
+           # ROI
+           ,wk_ml_outcome = sum(ml_outcome)
+           ,wk_spr_outcome = sum(spr_outcome)
+           ,wk_ml_roi = round(sum(ml_outcome) / (gms*100),3)
+           ,wk_spr_roi = round(sum(spr_outcome) / (gms*100),3)
            ) %>%
   ungroup() %>%
   mutate(cml_gms = cumsum(gms)
+         # moneyline
         ,cml_wf_correct = cumsum(wk_wf_correct)
         ,cml_veg_correct = cumsum(wk_veg_correct)
         ,cml_fte_correct = cumsum(wk_fte_correct)
         ,cml_wf_accuracy = cml_wf_correct/cml_gms
         ,cml_veg_accuracy = cml_veg_correct/cml_gms
         ,cml_fte_accuracy = cml_fte_correct/cml_gms
+        # spread
+        ,cml_wf_correct_spr = cumsum(wk_wf_correct_spr)
+        ,cml_veg_correct_spr = cumsum(wk_veg_correct_spr)
+        ,cml_wf_accuracy_spr = cml_wf_correct_spr/cml_gms
+        ,cml_veg_accuracy_spr = cml_veg_correct_spr/cml_gms
+        # ROI
+        ,cml_ml_roi = round(cumsum(wk_ml_outcome) / (cml_gms*100),3)
+        ,cml_spr_roi = round(cumsum(wk_spr_outcome) / (cml_gms*100),3)
   )
-ytd_gg <- ytd_tbl %>%
-  ggplot(aes(x=interaction(season, week, lex.order = TRUE), group = 1)) +
-  geom_line(aes(y = cml_wf_accuracy, colour = 'cml_wf_accuracy')) +
-  geom_line(aes(y = cml_veg_accuracy, colour = 'cml_veg_accuracy')) +
-  geom_line(aes(y = cml_fte_accuracy, colour = 'cml_fte_accuracy')) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90)) +
-  scale_y_continuous(labels = scales::percent) +
-  ggtitle("Model Accuracy: NFLPredictor vs Vegas vs Fivethirtyeight",subtitle = "2021 seasons") +
-  labs(y= "Cumulative Prediction Performance", x = "Season.Week") +
-  scale_colour_manual("", 
-    values = c("cml_wf_accuracy"="steelblue", "cml_veg_accuracy"="darkred", "cml_fte_accuracy"="darkgreen"))
-ytd_gg
+# ytd_gg <- ytd_tbl %>%
+#   ggplot(aes(x=interaction(season, week, lex.order = TRUE), group = 1)) +
+#   geom_line(aes(y = cml_wf_accuracy, colour = 'cml_wf_accuracy')) +
+#   geom_line(aes(y = cml_veg_accuracy, colour = 'cml_veg_accuracy')) +
+#   geom_line(aes(y = cml_fte_accuracy, colour = 'cml_fte_accuracy')) +
+#   theme_minimal() +
+#   theme(axis.text.x = element_text(angle = 90)) +
+#   scale_y_continuous(labels = scales::percent) +
+#   ggtitle("Model Accuracy: NFLPredictor vs Vegas vs Fivethirtyeight",subtitle = "2022 season") +
+#   labs(y= "Cumulative Prediction Performance", x = "Season.Week") +
+#   scale_colour_manual("", 
+#     values = c("cml_wf_accuracy"="steelblue", "cml_veg_accuracy"="darkred", "cml_fte_accuracy"="darkgreen"))
+# ytd_gg
 #sht <- gs4_find("nfl_game_preds_2021")
 #season_wk <- paste0("season_",cur_wk$season,"_wk_",cur_wk$week,'_curdate_',Sys.Date())[[1]]
 #sheet_write(ytd_tbl, ss = sht, sheet = season_wk)
 #x <- gs_edit_cells(ss=sht, ws = season_wk, input='=IMAGE("https://i.stack.imgur.com/FrDZc.jpg")')
 
 cml_perf <- "Prediction Performance"
-googlesheets4::sheet_write(ytd_tbl,ss = 'https://docs.google.com/spreadsheets/d/12paws_yDTUoXUsKpNcSzFGTxBtXsHzpRAG5RcBj0jX8/edit?usp=sharing',sheet = cml_perf)
+googlesheets4::sheet_write(ytd_tbl,ss = 'https://docs.google.com/spreadsheets/d/1bBT9MqBJO8FUqHRNk33IfHDlvAMWZS-NBgruz5EKhe8/edit?usp=sharing',sheet = cml_perf)
 ```
