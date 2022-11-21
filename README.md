@@ -1,7 +1,7 @@
 ### `nfl_predictor`
 Lightweight model designed to predict NFL game outcomes using only team performance and market data that is available at kickoff.
 
-2022 Predictions [here](https://docs.google.com/spreadsheets/d/1bBT9MqBJO8FUqHRNk33IfHDlvAMWZS-NBgruz5EKhe8/edit#gid=1401699762).
+2022 Predictions + Performance [here](https://docs.google.com/spreadsheets/d/1bBT9MqBJO8FUqHRNk33IfHDlvAMWZS-NBgruz5EKhe8/edit#gid=1401699762).
 
 
 ### Repo construction
@@ -11,6 +11,8 @@ Lightweight model designed to predict NFL game outcomes using only team performa
 4. `predict_week.rmd`: Derive predictions for any given NFL week.
 
 ### Model Features
+
+140 features that fall into the following buckets:
 
 Metadata:
 - season: which season the game was played.
@@ -38,52 +40,10 @@ Performance data:
 - off_pass_epa: a team's EPA from passing plays.
 - off_rush_epa: a team's EPA from rushing plays.
 
-2021 Season Performance
-----
-2021 Season Performance Summary [here](https://docs.google.com/document/d/1oBsqR50n22NEk3VrfHNvaNSWzDg6si5GSx8yREjHen4/edit#).
-
-Model Summary
-----
-```
-══ Workflow ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
-Preprocessor: Formula
-Model: boost_tree()
-
-── Preprocessor ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-home_result ~ .
-
-── Model ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-Boosted Tree Model Specification (regression)
-
-Main Arguments:
-  mtry = 18
-  trees = 1000
-  min_n = 40
-  tree_depth = 6
-  learn_rate = 0.00275162416666921
-  loss_reduction = 5.6634051459418e-07
-  sample_size = 0.717018291268032
-
-Computational engine: xgboost
-
-rsq  =  0.1502
-rmse = 13.57
-```
-
-Cumulative Model MAE vs market spread:
-
-<img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/cum_model_error_season.jpg" width="700" height="700">
-
-Season-level MAE comparison:
-
-<img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/season_mae_ttest.jpg" width="700" height="700">
-
-Game outcome prediction vs market:
-
-<img src="https://github.com/wadefuller/nfl_predictor/blob/main/img/accuracy_vs_market.jpg" width="700" height="700">
 
 Model Roadmap
 ----
-- Feature set explorations
+- Model engine explorations (Torch, Tabnet, etc)
+- Additional feature set explorations
+- Re-introduce regularization + feature selection
 - Explore player performance models
-- Custom elo scores + probabilities
