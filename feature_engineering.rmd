@@ -1,7 +1,7 @@
 ---
 title: "NFL Score Prediction Model: Feature Engineering"
 author: "Wade Fuller"
-date: "03/03/2021"
+date: "11/22/2022"
 output:
 pdf_document: default
 html_document: default
@@ -548,7 +548,9 @@ game_w_features <- gm_df %>%
   filter(week <= 17 | (season == '2021' & week >= '18')) %>%
   # mutate(gameday = lubridate::as_date(gameday)) %>%
   left_join(fte, by=c('gameday'='gameday','home_team'='team1','away_team'='team2',"season"))
+```
 
+```{r}
 # spit out a CSV 
 write.csv(game_w_features,paste0("~/Documents/Scripts/R/pred/game_w_features.csv"), row.names = TRUE)
 ```
