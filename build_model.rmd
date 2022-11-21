@@ -134,7 +134,7 @@ Enable parallel processing and run the model.
 RMSE: 13.37 
 RSQ:  .1731
 ```{r}
-doParallel::registerDoParallel()=
+doParallel::registerDoParallel()
 
 set.seed(989)
 xgb_res <- tune_grid(
