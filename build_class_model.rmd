@@ -1,7 +1,7 @@
 ---
 title: "NFL Score Prediction Model"
 author: "Wade Fuller"
-date: "04/18/2022"
+date: "11/21/2022"
 output:
   pdf_document: default
   html_document: default
@@ -14,9 +14,11 @@ knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
                       fig.width = 8, fig.height = 5)
 knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/pred/")
 library(tidymodels)
+library(vip)
 library(doParallel)
 library(recipeselectors)
 game_w_features <- read.csv(paste0("~/Documents/Scripts/R/pred/game_w_features.csv"))
+nfl_predictor_model <- readRDS("~/Documents/Scripts/R/pred/nfl_predictor_model.rds")
 ```
 
 ## Make the model
@@ -24,7 +26,12 @@ game_w_features <- read.csv(paste0("~/Documents/Scripts/R/pred/game_w_features.c
 # Build a Model
 Here, I experiment with the `tidymodels` package to create this model. This is an easy interface to create, train, and tune machine learning models. Ill try to fit an xgboost model for this one. 
 ```{r}
-reg_pred_dta <- game_w_features %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
+pre_2021 <- game_w_features %>%
+  filter(is.na(home_result) == FALSE, season >= 2007, (week <= 17 & season <= 2020))
+post_2021 <- game_w_features %>%
+  filter(is.na(home_result) == FALSE, season >= 2007, (week <= 18 & season >= 2021))
+gms_w_feats <- rbind(pre_2021,post_2021)
+reg_pred_dta <- gms_w_feats %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
 reg_preds <- predict(nfl_predictor_model, new_data = reg_pred_dta)
 gms_w_reg_preds <- cbind(reg_pred_dta,reg_preds) %>% rename(nfl_predictor_line = .pred)
 ```
@@ -32,9 +39,8 @@ gms_w_reg_preds <- cbind(reg_pred_dta,reg_preds) %>% rename(nfl_predictor_line =
 ```{r}
 gm_fts_only <- gms_w_reg_preds %>%
   filter(is.na(home_result) == FALSE, as.numeric(as.character(season)) >= 2010) %>%
-  select(-c('X','game_id','gameday','home_team','away_team','away_result','home_points','away_points','home_result','total_points_scored','spread_adj_result','home_spread_cover','away_spread_cover','gametime')) %>%
+  select(-c('X','game_id','gameday','home_team','away_team','away_result','home_points','away_points','home_result','total_points_scored','spread_adj_result','home_spread_cover','away_spread_cover','gametime','season')) %>%
     mutate( home_result = as.factor(home_win)
-           ,season = as.factor(season)
            ,week = as.factor(week)
            ,weekday = as.factor(weekday)
            ,div_game = as.factor(div_game)) %>% 
@@ -82,12 +88,12 @@ Define a workflow for the xgboost model.
 # rfe_model <- rand_forest(mode = 'classification') %>% set_engine('ranger',importance = 'impurity')
 model_rec <- gm_train %>%
   recipe(home_result ~ .) %>%
-  step_impute_mean(all_numeric_predictors()) %>%
+  # step_impute_mean(all_numeric_predictors()) %>%
   step_nzv(all_numeric_predictors()) %>%
-  # step_center(all_numeric_predictors()) %>%
-  # step_scale(all_numeric_predictors()) %>%
+  step_center(all_numeric_predictors()) %>%
+  step_scale(all_numeric_predictors()) %>%
   step_dummy(all_nominal_predictors(),-all_outcomes(),one_hot = TRUE)
-  # step_select_vip(all_predictors(),outcome = 'home_result', model = rfe_model,threshold = .8)
+  # step_select_vip(all_predictors(),outcome = 'home_result', model = rfe_model, top_p = 100, threshold = .6)
 
 c_metrics <- metric_set(roc_auc,mn_log_loss)
 
@@ -181,7 +187,7 @@ Leverage the finalized workflow to fit training data and identify the most impor
 final_xgb_lgls %>%
   fit(data = gm_train) %>%
   pull_workflow_fit() %>%
-  vip(geom = "col", num_features = 30, include_type = TRUE, aesthetics = list(fill = "midnightblue", alpha = .9))
+  vip(geom = "col", num_features = 50, include_type = TRUE, aesthetics = list(fill = "midnightblue", alpha = .9))
 ggsave("feat_importance_plot_class.jpg",path = paste0(wd,"/pred/img"), units = 'in',width = 8, height = 8, device='jpg', dpi=700)
 ```
 Run the model on all data and observe the key metrics.
@@ -193,6 +199,9 @@ Run the model on all data and observe the key metrics.
 ## 4/18/22: AUC: .6929 // Accuracy: .6339
 ## 4/18/22: AUC: .6834 // Accuracy: .6404 <- expanded trees, 2010
 ## 6/12/22: AUC: .7057 (+3.26%) // Accuracy: .6430 (+0.04%) <- added regression model output as a feature 
+## 6/26/22: AUC: .7085 (+0.41%) // Accuracy: .6494 (+0.99%) <- added custom elo, removed season and game num
+## 9/09/22: AUC: .8626 (+12.4%) // Accuracy: .7968 (+22.7%) <- refreshed regression, removed postseason games, 2010+
+## 9/15/22: AUC: .7308 // Accuracy: .6546 <- 2007+
 final_preds_auc <- last_fit(final_xgb_auc, gm_split)
 final_preds_lgls <- last_fit(final_xgb_lgls, gm_split)
 collect_metrics(final_preds_auc)
@@ -223,7 +232,7 @@ Clean up the data frame and prepare for visualization.
 
 ```{r}
 model_preds <- predict(pred_score_model, new_data = gm_fts_only, type = 'prob')
-game_w_preds <- game_w_features %>%
+game_w_preds <- gms_w_feats %>%
   filter(is.na(home_result) == FALSE, season >= 2010) %>%
   bind_cols(model_preds) %>%
   rename(pred_win_pct = .pred_1) %>%
@@ -244,16 +253,13 @@ game_w_preds <- game_w_features %>%
   )
 game_pred_df <- game_w_preds %>%
   transmute(
-    game_id
+     game_id
     ,home_result
-    ,spread_line
+    ,winner = if_else(home_result>0,home_team,away_team)
     ,pred_winner
+    ,correct_pred = if_else(winner==pred_winner,1,0)
+    ,spread_line
     ,pred_win_pct
-    # ,pred_score_error
-    # ,spread_error = (-1*spread_line) - home_result
-    # ,spread_adj_result
-    # ,spread_adj_winner = if_else(-1*spread_line + home_result > 0,home_team,away_team)
-    # ,pred_spread_adj_winner = if_else(pred_score + home_result > 0,home_team,away_team)
     ,home_spread_cover = home_spread_cover
     ,away_spread_cover = away_spread_cover
     ,home_team = home_team
@@ -261,12 +267,17 @@ game_pred_df <- game_w_preds %>%
     ,season
     ,week
   )
-summary(game_pred_df)
+game_pred_df %>%
+  group_by(season) %>%
+  summarise(season_win_pct = mean(correct_pred)) %>%
+  ggplot(aes(x=season,y=season_win_pct)) +
+  geom_point()
 ```
 
 Save the model for later.
 
 ```{r}
 nfl_predictor_model_class <- final_preds_lgls$.workflow[[1]]
+saveRDS(nfl_predictor_model, paste0("~/Documents/Scripts/R/pred/nfl_predictor_model_",Sys.Date(),".rds"))
 saveRDS(nfl_predictor_model_class, paste0("~/Documents/Scripts/R/pred/nfl_predictor_model_class.rds"))
 ```
