@@ -10,20 +10,20 @@ editor_options:
   wrap: 72
 ---
   
-  ```{r setup, include=FALSE}
-rm(list = ls())
+```{r setup, include=FALSE}
+# ==================================
+# NFL PREDICTOR: FEATURE ENGINEERING
+# ==================================
 library(knitr)
 knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
                       message = FALSE, dpi = 180,
                       fig.width = 8, fig.height = 5)
 knitr::opts_knit$set(root.dir = "~/Projects/R/")
-library(tidymodels)
 library(tidyverse)
 library(nflfastR)
 library(ggthemes)
 library(zoo)
 library(doParallel)
-library(vip)
 theme_set(theme_minimal(base_size = 10))
 ```
 
@@ -37,12 +37,6 @@ outcomes.
 # CONSTANTS
 
 SEASONS <- 2000:2021 
-
-TRAILING_WINDOWS <- list(
-  short = 4,
-  medium = 12,
-  long = 16
-)
 
 TEAM_REPLACEMENTS <- c(
   "JAC" = "JAX",
@@ -63,6 +57,25 @@ METRICS <- c(
   'win_prob_captured'
 )
 
+DIFFERENTIAL_COLS <- c(
+  "win_season_avg","result_season_avg", 
+  "points_for_season_avg","spread_cover_season_avg",
+  "spread_adjusted_result_season_avg",
+  "impl_win_prob_season_avg","game_info_gain_season_avg",
+  "win_prob_captured_season_avg",
+  "win_4gm_trend","result_4gm_trend",
+  "points_for_4gm_trend","spread_cover_4gm_trend",
+  "spread_adjusted_result_4gm_trend",
+  "impl_win_prob_4gm_trend",
+  "game_info_gain_4gm_trend", "win_prob_captured_4gm_trend",
+  "off_epa_r4","off_epa_r16",
+  "off_pass_epa_r4","off_pass_epa_r16",
+  "off_rush_epa_r4","off_rush_epa_r16",
+  "success_rate_r4","success_rate_r16",
+  "qb_epa_r4","qb_epa_r16",
+  "pythag_win_pct","pythag_wins"
+)
+
 FEATURES <- c(
   # GAME FEATURES W/ TRENDS
   "team","opposing_team","points_for","points_against","total_points_scored","pct_points_scored","team_rest","opponent_rest",
@@ -81,26 +94,26 @@ FEATURES <- c(
 
 load_game_data <- function() {
   games <- readRDS(url("http://www.habitatring.com/games.rds")) %>%
-    filter(season >= min(seasons)) %>%
+    filter(season >= min(SEASONS)) %>%
     normalize_team_names()
   return(games)
 }
+
 normalize_team_names <- function(games) {
   games %>% mutate(across(
     .cols = contains("team") # Select columns with "team" in name
-    ,.fns = ~str_replace_all(., team_replacements)  # Apply replacements
+    ,.fns = ~str_replace_all(., TEAM_REPLACEMENTS)  # Apply replacements
   ))
 }
+
 calculate_rolling_stats <- function() {
   set_names(paste0(col, "_r", windows))
 }
 
-games <- load_game_data()
-
 split_home_away <- function(games) {
   home_games <- games %>%
     transmute(
-      !!!syms(common_vars)
+      !!!syms(COMMON_VARS)
       ,team = home_team
       ,opposing_team = away_team
       ,points_for = home_score
@@ -117,7 +130,7 @@ split_home_away <- function(games) {
   
   away_games <- games %>%
     transmute(
-      !!!syms(common_vars)
+      !!!syms(COMMON_VARS)
       ,team = away_team
       ,opposing_team = home_team
       ,points_for = away_score
@@ -126,7 +139,8 @@ split_home_away <- function(games) {
       ,pct_points_scored = points_for/total_points_scored
       ,team_rest = home_rest
       ,opponent_rest = away_rest
-      ,spread_line = spread_line * -1    ,impl_prob_home = if_else(sign(home_moneyline)== -1,(-1*home_moneyline/((-1*home_moneyline)+100)),(100/(home_moneyline+100)))
+      ,spread_line = spread_line * -1    
+      ,impl_prob_home = if_else(sign(home_moneyline)== -1,(-1*home_moneyline/((-1*home_moneyline)+100)),(100/(home_moneyline+100)))
       ,impl_prob_away = if_else(sign(away_moneyline)== -1,(-1*away_moneyline/((-1*away_moneyline)+100)),(100/(away_moneyline+100)))
       ,home=0
     )
@@ -144,9 +158,7 @@ split_home_away <- function(games) {
     )
 }
 
-f_game_split <- split_home_away(games)
-
-generate_trending_features <- function(games) {
+generate_trending_features <- function(game_split) {
   game_split %>%
     arrange(season, team, week) %>%
     group_by(season, team) %>%
@@ -167,10 +179,8 @@ generate_trending_features <- function(games) {
     ungroup()
 }
 
-f_game_split_w_trend <- generate_trending_features(game_split)
-
-generate_pythag_features <- function(games_split_w_trend) {
-  game_split_w_trend %>%
+generate_pythag_features <- function(f_game_split_w_trend) {
+  f_game_split_w_trend %>%
     group_by(season, team) %>%
     arrange(season, team, week) %>%
     mutate(
@@ -185,8 +195,6 @@ generate_pythag_features <- function(games_split_w_trend) {
     select(game_id, team, week, season, pythag_win_pct, pythag_wins, games_played)
 }
 
-f_pythag <- generate_pythag_features(game_split)
-
 generate_historical_pbp_data <- function() {
   pbp <- nflreadr::load_pbp(seasons = 2000:2021)
   pbp %>%
@@ -197,8 +205,6 @@ generate_historical_pbp_data <- function() {
     ) %>%
     normalize_team_names()
 }
-
-plys <- generate_historical_pbp_data()
 
 generate_game_epa <- function(plys) {
   plys %>%
@@ -213,8 +219,6 @@ generate_game_epa <- function(plys) {
     ) %>%
     rename(team = posteam)
 }
-
-f_game_epa <- generate_game_epa(plys)
 
 generate_rolling_epa_features <- function(game_epa) {
   game_epa %>%
@@ -233,17 +237,52 @@ generate_rolling_epa_features <- function(game_epa) {
     ungroup()
 }
 
-f_game_epa_w_trend <- generate_rolling_epa_features(game_epa)
-
-combine_features <- function(game_split,f_game_split_w_trend,f_game_epa_w_trend,f_pythag) {
-  game_split %>% 
+combine_features <- function(f_game_split,f_game_split_w_trend,f_game_epa_w_trend,f_pythag) {
+  f_game_split %>% 
     left_join(f_game_split_w_trend, by = c("game_id", "season", "week", "team"),suffix = c("", "")) %>%
     left_join(f_game_epa_w_trend, by = c("game_id", "season", "week", "team")) %>%
     left_join(f_pythag, by = c("game_id", "season", "week", "team")) %>%
-    select(-ends_with(".x"), -ends_with(".y"))
+    select(-ends_with(".x"), -ends_with(".y")) 
 }
 
-f_final_features <- combine_features(game_split, f_game_split_w_trend, f_game_epa_w_trend)
+combine_home_away_differentials <- function(game_w_features) {
+home <-  game_w_features %>%
+    filter(home == 1) %>%
+    rename_with(~ paste0(.x, "_home"),
+                all_of(DIFFERENTIAL_COLS)
+    )
+
+away <- game_w_features %>%
+    filter(home == 0) %>%
+    rename_with(~ paste0(.x, "_away"),
+                all_of(DIFFERENTIAL_COLS)
+    )
+
+  this <- home %>%
+    inner_join(
+      away, 
+      by = "game_id",
+      suffix = c("", "")
+    ) %>% 
+    mutate(
+       home_team = team
+      ,home_result = result
+      ,away_team = opposing_team
+      ,home_points = points_for
+      ,away_points = points_against
+      ,home_pct_points_scored = pct_points_scored
+      ,away_pct_points_scored = 1 - pct_points_scored
+      ,home_team_rest = team_rest
+      ,away_team_rest = opponent_rest
+      ,home_win = win
+    ) %>%
+    mutate(across(
+      ends_with("_home"),
+      ~. - get(sub("_home$", "_away", cur_column())),
+      .names = "{.col}_diff"
+    ))
+}
+
 ```
 
 # Put it all together
@@ -254,13 +293,13 @@ generate_all_features <- function() {
   games <- load_game_data()
   
   message("Splitting home/away...") 
-  game_split <- split_home_away(games)
+  f_game_split <- split_home_away(games)
   
   message("Generating trending features...") 
-  f_game_split_w_trend <- generate_trending_features(game_split)
+  f_game_split_w_trend <- generate_trending_features(f_game_split)
   
   message("Generating pythagorean features...") 
-  f_pythag <- generate_pythag_features(game_split)
+  f_pythag <- generate_pythag_features(f_game_split_w_trend)
   
   message("Loading and processing play-by-play data...") 
   pbp_dta <- generate_historical_pbp_data()
@@ -270,10 +309,13 @@ generate_all_features <- function() {
   f_game_epa_w_trend <-generate_rolling_epa_features(f_game_epa)
   
   message("Creating final dataset...") 
-  final_df <- combine_features(game_split,f_game_split_w_trend,f_game_epa_w_trend,f_pythag)
+  final_df <- combine_features(f_game_split,f_game_split_w_trend,f_game_epa_w_trend,f_pythag)
+  
+  message("Creating final dataset...") 
+  f_df <- combine_home_away_differentials(final_df)
   
   message("Done! Writing to CSV...")
-  write_csv(final_df,"game_w_features.csv")
+  write_csv(f_df,"~/Projects/R/nfl_predictor/data/game_w_features.csv")
   
   return(final_df) 
 }
