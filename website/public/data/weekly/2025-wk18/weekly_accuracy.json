@@ -1,0 +1,306 @@
+{
+  "season": 2025,
+  "week": 18,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 333,
+      "mae": 3.86,
+      "spearman": 0.57,
+      "ceiling_cov": 0.901,
+      "floor_cov": 0.862
+    },
+    {
+      "position": "QB",
+      "n": 39,
+      "mae": 5.82,
+      "spearman": 0.497,
+      "ceiling_cov": 0.949,
+      "floor_cov": 0.846
+    },
+    {
+      "position": "RB",
+      "n": 91,
+      "mae": 4.09,
+      "spearman": 0.629,
+      "ceiling_cov": 0.901,
+      "floor_cov": 0.857
+    },
+    {
+      "position": "TE",
+      "n": 71,
+      "mae": 2.93,
+      "spearman": 0.528,
+      "ceiling_cov": 0.831,
+      "floor_cov": 0.958
+    },
+    {
+      "position": "WR",
+      "n": 132,
+      "mae": 3.61,
+      "spearman": 0.525,
+      "ceiling_cov": 0.924,
+      "floor_cov": 0.818
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 10,
+      "bust": 18,
+      "met": 103
+    }
+  ],
+  "beats": [
+    {
+      "player": "Rhamondre Stevenson",
+      "position": "RB",
+      "team": "NE",
+      "proj": 10.5,
+      "actual": 34.3,
+      "surprise": 23.8,
+      "class": "boom"
+    },
+    {
+      "player": "Alec Pierce",
+      "position": "WR",
+      "team": "IND",
+      "proj": 6.3,
+      "actual": 27.2,
+      "surprise": 20.9,
+      "class": "boom"
+    },
+    {
+      "player": "Zay Flowers",
+      "position": "WR",
+      "team": "BAL",
+      "proj": 10.5,
+      "actual": 27.8,
+      "surprise": 17.3,
+      "class": "boom"
+    },
+    {
+      "player": "Riley Leonard",
+      "position": "QB",
+      "team": "IND",
+      "proj": 7.5,
+      "actual": 22.6,
+      "surprise": 15.1,
+      "class": "boom"
+    },
+    {
+      "player": "Tyrone Tracy Jr.",
+      "position": "RB",
+      "team": "NYG",
+      "proj": 10.3,
+      "actual": 23.9,
+      "surprise": 13.6,
+      "class": "boom"
+    },
+    {
+      "player": "Cade Otton",
+      "position": "TE",
+      "team": "TB",
+      "proj": 6.3,
+      "actual": 18.9,
+      "surprise": 12.6,
+      "class": "boom"
+    },
+    {
+      "player": "Colston Loveland",
+      "position": "TE",
+      "team": "CHI",
+      "proj": 8.3,
+      "actual": 20.1,
+      "surprise": 11.8,
+      "class": "boom"
+    },
+    {
+      "player": "Colby Parkinson",
+      "position": "TE",
+      "team": "LA",
+      "proj": 6,
+      "actual": 17.6,
+      "surprise": 11.6,
+      "class": "boom"
+    },
+    {
+      "player": "Michael Wilson",
+      "position": "WR",
+      "team": "ARI",
+      "proj": 9.2,
+      "actual": 18.4,
+      "surprise": 9.2,
+      "class": "boom"
+    },
+    {
+      "player": "Kenneth Gainwell",
+      "position": "RB",
+      "team": "PIT",
+      "proj": 9,
+      "actual": 17.4,
+      "surprise": 8.4,
+      "class": "boom"
+    },
+    {
+      "player": "Chris Rodriguez Jr.",
+      "position": "RB",
+      "team": "WAS",
+      "proj": 6.5,
+      "actual": 14.8,
+      "surprise": 8.3,
+      "class": "met"
+    },
+    {
+      "player": "Parker Washington",
+      "position": "WR",
+      "team": "JAX",
+      "proj": 9.1,
+      "actual": 17.2,
+      "surprise": 8.1,
+      "class": "met"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Dak Prescott",
+      "position": "QB",
+      "team": "DAL",
+      "proj": 17.1,
+      "actual": 0.7,
+      "surprise": -16.4,
+      "class": "bust"
+    },
+    {
+      "player": "James Cook",
+      "position": "RB",
+      "team": "BUF",
+      "proj": 15.1,
+      "actual": 1.5,
+      "surprise": -13.6,
+      "class": "bust"
+    },
+    {
+      "player": "CeeDee Lamb",
+      "position": "WR",
+      "team": "DAL",
+      "proj": 14.3,
+      "actual": 0.9,
+      "surprise": -13.4,
+      "class": "bust"
+    },
+    {
+      "player": "Bijan Robinson",
+      "position": "RB",
+      "team": "ATL",
+      "proj": 19,
+      "actual": 5.8,
+      "surprise": -13.2,
+      "class": "bust"
+    },
+    {
+      "player": "Brock Purdy",
+      "position": "QB",
+      "team": "SF",
+      "proj": 17.5,
+      "actual": 5.2,
+      "surprise": -12.3,
+      "class": "bust"
+    },
+    {
+      "player": "Courtland Sutton",
+      "position": "WR",
+      "team": "DEN",
+      "proj": 11.9,
+      "actual": 1,
+      "surprise": -10.9,
+      "class": "bust"
+    },
+    {
+      "player": "George Pickens",
+      "position": "WR",
+      "team": "DAL",
+      "proj": 12.2,
+      "actual": 1.4,
+      "surprise": -10.8,
+      "class": "bust"
+    },
+    {
+      "player": "Travis Etienne",
+      "position": "RB",
+      "team": "JAX",
+      "proj": 13.8,
+      "actual": 4.3,
+      "surprise": -9.5,
+      "class": "met"
+    },
+    {
+      "player": "Jonathan Taylor",
+      "position": "RB",
+      "team": "IND",
+      "proj": 13.9,
+      "actual": 4.9,
+      "surprise": -9,
+      "class": "bust"
+    },
+    {
+      "player": "Christian McCaffrey",
+      "position": "RB",
+      "team": "SF",
+      "proj": 17.5,
+      "actual": 8.7,
+      "surprise": -8.8,
+      "class": "met"
+    },
+    {
+      "player": "RJ Harvey",
+      "position": "RB",
+      "team": "DEN",
+      "proj": 12,
+      "actual": 3.8,
+      "surprise": -8.2,
+      "class": "met"
+    },
+    {
+      "player": "Rico Dowdle",
+      "position": "RB",
+      "team": "CAR",
+      "proj": 10.1,
+      "actual": 2,
+      "surprise": -8.1,
+      "class": "bust"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 267,
+      "model": 0.56,
+      "ecr": 0.418
+    },
+    {
+      "position": "QB",
+      "n": 28,
+      "model": 0.656,
+      "ecr": 0.465
+    },
+    {
+      "position": "RB",
+      "n": 82,
+      "model": 0.66,
+      "ecr": 0.575
+    },
+    {
+      "position": "TE",
+      "n": 51,
+      "model": 0.433,
+      "ecr": 0.279
+    },
+    {
+      "position": "WR",
+      "n": 106,
+      "model": 0.463,
+      "ecr": 0.36
+    }
+  ],
+  "ecr_kind": "season"
+}

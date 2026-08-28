@@ -1,0 +1,16 @@
+{
+  "season": 2024,
+  "week": 7,
+  "n_bets": 1,
+  "bets": [
+    {
+      "game": "CAR @ WAS",
+      "bet": "CAR spread",
+      "odds": 100,
+      "ev": 0.111,
+      "kelly": 0.147,
+      "stake": 10,
+      "payout_if_win": 10
+    }
+  ]
+}

@@ -1,4 +1,37 @@
+# ---- R session artifacts ----
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+.Renviron
+Rplots.pdf
+
+# ---- OS noise ----
+.DS_Store
+
+# ---- Trained model binaries ----
+# 2.4 GB across 21 files; 18 of them exceed GitHub's 100 MB hard limit, so a
+# push containing these is rejected outright. They are reproducible from
+# train_and_save_ensemble.R and do not belong in version control.
+models/
+*.rds
+
+# ---- Derived caches ----
+# Rebuilt by the pipeline; large, churn every run, and carry no review value.
+data/carryover_cache/
+data/carryover_cache.pre-feature-additions/
+data/elo_sweep_cache/
+
+# ---- Data outputs ----
+# This repo is PUBLIC. Everything under data/ stays local:
+#   - private league rosters, standings and franchise records
+#   - derived pipeline outputs (walk-forward evals, betting simulations,
+#     tuning sweeps, upcoming bet cards) — all reproducible from the R sources
+# data/game_w_features.csv is already tracked from earlier history and is left
+# alone; ignoring a path does not untrack what git already follows.
+/data/
+
+# ---- Node ----
+node_modules/
+dist/
+*.local

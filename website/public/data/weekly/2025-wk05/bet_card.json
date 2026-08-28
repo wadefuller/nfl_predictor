@@ -1,0 +1,52 @@
+{
+  "season": 2025,
+  "week": 5,
+  "n_bets": 5,
+  "bets": [
+    {
+      "game": "TEN @ ARI",
+      "bet": "ARI spread",
+      "odds": -112,
+      "ev": 0.059,
+      "kelly": 0.082,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "HOU @ BAL",
+      "bet": "BAL spread",
+      "odds": -102,
+      "ev": 0.088,
+      "kelly": 0.117,
+      "stake": 10,
+      "payout_if_win": 10
+    },
+    {
+      "game": "MIN @ CLE",
+      "bet": "MIN spread",
+      "odds": -110,
+      "ev": 0.08,
+      "kelly": 0.113,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "MIA @ CAR",
+      "bet": "MIA ml",
+      "odds": -120,
+      "ev": 0.078,
+      "kelly": 0.12,
+      "stake": 10,
+      "payout_if_win": 8
+    },
+    {
+      "game": "MIN @ CLE",
+      "bet": "MIN ml",
+      "odds": -198,
+      "ev": 0.099,
+      "kelly": 0.258,
+      "stake": 20,
+      "payout_if_win": 10
+    }
+  ]
+}

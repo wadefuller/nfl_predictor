@@ -1,0 +1,70 @@
+{
+  "season": 2025,
+  "week": 14,
+  "n_bets": 7,
+  "bets": [
+    {
+      "game": "CIN @ BUF",
+      "bet": "BUF spread",
+      "odds": -112,
+      "ev": 0.109,
+      "kelly": 0.161,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "IND @ JAX",
+      "bet": "JAX spread",
+      "odds": -108,
+      "ev": 0.121,
+      "kelly": 0.174,
+      "stake": 15,
+      "payout_if_win": 14
+    },
+    {
+      "game": "HOU @ KC",
+      "bet": "KC spread",
+      "odds": -105,
+      "ev": 0.056,
+      "kelly": 0.071,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "MIA @ NYJ",
+      "bet": "MIA spread",
+      "odds": -115,
+      "ev": 0.077,
+      "kelly": 0.113,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "CIN @ BUF",
+      "bet": "BUF ml",
+      "odds": -285,
+      "ev": 0.09,
+      "kelly": 0.335,
+      "stake": 25,
+      "payout_if_win": 9
+    },
+    {
+      "game": "IND @ JAX",
+      "bet": "JAX ml",
+      "odds": 114,
+      "ev": 0.088,
+      "kelly": 0.1,
+      "stake": 5,
+      "payout_if_win": 6
+    },
+    {
+      "game": "MIA @ NYJ",
+      "bet": "MIA ml",
+      "odds": -148,
+      "ev": 0.163,
+      "kelly": 0.326,
+      "stake": 25,
+      "payout_if_win": 17
+    }
+  ]
+}

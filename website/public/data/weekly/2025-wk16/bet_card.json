@@ -1,0 +1,16 @@
+{
+  "season": 2025,
+  "week": 16,
+  "n_bets": 1,
+  "bets": [
+    {
+      "game": "BUF @ CLE",
+      "bet": "BUF spread",
+      "odds": -110,
+      "ev": 0.052,
+      "kelly": 0.07,
+      "stake": 5,
+      "payout_if_win": 5
+    }
+  ]
+}

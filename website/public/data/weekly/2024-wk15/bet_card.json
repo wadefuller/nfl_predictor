@@ -1,0 +1,25 @@
+{
+  "season": 2024,
+  "week": 15,
+  "n_bets": 2,
+  "bets": [
+    {
+      "game": "KC @ CLE",
+      "bet": "KC spread",
+      "odds": -110,
+      "ev": 0.078,
+      "kelly": 0.11,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "ATL @ LV",
+      "bet": "ATL spread",
+      "odds": -110,
+      "ev": 0.071,
+      "kelly": 0.098,
+      "stake": 5,
+      "payout_if_win": 5
+    }
+  ]
+}

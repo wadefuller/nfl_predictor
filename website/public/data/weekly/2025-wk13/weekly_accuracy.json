@@ -1,0 +1,306 @@
+{
+  "season": 2025,
+  "week": 13,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 461,
+      "mae": 3.24,
+      "spearman": 0.721,
+      "ceiling_cov": 0.922,
+      "floor_cov": 0.959
+    },
+    {
+      "position": "QB",
+      "n": 56,
+      "mae": 4.75,
+      "spearman": 0.689,
+      "ceiling_cov": 0.929,
+      "floor_cov": 0.875
+    },
+    {
+      "position": "RB",
+      "n": 114,
+      "mae": 3.25,
+      "spearman": 0.786,
+      "ceiling_cov": 0.912,
+      "floor_cov": 0.974
+    },
+    {
+      "position": "TE",
+      "n": 105,
+      "mae": 2.04,
+      "spearman": 0.725,
+      "ceiling_cov": 0.952,
+      "floor_cov": 1
+    },
+    {
+      "position": "WR",
+      "n": 186,
+      "mae": 3.46,
+      "spearman": 0.656,
+      "ceiling_cov": 0.909,
+      "floor_cov": 0.952
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 18,
+      "bust": 16,
+      "met": 113
+    }
+  ],
+  "beats": [
+    {
+      "player": "A.J. Brown",
+      "position": "WR",
+      "team": "PHI",
+      "proj": 10.9,
+      "actual": 30.2,
+      "surprise": 19.3,
+      "class": "boom"
+    },
+    {
+      "player": "Rashee Rice",
+      "position": "WR",
+      "team": "KC",
+      "proj": 11.4,
+      "actual": 25.4,
+      "surprise": 14,
+      "class": "boom"
+    },
+    {
+      "player": "Jameson Williams",
+      "position": "WR",
+      "team": "DET",
+      "proj": 9.6,
+      "actual": 23.4,
+      "surprise": 13.8,
+      "class": "boom"
+    },
+    {
+      "player": "Bijan Robinson",
+      "position": "RB",
+      "team": "ATL",
+      "proj": 14.5,
+      "actual": 27.8,
+      "surprise": 13.3,
+      "class": "boom"
+    },
+    {
+      "player": "D'Andre Swift",
+      "position": "RB",
+      "team": "CHI",
+      "proj": 8.1,
+      "actual": 20.3,
+      "surprise": 12.2,
+      "class": "boom"
+    },
+    {
+      "player": "Kimani Vidal",
+      "position": "RB",
+      "team": "LAC",
+      "proj": 8,
+      "actual": 20.2,
+      "surprise": 12.2,
+      "class": "boom"
+    },
+    {
+      "player": "Kyle Monangai",
+      "position": "RB",
+      "team": "CHI",
+      "proj": 7,
+      "actual": 19,
+      "surprise": 12,
+      "class": "boom"
+    },
+    {
+      "player": "RJ Harvey",
+      "position": "RB",
+      "team": "DEN",
+      "proj": 7.7,
+      "actual": 19.7,
+      "surprise": 12,
+      "class": "boom"
+    },
+    {
+      "player": "Devin Singletary",
+      "position": "RB",
+      "team": "NYG",
+      "proj": 6.2,
+      "actual": 17.7,
+      "surprise": 11.5,
+      "class": "boom"
+    },
+    {
+      "player": "Brock Bowers",
+      "position": "TE",
+      "team": "LV",
+      "proj": 8.9,
+      "actual": 20.3,
+      "surprise": 11.4,
+      "class": "boom"
+    },
+    {
+      "player": "Marcus Mariota",
+      "position": "QB",
+      "team": "WAS",
+      "proj": 11.9,
+      "actual": 23.3,
+      "surprise": 11.4,
+      "class": "boom"
+    },
+    {
+      "player": "Bryce Young",
+      "position": "QB",
+      "team": "CAR",
+      "proj": 11.9,
+      "actual": 22.5,
+      "surprise": 10.6,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Amon-Ra St. Brown",
+      "position": "WR",
+      "team": "DET",
+      "proj": 14.1,
+      "actual": 0,
+      "surprise": -14.1,
+      "class": "bust"
+    },
+    {
+      "player": "Jameis Winston",
+      "position": "QB",
+      "team": "NYG",
+      "proj": 13.3,
+      "actual": 0,
+      "surprise": -13.3,
+      "class": "bust"
+    },
+    {
+      "player": "Sam Darnold",
+      "position": "QB",
+      "team": "SEA",
+      "proj": 16.2,
+      "actual": 3.1,
+      "surprise": -13.1,
+      "class": "bust"
+    },
+    {
+      "player": "Lamar Jackson",
+      "position": "QB",
+      "team": "BAL",
+      "proj": 19,
+      "actual": 6.5,
+      "surprise": -12.5,
+      "class": "bust"
+    },
+    {
+      "player": "Joe Flacco",
+      "position": "QB",
+      "team": "CIN",
+      "proj": 12.3,
+      "actual": 0,
+      "surprise": -12.3,
+      "class": "bust"
+    },
+    {
+      "player": "Davis Mills",
+      "position": "QB",
+      "team": "HOU",
+      "proj": 12,
+      "actual": 0,
+      "surprise": -12,
+      "class": "bust"
+    },
+    {
+      "player": "Zay Flowers",
+      "position": "WR",
+      "team": "BAL",
+      "proj": 11.4,
+      "actual": -0.4,
+      "surprise": -11.8,
+      "class": "bust"
+    },
+    {
+      "player": "Justin Jefferson",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 11.2,
+      "actual": 1.4,
+      "surprise": -9.8,
+      "class": "bust"
+    },
+    {
+      "player": "Tua Tagovailoa",
+      "position": "QB",
+      "team": "MIA",
+      "proj": 14.1,
+      "actual": 4.7,
+      "surprise": -9.4,
+      "class": "met"
+    },
+    {
+      "player": "Saquon Barkley",
+      "position": "RB",
+      "team": "PHI",
+      "proj": 14.1,
+      "actual": 5.6,
+      "surprise": -8.5,
+      "class": "met"
+    },
+    {
+      "player": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "team": "SEA",
+      "proj": 11.7,
+      "actual": 3.3,
+      "surprise": -8.4,
+      "class": "met"
+    },
+    {
+      "player": "Jahmyr Gibbs",
+      "position": "RB",
+      "team": "DET",
+      "proj": 18.3,
+      "actual": 10.1,
+      "surprise": -8.2,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 369,
+      "model": 0.701,
+      "ecr": 0.545
+    },
+    {
+      "position": "QB",
+      "n": 46,
+      "model": 0.631,
+      "ecr": 0.499
+    },
+    {
+      "position": "RB",
+      "n": 102,
+      "model": 0.771,
+      "ecr": 0.613
+    },
+    {
+      "position": "TE",
+      "n": 75,
+      "model": 0.687,
+      "ecr": 0.526
+    },
+    {
+      "position": "WR",
+      "n": 146,
+      "model": 0.629,
+      "ecr": 0.516
+    }
+  ],
+  "ecr_kind": "season"
+}

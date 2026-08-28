@@ -1,0 +1,61 @@
+{
+  "season": 2025,
+  "week": 13,
+  "n_bets": 6,
+  "bets": [
+    {
+      "game": "CIN @ BAL",
+      "bet": "BAL spread",
+      "odds": -120,
+      "ev": 0.103,
+      "kelly": 0.162,
+      "stake": 10,
+      "payout_if_win": 8
+    },
+    {
+      "game": "HOU @ IND",
+      "bet": "IND spread",
+      "odds": -115,
+      "ev": 0.053,
+      "kelly": 0.074,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "NYG @ NE",
+      "bet": "NE spread",
+      "odds": -115,
+      "ev": 0.073,
+      "kelly": 0.106,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "SF @ CLE",
+      "bet": "SF ml",
+      "odds": -250,
+      "ev": 0.06,
+      "kelly": 0.186,
+      "stake": 15,
+      "payout_if_win": 6
+    },
+    {
+      "game": "HOU @ IND",
+      "bet": "IND ml",
+      "odds": -170,
+      "ev": 0.082,
+      "kelly": 0.18,
+      "stake": 15,
+      "payout_if_win": 9
+    },
+    {
+      "game": "NO @ MIA",
+      "bet": "MIA ml",
+      "odds": -250,
+      "ev": 0.057,
+      "kelly": 0.176,
+      "stake": 15,
+      "payout_if_win": 6
+    }
+  ]
+}

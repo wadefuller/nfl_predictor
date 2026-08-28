@@ -1,0 +1,52 @@
+{
+  "season": 2025,
+  "week": 2,
+  "n_bets": 5,
+  "bets": [
+    {
+      "game": "TB @ HOU",
+      "bet": "TB spread",
+      "odds": -110,
+      "ev": 0.063,
+      "kelly": 0.086,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "LA @ TEN",
+      "bet": "LA spread",
+      "odds": -108,
+      "ev": 0.061,
+      "kelly": 0.082,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "DEN @ IND",
+      "bet": "DEN ml",
+      "odds": -130,
+      "ev": 0.095,
+      "kelly": 0.162,
+      "stake": 10,
+      "payout_if_win": 8
+    },
+    {
+      "game": "PHI @ KC",
+      "bet": "PHI ml",
+      "odds": -122,
+      "ev": 0.073,
+      "kelly": 0.113,
+      "stake": 10,
+      "payout_if_win": 8
+    },
+    {
+      "game": "LA @ TEN",
+      "bet": "LA ml",
+      "odds": -250,
+      "ev": 0.085,
+      "kelly": 0.276,
+      "stake": 20,
+      "payout_if_win": 8
+    }
+  ]
+}

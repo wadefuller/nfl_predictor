@@ -1,0 +1,368 @@
+{
+  "season": 2026,
+  "week": 1,
+  "has_lines": true,
+  "method": "Start the available defense facing the lowest implied team total ((total − spread) / 2).",
+  "rationale": "This one-line Vegas heuristic beat every ML configuration tested (top-1 yield 10.00 vs 9.67 for the best XGBoost). Matchup outpredicts defense quality ~3:1.",
+  "board": [
+    {
+      "rank": 1,
+      "team": "JAX",
+      "opp": "CLE",
+      "is_home": true,
+      "opp_implied": 16.5,
+      "spread": 7.5,
+      "total": 40.5
+    },
+    {
+      "rank": 2,
+      "team": "TEN",
+      "opp": "NYJ",
+      "is_home": true,
+      "opp_implied": 17.8,
+      "spread": 3,
+      "total": 38.5
+    },
+    {
+      "rank": 3,
+      "team": "LAC",
+      "opp": "ARI",
+      "is_home": true,
+      "opp_implied": 18,
+      "spread": 10.5,
+      "total": 46.5
+    },
+    {
+      "rank": 4,
+      "team": "LV",
+      "opp": "MIA",
+      "is_home": true,
+      "opp_implied": 18.5,
+      "spread": 3.5,
+      "total": 40.5
+    },
+    {
+      "rank": 5,
+      "team": "PIT",
+      "opp": "ATL",
+      "is_home": true,
+      "opp_implied": 19.2,
+      "spread": 3,
+      "total": 41.5
+    },
+    {
+      "rank": 6,
+      "team": "KC",
+      "opp": "DEN",
+      "is_home": true,
+      "opp_implied": 19.8,
+      "spread": 3,
+      "total": 42.5
+    },
+    {
+      "rank": 7,
+      "team": "SEA",
+      "opp": "NE",
+      "is_home": true,
+      "opp_implied": 20.5,
+      "spread": 3.5,
+      "total": 44.5
+    },
+    {
+      "rank": 8,
+      "team": "NYJ",
+      "opp": "TEN",
+      "is_home": false,
+      "opp_implied": 20.8,
+      "spread": -3,
+      "total": 38.5
+    },
+    {
+      "rank": 9,
+      "team": "PHI",
+      "opp": "WAS",
+      "is_home": true,
+      "opp_implied": 21,
+      "spread": 4.5,
+      "total": 46.5
+    },
+    {
+      "rank": 10,
+      "team": "DET",
+      "opp": "NO",
+      "is_home": true,
+      "opp_implied": 21.2,
+      "spread": 7,
+      "total": 49.5
+    },
+    {
+      "rank": 11,
+      "team": "BUF",
+      "opp": "HOU",
+      "is_home": false,
+      "opp_implied": 21.5,
+      "spread": 1.5,
+      "total": 44.5
+    },
+    {
+      "rank": 12,
+      "team": "MIN",
+      "opp": "GB",
+      "is_home": true,
+      "opp_implied": 22,
+      "spread": 1.5,
+      "total": 45.5
+    },
+    {
+      "rank": 13,
+      "team": "MIA",
+      "opp": "LV",
+      "is_home": false,
+      "opp_implied": 22,
+      "spread": -3.5,
+      "total": 40.5
+    },
+    {
+      "rank": 14,
+      "team": "ATL",
+      "opp": "PIT",
+      "is_home": false,
+      "opp_implied": 22.2,
+      "spread": -3,
+      "total": 41.5
+    },
+    {
+      "rank": 15,
+      "team": "LA",
+      "opp": "SF",
+      "is_home": true,
+      "opp_implied": 22.5,
+      "spread": 3.5,
+      "total": 48.5
+    },
+    {
+      "rank": 16,
+      "team": "CHI",
+      "opp": "CAR",
+      "is_home": false,
+      "opp_implied": 22.5,
+      "spread": 2.5,
+      "total": 47.5
+    },
+    {
+      "rank": 17,
+      "team": "BAL",
+      "opp": "IND",
+      "is_home": false,
+      "opp_implied": 22.5,
+      "spread": 3.5,
+      "total": 48.5
+    },
+    {
+      "rank": 18,
+      "team": "DEN",
+      "opp": "KC",
+      "is_home": false,
+      "opp_implied": 22.8,
+      "spread": -3,
+      "total": 42.5
+    },
+    {
+      "rank": 19,
+      "team": "HOU",
+      "opp": "BUF",
+      "is_home": true,
+      "opp_implied": 23,
+      "spread": -1.5,
+      "total": 44.5
+    },
+    {
+      "rank": 20,
+      "team": "DAL",
+      "opp": "NYG",
+      "is_home": false,
+      "opp_implied": 23,
+      "spread": 2.5,
+      "total": 48.5
+    },
+    {
+      "rank": 21,
+      "team": "GB",
+      "opp": "MIN",
+      "is_home": false,
+      "opp_implied": 23.5,
+      "spread": -1.5,
+      "total": 45.5
+    },
+    {
+      "rank": 22,
+      "team": "CIN",
+      "opp": "TB",
+      "is_home": true,
+      "opp_implied": 24,
+      "spread": 3.5,
+      "total": 51.5
+    },
+    {
+      "rank": 23,
+      "team": "NE",
+      "opp": "SEA",
+      "is_home": false,
+      "opp_implied": 24,
+      "spread": -3.5,
+      "total": 44.5
+    },
+    {
+      "rank": 24,
+      "team": "CLE",
+      "opp": "JAX",
+      "is_home": false,
+      "opp_implied": 24,
+      "spread": -7.5,
+      "total": 40.5
+    },
+    {
+      "rank": 25,
+      "team": "CAR",
+      "opp": "CHI",
+      "is_home": true,
+      "opp_implied": 25,
+      "spread": -2.5,
+      "total": 47.5
+    },
+    {
+      "rank": 26,
+      "team": "NYG",
+      "opp": "DAL",
+      "is_home": true,
+      "opp_implied": 25.5,
+      "spread": -2.5,
+      "total": 48.5
+    },
+    {
+      "rank": 27,
+      "team": "WAS",
+      "opp": "PHI",
+      "is_home": false,
+      "opp_implied": 25.5,
+      "spread": -4.5,
+      "total": 46.5
+    },
+    {
+      "rank": 28,
+      "team": "IND",
+      "opp": "BAL",
+      "is_home": true,
+      "opp_implied": 26,
+      "spread": -3.5,
+      "total": 48.5
+    },
+    {
+      "rank": 29,
+      "team": "SF",
+      "opp": "LA",
+      "is_home": false,
+      "opp_implied": 26,
+      "spread": -3.5,
+      "total": 48.5
+    },
+    {
+      "rank": 30,
+      "team": "TB",
+      "opp": "CIN",
+      "is_home": false,
+      "opp_implied": 27.5,
+      "spread": -3.5,
+      "total": 51.5
+    },
+    {
+      "rank": 31,
+      "team": "NO",
+      "opp": "DET",
+      "is_home": false,
+      "opp_implied": 28.2,
+      "spread": -7,
+      "total": 49.5
+    },
+    {
+      "rank": 32,
+      "team": "ARI",
+      "opp": "LAC",
+      "is_home": false,
+      "opp_implied": 28.5,
+      "spread": -10.5,
+      "total": 46.5
+    }
+  ],
+  "leagues": [
+    {
+      "label": "UNH SuperFlex Dynasty",
+      "uses_dst": false,
+      "my_dst": null,
+      "n_taken": 0,
+      "top_available": [],
+      "taken": []
+    },
+    {
+      "label": "No Fun League",
+      "uses_dst": false,
+      "my_dst": null,
+      "n_taken": 0,
+      "top_available": [],
+      "taken": []
+    },
+    {
+      "label": "Kansas Keepers League",
+      "uses_dst": true,
+      "my_dst": "DET",
+      "n_taken": 14,
+      "top_available": [
+        {
+          "rank": 2,
+          "team": "TEN",
+          "opp": "NYJ",
+          "is_home": true,
+          "opp_implied": 17.8
+        },
+        {
+          "rank": 4,
+          "team": "LV",
+          "opp": "MIA",
+          "is_home": true,
+          "opp_implied": 18.5
+        },
+        {
+          "rank": 8,
+          "team": "NYJ",
+          "opp": "TEN",
+          "is_home": false,
+          "opp_implied": 20.8
+        },
+        {
+          "rank": 11,
+          "team": "BUF",
+          "opp": "HOU",
+          "is_home": false,
+          "opp_implied": 21.5
+        },
+        {
+          "rank": 13,
+          "team": "MIA",
+          "opp": "LV",
+          "is_home": false,
+          "opp_implied": 22
+        }
+      ],
+      "taken": ["GB", "LA", "NE", "HOU", "MIN", "PHI", "BAL", "SEA", "JAX", "DEN", "DET", "LAC", "PIT", "KC"]
+    },
+    {
+      "label": "#SFB16 San Francisco",
+      "uses_dst": false,
+      "my_dst": null,
+      "n_taken": 0,
+      "top_available": [],
+      "taken": []
+    }
+  ],
+  "skipped": []
+}

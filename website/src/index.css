@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-page: #0d1117;
+  --color-bg-card: #161b22;
+  --color-bg-card-hover: #1c2129;
+  --color-border: #30363d;
+  --color-border-light: #21262d;
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #6e7681;
+  --color-accent: #58a6ff;
+  --color-win: #3fb950;
+  --color-loss: #f85149;
+  --color-neutral: #8b949e;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg-page);
+  /* subtle depth: cool glow top-left + faint violet top-right, fixed so cards
+     read as elevated surfaces instead of flat boxes on flat black */
+  background-image:
+    radial-gradient(1100px 700px at 18% -12%, rgba(56, 97, 156, 0.14), transparent 60%),
+    radial-gradient(900px 600px at 100% 0%, rgba(88, 60, 140, 0.07), transparent 55%);
+  background-attachment: fixed;
+  color: var(--color-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* faint zebra on all data tables; Tailwind hover utilities still override */
+tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.018);
+}
+
+#root {
+  min-height: 100vh;
+}

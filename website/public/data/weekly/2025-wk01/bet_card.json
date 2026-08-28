@@ -1,0 +1,25 @@
+{
+  "season": 2025,
+  "week": 1,
+  "n_bets": 2,
+  "bets": [
+    {
+      "game": "MIN @ CHI",
+      "bet": "MIN ml",
+      "odds": -112,
+      "ev": 0.062,
+      "kelly": 0.087,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "CIN @ CLE",
+      "bet": "CIN ml",
+      "odds": -238,
+      "ev": 0.057,
+      "kelly": 0.167,
+      "stake": 15,
+      "payout_if_win": 6
+    }
+  ]
+}

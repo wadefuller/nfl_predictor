@@ -1,0 +1,16 @@
+{
+  "season": 2024,
+  "week": 2,
+  "n_bets": 1,
+  "bets": [
+    {
+      "game": "CIN @ KC",
+      "bet": "CIN spread",
+      "odds": -105,
+      "ev": 0.068,
+      "kelly": 0.089,
+      "stake": 5,
+      "payout_if_win": 5
+    }
+  ]
+}

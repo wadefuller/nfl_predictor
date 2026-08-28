@@ -1,0 +1,306 @@
+{
+  "season": 2024,
+  "week": 11,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 393,
+      "mae": 3.69,
+      "spearman": 0.714,
+      "ceiling_cov": 0.888,
+      "floor_cov": 0.964
+    },
+    {
+      "position": "QB",
+      "n": 53,
+      "mae": 5.24,
+      "spearman": 0.774,
+      "ceiling_cov": 0.849,
+      "floor_cov": 0.943
+    },
+    {
+      "position": "RB",
+      "n": 96,
+      "mae": 3.5,
+      "spearman": 0.787,
+      "ceiling_cov": 0.927,
+      "floor_cov": 0.99
+    },
+    {
+      "position": "TE",
+      "n": 88,
+      "mae": 3.46,
+      "spearman": 0.427,
+      "ceiling_cov": 0.864,
+      "floor_cov": 0.92
+    },
+    {
+      "position": "WR",
+      "n": 156,
+      "mae": 3.42,
+      "spearman": 0.726,
+      "ceiling_cov": 0.891,
+      "floor_cov": 0.981
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 25,
+      "bust": 14,
+      "met": 96
+    }
+  ],
+  "beats": [
+    {
+      "player": "Taysom Hill",
+      "position": "TE",
+      "team": "NO",
+      "proj": 6.3,
+      "actual": 37.5,
+      "surprise": 31.2,
+      "class": "boom"
+    },
+    {
+      "player": "Joe Mixon",
+      "position": "RB",
+      "team": "HOU",
+      "proj": 15,
+      "actual": 34.3,
+      "surprise": 19.3,
+      "class": "boom"
+    },
+    {
+      "player": "Saquon Barkley",
+      "position": "RB",
+      "team": "PHI",
+      "proj": 14.1,
+      "actual": 32.8,
+      "surprise": 18.7,
+      "class": "boom"
+    },
+    {
+      "player": "Jonnu Smith",
+      "position": "TE",
+      "team": "MIA",
+      "proj": 6.6,
+      "actual": 25.1,
+      "surprise": 18.5,
+      "class": "boom"
+    },
+    {
+      "player": "Amon-Ra St. Brown",
+      "position": "WR",
+      "team": "DET",
+      "proj": 15.4,
+      "actual": 33.2,
+      "surprise": 17.8,
+      "class": "boom"
+    },
+    {
+      "player": "Jameis Winston",
+      "position": "QB",
+      "team": "CLE",
+      "proj": 8.9,
+      "actual": 26.6,
+      "surprise": 17.7,
+      "class": "boom"
+    },
+    {
+      "player": "Jared Goff",
+      "position": "QB",
+      "team": "DET",
+      "proj": 17.6,
+      "actual": 34.6,
+      "surprise": 17,
+      "class": "boom"
+    },
+    {
+      "player": "Brock Bowers",
+      "position": "TE",
+      "team": "LV",
+      "proj": 8,
+      "actual": 24.8,
+      "surprise": 16.8,
+      "class": "boom"
+    },
+    {
+      "player": "Cooper Kupp",
+      "position": "WR",
+      "team": "LA",
+      "proj": 10.4,
+      "actual": 25.6,
+      "surprise": 15.2,
+      "class": "boom"
+    },
+    {
+      "player": "Jerry Jeudy",
+      "position": "WR",
+      "team": "CLE",
+      "proj": 8,
+      "actual": 23.2,
+      "surprise": 15.2,
+      "class": "boom"
+    },
+    {
+      "player": "Breece Hall",
+      "position": "RB",
+      "team": "NYJ",
+      "proj": 14.4,
+      "actual": 27.6,
+      "surprise": 13.2,
+      "class": "boom"
+    },
+    {
+      "player": "Bo Nix",
+      "position": "QB",
+      "team": "DEN",
+      "proj": 15.8,
+      "actual": 28.8,
+      "surprise": 13,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Joe Flacco",
+      "position": "QB",
+      "team": "IND",
+      "proj": 11.2,
+      "actual": 0,
+      "surprise": -11.2,
+      "class": "bust"
+    },
+    {
+      "player": "George Kittle",
+      "position": "TE",
+      "team": "SF",
+      "proj": 10.8,
+      "actual": 0,
+      "surprise": -10.8,
+      "class": "bust"
+    },
+    {
+      "player": "Kirk Cousins",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 14.9,
+      "actual": 4.9,
+      "surprise": -10,
+      "class": "bust"
+    },
+    {
+      "player": "Garrett Wilson",
+      "position": "WR",
+      "team": "NYJ",
+      "proj": 12.7,
+      "actual": 3.8,
+      "surprise": -8.9,
+      "class": "met"
+    },
+    {
+      "player": "Russell Wilson",
+      "position": "QB",
+      "team": "PIT",
+      "proj": 15.2,
+      "actual": 6.3,
+      "surprise": -8.9,
+      "class": "bust"
+    },
+    {
+      "player": "Terry McLaurin",
+      "position": "WR",
+      "team": "WAS",
+      "proj": 10,
+      "actual": 1.5,
+      "surprise": -8.5,
+      "class": "bust"
+    },
+    {
+      "player": "Aaron Jones",
+      "position": "RB",
+      "team": "MIN",
+      "proj": 12.1,
+      "actual": 4.8,
+      "surprise": -7.3,
+      "class": "met"
+    },
+    {
+      "player": "Kyren Williams",
+      "position": "RB",
+      "team": "LA",
+      "proj": 15.8,
+      "actual": 8.6,
+      "surprise": -7.2,
+      "class": "met"
+    },
+    {
+      "player": "Tony Pollard",
+      "position": "RB",
+      "team": "TEN",
+      "proj": 10.6,
+      "actual": 3.9,
+      "surprise": -6.7,
+      "class": "met"
+    },
+    {
+      "player": "Jonathan Taylor",
+      "position": "RB",
+      "team": "IND",
+      "proj": 13,
+      "actual": 6.5,
+      "surprise": -6.5,
+      "class": "met"
+    },
+    {
+      "player": "Darnell Mooney",
+      "position": "WR",
+      "team": "ATL",
+      "proj": 10,
+      "actual": 3.7,
+      "surprise": -6.3,
+      "class": "met"
+    },
+    {
+      "player": "Bijan Robinson",
+      "position": "RB",
+      "team": "ATL",
+      "proj": 14.5,
+      "actual": 8.3,
+      "surprise": -6.2,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 345,
+      "model": 0.709,
+      "ecr": 0.561
+    },
+    {
+      "position": "QB",
+      "n": 45,
+      "model": 0.728,
+      "ecr": 0.641
+    },
+    {
+      "position": "RB",
+      "n": 95,
+      "model": 0.784,
+      "ecr": 0.649
+    },
+    {
+      "position": "TE",
+      "n": 71,
+      "model": 0.427,
+      "ecr": 0.244
+    },
+    {
+      "position": "WR",
+      "n": 134,
+      "model": 0.692,
+      "ecr": 0.598
+    }
+  ],
+  "ecr_kind": "season"
+}

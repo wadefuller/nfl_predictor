@@ -1,0 +1,25 @@
+{
+  "season": 2024,
+  "week": 17,
+  "n_bets": 2,
+  "bets": [
+    {
+      "game": "LV @ NO",
+      "bet": "NO spread",
+      "odds": -110,
+      "ev": 0.057,
+      "kelly": 0.077,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "ATL @ WAS",
+      "bet": "WAS spread",
+      "odds": -105,
+      "ev": 0.084,
+      "kelly": 0.114,
+      "stake": 10,
+      "payout_if_win": 10
+    }
+  ]
+}

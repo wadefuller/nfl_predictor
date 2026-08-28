@@ -1,0 +1,281 @@
+{
+  "season": 2025,
+  "week": 14,
+  "source": "walk_forward_oos",
+  "metrics": [
+    {
+      "games": 14,
+      "mae": 12.089,
+      "cover_acc": 0.714,
+      "ml_acc": 0.643,
+      "brier": 0.2312
+    }
+  ],
+  "bet_summary": [
+    {
+      "n_bets": 7,
+      "staked": 95,
+      "pnl": 39,
+      "roi": 0.411,
+      "wins": 5,
+      "losses": 2,
+      "pushes": 0
+    }
+  ],
+  "games": [
+    {
+      "game": "LA @ ARI",
+      "spread_line": -9.5,
+      "total_line": 49.5,
+      "pred_margin": -9.9,
+      "actual_margin": -28,
+      "abs_err": 18.1,
+      "pred_win_pct": 0.144,
+      "vegas_win_pct": 0.2,
+      "edge_pct": -0.056,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "SEA @ ATL",
+      "spread_line": -7,
+      "total_line": 44.5,
+      "pred_margin": -7.7,
+      "actual_margin": -28,
+      "abs_err": 20.3,
+      "pred_win_pct": 0.198,
+      "vegas_win_pct": 0.252,
+      "edge_pct": -0.054,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "PIT @ BAL",
+      "spread_line": 5.5,
+      "total_line": 43.5,
+      "pred_margin": 7.1,
+      "actual_margin": -5,
+      "abs_err": 12.1,
+      "pred_win_pct": 0.758,
+      "vegas_win_pct": 0.7,
+      "edge_pct": 0.058,
+      "cover_correct": 0,
+      "ml_correct": 0
+    },
+    {
+      "game": "CIN @ BUF",
+      "spread_line": 6,
+      "total_line": 54.5,
+      "pred_margin": 9.4,
+      "actual_margin": 5,
+      "abs_err": 4.4,
+      "pred_win_pct": 0.827,
+      "vegas_win_pct": 0.71,
+      "edge_pct": 0.117,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "TEN @ CLE",
+      "spread_line": 4.5,
+      "total_line": 33.5,
+      "pred_margin": 2.5,
+      "actual_margin": -2,
+      "abs_err": 4.5,
+      "pred_win_pct": 0.587,
+      "vegas_win_pct": 0.645,
+      "edge_pct": -0.058,
+      "cover_correct": 1,
+      "ml_correct": 0
+    },
+    {
+      "game": "DAL @ DET",
+      "spread_line": 3.5,
+      "total_line": 55.5,
+      "pred_margin": 4.9,
+      "actual_margin": 14,
+      "abs_err": 9.1,
+      "pred_win_pct": 0.685,
+      "vegas_win_pct": 0.631,
+      "edge_pct": 0.054,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "CHI @ GB",
+      "spread_line": 6.5,
+      "total_line": 44.5,
+      "pred_margin": 8.5,
+      "actual_margin": 7,
+      "abs_err": 1.5,
+      "pred_win_pct": 0.803,
+      "vegas_win_pct": 0.722,
+      "edge_pct": 0.081,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "IND @ JAX",
+      "spread_line": -2.5,
+      "total_line": 44.5,
+      "pred_margin": 0.9,
+      "actual_margin": 17,
+      "abs_err": 16.1,
+      "pred_win_pct": 0.52,
+      "vegas_win_pct": 0.449,
+      "edge_pct": 0.071,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "HOU @ KC",
+      "spread_line": 4.5,
+      "total_line": 41.5,
+      "pred_margin": 6,
+      "actual_margin": -10,
+      "abs_err": 16,
+      "pred_win_pct": 0.724,
+      "vegas_win_pct": 0.657,
+      "edge_pct": 0.067,
+      "cover_correct": 0,
+      "ml_correct": 0
+    },
+    {
+      "game": "PHI @ LAC",
+      "spread_line": -1.5,
+      "total_line": 41.5,
+      "pred_margin": 0.6,
+      "actual_margin": 3,
+      "abs_err": 2.4,
+      "pred_win_pct": 0.508,
+      "vegas_win_pct": 0.478,
+      "edge_pct": 0.03,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "DEN @ LV",
+      "spread_line": -8.5,
+      "total_line": 40.5,
+      "pred_margin": -8,
+      "actual_margin": -7,
+      "abs_err": 1,
+      "pred_win_pct": 0.19,
+      "vegas_win_pct": 0.209,
+      "edge_pct": -0.019,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "WAS @ MIN",
+      "spread_line": -1.5,
+      "total_line": 43.5,
+      "pred_margin": -1.1,
+      "actual_margin": 31,
+      "abs_err": 32.1,
+      "pred_win_pct": 0.438,
+      "vegas_win_pct": 0.489,
+      "edge_pct": -0.051,
+      "cover_correct": 1,
+      "ml_correct": 0
+    },
+    {
+      "game": "MIA @ NYJ",
+      "spread_line": -2.5,
+      "total_line": 41.5,
+      "pred_margin": -5.4,
+      "actual_margin": -24,
+      "abs_err": 18.6,
+      "pred_win_pct": 0.272,
+      "vegas_win_pct": 0.428,
+      "edge_pct": -0.156,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "NO @ TB",
+      "spread_line": 7.5,
+      "total_line": 41.5,
+      "pred_margin": 9.1,
+      "actual_margin": -4,
+      "abs_err": 13.1,
+      "pred_win_pct": 0.817,
+      "vegas_win_pct": 0.777,
+      "edge_pct": 0.04,
+      "cover_correct": 0,
+      "ml_correct": 0
+    }
+  ],
+  "bets": [
+    {
+      "game": "CIN @ BUF",
+      "bet": "BUF spread",
+      "odds": -112,
+      "ev": 0.109,
+      "stake": 10,
+      "units": 2,
+      "result": "LOSS",
+      "pnl": -10
+    },
+    {
+      "game": "IND @ JAX",
+      "bet": "JAX spread",
+      "odds": -108,
+      "ev": 0.121,
+      "stake": 15,
+      "units": 3,
+      "result": "WIN",
+      "pnl": 14
+    },
+    {
+      "game": "HOU @ KC",
+      "bet": "KC spread",
+      "odds": -105,
+      "ev": 0.056,
+      "stake": 5,
+      "units": 1,
+      "result": "LOSS",
+      "pnl": -5
+    },
+    {
+      "game": "MIA @ NYJ",
+      "bet": "MIA spread",
+      "odds": -115,
+      "ev": 0.077,
+      "stake": 10,
+      "units": 2,
+      "result": "WIN",
+      "pnl": 9
+    },
+    {
+      "game": "CIN @ BUF",
+      "bet": "BUF ml",
+      "odds": -285,
+      "ev": 0.09,
+      "stake": 25,
+      "units": 5,
+      "result": "WIN",
+      "pnl": 9
+    },
+    {
+      "game": "IND @ JAX",
+      "bet": "JAX ml",
+      "odds": 114,
+      "ev": 0.088,
+      "stake": 5,
+      "units": 1,
+      "result": "WIN",
+      "pnl": 6
+    },
+    {
+      "game": "MIA @ NYJ",
+      "bet": "MIA ml",
+      "odds": -148,
+      "ev": 0.163,
+      "stake": 25,
+      "units": 5,
+      "result": "WIN",
+      "pnl": 17
+    }
+  ]
+}

@@ -1,0 +1,306 @@
+{
+  "season": 2025,
+  "week": 4,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 434,
+      "mae": 3.58,
+      "spearman": 0.699,
+      "ceiling_cov": 0.906,
+      "floor_cov": 0.959
+    },
+    {
+      "position": "QB",
+      "n": 53,
+      "mae": 5.55,
+      "spearman": 0.682,
+      "ceiling_cov": 0.887,
+      "floor_cov": 0.943
+    },
+    {
+      "position": "RB",
+      "n": 107,
+      "mae": 3.99,
+      "spearman": 0.741,
+      "ceiling_cov": 0.85,
+      "floor_cov": 0.953
+    },
+    {
+      "position": "TE",
+      "n": 97,
+      "mae": 2.39,
+      "spearman": 0.659,
+      "ceiling_cov": 0.907,
+      "floor_cov": 1
+    },
+    {
+      "position": "WR",
+      "n": 177,
+      "mae": 3.4,
+      "spearman": 0.686,
+      "ceiling_cov": 0.944,
+      "floor_cov": 0.944
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 18,
+      "bust": 15,
+      "met": 121
+    }
+  ],
+  "beats": [
+    {
+      "player": "Ashton Jeanty",
+      "position": "RB",
+      "team": "LV",
+      "proj": 12,
+      "actual": 32.5,
+      "surprise": 20.5,
+      "class": "boom"
+    },
+    {
+      "player": "George Pickens",
+      "position": "WR",
+      "team": "DAL",
+      "proj": 9.5,
+      "actual": 29.4,
+      "surprise": 19.9,
+      "class": "boom"
+    },
+    {
+      "player": "Romeo Doubs",
+      "position": "WR",
+      "team": "GB",
+      "proj": 7,
+      "actual": 26.8,
+      "surprise": 19.8,
+      "class": "boom"
+    },
+    {
+      "player": "Puka Nacua",
+      "position": "WR",
+      "team": "LA",
+      "proj": 12.9,
+      "actual": 29.5,
+      "surprise": 16.6,
+      "class": "boom"
+    },
+    {
+      "player": "Dak Prescott",
+      "position": "QB",
+      "team": "DAL",
+      "proj": 14.4,
+      "actual": 31,
+      "surprise": 16.6,
+      "class": "boom"
+    },
+    {
+      "player": "Josh Jacobs",
+      "position": "RB",
+      "team": "GB",
+      "proj": 14.6,
+      "actual": 29.7,
+      "surprise": 15.1,
+      "class": "boom"
+    },
+    {
+      "player": "Omarion Hampton",
+      "position": "RB",
+      "team": "LAC",
+      "proj": 12.5,
+      "actual": 25,
+      "surprise": 12.5,
+      "class": "boom"
+    },
+    {
+      "player": "DK Metcalf",
+      "position": "WR",
+      "team": "PIT",
+      "proj": 9.7,
+      "actual": 21.1,
+      "surprise": 11.4,
+      "class": "boom"
+    },
+    {
+      "player": "Bijan Robinson",
+      "position": "RB",
+      "team": "ATL",
+      "proj": 14.8,
+      "actual": 26.1,
+      "surprise": 11.3,
+      "class": "boom"
+    },
+    {
+      "player": "RJ Harvey",
+      "position": "RB",
+      "team": "DEN",
+      "proj": 6.8,
+      "actual": 17.8,
+      "surprise": 11,
+      "class": "boom"
+    },
+    {
+      "player": "Bucky Irving",
+      "position": "RB",
+      "team": "TB",
+      "proj": 12.1,
+      "actual": 23,
+      "surprise": 10.9,
+      "class": "boom"
+    },
+    {
+      "player": "Matthew Stafford",
+      "position": "QB",
+      "team": "LA",
+      "proj": 16.7,
+      "actual": 27.4,
+      "surprise": 10.7,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Mac Jones",
+      "position": "QB",
+      "team": "SF",
+      "proj": 13,
+      "actual": 0,
+      "surprise": -13,
+      "class": "bust"
+    },
+    {
+      "player": "Tyrod Taylor",
+      "position": "QB",
+      "team": "NYJ",
+      "proj": 12.1,
+      "actual": 0,
+      "surprise": -12.1,
+      "class": "bust"
+    },
+    {
+      "player": "Jaylen Warren",
+      "position": "RB",
+      "team": "PIT",
+      "proj": 10.7,
+      "actual": 0,
+      "surprise": -10.7,
+      "class": "bust"
+    },
+    {
+      "player": "David Montgomery",
+      "position": "RB",
+      "team": "DET",
+      "proj": 11.8,
+      "actual": 1.2,
+      "surprise": -10.6,
+      "class": "bust"
+    },
+    {
+      "player": "Russell Wilson",
+      "position": "QB",
+      "team": "NYG",
+      "proj": 10.7,
+      "actual": 0.3,
+      "surprise": -10.4,
+      "class": "met"
+    },
+    {
+      "player": "Lamar Jackson",
+      "position": "QB",
+      "team": "BAL",
+      "proj": 19.9,
+      "actual": 10.7,
+      "surprise": -9.2,
+      "class": "met"
+    },
+    {
+      "player": "Malik Nabers",
+      "position": "WR",
+      "team": "NYG",
+      "proj": 12,
+      "actual": 3,
+      "surprise": -9,
+      "class": "bust"
+    },
+    {
+      "player": "A.J. Brown",
+      "position": "WR",
+      "team": "PHI",
+      "proj": 10.4,
+      "actual": 1.7,
+      "surprise": -8.7,
+      "class": "bust"
+    },
+    {
+      "player": "Ladd McConkey",
+      "position": "WR",
+      "team": "LAC",
+      "proj": 10,
+      "actual": 1.6,
+      "surprise": -8.4,
+      "class": "met"
+    },
+    {
+      "player": "Tre Tucker",
+      "position": "WR",
+      "team": "LV",
+      "proj": 10.6,
+      "actual": 3.2,
+      "surprise": -7.4,
+      "class": "met"
+    },
+    {
+      "player": "Cam Ward",
+      "position": "QB",
+      "team": "TEN",
+      "proj": 11.9,
+      "actual": 4.5,
+      "surprise": -7.4,
+      "class": "met"
+    },
+    {
+      "player": "Ja'Marr Chase",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 11.7,
+      "actual": 4.8,
+      "surprise": -6.9,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 370,
+      "model": 0.675,
+      "ecr": 0.54
+    },
+    {
+      "position": "QB",
+      "n": 46,
+      "model": 0.642,
+      "ecr": 0.505
+    },
+    {
+      "position": "RB",
+      "n": 102,
+      "model": 0.736,
+      "ecr": 0.609
+    },
+    {
+      "position": "TE",
+      "n": 71,
+      "model": 0.539,
+      "ecr": 0.483
+    },
+    {
+      "position": "WR",
+      "n": 151,
+      "model": 0.635,
+      "ecr": 0.528
+    }
+  ],
+  "ecr_kind": "season"
+}

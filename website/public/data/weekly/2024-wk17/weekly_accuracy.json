@@ -1,0 +1,306 @@
+{
+  "season": 2024,
+  "week": 17,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 395,
+      "mae": 3.95,
+      "spearman": 0.706,
+      "ceiling_cov": 0.899,
+      "floor_cov": 0.894
+    },
+    {
+      "position": "QB",
+      "n": 44,
+      "mae": 7.18,
+      "spearman": 0.732,
+      "ceiling_cov": 0.841,
+      "floor_cov": 0.886
+    },
+    {
+      "position": "RB",
+      "n": 100,
+      "mae": 3.41,
+      "spearman": 0.663,
+      "ceiling_cov": 0.94,
+      "floor_cov": 0.88
+    },
+    {
+      "position": "TE",
+      "n": 86,
+      "mae": 3.03,
+      "spearman": 0.61,
+      "ceiling_cov": 0.895,
+      "floor_cov": 0.86
+    },
+    {
+      "position": "WR",
+      "n": 165,
+      "mae": 3.9,
+      "spearman": 0.729,
+      "ceiling_cov": 0.891,
+      "floor_cov": 0.921
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 23,
+      "bust": 17,
+      "met": 116
+    }
+  ],
+  "beats": [
+    {
+      "player": "Drew Lock",
+      "position": "QB",
+      "team": "NYG",
+      "proj": 10.9,
+      "actual": 34.4,
+      "surprise": 23.5,
+      "class": "boom"
+    },
+    {
+      "player": "Tee Higgins",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 11.8,
+      "actual": 34.6,
+      "surprise": 22.8,
+      "class": "boom"
+    },
+    {
+      "player": "Malik Nabers",
+      "position": "WR",
+      "team": "NYG",
+      "proj": 10.8,
+      "actual": 32.6,
+      "surprise": 21.8,
+      "class": "boom"
+    },
+    {
+      "player": "Joe Burrow",
+      "position": "QB",
+      "team": "CIN",
+      "proj": 18.6,
+      "actual": 37,
+      "surprise": 18.4,
+      "class": "boom"
+    },
+    {
+      "player": "Tyler Huntley",
+      "position": "QB",
+      "team": "MIA",
+      "proj": 6.4,
+      "actual": 24.2,
+      "surprise": 17.8,
+      "class": "boom"
+    },
+    {
+      "player": "Adam Thielen",
+      "position": "WR",
+      "team": "CAR",
+      "proj": 8.7,
+      "actual": 25.5,
+      "surprise": 16.8,
+      "class": "boom"
+    },
+    {
+      "player": "DeVonta Smith",
+      "position": "WR",
+      "team": "PHI",
+      "proj": 10.8,
+      "actual": 27,
+      "surprise": 16.2,
+      "class": "boom"
+    },
+    {
+      "player": "Zach Ertz",
+      "position": "TE",
+      "team": "WAS",
+      "proj": 6.7,
+      "actual": 22.2,
+      "surprise": 15.5,
+      "class": "boom"
+    },
+    {
+      "player": "Baker Mayfield",
+      "position": "QB",
+      "team": "TB",
+      "proj": 19.1,
+      "actual": 34.6,
+      "surprise": 15.5,
+      "class": "boom"
+    },
+    {
+      "player": "Ladd McConkey",
+      "position": "WR",
+      "team": "LAC",
+      "proj": 10.3,
+      "actual": 25.4,
+      "surprise": 15.1,
+      "class": "boom"
+    },
+    {
+      "player": "Trey McBride",
+      "position": "TE",
+      "team": "ARI",
+      "proj": 10.1,
+      "actual": 24.3,
+      "surprise": 14.2,
+      "class": "boom"
+    },
+    {
+      "player": "Mike Evans",
+      "position": "WR",
+      "team": "TB",
+      "proj": 11.6,
+      "actual": 25.7,
+      "surprise": 14.1,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Aaron Rodgers",
+      "position": "QB",
+      "team": "NYJ",
+      "proj": 12.5,
+      "actual": 0.5,
+      "surprise": -12,
+      "class": "bust"
+    },
+    {
+      "player": "James Conner",
+      "position": "RB",
+      "team": "ARI",
+      "proj": 13.2,
+      "actual": 1.8,
+      "surprise": -11.4,
+      "class": "bust"
+    },
+    {
+      "player": "Terry McLaurin",
+      "position": "WR",
+      "team": "WAS",
+      "proj": 11.7,
+      "actual": 1,
+      "surprise": -10.7,
+      "class": "bust"
+    },
+    {
+      "player": "Tony Pollard",
+      "position": "RB",
+      "team": "TEN",
+      "proj": 10.6,
+      "actual": 0,
+      "surprise": -10.6,
+      "class": "bust"
+    },
+    {
+      "player": "Rhamondre Stevenson",
+      "position": "RB",
+      "team": "NE",
+      "proj": 10.4,
+      "actual": 0.1,
+      "surprise": -10.3,
+      "class": "bust"
+    },
+    {
+      "player": "C.J. Stroud",
+      "position": "QB",
+      "team": "HOU",
+      "proj": 15,
+      "actual": 6.1,
+      "surprise": -8.9,
+      "class": "bust"
+    },
+    {
+      "player": "Caleb Williams",
+      "position": "QB",
+      "team": "CHI",
+      "proj": 15.3,
+      "actual": 6.6,
+      "surprise": -8.7,
+      "class": "met"
+    },
+    {
+      "player": "De'Von Achane",
+      "position": "RB",
+      "team": "MIA",
+      "proj": 13.2,
+      "actual": 4.8,
+      "surprise": -8.4,
+      "class": "met"
+    },
+    {
+      "player": "Matthew Stafford",
+      "position": "QB",
+      "team": "LA",
+      "proj": 17,
+      "actual": 9.2,
+      "surprise": -7.8,
+      "class": "met"
+    },
+    {
+      "player": "Joe Mixon",
+      "position": "RB",
+      "team": "HOU",
+      "proj": 12.8,
+      "actual": 4.9,
+      "surprise": -7.9,
+      "class": "met"
+    },
+    {
+      "player": "Zay Flowers",
+      "position": "WR",
+      "team": "BAL",
+      "proj": 11.9,
+      "actual": 4.1,
+      "surprise": -7.8,
+      "class": "met"
+    },
+    {
+      "player": "Cooper Kupp",
+      "position": "WR",
+      "team": "LA",
+      "proj": 11.1,
+      "actual": 3.4,
+      "surprise": -7.7,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 344,
+      "model": 0.695,
+      "ecr": 0.474
+    },
+    {
+      "position": "QB",
+      "n": 39,
+      "model": 0.692,
+      "ecr": 0.499
+    },
+    {
+      "position": "RB",
+      "n": 97,
+      "model": 0.656,
+      "ecr": 0.456
+    },
+    {
+      "position": "TE",
+      "n": 70,
+      "model": 0.616,
+      "ecr": 0.47
+    },
+    {
+      "position": "WR",
+      "n": 138,
+      "model": 0.704,
+      "ecr": 0.487
+    }
+  ],
+  "ecr_kind": "season"
+}

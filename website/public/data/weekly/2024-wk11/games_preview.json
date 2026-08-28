@@ -1,0 +1,1056 @@
+{
+  "season": 2024,
+  "week": 11,
+  "games": [
+    {
+      "game_id": "2024_11_CLE_NO",
+      "home_team": "NO",
+      "away_team": "CLE",
+      "spread_line": -1,
+      "total_line": 44,
+      "pred_margin": 1.4,
+      "pred_win_home": 0.546,
+      "home_implied_market": 21.5,
+      "away_implied_market": 22.5,
+      "home_implied_pred": 22.7,
+      "away_implied_pred": 21.3,
+      "spread_edge_home": 2.4,
+      "edge_abs": 2.4,
+      "home_players": [
+        {
+          "player": "Alvin Kamara",
+          "position": "RB",
+          "proj": 14.7,
+          "floor": 4.3,
+          "ceiling": 26.9
+        },
+        {
+          "player": "Derek Carr",
+          "position": "QB",
+          "proj": 14.5,
+          "floor": 4.5,
+          "ceiling": 24
+        },
+        {
+          "player": "Taysom Hill",
+          "position": "TE",
+          "proj": 6.3,
+          "floor": 0.2,
+          "ceiling": 14.7
+        },
+        {
+          "player": "Juwan Johnson",
+          "position": "TE",
+          "proj": 4.8,
+          "floor": 0,
+          "ceiling": 10.8
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Jameis Winston",
+          "position": "QB",
+          "proj": 8.9,
+          "floor": 0,
+          "ceiling": 19.8
+        },
+        {
+          "player": "Jerry Jeudy",
+          "position": "WR",
+          "proj": 8,
+          "floor": 1.4,
+          "ceiling": 16.4
+        },
+        {
+          "player": "Cedric Tillman",
+          "position": "WR",
+          "proj": 7.8,
+          "floor": 1.2,
+          "ceiling": 16.6
+        },
+        {
+          "player": "Nick Chubb",
+          "position": "RB",
+          "proj": 7.4,
+          "floor": 0.7,
+          "ceiling": 16.4
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_GB_CHI",
+      "home_team": "CHI",
+      "away_team": "GB",
+      "spread_line": -6,
+      "total_line": 41,
+      "pred_margin": -4.1,
+      "pred_win_home": 0.366,
+      "home_implied_market": 17.5,
+      "away_implied_market": 23.5,
+      "home_implied_pred": 18.5,
+      "away_implied_pred": 22.5,
+      "spread_edge_home": 1.9,
+      "edge_abs": 1.9,
+      "home_players": [
+        {
+          "player": "Caleb Williams",
+          "position": "QB",
+          "proj": 12.3,
+          "floor": 0,
+          "ceiling": 23.2
+        },
+        {
+          "player": "D'Andre Swift",
+          "position": "RB",
+          "proj": 10.7,
+          "floor": 2.6,
+          "ceiling": 20.3
+        },
+        {
+          "player": "DJ Moore",
+          "position": "WR",
+          "proj": 9.2,
+          "floor": 2.2,
+          "ceiling": 17.2
+        },
+        {
+          "player": "Keenan Allen",
+          "position": "WR",
+          "proj": 8.6,
+          "floor": 2.2,
+          "ceiling": 16.2
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Jordan Love",
+          "position": "QB",
+          "proj": 14.7,
+          "floor": 5.4,
+          "ceiling": 23.8
+        },
+        {
+          "player": "Josh Jacobs",
+          "position": "RB",
+          "proj": 12.9,
+          "floor": 3.6,
+          "ceiling": 23.8
+        },
+        {
+          "player": "Jayden Reed",
+          "position": "WR",
+          "proj": 8.2,
+          "floor": 1.3,
+          "ceiling": 17
+        },
+        {
+          "player": "Romeo Doubs",
+          "position": "WR",
+          "proj": 7.8,
+          "floor": 1,
+          "ceiling": 16.9
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_IND_NYJ",
+      "home_team": "NYJ",
+      "away_team": "IND",
+      "spread_line": 4,
+      "total_line": 43,
+      "pred_margin": 5.5,
+      "pred_win_home": 0.678,
+      "home_implied_market": 23.5,
+      "away_implied_market": 19.5,
+      "home_implied_pred": 24.3,
+      "away_implied_pred": 18.7,
+      "spread_edge_home": 1.5,
+      "edge_abs": 1.5,
+      "home_players": [
+        {
+          "player": "Aaron Rodgers",
+          "position": "QB",
+          "proj": 14.8,
+          "floor": 4.9,
+          "ceiling": 24
+        },
+        {
+          "player": "Breece Hall",
+          "position": "RB",
+          "proj": 14.4,
+          "floor": 3.9,
+          "ceiling": 23.2
+        },
+        {
+          "player": "Garrett Wilson",
+          "position": "WR",
+          "proj": 12.7,
+          "floor": 3.1,
+          "ceiling": 22.6
+        },
+        {
+          "player": "Davante Adams",
+          "position": "WR",
+          "proj": 11.1,
+          "floor": 2.9,
+          "ceiling": 20.3
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Jonathan Taylor",
+          "position": "RB",
+          "proj": 13,
+          "floor": 4.4,
+          "ceiling": 22.7
+        },
+        {
+          "player": "Joe Flacco",
+          "position": "QB",
+          "proj": 11.2,
+          "floor": 0,
+          "ceiling": 21
+        },
+        {
+          "player": "Josh Downs",
+          "position": "WR",
+          "proj": 8.8,
+          "floor": 1.7,
+          "ceiling": 18.6
+        },
+        {
+          "player": "Alec Pierce",
+          "position": "WR",
+          "proj": 6.3,
+          "floor": 0.5,
+          "ceiling": 14
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_LA_NE",
+      "home_team": "NE",
+      "away_team": "LA",
+      "spread_line": -4,
+      "total_line": 42.5,
+      "pred_margin": -5,
+      "pred_win_home": 0.338,
+      "home_implied_market": 19.2,
+      "away_implied_market": 23.2,
+      "home_implied_pred": 18.8,
+      "away_implied_pred": 23.7,
+      "spread_edge_home": -1,
+      "edge_abs": 1,
+      "home_players": [
+        {
+          "player": "Drake Maye",
+          "position": "QB",
+          "proj": 13.3,
+          "floor": 2,
+          "ceiling": 24
+        },
+        {
+          "player": "Rhamondre Stevenson",
+          "position": "RB",
+          "proj": 10.6,
+          "floor": 2.5,
+          "ceiling": 20
+        },
+        {
+          "player": "Hunter Henry",
+          "position": "TE",
+          "proj": 6.8,
+          "floor": 1.2,
+          "ceiling": 13.1
+        },
+        {
+          "player": "DeMario Douglas",
+          "position": "WR",
+          "proj": 6.8,
+          "floor": 0.6,
+          "ceiling": 14.9
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Kyren Williams",
+          "position": "RB",
+          "proj": 15.8,
+          "floor": 4.6,
+          "ceiling": 27.4
+        },
+        {
+          "player": "Matthew Stafford",
+          "position": "QB",
+          "proj": 15.1,
+          "floor": 6.5,
+          "ceiling": 24.2
+        },
+        {
+          "player": "Puka Nacua",
+          "position": "WR",
+          "proj": 10.4,
+          "floor": 1.5,
+          "ceiling": 19.4
+        },
+        {
+          "player": "Cooper Kupp",
+          "position": "WR",
+          "proj": 10.4,
+          "floor": 2.4,
+          "ceiling": 18.1
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_BAL_PIT",
+      "home_team": "PIT",
+      "away_team": "BAL",
+      "spread_line": -3,
+      "total_line": 48,
+      "pred_margin": -4,
+      "pred_win_home": 0.368,
+      "home_implied_market": 22.5,
+      "away_implied_market": 25.5,
+      "home_implied_pred": 22,
+      "away_implied_pred": 26,
+      "spread_edge_home": -1,
+      "edge_abs": 1,
+      "home_players": [
+        {
+          "player": "Russell Wilson",
+          "position": "QB",
+          "proj": 15.2,
+          "floor": 6.6,
+          "ceiling": 25.1
+        },
+        {
+          "player": "George Pickens",
+          "position": "WR",
+          "proj": 10.5,
+          "floor": 2.5,
+          "ceiling": 19.9
+        },
+        {
+          "player": "Najee Harris",
+          "position": "RB",
+          "proj": 10.3,
+          "floor": 2.5,
+          "ceiling": 20.6
+        },
+        {
+          "player": "Jaylen Warren",
+          "position": "RB",
+          "proj": 8.1,
+          "floor": 1.1,
+          "ceiling": 16.9
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Lamar Jackson",
+          "position": "QB",
+          "proj": 20.1,
+          "floor": 10,
+          "ceiling": 28.6
+        },
+        {
+          "player": "Derrick Henry",
+          "position": "RB",
+          "proj": 13.9,
+          "floor": 4.1,
+          "ceiling": 26.2
+        },
+        {
+          "player": "Zay Flowers",
+          "position": "WR",
+          "proj": 10.4,
+          "floor": 1.9,
+          "ceiling": 19.7
+        },
+        {
+          "player": "Rashod Bateman",
+          "position": "WR",
+          "proj": 7.8,
+          "floor": 0.8,
+          "ceiling": 16.1
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_MIN_TEN",
+      "home_team": "TEN",
+      "away_team": "MIN",
+      "spread_line": -6,
+      "total_line": 40,
+      "pred_margin": -6.8,
+      "pred_win_home": 0.285,
+      "home_implied_market": 17,
+      "away_implied_market": 23,
+      "home_implied_pred": 16.6,
+      "away_implied_pred": 23.4,
+      "spread_edge_home": -0.8,
+      "edge_abs": 0.8,
+      "home_players": [
+        {
+          "player": "Will Levis",
+          "position": "QB",
+          "proj": 11.9,
+          "floor": 1.6,
+          "ceiling": 21
+        },
+        {
+          "player": "Tony Pollard",
+          "position": "RB",
+          "proj": 10.6,
+          "floor": 2.7,
+          "ceiling": 19.8
+        },
+        {
+          "player": "Calvin Ridley",
+          "position": "WR",
+          "proj": 9.2,
+          "floor": 2.8,
+          "ceiling": 17.8
+        },
+        {
+          "player": "Tyjae Spears",
+          "position": "RB",
+          "proj": 6.7,
+          "floor": 0.6,
+          "ceiling": 15.1
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Sam Darnold",
+          "position": "QB",
+          "proj": 15.6,
+          "floor": 5.7,
+          "ceiling": 26.6
+        },
+        {
+          "player": "Justin Jefferson",
+          "position": "WR",
+          "proj": 13.4,
+          "floor": 3.4,
+          "ceiling": 22.1
+        },
+        {
+          "player": "Aaron Jones",
+          "position": "RB",
+          "proj": 12.1,
+          "floor": 2.9,
+          "ceiling": 21.7
+        },
+        {
+          "player": "T.J. Hockenson",
+          "position": "TE",
+          "proj": 7.7,
+          "floor": 1.1,
+          "ceiling": 14.9
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_ATL_DEN",
+      "home_team": "DEN",
+      "away_team": "ATL",
+      "spread_line": 2,
+      "total_line": 44.5,
+      "pred_margin": 1.3,
+      "pred_win_home": 0.543,
+      "home_implied_market": 23.2,
+      "away_implied_market": 21.2,
+      "home_implied_pred": 22.9,
+      "away_implied_pred": 21.6,
+      "spread_edge_home": -0.7,
+      "edge_abs": 0.7,
+      "home_players": [
+        {
+          "player": "Bo Nix",
+          "position": "QB",
+          "proj": 15.8,
+          "floor": 6,
+          "ceiling": 26.2
+        },
+        {
+          "player": "Courtland Sutton",
+          "position": "WR",
+          "proj": 10.3,
+          "floor": 2.4,
+          "ceiling": 19.4
+        },
+        {
+          "player": "Javonte Williams",
+          "position": "RB",
+          "proj": 7.3,
+          "floor": 0,
+          "ceiling": 15.7
+        },
+        {
+          "player": "Devaughn Vele",
+          "position": "WR",
+          "proj": 4.6,
+          "floor": 0,
+          "ceiling": 11.1
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Kirk Cousins",
+          "position": "QB",
+          "proj": 14.9,
+          "floor": 6.6,
+          "ceiling": 24.5
+        },
+        {
+          "player": "Bijan Robinson",
+          "position": "RB",
+          "proj": 14.5,
+          "floor": 5.2,
+          "ceiling": 25.1
+        },
+        {
+          "player": "Drake London",
+          "position": "WR",
+          "proj": 10.2,
+          "floor": 2.1,
+          "ceiling": 18.2
+        },
+        {
+          "player": "Darnell Mooney",
+          "position": "WR",
+          "proj": 10,
+          "floor": 2.3,
+          "ceiling": 19.5
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_WAS_PHI",
+      "home_team": "PHI",
+      "away_team": "WAS",
+      "spread_line": 4.5,
+      "total_line": 49.5,
+      "pred_margin": 5.2,
+      "pred_win_home": 0.669,
+      "home_implied_market": 27,
+      "away_implied_market": 22.5,
+      "home_implied_pred": 27.4,
+      "away_implied_pred": 22.1,
+      "spread_edge_home": 0.7,
+      "edge_abs": 0.7,
+      "home_players": [
+        {
+          "player": "Jalen Hurts",
+          "position": "QB",
+          "proj": 21.9,
+          "floor": 11.6,
+          "ceiling": 31.8
+        },
+        {
+          "player": "Saquon Barkley",
+          "position": "RB",
+          "proj": 14.1,
+          "floor": 3.8,
+          "ceiling": 24.8
+        },
+        {
+          "player": "A.J. Brown",
+          "position": "WR",
+          "proj": 13.1,
+          "floor": 2.5,
+          "ceiling": 23.7
+        },
+        {
+          "player": "DeVonta Smith",
+          "position": "WR",
+          "proj": 10.7,
+          "floor": 2,
+          "ceiling": 21
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Jayden Daniels",
+          "position": "QB",
+          "proj": 15.3,
+          "floor": 4.9,
+          "ceiling": 26.1
+        },
+        {
+          "player": "Terry McLaurin",
+          "position": "WR",
+          "proj": 10,
+          "floor": 2,
+          "ceiling": 19.5
+        },
+        {
+          "player": "Austin Ekeler",
+          "position": "RB",
+          "proj": 9,
+          "floor": 2.1,
+          "ceiling": 19.9
+        },
+        {
+          "player": "Zach Ertz",
+          "position": "TE",
+          "proj": 6.6,
+          "floor": 1,
+          "ceiling": 12.2
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_SEA_SF",
+      "home_team": "SF",
+      "away_team": "SEA",
+      "spread_line": 6,
+      "total_line": 49,
+      "pred_margin": 6.6,
+      "pred_win_home": 0.71,
+      "home_implied_market": 27.5,
+      "away_implied_market": 21.5,
+      "home_implied_pred": 27.8,
+      "away_implied_pred": 21.2,
+      "spread_edge_home": 0.6,
+      "edge_abs": 0.6,
+      "home_players": [
+        {
+          "player": "Brock Purdy",
+          "position": "QB",
+          "proj": 18.8,
+          "floor": 10.4,
+          "ceiling": 27.7
+        },
+        {
+          "player": "Christian McCaffrey",
+          "position": "RB",
+          "proj": 17,
+          "floor": 4.7,
+          "ceiling": 27.9
+        },
+        {
+          "player": "George Kittle",
+          "position": "TE",
+          "proj": 10.8,
+          "floor": 2.1,
+          "ceiling": 21
+        },
+        {
+          "player": "Deebo Samuel Sr.",
+          "position": "WR",
+          "proj": 10.1,
+          "floor": 1.4,
+          "ceiling": 18.9
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Geno Smith",
+          "position": "QB",
+          "proj": 15.1,
+          "floor": 5.3,
+          "ceiling": 24.6
+        },
+        {
+          "player": "Kenneth Walker III",
+          "position": "RB",
+          "proj": 11.7,
+          "floor": 3.5,
+          "ceiling": 20.9
+        },
+        {
+          "player": "Jaxon Smith-Njigba",
+          "position": "WR",
+          "proj": 9.7,
+          "floor": 2,
+          "ceiling": 18.4
+        },
+        {
+          "player": "DK Metcalf",
+          "position": "WR",
+          "proj": 7.2,
+          "floor": 0,
+          "ceiling": 17.1
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_KC_BUF",
+      "home_team": "BUF",
+      "away_team": "KC",
+      "spread_line": 2.5,
+      "total_line": 46.5,
+      "pred_margin": 2.9,
+      "pred_win_home": 0.596,
+      "home_implied_market": 24.5,
+      "away_implied_market": 22,
+      "home_implied_pred": 24.7,
+      "away_implied_pred": 21.8,
+      "spread_edge_home": 0.4,
+      "edge_abs": 0.4,
+      "home_players": [
+        {
+          "player": "Josh Allen",
+          "position": "QB",
+          "proj": 18.8,
+          "floor": 8.8,
+          "ceiling": 28.7
+        },
+        {
+          "player": "James Cook",
+          "position": "RB",
+          "proj": 12.1,
+          "floor": 3.2,
+          "ceiling": 21.7
+        },
+        {
+          "player": "Khalil Shakir",
+          "position": "WR",
+          "proj": 8.7,
+          "floor": 1.2,
+          "ceiling": 17.7
+        },
+        {
+          "player": "Dalton Kincaid",
+          "position": "TE",
+          "proj": 7.5,
+          "floor": 1.2,
+          "ceiling": 14.1
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Patrick Mahomes",
+          "position": "QB",
+          "proj": 16.6,
+          "floor": 8,
+          "ceiling": 25.1
+        },
+        {
+          "player": "Kareem Hunt",
+          "position": "RB",
+          "proj": 11.2,
+          "floor": 3.3,
+          "ceiling": 21.8
+        },
+        {
+          "player": "Travis Kelce",
+          "position": "TE",
+          "proj": 9.4,
+          "floor": 2.5,
+          "ceiling": 16.1
+        },
+        {
+          "player": "DeAndre Hopkins",
+          "position": "WR",
+          "proj": 7.6,
+          "floor": 0.6,
+          "ceiling": 16.3
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_CIN_LAC",
+      "home_team": "LAC",
+      "away_team": "CIN",
+      "spread_line": 1,
+      "total_line": 48,
+      "pred_margin": 0.6,
+      "pred_win_home": 0.519,
+      "home_implied_market": 24.5,
+      "away_implied_market": 23.5,
+      "home_implied_pred": 24.3,
+      "away_implied_pred": 23.7,
+      "spread_edge_home": -0.4,
+      "edge_abs": 0.4,
+      "home_players": [
+        {
+          "player": "Justin Herbert",
+          "position": "QB",
+          "proj": 16.8,
+          "floor": 7,
+          "ceiling": 26.2
+        },
+        {
+          "player": "J.K. Dobbins",
+          "position": "RB",
+          "proj": 11.5,
+          "floor": 2.6,
+          "ceiling": 20.6
+        },
+        {
+          "player": "Ladd McConkey",
+          "position": "WR",
+          "proj": 9.3,
+          "floor": 1.1,
+          "ceiling": 20.4
+        },
+        {
+          "player": "Quentin Johnston",
+          "position": "WR",
+          "proj": 8.2,
+          "floor": 1,
+          "ceiling": 16.6
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Joe Burrow",
+          "position": "QB",
+          "proj": 17.6,
+          "floor": 6.5,
+          "ceiling": 27.5
+        },
+        {
+          "player": "Ja'Marr Chase",
+          "position": "WR",
+          "proj": 13.3,
+          "floor": 3.3,
+          "ceiling": 22
+        },
+        {
+          "player": "Chase Brown",
+          "position": "RB",
+          "proj": 12,
+          "floor": 3.2,
+          "ceiling": 20.7
+        },
+        {
+          "player": "Mike Gesicki",
+          "position": "TE",
+          "proj": 6.5,
+          "floor": 0.8,
+          "ceiling": 14.2
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_JAX_DET",
+      "home_team": "DET",
+      "away_team": "JAX",
+      "spread_line": 14,
+      "total_line": 47.5,
+      "pred_margin": 13.7,
+      "pred_win_home": 0.873,
+      "home_implied_market": 30.8,
+      "away_implied_market": 16.8,
+      "home_implied_pred": 30.6,
+      "away_implied_pred": 16.9,
+      "spread_edge_home": -0.3,
+      "edge_abs": 0.3,
+      "home_players": [
+        {
+          "player": "Jared Goff",
+          "position": "QB",
+          "proj": 17.6,
+          "floor": 7.7,
+          "ceiling": 25.4
+        },
+        {
+          "player": "Amon-Ra St. Brown",
+          "position": "WR",
+          "proj": 15.4,
+          "floor": 3.1,
+          "ceiling": 28.7
+        },
+        {
+          "player": "Jahmyr Gibbs",
+          "position": "RB",
+          "proj": 13.8,
+          "floor": 3.1,
+          "ceiling": 24.4
+        },
+        {
+          "player": "David Montgomery",
+          "position": "RB",
+          "proj": 11.2,
+          "floor": 2.3,
+          "ceiling": 20.9
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Travis Etienne",
+          "position": "RB",
+          "proj": 8.3,
+          "floor": 1.6,
+          "ceiling": 17
+        },
+        {
+          "player": "Evan Engram",
+          "position": "TE",
+          "proj": 7.7,
+          "floor": 1.9,
+          "ceiling": 16.4
+        },
+        {
+          "player": "Brian Thomas Jr.",
+          "position": "WR",
+          "proj": 7.1,
+          "floor": 1,
+          "ceiling": 15.7
+        },
+        {
+          "player": "Trevor Lawrence",
+          "position": "QB",
+          "proj": 6.1,
+          "floor": 0,
+          "ceiling": 19.6
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_LV_MIA",
+      "home_team": "MIA",
+      "away_team": "LV",
+      "spread_line": 8,
+      "total_line": 43.5,
+      "pred_margin": 7.8,
+      "pred_win_home": 0.743,
+      "home_implied_market": 25.8,
+      "away_implied_market": 17.8,
+      "home_implied_pred": 25.6,
+      "away_implied_pred": 17.9,
+      "spread_edge_home": -0.2,
+      "edge_abs": 0.2,
+      "home_players": [
+        {
+          "player": "Tua Tagovailoa",
+          "position": "QB",
+          "proj": 15.3,
+          "floor": 5.5,
+          "ceiling": 24.3
+        },
+        {
+          "player": "De'Von Achane",
+          "position": "RB",
+          "proj": 12.7,
+          "floor": 4,
+          "ceiling": 21.9
+        },
+        {
+          "player": "Tyreek Hill",
+          "position": "WR",
+          "proj": 12.6,
+          "floor": 2.1,
+          "ceiling": 23.4
+        },
+        {
+          "player": "Jaylen Waddle",
+          "position": "WR",
+          "proj": 8.3,
+          "floor": 0.9,
+          "ceiling": 16.6
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Jakobi Meyers",
+          "position": "WR",
+          "proj": 8.7,
+          "floor": 2.2,
+          "ceiling": 16.4
+        },
+        {
+          "player": "Gardner Minshew",
+          "position": "QB",
+          "proj": 8.1,
+          "floor": 0,
+          "ceiling": 19.3
+        },
+        {
+          "player": "Brock Bowers",
+          "position": "TE",
+          "proj": 8,
+          "floor": 1.7,
+          "ceiling": 17.1
+        },
+        {
+          "player": "Alexander Mattison",
+          "position": "RB",
+          "proj": 7.9,
+          "floor": 1,
+          "ceiling": 17
+        }
+      ]
+    },
+    {
+      "game_id": "2024_11_HOU_DAL",
+      "home_team": "DAL",
+      "away_team": "HOU",
+      "spread_line": -7.5,
+      "total_line": 41.5,
+      "pred_margin": -7.5,
+      "pred_win_home": 0.265,
+      "home_implied_market": 17,
+      "away_implied_market": 24.5,
+      "home_implied_pred": 17,
+      "away_implied_pred": 24.5,
+      "spread_edge_home": -0,
+      "edge_abs": 0,
+      "home_players": [
+        {
+          "player": "CeeDee Lamb",
+          "position": "WR",
+          "proj": 12.4,
+          "floor": 2.6,
+          "ceiling": 24.5
+        },
+        {
+          "player": "Rico Dowdle",
+          "position": "RB",
+          "proj": 8.7,
+          "floor": 1.5,
+          "ceiling": 16.9
+        },
+        {
+          "player": "Jalen Tolbert",
+          "position": "WR",
+          "proj": 6.8,
+          "floor": 0.6,
+          "ceiling": 15.2
+        },
+        {
+          "player": "Jake Ferguson",
+          "position": "TE",
+          "proj": 6.1,
+          "floor": 1.2,
+          "ceiling": 13
+        }
+      ],
+      "away_players": [
+        {
+          "player": "C.J. Stroud",
+          "position": "QB",
+          "proj": 17.1,
+          "floor": 7.9,
+          "ceiling": 25.7
+        },
+        {
+          "player": "Joe Mixon",
+          "position": "RB",
+          "proj": 15,
+          "floor": 4.6,
+          "ceiling": 26.4
+        },
+        {
+          "player": "Tank Dell",
+          "position": "WR",
+          "proj": 10,
+          "floor": 1.3,
+          "ceiling": 21
+        },
+        {
+          "player": "Dalton Schultz",
+          "position": "TE",
+          "proj": 6.3,
+          "floor": 0.5,
+          "ceiling": 12.7
+        }
+      ]
+    }
+  ]
+}

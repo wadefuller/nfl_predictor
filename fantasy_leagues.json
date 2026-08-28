@@ -1,0 +1,97 @@
+{
+  "_comment": "Leagues to pull for the Fantasy section of the website. Set enabled=false to skip one. Sleeper league_ids are the long numeric string from the Sleeper URL (sleeper.com/leagues/<id>); they CHANGE every season, so re-run ffscrapr::sleeper_userleagues('wadepfuller', season) to refresh them each year. market_format must be one of the FORMATS keys in export_fantasy.R (dynasty_sf, dynasty_1qb, redraft_sf, redraft_ppr, redraft_half, redraft_std). lineup blocks are derived from ff_starter_positions(). scoring is the league's own reception value (ppr|half|std) and drives the depth-aware power model; it is independent of market_format, which only controls which trade-value board the league is compared against.",
+  "leagues": [
+    {
+      "key": "unhffl",
+      "label": "UNH Fantasy Football",
+      "platform": "mfl",
+      "league_id": "65804",
+      "season": 2026,
+      "history_seasons": 5,
+      "enabled": true,
+      "market_format": "dynasty_sf",
+      "lineup": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 2,
+        "SUPERFLEX": 1
+      },
+      "scoring": "half"
+    },
+    {
+      "key": "nofunleague",
+      "label": "No Fun League",
+      "platform": "sleeper",
+      "league_id": "1309513631628537856",
+      "season": 2026,
+      "history_seasons": 2,
+      "enabled": true,
+      "market_format": "dynasty_1qb",
+      "_note": "12-team dynasty, 1QB, 33-man rosters, IDP (DL/LB/DB) + K. The weekly model only projects QB/RB/WR/TE, so IDP and K slots are not optimized.",
+      "lineup": {
+        "QB": 1,
+        "RB": 1,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 3
+      },
+      "scoring": "ppr"
+    },
+    {
+      "key": "kansaskeepers",
+      "label": "Kansas Keepers League",
+      "platform": "sleeper",
+      "league_id": "1314642843477774336",
+      "season": 2026,
+      "history_seasons": 2,
+      "enabled": true,
+      "market_format": "redraft_ppr",
+      "_note": "14-team keeper, 1QB, has a DEF slot (DST streaming applies).",
+      "lineup": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 1
+      },
+      "scoring": "ppr"
+    },
+    {
+      "key": "tack",
+      "label": "Tack 2025",
+      "platform": "sleeper",
+      "league_id": "1389330569556406272",
+      "season": 2026,
+      "history_seasons": 2,
+      "enabled": false,
+      "market_format": "redraft_ppr",
+      "_note": "League deleted on Sleeper (rosters endpoint 404s) \u2014 disabled.",
+      "lineup": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 2
+      },
+      "scoring": "ppr"
+    },
+    {
+      "key": "sfb16",
+      "label": "#SFB16 San Francisco",
+      "platform": "sleeper",
+      "league_id": "1366393910523367424",
+      "season": 2026,
+      "history_seasons": 1,
+      "enabled": true,
+      "market_format": "redraft_sf",
+      "_note": "Scott Fish Bowl: 12-team, 2QB/SF, 20-man rosters, all-flex lineup (every position min 0, 10 offensive starters, max 2 QB).",
+      "lineup": {
+        "SUPERFLEX": 1,
+        "FLEX": 9
+      },
+      "scoring": "ppr"
+    }
+  ]
+}

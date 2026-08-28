@@ -1,0 +1,306 @@
+{
+  "season": 2025,
+  "week": 6,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 421,
+      "mae": 3.52,
+      "spearman": 0.668,
+      "ceiling_cov": 0.9,
+      "floor_cov": 0.955
+    },
+    {
+      "position": "QB",
+      "n": 49,
+      "mae": 4.31,
+      "spearman": 0.787,
+      "ceiling_cov": 0.918,
+      "floor_cov": 0.959
+    },
+    {
+      "position": "RB",
+      "n": 102,
+      "mae": 3.79,
+      "spearman": 0.701,
+      "ceiling_cov": 0.892,
+      "floor_cov": 0.961
+    },
+    {
+      "position": "TE",
+      "n": 98,
+      "mae": 2.66,
+      "spearman": 0.558,
+      "ceiling_cov": 0.908,
+      "floor_cov": 0.969
+    },
+    {
+      "position": "WR",
+      "n": 172,
+      "mae": 3.62,
+      "spearman": 0.619,
+      "ceiling_cov": 0.895,
+      "floor_cov": 0.942
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 17,
+      "bust": 16,
+      "met": 107
+    }
+  ],
+  "beats": [
+    {
+      "player": "Rico Dowdle",
+      "position": "RB",
+      "team": "CAR",
+      "proj": 10.7,
+      "actual": 31.9,
+      "surprise": 21.2,
+      "class": "boom"
+    },
+    {
+      "player": "Cam Skattebo",
+      "position": "RB",
+      "team": "NYG",
+      "proj": 10.4,
+      "actual": 30,
+      "surprise": 19.6,
+      "class": "boom"
+    },
+    {
+      "player": "George Pickens",
+      "position": "WR",
+      "team": "DAL",
+      "proj": 10.2,
+      "actual": 27.3,
+      "surprise": 17.1,
+      "class": "boom"
+    },
+    {
+      "player": "Bijan Robinson",
+      "position": "RB",
+      "team": "ATL",
+      "proj": 15.8,
+      "actual": 32.8,
+      "surprise": 17,
+      "class": "boom"
+    },
+    {
+      "player": "Drake London",
+      "position": "WR",
+      "team": "ATL",
+      "proj": 10.8,
+      "actual": 26.8,
+      "surprise": 16,
+      "class": "boom"
+    },
+    {
+      "player": "De'Von Achane",
+      "position": "RB",
+      "team": "MIA",
+      "proj": 14.1,
+      "actual": 29,
+      "surprise": 14.9,
+      "class": "boom"
+    },
+    {
+      "player": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "team": "SEA",
+      "proj": 11.4,
+      "actual": 26.2,
+      "surprise": 14.8,
+      "class": "boom"
+    },
+    {
+      "player": "D'Andre Swift",
+      "position": "RB",
+      "team": "CHI",
+      "proj": 10.1,
+      "actual": 24.5,
+      "surprise": 14.4,
+      "class": "boom"
+    },
+    {
+      "player": "Dallas Goedert",
+      "position": "TE",
+      "team": "PHI",
+      "proj": 7.5,
+      "actual": 21.5,
+      "surprise": 14,
+      "class": "boom"
+    },
+    {
+      "player": "Josh Jacobs",
+      "position": "RB",
+      "team": "GB",
+      "proj": 16.2,
+      "actual": 29.5,
+      "surprise": 13.3,
+      "class": "boom"
+    },
+    {
+      "player": "Jaxson Dart",
+      "position": "QB",
+      "team": "NYG",
+      "proj": 11.4,
+      "actual": 23.6,
+      "surprise": 12.2,
+      "class": "boom"
+    },
+    {
+      "player": "Patrick Mahomes",
+      "position": "QB",
+      "team": "KC",
+      "proj": 20,
+      "actual": 31.5,
+      "surprise": 11.5,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Omarion Hampton",
+      "position": "RB",
+      "team": "LAC",
+      "proj": 13.5,
+      "actual": 0,
+      "surprise": -13.5,
+      "class": "bust"
+    },
+    {
+      "player": "Quentin Johnston",
+      "position": "WR",
+      "team": "LAC",
+      "proj": 10.8,
+      "actual": 0,
+      "surprise": -10.8,
+      "class": "bust"
+    },
+    {
+      "player": "Brock Purdy",
+      "position": "QB",
+      "team": "SF",
+      "proj": 10.3,
+      "actual": 0,
+      "surprise": -10.3,
+      "class": "bust"
+    },
+    {
+      "player": "Jake Browning",
+      "position": "QB",
+      "team": "CIN",
+      "proj": 10.3,
+      "actual": 0,
+      "surprise": -10.3,
+      "class": "bust"
+    },
+    {
+      "player": "Puka Nacua",
+      "position": "WR",
+      "team": "LA",
+      "proj": 12.7,
+      "actual": 3.8,
+      "surprise": -8.9,
+      "class": "bust"
+    },
+    {
+      "player": "Courtland Sutton",
+      "position": "WR",
+      "team": "DEN",
+      "proj": 10.9,
+      "actual": 2.2,
+      "surprise": -8.7,
+      "class": "bust"
+    },
+    {
+      "player": "Tua Tagovailoa",
+      "position": "QB",
+      "team": "MIA",
+      "proj": 15,
+      "actual": 6.6,
+      "surprise": -8.4,
+      "class": "met"
+    },
+    {
+      "player": "Garrett Wilson",
+      "position": "WR",
+      "team": "NYJ",
+      "proj": 10.9,
+      "actual": 2.8,
+      "surprise": -8.1,
+      "class": "bust"
+    },
+    {
+      "player": "J.K. Dobbins",
+      "position": "RB",
+      "team": "DEN",
+      "proj": 12,
+      "actual": 4,
+      "surprise": -8,
+      "class": "met"
+    },
+    {
+      "player": "Javonte Williams",
+      "position": "RB",
+      "team": "DAL",
+      "proj": 13.9,
+      "actual": 5.9,
+      "surprise": -8,
+      "class": "met"
+    },
+    {
+      "player": "Deebo Samuel Sr.",
+      "position": "WR",
+      "team": "WAS",
+      "proj": 11.2,
+      "actual": 3.4,
+      "surprise": -7.8,
+      "class": "met"
+    },
+    {
+      "player": "Michael Pittman",
+      "position": "WR",
+      "team": "IND",
+      "proj": 10.8,
+      "actual": 3,
+      "surprise": -7.8,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 354,
+      "model": 0.664,
+      "ecr": 0.474
+    },
+    {
+      "position": "QB",
+      "n": 42,
+      "model": 0.81,
+      "ecr": 0.492
+    },
+    {
+      "position": "RB",
+      "n": 96,
+      "model": 0.686,
+      "ecr": 0.532
+    },
+    {
+      "position": "TE",
+      "n": 73,
+      "model": 0.545,
+      "ecr": 0.428
+    },
+    {
+      "position": "WR",
+      "n": 143,
+      "model": 0.581,
+      "ecr": 0.456
+    }
+  ],
+  "ecr_kind": "season"
+}

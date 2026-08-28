@@ -1,0 +1,300 @@
+{
+  "season": 2024,
+  "week": 10,
+  "leagues": [
+    {
+      "label": "UNH SuperFlex Dynasty",
+      "franchise": "Amon-Ra St. Boomorbust",
+      "record": {
+        "franchise_score": 120.6,
+        "opponent_score": 101.1,
+        "result": "W"
+      },
+      "players": [
+        {
+          "player": "Jackson, Lamar",
+          "position": "QB",
+          "proj": 21.7,
+          "actual": 32.9,
+          "class": "boom"
+        },
+        {
+          "player": "Murray, Kyler",
+          "position": "QB",
+          "proj": 14.8,
+          "actual": 28.7,
+          "class": "boom"
+        },
+        {
+          "player": "St. Brown, Amon-Ra",
+          "position": "WR",
+          "proj": 14.2,
+          "actual": 15,
+          "class": "met"
+        },
+        {
+          "player": "Harris, Najee",
+          "position": "RB",
+          "proj": 11.7,
+          "actual": 11.3,
+          "class": "met"
+        },
+        {
+          "player": "Washington, Malik",
+          "position": "WR",
+          "proj": 2.3,
+          "actual": 10,
+          "class": "boom"
+        },
+        {
+          "player": "McBride, Trey",
+          "position": "TE",
+          "proj": 8.1,
+          "actual": 9.1,
+          "class": "met"
+        },
+        {
+          "player": "Williams, Kyren",
+          "position": "RB",
+          "proj": 16.1,
+          "actual": 8.7,
+          "class": "met"
+        },
+        {
+          "player": "Warren, Jaylen",
+          "position": "RB",
+          "proj": 7,
+          "actual": 8.5,
+          "class": "met"
+        },
+        {
+          "player": "Sanders, Ja'Tavion",
+          "position": "TE",
+          "proj": 3.5,
+          "actual": 7.8,
+          "class": "met"
+        },
+        {
+          "player": "Waddle, Jaylen",
+          "position": "WR",
+          "proj": 7.9,
+          "actual": 7.1,
+          "class": "met"
+        },
+        {
+          "player": "Flowers, Zay",
+          "position": "WR",
+          "proj": 10.8,
+          "actual": 5.4,
+          "class": "met"
+        },
+        {
+          "player": "Allen, Braelon",
+          "position": "RB",
+          "proj": 4.3,
+          "actual": 3.9,
+          "class": "met"
+        },
+        {
+          "player": "Ferguson, Jake",
+          "position": "TE",
+          "proj": 4.7,
+          "actual": 2.4,
+          "class": "met"
+        },
+        {
+          "player": "Demercado, Emari",
+          "position": "RB",
+          "proj": 3.4,
+          "actual": 2.2,
+          "class": "met"
+        },
+        {
+          "player": "Corum, Blake",
+          "position": "RB",
+          "proj": 2.5,
+          "actual": 2,
+          "class": "met"
+        },
+        {
+          "player": "Burton, Jermaine",
+          "position": "WR",
+          "proj": 1.5,
+          "actual": 1.6,
+          "class": "met"
+        },
+        {
+          "player": "Johnson, Roschon",
+          "position": "RB",
+          "proj": 5,
+          "actual": 0.6,
+          "class": "met"
+        },
+        {
+          "player": "Steele, Carson",
+          "position": "RB",
+          "proj": 2.5,
+          "actual": 0.3,
+          "class": "met"
+        },
+        {
+          "player": "Pittman, Michael",
+          "position": "WR",
+          "proj": 8.2,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Richardson, Anthony",
+          "position": "QB",
+          "proj": 2.7,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Vidal, Kimani",
+          "position": "RB",
+          "proj": 3.5,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Dulcich, Greg",
+          "position": "TE",
+          "proj": 0.4,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Miller, Kendre",
+          "position": "RB",
+          "proj": 1.9,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Lazard, Allen",
+          "position": "WR",
+          "proj": 4.7,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Rice, Rashee",
+          "position": "WR",
+          "proj": 3.1,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Prescott, Dak",
+          "position": "QB",
+          "proj": 9.6,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Laube, Dylan",
+          "position": "RB",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Ford, Jerome",
+          "position": "RB",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Brooks, Jonathon",
+          "position": "RB",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Evans, Zach",
+          "position": "RB",
+          "proj": null,
+          "actual": null,
+          "class": null
+        }
+      ],
+      "free_agents": [
+        {
+          "player": "Mason Rudolph",
+          "position": "QB",
+          "team": "TEN",
+          "proj": 9.2,
+          "ceiling": 21.5
+        },
+        {
+          "player": "Cooper Rush",
+          "position": "QB",
+          "team": "DAL",
+          "proj": 7.3,
+          "ceiling": 20.4
+        },
+        {
+          "player": "Noah Brown",
+          "position": "WR",
+          "team": "WAS",
+          "proj": 6.2,
+          "ceiling": 15
+        },
+        {
+          "player": "Ray-Ray McCloud",
+          "position": "WR",
+          "team": "ATL",
+          "proj": 6,
+          "ceiling": 14.1
+        },
+        {
+          "player": "Jalen Nailor",
+          "position": "WR",
+          "team": "MIN",
+          "proj": 5.4,
+          "ceiling": 13.1
+        },
+        {
+          "player": "Tutu Atwell",
+          "position": "WR",
+          "team": "LA",
+          "proj": 5.3,
+          "ceiling": 16
+        },
+        {
+          "player": "Calvin Austin III",
+          "position": "WR",
+          "team": "PIT",
+          "proj": 5.2,
+          "ceiling": 12.7
+        },
+        {
+          "player": "Chris Rodriguez Jr.",
+          "position": "RB",
+          "team": "WAS",
+          "proj": 4.9,
+          "ceiling": 13.1
+        },
+        {
+          "player": "Van Jefferson",
+          "position": "WR",
+          "team": "PIT",
+          "proj": 4.6,
+          "ceiling": 12.1
+        },
+        {
+          "player": "Parker Washington",
+          "position": "WR",
+          "team": "JAX",
+          "proj": 4.5,
+          "ceiling": 11.3
+        }
+      ]
+    }
+  ],
+  "skipped": []
+}

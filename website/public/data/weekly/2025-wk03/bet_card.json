@@ -1,0 +1,25 @@
+{
+  "season": 2025,
+  "week": 3,
+  "n_bets": 2,
+  "bets": [
+    {
+      "game": "MIA @ BUF",
+      "bet": "MIA spread",
+      "odds": -110,
+      "ev": 0.067,
+      "kelly": 0.093,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "ATL @ CAR",
+      "bet": "ATL ml",
+      "odds": -225,
+      "ev": 0.058,
+      "kelly": 0.16,
+      "stake": 10,
+      "payout_if_win": 4
+    }
+  ]
+}

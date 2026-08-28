@@ -1,0 +1,16 @@
+{
+  "season": 2024,
+  "week": 14,
+  "n_bets": 1,
+  "bets": [
+    {
+      "game": "LV @ TB",
+      "bet": "TB spread",
+      "odds": -105,
+      "ev": 0.075,
+      "kelly": 0.101,
+      "stake": 10,
+      "payout_if_win": 10
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "season": 2024,
+  "week": 11,
+  "n_bets": 3,
+  "bets": [
+    {
+      "game": "GB @ CHI",
+      "bet": "CHI spread",
+      "odds": -105,
+      "ev": 0.071,
+      "kelly": 0.095,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "CLE @ NO",
+      "bet": "NO spread",
+      "odds": -110,
+      "ev": 0.074,
+      "kelly": 0.103,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "CLE @ NO",
+      "bet": "NO ml",
+      "odds": -105,
+      "ev": 0.055,
+      "kelly": 0.07,
+      "stake": 5,
+      "payout_if_win": 5
+    }
+  ]
+}

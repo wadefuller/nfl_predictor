@@ -1,0 +1,273 @@
+{
+  "snapshots": [
+    {
+      "file": "2026-wk00_half.json",
+      "season": 2026,
+      "week": 0,
+      "tag": "2026-wk00_half",
+      "scoring": "half"
+    },
+    {
+      "file": "2026-wk00.json",
+      "season": 2026,
+      "week": 0,
+      "tag": "2026-wk00",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk18.json",
+      "season": 2025,
+      "week": 18,
+      "tag": "2025-wk18",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk17.json",
+      "season": 2025,
+      "week": 17,
+      "tag": "2025-wk17",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk16.json",
+      "season": 2025,
+      "week": 16,
+      "tag": "2025-wk16",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk15.json",
+      "season": 2025,
+      "week": 15,
+      "tag": "2025-wk15",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk14.json",
+      "season": 2025,
+      "week": 14,
+      "tag": "2025-wk14",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk13.json",
+      "season": 2025,
+      "week": 13,
+      "tag": "2025-wk13",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk12.json",
+      "season": 2025,
+      "week": 12,
+      "tag": "2025-wk12",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk11.json",
+      "season": 2025,
+      "week": 11,
+      "tag": "2025-wk11",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk10.json",
+      "season": 2025,
+      "week": 10,
+      "tag": "2025-wk10",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk09.json",
+      "season": 2025,
+      "week": 9,
+      "tag": "2025-wk09",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk08.json",
+      "season": 2025,
+      "week": 8,
+      "tag": "2025-wk08",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk07.json",
+      "season": 2025,
+      "week": 7,
+      "tag": "2025-wk07",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk06.json",
+      "season": 2025,
+      "week": 6,
+      "tag": "2025-wk06",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk05.json",
+      "season": 2025,
+      "week": 5,
+      "tag": "2025-wk05",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk04.json",
+      "season": 2025,
+      "week": 4,
+      "tag": "2025-wk04",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk03.json",
+      "season": 2025,
+      "week": 3,
+      "tag": "2025-wk03",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk02.json",
+      "season": 2025,
+      "week": 2,
+      "tag": "2025-wk02",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2025-wk01.json",
+      "season": 2025,
+      "week": 1,
+      "tag": "2025-wk01",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk18.json",
+      "season": 2024,
+      "week": 18,
+      "tag": "2024-wk18",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk17.json",
+      "season": 2024,
+      "week": 17,
+      "tag": "2024-wk17",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk16.json",
+      "season": 2024,
+      "week": 16,
+      "tag": "2024-wk16",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk15.json",
+      "season": 2024,
+      "week": 15,
+      "tag": "2024-wk15",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk14.json",
+      "season": 2024,
+      "week": 14,
+      "tag": "2024-wk14",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk13.json",
+      "season": 2024,
+      "week": 13,
+      "tag": "2024-wk13",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk12.json",
+      "season": 2024,
+      "week": 12,
+      "tag": "2024-wk12",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk11.json",
+      "season": 2024,
+      "week": 11,
+      "tag": "2024-wk11",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk10.json",
+      "season": 2024,
+      "week": 10,
+      "tag": "2024-wk10",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk09.json",
+      "season": 2024,
+      "week": 9,
+      "tag": "2024-wk09",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk08.json",
+      "season": 2024,
+      "week": 8,
+      "tag": "2024-wk08",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk07.json",
+      "season": 2024,
+      "week": 7,
+      "tag": "2024-wk07",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk06.json",
+      "season": 2024,
+      "week": 6,
+      "tag": "2024-wk06",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk05.json",
+      "season": 2024,
+      "week": 5,
+      "tag": "2024-wk05",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk04.json",
+      "season": 2024,
+      "week": 4,
+      "tag": "2024-wk04",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk03.json",
+      "season": 2024,
+      "week": 3,
+      "tag": "2024-wk03",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk02.json",
+      "season": 2024,
+      "week": 2,
+      "tag": "2024-wk02",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2024-wk01.json",
+      "season": 2024,
+      "week": 1,
+      "tag": "2024-wk01",
+      "scoring": "ppr"
+    }
+  ],
+  "latest": "2026-wk00",
+  "scoring": "ppr",
+  "formats": ["half", "ppr"]
+}

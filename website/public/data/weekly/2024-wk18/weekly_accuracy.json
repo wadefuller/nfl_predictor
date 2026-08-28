@@ -1,0 +1,306 @@
+{
+  "season": 2024,
+  "week": 18,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 318,
+      "mae": 4.13,
+      "spearman": 0.631,
+      "ceiling_cov": 0.855,
+      "floor_cov": 0.903
+    },
+    {
+      "position": "QB",
+      "n": 34,
+      "mae": 7.52,
+      "spearman": 0.359,
+      "ceiling_cov": 0.765,
+      "floor_cov": 0.853
+    },
+    {
+      "position": "RB",
+      "n": 79,
+      "mae": 4.1,
+      "spearman": 0.575,
+      "ceiling_cov": 0.873,
+      "floor_cov": 0.886
+    },
+    {
+      "position": "TE",
+      "n": 70,
+      "mae": 3.02,
+      "spearman": 0.635,
+      "ceiling_cov": 0.871,
+      "floor_cov": 0.929
+    },
+    {
+      "position": "WR",
+      "n": 135,
+      "mae": 3.87,
+      "spearman": 0.61,
+      "ceiling_cov": 0.859,
+      "floor_cov": 0.911
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 21,
+      "bust": 17,
+      "met": 95
+    }
+  ],
+  "beats": [
+    {
+      "player": "Jahmyr Gibbs",
+      "position": "RB",
+      "team": "DET",
+      "proj": 16.2,
+      "actual": 43.5,
+      "surprise": 27.3,
+      "class": "boom"
+    },
+    {
+      "player": "Drake London",
+      "position": "WR",
+      "team": "ATL",
+      "proj": 12.5,
+      "actual": 35.7,
+      "surprise": 23.2,
+      "class": "boom"
+    },
+    {
+      "player": "Bryce Young",
+      "position": "QB",
+      "team": "CAR",
+      "proj": 15.1,
+      "actual": 36.4,
+      "surprise": 21.3,
+      "class": "boom"
+    },
+    {
+      "player": "Marcus Mariota",
+      "position": "QB",
+      "team": "WAS",
+      "proj": 6.4,
+      "actual": 26,
+      "surprise": 19.6,
+      "class": "boom"
+    },
+    {
+      "player": "Bo Nix",
+      "position": "QB",
+      "team": "DEN",
+      "proj": 16.8,
+      "actual": 33.5,
+      "surprise": 16.7,
+      "class": "boom"
+    },
+    {
+      "player": "Quentin Johnston",
+      "position": "WR",
+      "team": "LAC",
+      "proj": 8.8,
+      "actual": 25.1,
+      "surprise": 16.3,
+      "class": "boom"
+    },
+    {
+      "player": "Derrick Henry",
+      "position": "RB",
+      "team": "BAL",
+      "proj": 14.3,
+      "actual": 29.1,
+      "surprise": 14.8,
+      "class": "boom"
+    },
+    {
+      "player": "Jakobi Meyers",
+      "position": "WR",
+      "team": "LV",
+      "proj": 9,
+      "actual": 22.8,
+      "surprise": 13.8,
+      "class": "boom"
+    },
+    {
+      "player": "Aaron Rodgers",
+      "position": "QB",
+      "team": "NYJ",
+      "proj": 11.7,
+      "actual": 25,
+      "surprise": 13.3,
+      "class": "boom"
+    },
+    {
+      "player": "Michael Penix Jr.",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 12,
+      "actual": 25,
+      "surprise": 13,
+      "class": "boom"
+    },
+    {
+      "player": "Marvin Mims Jr.",
+      "position": "WR",
+      "team": "DEN",
+      "proj": 7,
+      "actual": 19.6,
+      "surprise": 12.6,
+      "class": "boom"
+    },
+    {
+      "player": "Bijan Robinson",
+      "position": "RB",
+      "team": "ATL",
+      "proj": 18.1,
+      "actual": 30.3,
+      "surprise": 12.2,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Jayden Daniels",
+      "position": "QB",
+      "team": "WAS",
+      "proj": 21.9,
+      "actual": 4.2,
+      "surprise": -17.7,
+      "class": "bust"
+    },
+    {
+      "player": "Jordan Love",
+      "position": "QB",
+      "team": "GB",
+      "proj": 15.2,
+      "actual": 2.8,
+      "surprise": -12.4,
+      "class": "bust"
+    },
+    {
+      "player": "Drake Maye",
+      "position": "QB",
+      "team": "NE",
+      "proj": 12.3,
+      "actual": 0,
+      "surprise": -12.3,
+      "class": "bust"
+    },
+    {
+      "player": "Jordan Addison",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 11.9,
+      "actual": 0.5,
+      "surprise": -11.4,
+      "class": "bust"
+    },
+    {
+      "player": "Sam Darnold",
+      "position": "QB",
+      "team": "MIN",
+      "proj": 18.9,
+      "actual": 7.6,
+      "surprise": -11.3,
+      "class": "bust"
+    },
+    {
+      "player": "Jared Goff",
+      "position": "QB",
+      "team": "DET",
+      "proj": 20.4,
+      "actual": 9.2,
+      "surprise": -11.2,
+      "class": "bust"
+    },
+    {
+      "player": "George Pickens",
+      "position": "WR",
+      "team": "PIT",
+      "proj": 10.2,
+      "actual": 0.5,
+      "surprise": -9.7,
+      "class": "bust"
+    },
+    {
+      "player": "Zay Flowers",
+      "position": "WR",
+      "team": "BAL",
+      "proj": 12.2,
+      "actual": 2.6,
+      "surprise": -9.6,
+      "class": "bust"
+    },
+    {
+      "player": "Brian Robinson",
+      "position": "RB",
+      "team": "WAS",
+      "proj": 11.2,
+      "actual": 2.1,
+      "surprise": -9.1,
+      "class": "bust"
+    },
+    {
+      "player": "Joe Mixon",
+      "position": "RB",
+      "team": "HOU",
+      "proj": 12.1,
+      "actual": 3.3,
+      "surprise": -8.8,
+      "class": "bust"
+    },
+    {
+      "player": "Justin Jefferson",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 15.2,
+      "actual": 6.9,
+      "surprise": -8.3,
+      "class": "met"
+    },
+    {
+      "player": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "team": "SEA",
+      "proj": 11.3,
+      "actual": 3.3,
+      "surprise": -8,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 280,
+      "model": 0.592,
+      "ecr": 0.381
+    },
+    {
+      "position": "QB",
+      "n": 31,
+      "model": 0.288,
+      "ecr": 0.249
+    },
+    {
+      "position": "RB",
+      "n": 77,
+      "model": 0.563,
+      "ecr": 0.457
+    },
+    {
+      "position": "TE",
+      "n": 57,
+      "model": 0.64,
+      "ecr": 0.342
+    },
+    {
+      "position": "WR",
+      "n": 115,
+      "model": 0.538,
+      "ecr": 0.376
+    }
+  ],
+  "ecr_kind": "season"
+}

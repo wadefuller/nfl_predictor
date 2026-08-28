@@ -1,0 +1,306 @@
+{
+  "season": 2024,
+  "week": 6,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 391,
+      "mae": 3.81,
+      "spearman": 0.622,
+      "ceiling_cov": 0.895,
+      "floor_cov": 0.936
+    },
+    {
+      "position": "QB",
+      "n": 49,
+      "mae": 4.87,
+      "spearman": 0.76,
+      "ceiling_cov": 0.959,
+      "floor_cov": 0.959
+    },
+    {
+      "position": "RB",
+      "n": 96,
+      "mae": 4.69,
+      "spearman": 0.504,
+      "ceiling_cov": 0.865,
+      "floor_cov": 0.896
+    },
+    {
+      "position": "TE",
+      "n": 89,
+      "mae": 2.52,
+      "spearman": 0.625,
+      "ceiling_cov": 0.933,
+      "floor_cov": 0.955
+    },
+    {
+      "position": "WR",
+      "n": 157,
+      "mae": 3.68,
+      "spearman": 0.6,
+      "ceiling_cov": 0.873,
+      "floor_cov": 0.943
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 12,
+      "bust": 21,
+      "met": 108
+    }
+  ],
+  "beats": [
+    {
+      "player": "Chris Godwin Jr.",
+      "position": "WR",
+      "team": "TB",
+      "proj": 11.2,
+      "actual": 30,
+      "surprise": 18.8,
+      "class": "boom"
+    },
+    {
+      "player": "Cole Kmet",
+      "position": "TE",
+      "team": "CHI",
+      "proj": 6.9,
+      "actual": 21.5,
+      "surprise": 14.6,
+      "class": "boom"
+    },
+    {
+      "player": "Caleb Williams",
+      "position": "QB",
+      "team": "CHI",
+      "proj": 15,
+      "actual": 28.6,
+      "surprise": 13.6,
+      "class": "boom"
+    },
+    {
+      "player": "Allen Lazard",
+      "position": "WR",
+      "team": "NYJ",
+      "proj": 7.1,
+      "actual": 20.4,
+      "surprise": 13.3,
+      "class": "boom"
+    },
+    {
+      "player": "Tyler Allgeier",
+      "position": "RB",
+      "team": "ATL",
+      "proj": 6.3,
+      "actual": 19.3,
+      "surprise": 13,
+      "class": "boom"
+    },
+    {
+      "player": "Tyrone Tracy Jr.",
+      "position": "RB",
+      "team": "NYG",
+      "proj": 7.2,
+      "actual": 19.7,
+      "surprise": 12.5,
+      "class": "boom"
+    },
+    {
+      "player": "A.J. Brown",
+      "position": "WR",
+      "team": "PHI",
+      "proj": 8.7,
+      "actual": 20.6,
+      "surprise": 11.9,
+      "class": "boom"
+    },
+    {
+      "player": "DeMario Douglas",
+      "position": "WR",
+      "team": "NE",
+      "proj": 7.2,
+      "actual": 18.2,
+      "surprise": 11,
+      "class": "boom"
+    },
+    {
+      "player": "Keenan Allen",
+      "position": "WR",
+      "team": "CHI",
+      "proj": 7.8,
+      "actual": 18.6,
+      "surprise": 10.8,
+      "class": "boom"
+    },
+    {
+      "player": "Justin Fields",
+      "position": "QB",
+      "team": "PIT",
+      "proj": 13,
+      "actual": 23.7,
+      "surprise": 10.7,
+      "class": "met"
+    },
+    {
+      "player": "Bijan Robinson",
+      "position": "RB",
+      "team": "ATL",
+      "proj": 13.3,
+      "actual": 24,
+      "surprise": 10.7,
+      "class": "met"
+    },
+    {
+      "player": "Derrick Henry",
+      "position": "RB",
+      "team": "BAL",
+      "proj": 14.6,
+      "actual": 25.2,
+      "surprise": 10.6,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Dak Prescott",
+      "position": "QB",
+      "team": "DAL",
+      "proj": 17.8,
+      "actual": 3.2,
+      "surprise": -14.6,
+      "class": "bust"
+    },
+    {
+      "player": "Derek Carr",
+      "position": "QB",
+      "team": "NO",
+      "proj": 11.8,
+      "actual": 0,
+      "surprise": -11.8,
+      "class": "bust"
+    },
+    {
+      "player": "Bryce Young",
+      "position": "QB",
+      "team": "CAR",
+      "proj": 11.3,
+      "actual": 0,
+      "surprise": -11.3,
+      "class": "bust"
+    },
+    {
+      "player": "Zack Moss",
+      "position": "RB",
+      "team": "CIN",
+      "proj": 10.7,
+      "actual": 0,
+      "surprise": -10.7,
+      "class": "bust"
+    },
+    {
+      "player": "Rhamondre Stevenson",
+      "position": "RB",
+      "team": "NE",
+      "proj": 10.6,
+      "actual": 0,
+      "surprise": -10.6,
+      "class": "bust"
+    },
+    {
+      "player": "Travis Etienne",
+      "position": "RB",
+      "team": "JAX",
+      "proj": 10.3,
+      "actual": -0.1,
+      "surprise": -10.4,
+      "class": "bust"
+    },
+    {
+      "player": "Marvin Harrison Jr.",
+      "position": "WR",
+      "team": "ARI",
+      "proj": 10.4,
+      "actual": 0,
+      "surprise": -10.4,
+      "class": "bust"
+    },
+    {
+      "player": "James Cook",
+      "position": "RB",
+      "team": "BUF",
+      "proj": 10.4,
+      "actual": 0,
+      "surprise": -10.4,
+      "class": "bust"
+    },
+    {
+      "player": "Nico Collins",
+      "position": "WR",
+      "team": "HOU",
+      "proj": 10,
+      "actual": 0,
+      "surprise": -10,
+      "class": "bust"
+    },
+    {
+      "player": "Saquon Barkley",
+      "position": "RB",
+      "team": "PHI",
+      "proj": 14.7,
+      "actual": 6.4,
+      "surprise": -8.3,
+      "class": "met"
+    },
+    {
+      "player": "DJ Moore",
+      "position": "WR",
+      "team": "CHI",
+      "proj": 11.5,
+      "actual": 4,
+      "surprise": -7.5,
+      "class": "met"
+    },
+    {
+      "player": "Mike Evans",
+      "position": "WR",
+      "team": "TB",
+      "proj": 10.9,
+      "actual": 4.4,
+      "surprise": -6.5,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 340,
+      "model": 0.594,
+      "ecr": 0.493
+    },
+    {
+      "position": "QB",
+      "n": 42,
+      "model": 0.713,
+      "ecr": 0.6
+    },
+    {
+      "position": "RB",
+      "n": 90,
+      "model": 0.465,
+      "ecr": 0.336
+    },
+    {
+      "position": "TE",
+      "n": 72,
+      "model": 0.613,
+      "ecr": 0.553
+    },
+    {
+      "position": "WR",
+      "n": 136,
+      "model": 0.568,
+      "ecr": 0.481
+    }
+  ],
+  "ecr_kind": "season"
+}

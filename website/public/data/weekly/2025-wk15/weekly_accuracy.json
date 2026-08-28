@@ -1,0 +1,306 @@
+{
+  "season": 2025,
+  "week": 15,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 524,
+      "mae": 3.38,
+      "spearman": 0.693,
+      "ceiling_cov": 0.912,
+      "floor_cov": 0.929
+    },
+    {
+      "position": "QB",
+      "n": 67,
+      "mae": 4.8,
+      "spearman": 0.805,
+      "ceiling_cov": 0.925,
+      "floor_cov": 0.896
+    },
+    {
+      "position": "RB",
+      "n": 130,
+      "mae": 3.67,
+      "spearman": 0.715,
+      "ceiling_cov": 0.892,
+      "floor_cov": 0.923
+    },
+    {
+      "position": "TE",
+      "n": 116,
+      "mae": 2.99,
+      "spearman": 0.633,
+      "ceiling_cov": 0.897,
+      "floor_cov": 0.957
+    },
+    {
+      "position": "WR",
+      "n": 211,
+      "mae": 2.97,
+      "spearman": 0.681,
+      "ceiling_cov": 0.929,
+      "floor_cov": 0.929
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 20,
+      "bust": 26,
+      "met": 123
+    }
+  ],
+  "beats": [
+    {
+      "player": "Kyle Pitts",
+      "position": "TE",
+      "team": "ATL",
+      "proj": 8,
+      "actual": 40.1,
+      "surprise": 32.1,
+      "class": "boom"
+    },
+    {
+      "player": "Trevor Lawrence",
+      "position": "QB",
+      "team": "JAX",
+      "proj": 17.9,
+      "actual": 44.3,
+      "surprise": 26.4,
+      "class": "boom"
+    },
+    {
+      "player": "Amon-Ra St. Brown",
+      "position": "WR",
+      "team": "DET",
+      "proj": 14.1,
+      "actual": 34.9,
+      "surprise": 20.8,
+      "class": "boom"
+    },
+    {
+      "player": "Trey McBride",
+      "position": "TE",
+      "team": "ARI",
+      "proj": 10.6,
+      "actual": 31.4,
+      "surprise": 20.8,
+      "class": "boom"
+    },
+    {
+      "player": "TreVeyon Henderson",
+      "position": "RB",
+      "team": "NE",
+      "proj": 10.7,
+      "actual": 29.1,
+      "surprise": 18.4,
+      "class": "boom"
+    },
+    {
+      "player": "Kirk Cousins",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 9.8,
+      "actual": 26.9,
+      "surprise": 17.1,
+      "class": "boom"
+    },
+    {
+      "player": "Travis Etienne",
+      "position": "RB",
+      "team": "JAX",
+      "proj": 13.8,
+      "actual": 30,
+      "surprise": 16.2,
+      "class": "boom"
+    },
+    {
+      "player": "James Cook",
+      "position": "RB",
+      "team": "BUF",
+      "proj": 14.4,
+      "actual": 30.1,
+      "surprise": 15.7,
+      "class": "boom"
+    },
+    {
+      "player": "Dallas Goedert",
+      "position": "TE",
+      "team": "PHI",
+      "proj": 8,
+      "actual": 22,
+      "surprise": 14,
+      "class": "boom"
+    },
+    {
+      "player": "Bo Nix",
+      "position": "QB",
+      "team": "DEN",
+      "proj": 15.4,
+      "actual": 29.1,
+      "surprise": 13.7,
+      "class": "boom"
+    },
+    {
+      "player": "Tyrone Tracy Jr.",
+      "position": "RB",
+      "team": "NYG",
+      "proj": 9.8,
+      "actual": 23.2,
+      "surprise": 13.4,
+      "class": "boom"
+    },
+    {
+      "player": "DJ Moore",
+      "position": "WR",
+      "team": "CHI",
+      "proj": 8.3,
+      "actual": 20.9,
+      "surprise": 12.6,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Kyler Murray",
+      "position": "QB",
+      "team": "ARI",
+      "proj": 13.8,
+      "actual": 0,
+      "surprise": -13.8,
+      "class": "bust"
+    },
+    {
+      "player": "Michael Penix Jr.",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 12.1,
+      "actual": 0,
+      "surprise": -12.1,
+      "class": "bust"
+    },
+    {
+      "player": "Joe Burrow",
+      "position": "QB",
+      "team": "CIN",
+      "proj": 17.2,
+      "actual": 5.5,
+      "surprise": -11.7,
+      "class": "bust"
+    },
+    {
+      "player": "Malik Nabers",
+      "position": "WR",
+      "team": "NYG",
+      "proj": 11.6,
+      "actual": 0,
+      "surprise": -11.6,
+      "class": "bust"
+    },
+    {
+      "player": "Carson Wentz",
+      "position": "QB",
+      "team": "MIN",
+      "proj": 11.5,
+      "actual": 0,
+      "surprise": -11.5,
+      "class": "bust"
+    },
+    {
+      "player": "Cam Skattebo",
+      "position": "RB",
+      "team": "NYG",
+      "proj": 10.5,
+      "actual": 0,
+      "surprise": -10.5,
+      "class": "bust"
+    },
+    {
+      "player": "J.K. Dobbins",
+      "position": "RB",
+      "team": "DEN",
+      "proj": 10,
+      "actual": 0,
+      "surprise": -10,
+      "class": "bust"
+    },
+    {
+      "player": "Jahmyr Gibbs",
+      "position": "RB",
+      "team": "DET",
+      "proj": 17.6,
+      "actual": 7.8,
+      "surprise": -9.8,
+      "class": "met"
+    },
+    {
+      "player": "Kenneth Walker III",
+      "position": "RB",
+      "team": "SEA",
+      "proj": 11.9,
+      "actual": 2.4,
+      "surprise": -9.5,
+      "class": "bust"
+    },
+    {
+      "player": "Justin Jefferson",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 11.9,
+      "actual": 3.2,
+      "surprise": -8.7,
+      "class": "met"
+    },
+    {
+      "player": "George Pickens",
+      "position": "WR",
+      "team": "DAL",
+      "proj": 12.7,
+      "actual": 4.8,
+      "surprise": -7.9,
+      "class": "met"
+    },
+    {
+      "player": "Woody Marks",
+      "position": "RB",
+      "team": "HOU",
+      "proj": 11.8,
+      "actual": 4.3,
+      "surprise": -7.5,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 417,
+      "model": 0.691,
+      "ecr": 0.467
+    },
+    {
+      "position": "QB",
+      "n": 53,
+      "model": 0.792,
+      "ecr": 0.526
+    },
+    {
+      "position": "RB",
+      "n": 118,
+      "model": 0.71,
+      "ecr": 0.483
+    },
+    {
+      "position": "TE",
+      "n": 80,
+      "model": 0.577,
+      "ecr": 0.327
+    },
+    {
+      "position": "WR",
+      "n": 166,
+      "model": 0.685,
+      "ecr": 0.515
+    }
+  ],
+  "ecr_kind": "season"
+}

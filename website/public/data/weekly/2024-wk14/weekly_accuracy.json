@@ -1,0 +1,306 @@
+{
+  "season": 2024,
+  "week": 14,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 357,
+      "mae": 3.59,
+      "spearman": 0.725,
+      "ceiling_cov": 0.896,
+      "floor_cov": 0.947
+    },
+    {
+      "position": "QB",
+      "n": 45,
+      "mae": 3.81,
+      "spearman": 0.916,
+      "ceiling_cov": 0.956,
+      "floor_cov": 0.933
+    },
+    {
+      "position": "RB",
+      "n": 90,
+      "mae": 4.23,
+      "spearman": 0.622,
+      "ceiling_cov": 0.856,
+      "floor_cov": 0.922
+    },
+    {
+      "position": "TE",
+      "n": 80,
+      "mae": 2.2,
+      "spearman": 0.63,
+      "ceiling_cov": 0.9,
+      "floor_cov": 0.963
+    },
+    {
+      "position": "WR",
+      "n": 142,
+      "mae": 3.89,
+      "spearman": 0.731,
+      "ceiling_cov": 0.901,
+      "floor_cov": 0.958
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 16,
+      "bust": 12,
+      "met": 94
+    }
+  ],
+  "beats": [
+    {
+      "player": "Josh Allen",
+      "position": "QB",
+      "team": "BUF",
+      "proj": 19.4,
+      "actual": 51.9,
+      "surprise": 32.5,
+      "class": "boom"
+    },
+    {
+      "player": "Zach Charbonnet",
+      "position": "RB",
+      "team": "SEA",
+      "proj": 6.3,
+      "actual": 34.8,
+      "surprise": 28.5,
+      "class": "boom"
+    },
+    {
+      "player": "Jordan Addison",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 9.7,
+      "actual": 35.3,
+      "surprise": 25.6,
+      "class": "boom"
+    },
+    {
+      "player": "Ja'Marr Chase",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 13.9,
+      "actual": 38.1,
+      "surprise": 24.2,
+      "class": "boom"
+    },
+    {
+      "player": "Puka Nacua",
+      "position": "WR",
+      "team": "LA",
+      "proj": 12.3,
+      "actual": 35.8,
+      "surprise": 23.5,
+      "class": "boom"
+    },
+    {
+      "player": "Sam Darnold",
+      "position": "QB",
+      "team": "MIN",
+      "proj": 17.5,
+      "actual": 34.6,
+      "surprise": 17.1,
+      "class": "boom"
+    },
+    {
+      "player": "Jauan Jennings",
+      "position": "WR",
+      "team": "SF",
+      "proj": 9.4,
+      "actual": 24.5,
+      "surprise": 15.1,
+      "class": "boom"
+    },
+    {
+      "player": "Rachaad White",
+      "position": "RB",
+      "team": "TB",
+      "proj": 10,
+      "actual": 23.9,
+      "surprise": 13.9,
+      "class": "boom"
+    },
+    {
+      "player": "Justin Jefferson",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 15.1,
+      "actual": 28.7,
+      "surprise": 13.6,
+      "class": "boom"
+    },
+    {
+      "player": "Josh Jacobs",
+      "position": "RB",
+      "team": "GB",
+      "proj": 13,
+      "actual": 24.6,
+      "surprise": 11.6,
+      "class": "boom"
+    },
+    {
+      "player": "Tyreek Hill",
+      "position": "WR",
+      "team": "MIA",
+      "proj": 12.1,
+      "actual": 23.1,
+      "surprise": 11,
+      "class": "boom"
+    },
+    {
+      "player": "Davante Adams",
+      "position": "WR",
+      "team": "NYJ",
+      "proj": 10.8,
+      "actual": 21.4,
+      "surprise": 10.6,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Breece Hall",
+      "position": "RB",
+      "team": "NYJ",
+      "proj": 12.4,
+      "actual": 0,
+      "surprise": -12.4,
+      "class": "bust"
+    },
+    {
+      "player": "George Pickens",
+      "position": "WR",
+      "team": "PIT",
+      "proj": 11.4,
+      "actual": 0,
+      "surprise": -11.4,
+      "class": "bust"
+    },
+    {
+      "player": "Kenneth Walker III",
+      "position": "RB",
+      "team": "SEA",
+      "proj": 11.2,
+      "actual": 0,
+      "surprise": -11.2,
+      "class": "bust"
+    },
+    {
+      "player": "Bucky Irving",
+      "position": "RB",
+      "team": "TB",
+      "proj": 12.9,
+      "actual": 2.3,
+      "surprise": -10.6,
+      "class": "bust"
+    },
+    {
+      "player": "Tee Higgins",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 12.2,
+      "actual": 3.3,
+      "surprise": -8.9,
+      "class": "met"
+    },
+    {
+      "player": "James Cook",
+      "position": "RB",
+      "team": "BUF",
+      "proj": 12,
+      "actual": 3.9,
+      "surprise": -8.1,
+      "class": "met"
+    },
+    {
+      "player": "A.J. Brown",
+      "position": "WR",
+      "team": "PHI",
+      "proj": 13.9,
+      "actual": 6.3,
+      "surprise": -7.6,
+      "class": "met"
+    },
+    {
+      "player": "Will Levis",
+      "position": "QB",
+      "team": "TEN",
+      "proj": 14.4,
+      "actual": 7,
+      "surprise": -7.4,
+      "class": "met"
+    },
+    {
+      "player": "Amon-Ra St. Brown",
+      "position": "WR",
+      "team": "DET",
+      "proj": 14.9,
+      "actual": 7.8,
+      "surprise": -7.1,
+      "class": "met"
+    },
+    {
+      "player": "D'Andre Swift",
+      "position": "RB",
+      "team": "CHI",
+      "proj": 10.9,
+      "actual": 4.5,
+      "surprise": -6.4,
+      "class": "met"
+    },
+    {
+      "player": "Mac Jones",
+      "position": "QB",
+      "team": "JAX",
+      "proj": 11.4,
+      "actual": 5.1,
+      "surprise": -6.3,
+      "class": "met"
+    },
+    {
+      "player": "Aidan O'Connell",
+      "position": "QB",
+      "team": "LV",
+      "proj": 11.6,
+      "actual": 6.8,
+      "surprise": -4.8,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 303,
+      "model": 0.715,
+      "ecr": 0.546
+    },
+    {
+      "position": "QB",
+      "n": 38,
+      "model": 0.905,
+      "ecr": 0.746
+    },
+    {
+      "position": "RB",
+      "n": 87,
+      "model": 0.612,
+      "ecr": 0.494
+    },
+    {
+      "position": "TE",
+      "n": 62,
+      "model": 0.583,
+      "ecr": 0.443
+    },
+    {
+      "position": "WR",
+      "n": 116,
+      "model": 0.709,
+      "ecr": 0.568
+    }
+  ],
+  "ecr_kind": "season"
+}

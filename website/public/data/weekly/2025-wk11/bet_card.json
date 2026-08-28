@@ -1,0 +1,43 @@
+{
+  "season": 2025,
+  "week": 11,
+  "n_bets": 4,
+  "bets": [
+    {
+      "game": "BAL @ CLE",
+      "bet": "BAL spread",
+      "odds": -105,
+      "ev": 0.089,
+      "kelly": 0.121,
+      "stake": 10,
+      "payout_if_win": 10
+    },
+    {
+      "game": "CHI @ MIN",
+      "bet": "CHI spread",
+      "odds": -115,
+      "ev": 0.058,
+      "kelly": 0.082,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "GB @ NYG",
+      "bet": "GB spread",
+      "odds": -110,
+      "ev": 0.13,
+      "kelly": 0.191,
+      "stake": 15,
+      "payout_if_win": 14
+    },
+    {
+      "game": "SEA @ LA",
+      "bet": "LA ml",
+      "odds": -175,
+      "ev": 0.064,
+      "kelly": 0.14,
+      "stake": 10,
+      "payout_if_win": 6
+    }
+  ]
+}

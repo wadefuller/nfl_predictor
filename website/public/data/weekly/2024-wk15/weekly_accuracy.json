@@ -1,0 +1,306 @@
+{
+  "season": 2024,
+  "week": 15,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 428,
+      "mae": 3.62,
+      "spearman": 0.704,
+      "ceiling_cov": 0.907,
+      "floor_cov": 0.951
+    },
+    {
+      "position": "QB",
+      "n": 53,
+      "mae": 6.26,
+      "spearman": 0.728,
+      "ceiling_cov": 0.868,
+      "floor_cov": 0.83
+    },
+    {
+      "position": "RB",
+      "n": 109,
+      "mae": 3.41,
+      "spearman": 0.786,
+      "ceiling_cov": 0.899,
+      "floor_cov": 1
+    },
+    {
+      "position": "TE",
+      "n": 96,
+      "mae": 2.42,
+      "spearman": 0.615,
+      "ceiling_cov": 0.938,
+      "floor_cov": 0.958
+    },
+    {
+      "position": "WR",
+      "n": 170,
+      "mae": 3.6,
+      "spearman": 0.667,
+      "ceiling_cov": 0.906,
+      "floor_cov": 0.953
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 20,
+      "bust": 18,
+      "met": 114
+    }
+  ],
+  "beats": [
+    {
+      "player": "Davante Adams",
+      "position": "WR",
+      "team": "NYJ",
+      "proj": 11.8,
+      "actual": 38.3,
+      "surprise": 26.5,
+      "class": "boom"
+    },
+    {
+      "player": "Jared Goff",
+      "position": "QB",
+      "team": "DET",
+      "proj": 18.3,
+      "actual": 41.1,
+      "surprise": 22.8,
+      "class": "boom"
+    },
+    {
+      "player": "Mike Evans",
+      "position": "WR",
+      "team": "TB",
+      "proj": 10.5,
+      "actual": 32.4,
+      "surprise": 21.9,
+      "class": "boom"
+    },
+    {
+      "player": "Josh Allen",
+      "position": "QB",
+      "team": "BUF",
+      "proj": 21,
+      "actual": 41.3,
+      "surprise": 20.3,
+      "class": "boom"
+    },
+    {
+      "player": "Brian Thomas Jr.",
+      "position": "WR",
+      "team": "JAX",
+      "proj": 9.9,
+      "actual": 27.5,
+      "surprise": 17.6,
+      "class": "boom"
+    },
+    {
+      "player": "James Cook",
+      "position": "RB",
+      "team": "BUF",
+      "proj": 9.5,
+      "actual": 25.8,
+      "surprise": 16.3,
+      "class": "boom"
+    },
+    {
+      "player": "Lamar Jackson",
+      "position": "QB",
+      "team": "BAL",
+      "proj": 20.1,
+      "actual": 36.1,
+      "surprise": 16,
+      "class": "boom"
+    },
+    {
+      "player": "James Conner",
+      "position": "RB",
+      "team": "ARI",
+      "proj": 12.8,
+      "actual": 28.3,
+      "surprise": 15.5,
+      "class": "boom"
+    },
+    {
+      "player": "Aaron Rodgers",
+      "position": "QB",
+      "team": "NYJ",
+      "proj": 14.6,
+      "actual": 30.1,
+      "surprise": 15.5,
+      "class": "boom"
+    },
+    {
+      "player": "Amon-Ra St. Brown",
+      "position": "WR",
+      "team": "DET",
+      "proj": 15.9,
+      "actual": 30.3,
+      "surprise": 14.4,
+      "class": "boom"
+    },
+    {
+      "player": "DeVonta Smith",
+      "position": "WR",
+      "team": "PHI",
+      "proj": 10.3,
+      "actual": 22.5,
+      "surprise": 12.2,
+      "class": "boom"
+    },
+    {
+      "player": "Baker Mayfield",
+      "position": "QB",
+      "team": "TB",
+      "proj": 15.9,
+      "actual": 28,
+      "surprise": 12.1,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Will Levis",
+      "position": "QB",
+      "team": "TEN",
+      "proj": 13,
+      "actual": -4.4,
+      "surprise": -17.4,
+      "class": "bust"
+    },
+    {
+      "player": "Brock Purdy",
+      "position": "QB",
+      "team": "SF",
+      "proj": 17.6,
+      "actual": 4,
+      "surprise": -13.6,
+      "class": "bust"
+    },
+    {
+      "player": "Jameis Winston",
+      "position": "QB",
+      "team": "CLE",
+      "proj": 12.2,
+      "actual": -0.4,
+      "surprise": -12.6,
+      "class": "bust"
+    },
+    {
+      "player": "Tua Tagovailoa",
+      "position": "QB",
+      "team": "MIA",
+      "proj": 15.7,
+      "actual": 3.8,
+      "surprise": -11.9,
+      "class": "bust"
+    },
+    {
+      "player": "Geno Smith",
+      "position": "QB",
+      "team": "SEA",
+      "proj": 16,
+      "actual": 4.5,
+      "surprise": -11.5,
+      "class": "bust"
+    },
+    {
+      "player": "Cooper Kupp",
+      "position": "WR",
+      "team": "LA",
+      "proj": 11.4,
+      "actual": 0,
+      "surprise": -11.4,
+      "class": "bust"
+    },
+    {
+      "player": "Aidan O'Connell",
+      "position": "QB",
+      "team": "LV",
+      "proj": 10.6,
+      "actual": 0,
+      "surprise": -10.6,
+      "class": "bust"
+    },
+    {
+      "player": "Amari Cooper",
+      "position": "WR",
+      "team": "BUF",
+      "proj": 10.5,
+      "actual": 0,
+      "surprise": -10.5,
+      "class": "bust"
+    },
+    {
+      "player": "Darnell Mooney",
+      "position": "WR",
+      "team": "ATL",
+      "proj": 10.2,
+      "actual": 0,
+      "surprise": -10.2,
+      "class": "bust"
+    },
+    {
+      "player": "Kirk Cousins",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 15.9,
+      "actual": 6.5,
+      "surprise": -9.4,
+      "class": "bust"
+    },
+    {
+      "player": "Kyler Murray",
+      "position": "QB",
+      "team": "ARI",
+      "proj": 19.4,
+      "actual": 10.1,
+      "surprise": -9.3,
+      "class": "bust"
+    },
+    {
+      "player": "Derrick Henry",
+      "position": "RB",
+      "team": "BAL",
+      "proj": 14.7,
+      "actual": 6.7,
+      "surprise": -8,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 372,
+      "model": 0.693,
+      "ecr": 0.553
+    },
+    {
+      "position": "QB",
+      "n": 46,
+      "model": 0.682,
+      "ecr": 0.553
+    },
+    {
+      "position": "RB",
+      "n": 105,
+      "model": 0.788,
+      "ecr": 0.625
+    },
+    {
+      "position": "TE",
+      "n": 78,
+      "model": 0.593,
+      "ecr": 0.402
+    },
+    {
+      "position": "WR",
+      "n": 143,
+      "model": 0.639,
+      "ecr": 0.532
+    }
+  ],
+  "ecr_kind": "season"
+}

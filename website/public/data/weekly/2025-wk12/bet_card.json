@@ -1,0 +1,52 @@
+{
+  "season": 2025,
+  "week": 12,
+  "n_bets": 5,
+  "bets": [
+    {
+      "game": "MIN @ GB",
+      "bet": "GB spread",
+      "odds": -108,
+      "ev": 0.097,
+      "kelly": 0.137,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "JAX @ ARI",
+      "bet": "JAX ml",
+      "odds": -135,
+      "ev": 0.051,
+      "kelly": 0.083,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "PIT @ CHI",
+      "bet": "CHI ml",
+      "odds": -155,
+      "ev": 0.053,
+      "kelly": 0.1,
+      "stake": 10,
+      "payout_if_win": 6
+    },
+    {
+      "game": "MIN @ GB",
+      "bet": "GB ml",
+      "odds": -290,
+      "ev": 0.083,
+      "kelly": 0.312,
+      "stake": 25,
+      "payout_if_win": 9
+    },
+    {
+      "game": "CLE @ LV",
+      "bet": "LV ml",
+      "odds": -162,
+      "ev": 0.066,
+      "kelly": 0.134,
+      "stake": 10,
+      "payout_if_win": 6
+    }
+  ]
+}

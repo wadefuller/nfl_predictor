@@ -1,0 +1,25 @@
+{
+  "season": 2025,
+  "week": 15,
+  "n_bets": 2,
+  "bets": [
+    {
+      "game": "LV @ PHI",
+      "bet": "PHI spread",
+      "odds": -112,
+      "ev": 0.079,
+      "kelly": 0.114,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "BAL @ CIN",
+      "bet": "BAL ml",
+      "odds": -162,
+      "ev": 0.123,
+      "kelly": 0.265,
+      "stake": 20,
+      "payout_if_win": 12
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "season": 2026,
+  "week": 1,
+  "n_bets": 13,
+  "bets": [
+    {
+      "game": "WAS @ PHI",
+      "bet": "PHI spread",
+      "odds": -110,
+      "ev": 0.137,
+      "kelly": 0.202,
+      "stake": 15,
+      "payout_if_win": 14
+    },
+    {
+      "game": "WAS @ PHI",
+      "bet": "PHI ml",
+      "odds": -238,
+      "ev": 0.13,
+      "kelly": 0.413,
+      "stake": 25,
+      "payout_if_win": 11
+    },
+    {
+      "game": "SF @ LA",
+      "bet": "LA ml",
+      "odds": -175,
+      "ev": 0.119,
+      "kelly": 0.277,
+      "stake": 20,
+      "payout_if_win": 11
+    },
+    {
+      "game": "CLE @ JAX",
+      "bet": "JAX spread",
+      "odds": -110,
+      "ev": 0.112,
+      "kelly": 0.163,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "BAL @ IND",
+      "bet": "BAL ml",
+      "odds": -192,
+      "ev": 0.109,
+      "kelly": 0.278,
+      "stake": 20,
+      "payout_if_win": 10
+    },
+    {
+      "game": "GB @ MIN",
+      "bet": "GB ml",
+      "odds": -125,
+      "ev": 0.099,
+      "kelly": 0.162,
+      "stake": 10,
+      "payout_if_win": 8
+    },
+    {
+      "game": "MIA @ LV",
+      "bet": "MIA spread",
+      "odds": 100,
+      "ev": 0.092,
+      "kelly": 0.12,
+      "stake": 10,
+      "payout_if_win": 10
+    },
+    {
+      "game": "SF @ LA",
+      "bet": "LA spread",
+      "odds": -120,
+      "ev": 0.088,
+      "kelly": 0.136,
+      "stake": 10,
+      "payout_if_win": 8
+    },
+    {
+      "game": "DAL @ NYG",
+      "bet": "NYG spread",
+      "odds": -115,
+      "ev": 0.081,
+      "kelly": 0.121,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "BAL @ IND",
+      "bet": "BAL spread",
+      "odds": -110,
+      "ev": 0.069,
+      "kelly": 0.096,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "ATL @ PIT",
+      "bet": "PIT ml",
+      "odds": -175,
+      "ev": 0.063,
+      "kelly": 0.137,
+      "stake": 10,
+      "payout_if_win": 6
+    },
+    {
+      "game": "CHI @ CAR",
+      "bet": "CHI ml",
+      "odds": -135,
+      "ev": 0.062,
+      "kelly": 0.104,
+      "stake": 10,
+      "payout_if_win": 7
+    },
+    {
+      "game": "TB @ CIN",
+      "bet": "TB spread",
+      "odds": -110,
+      "ev": 0.059,
+      "kelly": 0.08,
+      "stake": 5,
+      "payout_if_win": 5
+    }
+  ]
+}

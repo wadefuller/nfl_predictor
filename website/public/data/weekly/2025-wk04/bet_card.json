@@ -1,0 +1,25 @@
+{
+  "season": 2025,
+  "week": 4,
+  "n_bets": 2,
+  "bets": [
+    {
+      "game": "SEA @ ARI",
+      "bet": "ARI spread",
+      "odds": -110,
+      "ev": 0.074,
+      "kelly": 0.104,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "MIN @ PIT",
+      "bet": "PIT spread",
+      "odds": 105,
+      "ev": 0.104,
+      "kelly": 0.131,
+      "stake": 10,
+      "payout_if_win": 10
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "season": 2025,
+  "week": 10,
+  "n_bets": 3,
+  "bets": [
+    {
+      "game": "CLE @ NYJ",
+      "bet": "NYJ spread",
+      "odds": -105,
+      "ev": 0.054,
+      "kelly": 0.07,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "ARI @ SEA",
+      "bet": "SEA spread",
+      "odds": -105,
+      "ev": 0.055,
+      "kelly": 0.071,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "PHI @ GB",
+      "bet": "GB ml",
+      "odds": -110,
+      "ev": 0.079,
+      "kelly": 0.112,
+      "stake": 10,
+      "payout_if_win": 9
+    }
+  ]
+}

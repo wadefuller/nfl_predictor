@@ -1,0 +1,306 @@
+{
+  "season": 2025,
+  "week": 5,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 391,
+      "mae": 3.59,
+      "spearman": 0.674,
+      "ceiling_cov": 0.872,
+      "floor_cov": 0.949
+    },
+    {
+      "position": "QB",
+      "n": 49,
+      "mae": 5.53,
+      "spearman": 0.728,
+      "ceiling_cov": 0.816,
+      "floor_cov": 0.918
+    },
+    {
+      "position": "RB",
+      "n": 99,
+      "mae": 3.73,
+      "spearman": 0.646,
+      "ceiling_cov": 0.889,
+      "floor_cov": 0.919
+    },
+    {
+      "position": "TE",
+      "n": 90,
+      "mae": 2.99,
+      "spearman": 0.668,
+      "ceiling_cov": 0.856,
+      "floor_cov": 0.967
+    },
+    {
+      "position": "WR",
+      "n": 153,
+      "mae": 3.24,
+      "spearman": 0.66,
+      "ceiling_cov": 0.889,
+      "floor_cov": 0.967
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 22,
+      "bust": 17,
+      "met": 95
+    }
+  ],
+  "beats": [
+    {
+      "player": "Jacory Croskey-Merritt",
+      "position": "RB",
+      "team": "WAS",
+      "proj": 6,
+      "actual": 26,
+      "surprise": 20,
+      "class": "boom"
+    },
+    {
+      "player": "Emeka Egbuka",
+      "position": "WR",
+      "team": "TB",
+      "proj": 9.9,
+      "actual": 27.8,
+      "surprise": 17.9,
+      "class": "boom"
+    },
+    {
+      "player": "C.J. Stroud",
+      "position": "QB",
+      "team": "HOU",
+      "proj": 14.2,
+      "actual": 28.8,
+      "surprise": 14.6,
+      "class": "boom"
+    },
+    {
+      "player": "Javonte Williams",
+      "position": "RB",
+      "team": "DAL",
+      "proj": 12.3,
+      "actual": 26.4,
+      "surprise": 14.1,
+      "class": "boom"
+    },
+    {
+      "player": "Kyren Williams",
+      "position": "RB",
+      "team": "LA",
+      "proj": 13.4,
+      "actual": 27.1,
+      "surprise": 13.7,
+      "class": "boom"
+    },
+    {
+      "player": "Sam Darnold",
+      "position": "QB",
+      "team": "SEA",
+      "proj": 14.4,
+      "actual": 27.6,
+      "surprise": 13.2,
+      "class": "boom"
+    },
+    {
+      "player": "Ja'Marr Chase",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 12.8,
+      "actual": 26,
+      "surprise": 13.2,
+      "class": "boom"
+    },
+    {
+      "player": "Jake Ferguson",
+      "position": "TE",
+      "team": "DAL",
+      "proj": 7.9,
+      "actual": 20.4,
+      "surprise": 12.5,
+      "class": "boom"
+    },
+    {
+      "player": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "team": "SEA",
+      "proj": 11,
+      "actual": 23.2,
+      "surprise": 12.2,
+      "class": "boom"
+    },
+    {
+      "player": "Jake Browning",
+      "position": "QB",
+      "team": "CIN",
+      "proj": 7,
+      "actual": 19.1,
+      "surprise": 12.1,
+      "class": "boom"
+    },
+    {
+      "player": "Kareem Hunt",
+      "position": "RB",
+      "team": "KC",
+      "proj": 6.1,
+      "actual": 18.2,
+      "surprise": 12.1,
+      "class": "boom"
+    },
+    {
+      "player": "Jonathan Taylor",
+      "position": "RB",
+      "team": "IND",
+      "proj": 18.1,
+      "actual": 30.1,
+      "surprise": 12,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Marcus Mariota",
+      "position": "QB",
+      "team": "WAS",
+      "proj": 14.8,
+      "actual": 0,
+      "surprise": -14.8,
+      "class": "bust"
+    },
+    {
+      "player": "Brock Purdy",
+      "position": "QB",
+      "team": "SF",
+      "proj": 13.8,
+      "actual": 0,
+      "surprise": -13.8,
+      "class": "bust"
+    },
+    {
+      "player": "Bucky Irving",
+      "position": "RB",
+      "team": "TB",
+      "proj": 13.6,
+      "actual": 0,
+      "surprise": -13.6,
+      "class": "bust"
+    },
+    {
+      "player": "Lamar Jackson",
+      "position": "QB",
+      "team": "BAL",
+      "proj": 12,
+      "actual": 0,
+      "surprise": -12,
+      "class": "bust"
+    },
+    {
+      "player": "James Cook",
+      "position": "RB",
+      "team": "BUF",
+      "proj": 15.3,
+      "actual": 4.9,
+      "surprise": -10.4,
+      "class": "bust"
+    },
+    {
+      "player": "Chuba Hubbard",
+      "position": "RB",
+      "team": "CAR",
+      "proj": 10.1,
+      "actual": 0,
+      "surprise": -10.1,
+      "class": "bust"
+    },
+    {
+      "player": "Geno Smith",
+      "position": "QB",
+      "team": "LV",
+      "proj": 13,
+      "actual": 5.9,
+      "surprise": -7.1,
+      "class": "met"
+    },
+    {
+      "player": "Quentin Johnston",
+      "position": "WR",
+      "team": "LAC",
+      "proj": 11.6,
+      "actual": 4.9,
+      "surprise": -6.7,
+      "class": "met"
+    },
+    {
+      "player": "Omarion Hampton",
+      "position": "RB",
+      "team": "LAC",
+      "proj": 14.9,
+      "actual": 10,
+      "surprise": -4.9,
+      "class": "met"
+    },
+    {
+      "player": "Kyler Murray",
+      "position": "QB",
+      "team": "ARI",
+      "proj": 19.7,
+      "actual": 15.3,
+      "surprise": -4.4,
+      "class": "met"
+    },
+    {
+      "player": "Alvin Kamara",
+      "position": "RB",
+      "team": "NO",
+      "proj": 11.7,
+      "actual": 7.5,
+      "surprise": -4.2,
+      "class": "met"
+    },
+    {
+      "player": "Travis Etienne",
+      "position": "RB",
+      "team": "JAX",
+      "proj": 11.5,
+      "actual": 7.3,
+      "surprise": -4.2,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 331,
+      "model": 0.648,
+      "ecr": 0.459
+    },
+    {
+      "position": "QB",
+      "n": 42,
+      "model": 0.655,
+      "ecr": 0.374
+    },
+    {
+      "position": "RB",
+      "n": 93,
+      "model": 0.65,
+      "ecr": 0.525
+    },
+    {
+      "position": "TE",
+      "n": 66,
+      "model": 0.572,
+      "ecr": 0.367
+    },
+    {
+      "position": "WR",
+      "n": 130,
+      "model": 0.633,
+      "ecr": 0.504
+    }
+  ],
+  "ecr_kind": "season"
+}

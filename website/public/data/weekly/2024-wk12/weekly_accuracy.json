@@ -1,0 +1,306 @@
+{
+  "season": 2024,
+  "week": 12,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 367,
+      "mae": 3.31,
+      "spearman": 0.77,
+      "ceiling_cov": 0.91,
+      "floor_cov": 0.959
+    },
+    {
+      "position": "QB",
+      "n": 47,
+      "mae": 3.91,
+      "spearman": 0.785,
+      "ceiling_cov": 0.894,
+      "floor_cov": 0.936
+    },
+    {
+      "position": "RB",
+      "n": 91,
+      "mae": 3.79,
+      "spearman": 0.768,
+      "ceiling_cov": 0.901,
+      "floor_cov": 0.945
+    },
+    {
+      "position": "TE",
+      "n": 79,
+      "mae": 2.87,
+      "spearman": 0.674,
+      "ceiling_cov": 0.861,
+      "floor_cov": 0.949
+    },
+    {
+      "position": "WR",
+      "n": 150,
+      "mae": 3.05,
+      "spearman": 0.752,
+      "ceiling_cov": 0.947,
+      "floor_cov": 0.98
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 17,
+      "bust": 10,
+      "met": 96
+    }
+  ],
+  "beats": [
+    {
+      "player": "Saquon Barkley",
+      "position": "RB",
+      "team": "PHI",
+      "proj": 15.7,
+      "actual": 44.2,
+      "surprise": 28.5,
+      "class": "boom"
+    },
+    {
+      "player": "Jordan Addison",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 8,
+      "actual": 26.2,
+      "surprise": 18.2,
+      "class": "boom"
+    },
+    {
+      "player": "Jaylen Waddle",
+      "position": "WR",
+      "team": "MIA",
+      "proj": 8.1,
+      "actual": 24.4,
+      "surprise": 16.3,
+      "class": "boom"
+    },
+    {
+      "player": "Josh Jacobs",
+      "position": "RB",
+      "team": "GB",
+      "proj": 13.2,
+      "actual": 28.6,
+      "surprise": 15.4,
+      "class": "boom"
+    },
+    {
+      "player": "Courtland Sutton",
+      "position": "WR",
+      "team": "DEN",
+      "proj": 10.7,
+      "actual": 25.7,
+      "surprise": 15,
+      "class": "boom"
+    },
+    {
+      "player": "Bucky Irving",
+      "position": "RB",
+      "team": "TB",
+      "proj": 9.6,
+      "actual": 24.2,
+      "surprise": 14.6,
+      "class": "boom"
+    },
+    {
+      "player": "Caleb Williams",
+      "position": "QB",
+      "team": "CHI",
+      "proj": 13,
+      "actual": 26.9,
+      "surprise": 13.9,
+      "class": "boom"
+    },
+    {
+      "player": "DJ Moore",
+      "position": "WR",
+      "team": "CHI",
+      "proj": 9.9,
+      "actual": 23.4,
+      "surprise": 13.5,
+      "class": "boom"
+    },
+    {
+      "player": "Jayden Daniels",
+      "position": "QB",
+      "team": "WAS",
+      "proj": 18.1,
+      "actual": 30.4,
+      "surprise": 12.3,
+      "class": "boom"
+    },
+    {
+      "player": "Tua Tagovailoa",
+      "position": "QB",
+      "team": "MIA",
+      "proj": 16.6,
+      "actual": 28.5,
+      "surprise": 11.9,
+      "class": "boom"
+    },
+    {
+      "player": "Nick Chubb",
+      "position": "RB",
+      "team": "CLE",
+      "proj": 6.8,
+      "actual": 18.5,
+      "surprise": 11.7,
+      "class": "boom"
+    },
+    {
+      "player": "Jonnu Smith",
+      "position": "TE",
+      "team": "MIA",
+      "proj": 7.8,
+      "actual": 19.2,
+      "surprise": 11.4,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Brock Purdy",
+      "position": "QB",
+      "team": "SF",
+      "proj": 15.1,
+      "actual": 0,
+      "surprise": -15.1,
+      "class": "bust"
+    },
+    {
+      "player": "DeVonta Smith",
+      "position": "WR",
+      "team": "PHI",
+      "proj": 10.7,
+      "actual": 0,
+      "surprise": -10.7,
+      "class": "bust"
+    },
+    {
+      "player": "Justin Jefferson",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 13.3,
+      "actual": 3.7,
+      "surprise": -9.6,
+      "class": "met"
+    },
+    {
+      "player": "Jonathan Taylor",
+      "position": "RB",
+      "team": "IND",
+      "proj": 12.8,
+      "actual": 3.5,
+      "surprise": -9.3,
+      "class": "bust"
+    },
+    {
+      "player": "Christian McCaffrey",
+      "position": "RB",
+      "team": "SF",
+      "proj": 15.3,
+      "actual": 6.3,
+      "surprise": -9,
+      "class": "met"
+    },
+    {
+      "player": "Brian Robinson",
+      "position": "RB",
+      "team": "WAS",
+      "proj": 11.7,
+      "actual": 2.9,
+      "surprise": -8.8,
+      "class": "met"
+    },
+    {
+      "player": "Joe Mixon",
+      "position": "RB",
+      "team": "HOU",
+      "proj": 15.8,
+      "actual": 7,
+      "surprise": -8.8,
+      "class": "met"
+    },
+    {
+      "player": "Jared Goff",
+      "position": "QB",
+      "team": "DET",
+      "proj": 19.1,
+      "actual": 10.8,
+      "surprise": -8.3,
+      "class": "met"
+    },
+    {
+      "player": "Kyler Murray",
+      "position": "QB",
+      "team": "ARI",
+      "proj": 17.5,
+      "actual": 10.3,
+      "surprise": -7.2,
+      "class": "met"
+    },
+    {
+      "player": "Austin Ekeler",
+      "position": "RB",
+      "team": "WAS",
+      "proj": 10.4,
+      "actual": 3.4,
+      "surprise": -7,
+      "class": "met"
+    },
+    {
+      "player": "Rhamondre Stevenson",
+      "position": "RB",
+      "team": "NE",
+      "proj": 10.2,
+      "actual": 3.3,
+      "surprise": -6.9,
+      "class": "met"
+    },
+    {
+      "player": "Jalen Hurts",
+      "position": "QB",
+      "team": "PHI",
+      "proj": 20.8,
+      "actual": 15.1,
+      "surprise": -5.7,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 319,
+      "model": 0.757,
+      "ecr": 0.545
+    },
+    {
+      "position": "QB",
+      "n": 41,
+      "model": 0.751,
+      "ecr": 0.663
+    },
+    {
+      "position": "RB",
+      "n": 88,
+      "model": 0.764,
+      "ecr": 0.56
+    },
+    {
+      "position": "TE",
+      "n": 64,
+      "model": 0.672,
+      "ecr": 0.358
+    },
+    {
+      "position": "WR",
+      "n": 126,
+      "model": 0.707,
+      "ecr": 0.538
+    }
+  ],
+  "ecr_kind": "season"
+}

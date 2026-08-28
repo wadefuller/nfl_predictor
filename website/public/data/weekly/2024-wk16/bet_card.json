@@ -1,0 +1,43 @@
+{
+  "season": 2024,
+  "week": 16,
+  "n_bets": 4,
+  "bets": [
+    {
+      "game": "PIT @ BAL",
+      "bet": "BAL spread",
+      "odds": -105,
+      "ev": 0.062,
+      "kelly": 0.081,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "CLE @ CIN",
+      "bet": "CIN spread",
+      "odds": -112,
+      "ev": 0.051,
+      "kelly": 0.069,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "HOU @ KC",
+      "bet": "KC spread",
+      "odds": 100,
+      "ev": 0.075,
+      "kelly": 0.095,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "PHI @ WAS",
+      "bet": "WAS spread",
+      "odds": -105,
+      "ev": 0.125,
+      "kelly": 0.175,
+      "stake": 15,
+      "payout_if_win": 14
+    }
+  ]
+}

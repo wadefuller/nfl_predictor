@@ -1,0 +1,43 @@
+{
+  "season": 2025,
+  "week": 7,
+  "n_bets": 4,
+  "bets": [
+    {
+      "game": "MIA @ CLE",
+      "bet": "MIA spread",
+      "odds": -102,
+      "ev": 0.12,
+      "kelly": 0.163,
+      "stake": 10,
+      "payout_if_win": 10
+    },
+    {
+      "game": "PIT @ CIN",
+      "bet": "PIT ml",
+      "odds": -245,
+      "ev": 0.063,
+      "kelly": 0.192,
+      "stake": 15,
+      "payout_if_win": 6
+    },
+    {
+      "game": "MIA @ CLE",
+      "bet": "MIA ml",
+      "odds": 124,
+      "ev": 0.141,
+      "kelly": 0.152,
+      "stake": 10,
+      "payout_if_win": 12
+    },
+    {
+      "game": "CAR @ NYJ",
+      "bet": "CAR ml",
+      "odds": -108,
+      "ev": 0.083,
+      "kelly": 0.116,
+      "stake": 10,
+      "payout_if_win": 9
+    }
+  ]
+}

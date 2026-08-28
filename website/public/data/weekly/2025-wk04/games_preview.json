@@ -1,0 +1,1206 @@
+{
+  "season": 2025,
+  "week": 4,
+  "games": [
+    {
+      "game_id": "2025_04_SEA_ARI",
+      "home_team": "ARI",
+      "away_team": "SEA",
+      "spread_line": -1.5,
+      "total_line": 43.5,
+      "pred_margin": 0.9,
+      "pred_win_home": 0.521,
+      "home_implied_market": 21,
+      "away_implied_market": 22.5,
+      "home_implied_pred": 22.2,
+      "away_implied_pred": 21.3,
+      "spread_edge_home": 2.4,
+      "edge_abs": 2.4,
+      "home_players": [
+        {
+          "player": "Kyler Murray",
+          "position": "QB",
+          "proj": 17.5,
+          "floor": 7.6,
+          "ceiling": 26.4
+        },
+        {
+          "player": "Marvin Harrison Jr.",
+          "position": "WR",
+          "proj": 9.8,
+          "floor": 1.6,
+          "ceiling": 19.6
+        },
+        {
+          "player": "Trey McBride",
+          "position": "TE",
+          "proj": 9.3,
+          "floor": 1.1,
+          "ceiling": 18.3
+        },
+        {
+          "player": "Trey Benson",
+          "position": "RB",
+          "proj": 7.3,
+          "floor": 0.7,
+          "ceiling": 15.1
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Sam Darnold",
+          "position": "QB",
+          "proj": 13.9,
+          "floor": 3,
+          "ceiling": 22.4
+        },
+        {
+          "player": "Jaxon Smith-Njigba",
+          "position": "WR",
+          "proj": 11.4,
+          "floor": 2.6,
+          "ceiling": 21.9
+        },
+        {
+          "player": "Kenneth Walker III",
+          "position": "RB",
+          "proj": 10.6,
+          "floor": 2.5,
+          "ceiling": 19.6
+        },
+        {
+          "player": "Cooper Kupp",
+          "position": "WR",
+          "proj": 7.2,
+          "floor": 0.6,
+          "ceiling": 15.4
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_MIN_PIT",
+      "home_team": "PIT",
+      "away_team": "MIN",
+      "spread_line": -2.5,
+      "total_line": 41.5,
+      "pred_margin": -0.7,
+      "pred_win_home": 0.453,
+      "home_implied_market": 19.5,
+      "away_implied_market": 22,
+      "home_implied_pred": 20.4,
+      "away_implied_pred": 21.1,
+      "spread_edge_home": 1.8,
+      "edge_abs": 1.8,
+      "home_players": [
+        {
+          "player": "Aaron Rodgers",
+          "position": "QB",
+          "proj": 13.6,
+          "floor": 3.3,
+          "ceiling": 23
+        },
+        {
+          "player": "Jaylen Warren",
+          "position": "RB",
+          "proj": 10.7,
+          "floor": 2.9,
+          "ceiling": 19.9
+        },
+        {
+          "player": "DK Metcalf",
+          "position": "WR",
+          "proj": 9.7,
+          "floor": 2.3,
+          "ceiling": 18.6
+        },
+        {
+          "player": "Calvin Austin III",
+          "position": "WR",
+          "proj": 7.9,
+          "floor": 1,
+          "ceiling": 17.2
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Carson Wentz",
+          "position": "QB",
+          "proj": 13.1,
+          "floor": 3.3,
+          "ceiling": 23.5
+        },
+        {
+          "player": "Justin Jefferson",
+          "position": "WR",
+          "proj": 12.7,
+          "floor": 4.1,
+          "ceiling": 22.9
+        },
+        {
+          "player": "Jordan Mason",
+          "position": "RB",
+          "proj": 11.2,
+          "floor": 2.3,
+          "ceiling": 20.6
+        },
+        {
+          "player": "J.J. McCarthy",
+          "position": "QB",
+          "proj": 9.2,
+          "floor": 0,
+          "ceiling": 22.1
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_PHI_TB",
+      "home_team": "TB",
+      "away_team": "PHI",
+      "spread_line": -3.5,
+      "total_line": 44.5,
+      "pred_margin": -1.9,
+      "pred_win_home": 0.402,
+      "home_implied_market": 20.5,
+      "away_implied_market": 24,
+      "home_implied_pred": 21.3,
+      "away_implied_pred": 23.2,
+      "spread_edge_home": 1.6,
+      "edge_abs": 1.6,
+      "home_players": [
+        {
+          "player": "Baker Mayfield",
+          "position": "QB",
+          "proj": 16.2,
+          "floor": 5.9,
+          "ceiling": 26
+        },
+        {
+          "player": "Bucky Irving",
+          "position": "RB",
+          "proj": 12.1,
+          "floor": 3.8,
+          "ceiling": 20.5
+        },
+        {
+          "player": "Emeka Egbuka",
+          "position": "WR",
+          "proj": 10.2,
+          "floor": 1.9,
+          "ceiling": 19.9
+        },
+        {
+          "player": "Mike Evans",
+          "position": "WR",
+          "proj": 10,
+          "floor": 2.3,
+          "ceiling": 19.8
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Jalen Hurts",
+          "position": "QB",
+          "proj": 20.2,
+          "floor": 8.7,
+          "ceiling": 30.5
+        },
+        {
+          "player": "Saquon Barkley",
+          "position": "RB",
+          "proj": 13.5,
+          "floor": 4.5,
+          "ceiling": 22.4
+        },
+        {
+          "player": "A.J. Brown",
+          "position": "WR",
+          "proj": 10.4,
+          "floor": 3,
+          "ceiling": 20.2
+        },
+        {
+          "player": "DeVonta Smith",
+          "position": "WR",
+          "proj": 9.4,
+          "floor": 2,
+          "ceiling": 17.6
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_NO_BUF",
+      "home_team": "BUF",
+      "away_team": "NO",
+      "spread_line": 15.5,
+      "total_line": 48.5,
+      "pred_margin": 14.6,
+      "pred_win_home": 0.927,
+      "home_implied_market": 32,
+      "away_implied_market": 16.5,
+      "home_implied_pred": 31.5,
+      "away_implied_pred": 17,
+      "spread_edge_home": -0.9,
+      "edge_abs": 0.9,
+      "home_players": [
+        {
+          "player": "Josh Allen",
+          "position": "QB",
+          "proj": 21.5,
+          "floor": 10.9,
+          "ceiling": 31.6
+        },
+        {
+          "player": "James Cook",
+          "position": "RB",
+          "proj": 14.9,
+          "floor": 4.8,
+          "ceiling": 24
+        },
+        {
+          "player": "Dalton Kincaid",
+          "position": "TE",
+          "proj": 8.7,
+          "floor": 0.8,
+          "ceiling": 17.9
+        },
+        {
+          "player": "Keon Coleman",
+          "position": "WR",
+          "proj": 8.3,
+          "floor": 0.7,
+          "ceiling": 18.2
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Spencer Rattler",
+          "position": "QB",
+          "proj": 11.8,
+          "floor": 1.9,
+          "ceiling": 20.5
+        },
+        {
+          "player": "Alvin Kamara",
+          "position": "RB",
+          "proj": 10.4,
+          "floor": 3.3,
+          "ceiling": 18.9
+        },
+        {
+          "player": "Chris Olave",
+          "position": "WR",
+          "proj": 8.9,
+          "floor": 2.5,
+          "ceiling": 16.7
+        },
+        {
+          "player": "Juwan Johnson",
+          "position": "TE",
+          "proj": 8.4,
+          "floor": 1.4,
+          "ceiling": 16.5
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_TEN_HOU",
+      "home_team": "HOU",
+      "away_team": "TEN",
+      "spread_line": 7.5,
+      "total_line": 39.5,
+      "pred_margin": 8.3,
+      "pred_win_home": 0.797,
+      "home_implied_market": 23.5,
+      "away_implied_market": 16,
+      "home_implied_pred": 23.9,
+      "away_implied_pred": 15.6,
+      "spread_edge_home": 0.8,
+      "edge_abs": 0.8,
+      "home_players": [
+        {
+          "player": "C.J. Stroud",
+          "position": "QB",
+          "proj": 15.6,
+          "floor": 5.6,
+          "ceiling": 23.3
+        },
+        {
+          "player": "Nico Collins",
+          "position": "WR",
+          "proj": 11.8,
+          "floor": 3.4,
+          "ceiling": 21.8
+        },
+        {
+          "player": "Nick Chubb",
+          "position": "RB",
+          "proj": 9.9,
+          "floor": 0.9,
+          "ceiling": 19.5
+        },
+        {
+          "player": "Christian Kirk",
+          "position": "WR",
+          "proj": 6.3,
+          "floor": 0,
+          "ceiling": 15.2
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Cam Ward",
+          "position": "QB",
+          "proj": 11.9,
+          "floor": 2.9,
+          "ceiling": 20.8
+        },
+        {
+          "player": "Tony Pollard",
+          "position": "RB",
+          "proj": 11.3,
+          "floor": 3.5,
+          "ceiling": 20.9
+        },
+        {
+          "player": "Calvin Ridley",
+          "position": "WR",
+          "proj": 8.9,
+          "floor": 1.4,
+          "ceiling": 18.3
+        },
+        {
+          "player": "Elic Ayomanor",
+          "position": "WR",
+          "proj": 7.7,
+          "floor": 0.8,
+          "ceiling": 15.4
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_LAC_NYG",
+      "home_team": "NYG",
+      "away_team": "LAC",
+      "spread_line": -6,
+      "total_line": 43.5,
+      "pred_margin": -6.6,
+      "pred_win_home": 0.23,
+      "home_implied_market": 18.8,
+      "away_implied_market": 24.8,
+      "home_implied_pred": 18.4,
+      "away_implied_pred": 25.1,
+      "spread_edge_home": -0.6,
+      "edge_abs": 0.6,
+      "home_players": [
+        {
+          "player": "Malik Nabers",
+          "position": "WR",
+          "proj": 12,
+          "floor": 3.4,
+          "ceiling": 24.8
+        },
+        {
+          "player": "Russell Wilson",
+          "position": "QB",
+          "proj": 10.7,
+          "floor": 0,
+          "ceiling": 22.2
+        },
+        {
+          "player": "Cam Skattebo",
+          "position": "RB",
+          "proj": 8.7,
+          "floor": 2,
+          "ceiling": 17.6
+        },
+        {
+          "player": "Wan'Dale Robinson",
+          "position": "WR",
+          "proj": 8,
+          "floor": 1.4,
+          "ceiling": 17.1
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Justin Herbert",
+          "position": "QB",
+          "proj": 18.8,
+          "floor": 8.5,
+          "ceiling": 28.4
+        },
+        {
+          "player": "Omarion Hampton",
+          "position": "RB",
+          "proj": 12.5,
+          "floor": 3.3,
+          "ceiling": 23.1
+        },
+        {
+          "player": "Quentin Johnston",
+          "position": "WR",
+          "proj": 10.7,
+          "floor": 1.6,
+          "ceiling": 20.2
+        },
+        {
+          "player": "Keenan Allen",
+          "position": "WR",
+          "proj": 10.4,
+          "floor": 1.9,
+          "ceiling": 19.8
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_WAS_ATL",
+      "home_team": "ATL",
+      "away_team": "WAS",
+      "spread_line": 2.5,
+      "total_line": 43.5,
+      "pred_margin": 2,
+      "pred_win_home": 0.568,
+      "home_implied_market": 23,
+      "away_implied_market": 20.5,
+      "home_implied_pred": 22.8,
+      "away_implied_pred": 20.7,
+      "spread_edge_home": -0.5,
+      "edge_abs": 0.5,
+      "home_players": [
+        {
+          "player": "Bijan Robinson",
+          "position": "RB",
+          "proj": 14.8,
+          "floor": 5.1,
+          "ceiling": 25.9
+        },
+        {
+          "player": "Michael Penix Jr.",
+          "position": "QB",
+          "proj": 13.1,
+          "floor": 0,
+          "ceiling": 23.5
+        },
+        {
+          "player": "Drake London",
+          "position": "WR",
+          "proj": 10.4,
+          "floor": 2.1,
+          "ceiling": 21.2
+        },
+        {
+          "player": "Darnell Mooney",
+          "position": "WR",
+          "proj": 8.1,
+          "floor": 0.6,
+          "ceiling": 16.8
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Marcus Mariota",
+          "position": "QB",
+          "proj": 15.2,
+          "floor": 3.4,
+          "ceiling": 25.7
+        },
+        {
+          "player": "Terry McLaurin",
+          "position": "WR",
+          "proj": 9.1,
+          "floor": 1.4,
+          "ceiling": 19.3
+        },
+        {
+          "player": "Jayden Daniels",
+          "position": "QB",
+          "proj": 9,
+          "floor": 0,
+          "ceiling": 25.4
+        },
+        {
+          "player": "Deebo Samuel Sr.",
+          "position": "WR",
+          "proj": 8.9,
+          "floor": 1.7,
+          "ceiling": 16.7
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_NYJ_MIA",
+      "home_team": "MIA",
+      "away_team": "NYJ",
+      "spread_line": 2.5,
+      "total_line": 44.5,
+      "pred_margin": 2.9,
+      "pred_win_home": 0.603,
+      "home_implied_market": 23.5,
+      "away_implied_market": 21,
+      "home_implied_pred": 23.7,
+      "away_implied_pred": 20.8,
+      "spread_edge_home": 0.4,
+      "edge_abs": 0.4,
+      "home_players": [
+        {
+          "player": "De'Von Achane",
+          "position": "RB",
+          "proj": 14.9,
+          "floor": 5.2,
+          "ceiling": 25.1
+        },
+        {
+          "player": "Tua Tagovailoa",
+          "position": "QB",
+          "proj": 14.6,
+          "floor": 5.1,
+          "ceiling": 25.7
+        },
+        {
+          "player": "Tyreek Hill",
+          "position": "WR",
+          "proj": 10.8,
+          "floor": 2.4,
+          "ceiling": 21.9
+        },
+        {
+          "player": "Jaylen Waddle",
+          "position": "WR",
+          "proj": 8.4,
+          "floor": 1.1,
+          "ceiling": 16.5
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Tyrod Taylor",
+          "position": "QB",
+          "proj": 12.1,
+          "floor": 0,
+          "ceiling": 23.9
+        },
+        {
+          "player": "Garrett Wilson",
+          "position": "WR",
+          "proj": 11.7,
+          "floor": 3.6,
+          "ceiling": 21.6
+        },
+        {
+          "player": "Breece Hall",
+          "position": "RB",
+          "proj": 9.2,
+          "floor": 2.2,
+          "ceiling": 17.4
+        },
+        {
+          "player": "Braelon Allen",
+          "position": "RB",
+          "proj": 5.4,
+          "floor": 0.3,
+          "ceiling": 12.9
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_CIN_DEN",
+      "home_team": "DEN",
+      "away_team": "CIN",
+      "spread_line": 7.5,
+      "total_line": 44.5,
+      "pred_margin": 7.2,
+      "pred_win_home": 0.762,
+      "home_implied_market": 26,
+      "away_implied_market": 18.5,
+      "home_implied_pred": 25.8,
+      "away_implied_pred": 18.7,
+      "spread_edge_home": -0.3,
+      "edge_abs": 0.3,
+      "home_players": [
+        {
+          "player": "Bo Nix",
+          "position": "QB",
+          "proj": 18,
+          "floor": 8.5,
+          "ceiling": 27.1
+        },
+        {
+          "player": "J.K. Dobbins",
+          "position": "RB",
+          "proj": 12.4,
+          "floor": 2.6,
+          "ceiling": 22.2
+        },
+        {
+          "player": "Courtland Sutton",
+          "position": "WR",
+          "proj": 11,
+          "floor": 2.9,
+          "ceiling": 20.6
+        },
+        {
+          "player": "Troy Franklin",
+          "position": "WR",
+          "proj": 7.9,
+          "floor": 0,
+          "ceiling": 16.9
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Ja'Marr Chase",
+          "position": "WR",
+          "proj": 11.7,
+          "floor": 4,
+          "ceiling": 20.7
+        },
+        {
+          "player": "Chase Brown",
+          "position": "RB",
+          "proj": 10.3,
+          "floor": 2.5,
+          "ceiling": 21.2
+        },
+        {
+          "player": "Tee Higgins",
+          "position": "WR",
+          "proj": 7.8,
+          "floor": 0,
+          "ceiling": 16.5
+        },
+        {
+          "player": "Jake Browning",
+          "position": "QB",
+          "proj": 6.2,
+          "floor": 0,
+          "ceiling": 17
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_CAR_NE",
+      "home_team": "NE",
+      "away_team": "CAR",
+      "spread_line": 5.5,
+      "total_line": 42.5,
+      "pred_margin": 5.8,
+      "pred_win_home": 0.715,
+      "home_implied_market": 24,
+      "away_implied_market": 18.5,
+      "home_implied_pred": 24.1,
+      "away_implied_pred": 18.4,
+      "spread_edge_home": 0.3,
+      "edge_abs": 0.3,
+      "home_players": [
+        {
+          "player": "Drake Maye",
+          "position": "QB",
+          "proj": 17.4,
+          "floor": 7.9,
+          "ceiling": 28.5
+        },
+        {
+          "player": "Hunter Henry",
+          "position": "TE",
+          "proj": 8.5,
+          "floor": 1.5,
+          "ceiling": 14.6
+        },
+        {
+          "player": "Rhamondre Stevenson",
+          "position": "RB",
+          "proj": 7.6,
+          "floor": 0.9,
+          "ceiling": 16.6
+        },
+        {
+          "player": "TreVeyon Henderson",
+          "position": "RB",
+          "proj": 7.3,
+          "floor": 0.9,
+          "ceiling": 14.7
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Bryce Young",
+          "position": "QB",
+          "proj": 13.2,
+          "floor": 3.8,
+          "ceiling": 22.7
+        },
+        {
+          "player": "Chuba Hubbard",
+          "position": "RB",
+          "proj": 10.4,
+          "floor": 2.6,
+          "ceiling": 20.3
+        },
+        {
+          "player": "Tetairoa McMillan",
+          "position": "WR",
+          "proj": 9.8,
+          "floor": 2.2,
+          "ceiling": 20.4
+        },
+        {
+          "player": "Rico Dowdle",
+          "position": "RB",
+          "proj": 5.6,
+          "floor": 0.2,
+          "ceiling": 13.2
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_GB_DAL",
+      "home_team": "DAL",
+      "away_team": "GB",
+      "spread_line": -7,
+      "total_line": 47.5,
+      "pred_margin": -7.2,
+      "pred_win_home": 0.212,
+      "home_implied_market": 20.2,
+      "away_implied_market": 27.2,
+      "home_implied_pred": 20.1,
+      "away_implied_pred": 27.4,
+      "spread_edge_home": -0.2,
+      "edge_abs": 0.2,
+      "home_players": [
+        {
+          "player": "Dak Prescott",
+          "position": "QB",
+          "proj": 14.4,
+          "floor": 5.5,
+          "ceiling": 23.7
+        },
+        {
+          "player": "Javonte Williams",
+          "position": "RB",
+          "proj": 11.2,
+          "floor": 3.3,
+          "ceiling": 21.3
+        },
+        {
+          "player": "George Pickens",
+          "position": "WR",
+          "proj": 9.5,
+          "floor": 1.7,
+          "ceiling": 18
+        },
+        {
+          "player": "Jake Ferguson",
+          "position": "TE",
+          "proj": 8.2,
+          "floor": 1.3,
+          "ceiling": 15.6
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Jordan Love",
+          "position": "QB",
+          "proj": 18,
+          "floor": 8.2,
+          "ceiling": 25.7
+        },
+        {
+          "player": "Josh Jacobs",
+          "position": "RB",
+          "proj": 14.6,
+          "floor": 3.6,
+          "ceiling": 25.4
+        },
+        {
+          "player": "Tucker Kraft",
+          "position": "TE",
+          "proj": 9.6,
+          "floor": 0.3,
+          "ceiling": 18.8
+        },
+        {
+          "player": "Matthew Golden",
+          "position": "WR",
+          "proj": 7.3,
+          "floor": 0.1,
+          "ceiling": 17.3
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_BAL_KC",
+      "home_team": "KC",
+      "away_team": "BAL",
+      "spread_line": -2.5,
+      "total_line": 48.5,
+      "pred_margin": -2.3,
+      "pred_win_home": 0.386,
+      "home_implied_market": 23,
+      "away_implied_market": 25.5,
+      "home_implied_pred": 23.1,
+      "away_implied_pred": 25.4,
+      "spread_edge_home": 0.2,
+      "edge_abs": 0.2,
+      "home_players": [
+        {
+          "player": "Patrick Mahomes",
+          "position": "QB",
+          "proj": 19.2,
+          "floor": 7.4,
+          "ceiling": 28.9
+        },
+        {
+          "player": "Marquise Brown",
+          "position": "WR",
+          "proj": 8.9,
+          "floor": 1.5,
+          "ceiling": 17.8
+        },
+        {
+          "player": "Travis Kelce",
+          "position": "TE",
+          "proj": 8.1,
+          "floor": 0.1,
+          "ceiling": 16.2
+        },
+        {
+          "player": "Isiah Pacheco",
+          "position": "RB",
+          "proj": 7.8,
+          "floor": 0.9,
+          "ceiling": 16.9
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Lamar Jackson",
+          "position": "QB",
+          "proj": 19.9,
+          "floor": 10,
+          "ceiling": 29.1
+        },
+        {
+          "player": "Derrick Henry",
+          "position": "RB",
+          "proj": 11.9,
+          "floor": 3,
+          "ceiling": 20.5
+        },
+        {
+          "player": "Zay Flowers",
+          "position": "WR",
+          "proj": 11.3,
+          "floor": 2.5,
+          "ceiling": 21.8
+        },
+        {
+          "player": "Rashod Bateman",
+          "position": "WR",
+          "proj": 7.2,
+          "floor": 0.6,
+          "ceiling": 15.6
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_CHI_LV",
+      "home_team": "LV",
+      "away_team": "CHI",
+      "spread_line": 1.5,
+      "total_line": 47.5,
+      "pred_margin": 1.3,
+      "pred_win_home": 0.538,
+      "home_implied_market": 24.5,
+      "away_implied_market": 23,
+      "home_implied_pred": 24.4,
+      "away_implied_pred": 23.1,
+      "spread_edge_home": -0.2,
+      "edge_abs": 0.2,
+      "home_players": [
+        {
+          "player": "Geno Smith",
+          "position": "QB",
+          "proj": 16.3,
+          "floor": 7.2,
+          "ceiling": 26
+        },
+        {
+          "player": "Ashton Jeanty",
+          "position": "RB",
+          "proj": 12,
+          "floor": 2.3,
+          "ceiling": 22.9
+        },
+        {
+          "player": "Jakobi Meyers",
+          "position": "WR",
+          "proj": 11.1,
+          "floor": 2.4,
+          "ceiling": 21.3
+        },
+        {
+          "player": "Tre Tucker",
+          "position": "WR",
+          "proj": 10.6,
+          "floor": 2.2,
+          "ceiling": 23
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Caleb Williams",
+          "position": "QB",
+          "proj": 17.8,
+          "floor": 6.8,
+          "ceiling": 28.1
+        },
+        {
+          "player": "Rome Odunze",
+          "position": "WR",
+          "proj": 12.3,
+          "floor": 3.7,
+          "ceiling": 21.6
+        },
+        {
+          "player": "DJ Moore",
+          "position": "WR",
+          "proj": 9.9,
+          "floor": 1.3,
+          "ceiling": 19.9
+        },
+        {
+          "player": "D'Andre Swift",
+          "position": "RB",
+          "proj": 9.8,
+          "floor": 2.1,
+          "ceiling": 19.3
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_JAX_SF",
+      "home_team": "SF",
+      "away_team": "JAX",
+      "spread_line": 3.5,
+      "total_line": 45.5,
+      "pred_margin": 3.4,
+      "pred_win_home": 0.625,
+      "home_implied_market": 24.5,
+      "away_implied_market": 21,
+      "home_implied_pred": 24.5,
+      "away_implied_pred": 21,
+      "spread_edge_home": -0.1,
+      "edge_abs": 0.1,
+      "home_players": [
+        {
+          "player": "Christian McCaffrey",
+          "position": "RB",
+          "proj": 17.4,
+          "floor": 5.6,
+          "ceiling": 28.3
+        },
+        {
+          "player": "Mac Jones",
+          "position": "QB",
+          "proj": 13,
+          "floor": 4,
+          "ceiling": 19.6
+        },
+        {
+          "player": "Brock Purdy",
+          "position": "QB",
+          "proj": 11.8,
+          "floor": 0,
+          "ceiling": 23.2
+        },
+        {
+          "player": "Ricky Pearsall",
+          "position": "WR",
+          "proj": 10.8,
+          "floor": 2.1,
+          "ceiling": 21.6
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Trevor Lawrence",
+          "position": "QB",
+          "proj": 14.4,
+          "floor": 4.2,
+          "ceiling": 23.1
+        },
+        {
+          "player": "Brian Thomas Jr.",
+          "position": "WR",
+          "proj": 11.4,
+          "floor": 2.6,
+          "ceiling": 22.2
+        },
+        {
+          "player": "Travis Etienne",
+          "position": "RB",
+          "proj": 10.6,
+          "floor": 2.6,
+          "ceiling": 19.9
+        },
+        {
+          "player": "Travis Hunter",
+          "position": "WR",
+          "proj": 7,
+          "floor": 0,
+          "ceiling": 17
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_CLE_DET",
+      "home_team": "DET",
+      "away_team": "CLE",
+      "spread_line": 10,
+      "total_line": 44.5,
+      "pred_margin": 10,
+      "pred_win_home": 0.842,
+      "home_implied_market": 27.2,
+      "away_implied_market": 17.2,
+      "home_implied_pred": 27.3,
+      "away_implied_pred": 17.2,
+      "spread_edge_home": 0,
+      "edge_abs": 0,
+      "home_players": [
+        {
+          "player": "Jared Goff",
+          "position": "QB",
+          "proj": 18.6,
+          "floor": 9.1,
+          "ceiling": 27.2
+        },
+        {
+          "player": "Jahmyr Gibbs",
+          "position": "RB",
+          "proj": 15.4,
+          "floor": 4.4,
+          "ceiling": 25.7
+        },
+        {
+          "player": "Amon-Ra St. Brown",
+          "position": "WR",
+          "proj": 13.9,
+          "floor": 4.6,
+          "ceiling": 22.3
+        },
+        {
+          "player": "David Montgomery",
+          "position": "RB",
+          "proj": 11.8,
+          "floor": 3.5,
+          "ceiling": 21
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Quinshon Judkins",
+          "position": "RB",
+          "proj": 10.1,
+          "floor": 2.5,
+          "ceiling": 18.1
+        },
+        {
+          "player": "Joe Flacco",
+          "position": "QB",
+          "proj": 8.6,
+          "floor": 0,
+          "ceiling": 19.8
+        },
+        {
+          "player": "Jerry Jeudy",
+          "position": "WR",
+          "proj": 8,
+          "floor": 0.7,
+          "ceiling": 17.7
+        },
+        {
+          "player": "Cedric Tillman",
+          "position": "WR",
+          "proj": 7.3,
+          "floor": 0.4,
+          "ceiling": 15.3
+        }
+      ]
+    },
+    {
+      "game_id": "2025_04_IND_LA",
+      "home_team": "LA",
+      "away_team": "IND",
+      "spread_line": 3.5,
+      "total_line": 49.5,
+      "pred_margin": 3.5,
+      "pred_win_home": 0.63,
+      "home_implied_market": 26.5,
+      "away_implied_market": 23,
+      "home_implied_pred": 26.5,
+      "away_implied_pred": 23,
+      "spread_edge_home": 0,
+      "edge_abs": 0,
+      "home_players": [
+        {
+          "player": "Matthew Stafford",
+          "position": "QB",
+          "proj": 16.7,
+          "floor": 8.2,
+          "ceiling": 23.7
+        },
+        {
+          "player": "Kyren Williams",
+          "position": "RB",
+          "proj": 14,
+          "floor": 4,
+          "ceiling": 22.7
+        },
+        {
+          "player": "Puka Nacua",
+          "position": "WR",
+          "proj": 12.9,
+          "floor": 4.2,
+          "ceiling": 23.4
+        },
+        {
+          "player": "Davante Adams",
+          "position": "WR",
+          "proj": 12.2,
+          "floor": 3,
+          "ceiling": 22.8
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Daniel Jones",
+          "position": "QB",
+          "proj": 16.8,
+          "floor": 5.5,
+          "ceiling": 27.8
+        },
+        {
+          "player": "Jonathan Taylor",
+          "position": "RB",
+          "proj": 16.6,
+          "floor": 6.7,
+          "ceiling": 26.1
+        },
+        {
+          "player": "Michael Pittman",
+          "position": "WR",
+          "proj": 9.8,
+          "floor": 1.5,
+          "ceiling": 19.8
+        },
+        {
+          "player": "Tyler Warren",
+          "position": "TE",
+          "proj": 8.6,
+          "floor": 0.1,
+          "ceiling": 18.9
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,306 @@
+{
+  "season": 2024,
+  "week": 8,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 453,
+      "mae": 3.59,
+      "spearman": 0.704,
+      "ceiling_cov": 0.885,
+      "floor_cov": 0.956
+    },
+    {
+      "position": "QB",
+      "n": 59,
+      "mae": 4.9,
+      "spearman": 0.781,
+      "ceiling_cov": 0.881,
+      "floor_cov": 0.949
+    },
+    {
+      "position": "RB",
+      "n": 111,
+      "mae": 3.47,
+      "spearman": 0.783,
+      "ceiling_cov": 0.937,
+      "floor_cov": 0.928
+    },
+    {
+      "position": "TE",
+      "n": 100,
+      "mae": 2.68,
+      "spearman": 0.721,
+      "ceiling_cov": 0.89,
+      "floor_cov": 1
+    },
+    {
+      "position": "WR",
+      "n": 183,
+      "mae": 3.73,
+      "spearman": 0.609,
+      "ceiling_cov": 0.852,
+      "floor_cov": 0.951
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 23,
+      "bust": 15,
+      "met": 118
+    }
+  ],
+  "beats": [
+    {
+      "player": "CeeDee Lamb",
+      "position": "WR",
+      "team": "DAL",
+      "proj": 12.7,
+      "actual": 33.1,
+      "surprise": 20.4,
+      "class": "boom"
+    },
+    {
+      "player": "Cade Otton",
+      "position": "TE",
+      "team": "TB",
+      "proj": 7.4,
+      "actual": 24.6,
+      "surprise": 17.2,
+      "class": "boom"
+    },
+    {
+      "player": "Ladd McConkey",
+      "position": "WR",
+      "team": "LAC",
+      "proj": 9.2,
+      "actual": 26.1,
+      "surprise": 16.9,
+      "class": "boom"
+    },
+    {
+      "player": "Jalen Hurts",
+      "position": "QB",
+      "team": "PHI",
+      "proj": 18.7,
+      "actual": 35.1,
+      "surprise": 16.4,
+      "class": "boom"
+    },
+    {
+      "player": "James Cook",
+      "position": "RB",
+      "team": "BUF",
+      "proj": 10.6,
+      "actual": 26.8,
+      "surprise": 16.2,
+      "class": "boom"
+    },
+    {
+      "player": "Kyle Pitts",
+      "position": "TE",
+      "team": "ATL",
+      "proj": 8.5,
+      "actual": 23.1,
+      "surprise": 14.6,
+      "class": "boom"
+    },
+    {
+      "player": "Kirk Cousins",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 14.9,
+      "actual": 28.6,
+      "surprise": 13.7,
+      "class": "boom"
+    },
+    {
+      "player": "Tyrone Tracy Jr.",
+      "position": "RB",
+      "team": "NYG",
+      "proj": 8.3,
+      "actual": 22,
+      "surprise": 13.7,
+      "class": "boom"
+    },
+    {
+      "player": "De'Von Achane",
+      "position": "RB",
+      "team": "MIA",
+      "proj": 10.2,
+      "actual": 23.7,
+      "surprise": 13.5,
+      "class": "boom"
+    },
+    {
+      "player": "Josh Downs",
+      "position": "WR",
+      "team": "IND",
+      "proj": 7.3,
+      "actual": 20.2,
+      "surprise": 12.9,
+      "class": "boom"
+    },
+    {
+      "player": "Rhamondre Stevenson",
+      "position": "RB",
+      "team": "NE",
+      "proj": 9.5,
+      "actual": 22,
+      "surprise": 12.5,
+      "class": "boom"
+    },
+    {
+      "player": "Bo Nix",
+      "position": "QB",
+      "team": "DEN",
+      "proj": 17.6,
+      "actual": 29.8,
+      "surprise": 12.2,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Jordan Love",
+      "position": "QB",
+      "team": "GB",
+      "proj": 17.4,
+      "actual": 5.7,
+      "surprise": -11.7,
+      "class": "bust"
+    },
+    {
+      "player": "Marcus Mariota",
+      "position": "QB",
+      "team": "WAS",
+      "proj": 11.6,
+      "actual": 0,
+      "surprise": -11.6,
+      "class": "bust"
+    },
+    {
+      "player": "Tee Higgins",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 11.5,
+      "actual": 0,
+      "surprise": -11.5,
+      "class": "bust"
+    },
+    {
+      "player": "Tyler Huntley",
+      "position": "QB",
+      "team": "MIA",
+      "proj": 10.6,
+      "actual": 0,
+      "surprise": -10.6,
+      "class": "bust"
+    },
+    {
+      "player": "DK Metcalf",
+      "position": "WR",
+      "team": "SEA",
+      "proj": 10.3,
+      "actual": 0,
+      "surprise": -10.3,
+      "class": "bust"
+    },
+    {
+      "player": "Jordan Mason",
+      "position": "RB",
+      "team": "SF",
+      "proj": 11.2,
+      "actual": 1.8,
+      "surprise": -9.4,
+      "class": "bust"
+    },
+    {
+      "player": "Breece Hall",
+      "position": "RB",
+      "team": "NYJ",
+      "proj": 17.3,
+      "actual": 9.4,
+      "surprise": -7.9,
+      "class": "met"
+    },
+    {
+      "player": "Geno Smith",
+      "position": "QB",
+      "team": "SEA",
+      "proj": 15.4,
+      "actual": 8.1,
+      "surprise": -7.3,
+      "class": "met"
+    },
+    {
+      "player": "Drake London",
+      "position": "WR",
+      "team": "ATL",
+      "proj": 12.7,
+      "actual": 5.4,
+      "surprise": -7.3,
+      "class": "met"
+    },
+    {
+      "player": "Amon-Ra St. Brown",
+      "position": "WR",
+      "team": "DET",
+      "proj": 14.2,
+      "actual": 7.7,
+      "surprise": -6.5,
+      "class": "met"
+    },
+    {
+      "player": "DJ Moore",
+      "position": "WR",
+      "team": "CHI",
+      "proj": 10.7,
+      "actual": 4.4,
+      "surprise": -6.3,
+      "class": "met"
+    },
+    {
+      "player": "Kenneth Walker III",
+      "position": "RB",
+      "team": "SEA",
+      "proj": 12.4,
+      "actual": 6.5,
+      "surprise": -5.9,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 393,
+      "model": 0.691,
+      "ecr": 0.556
+    },
+    {
+      "position": "QB",
+      "n": 50,
+      "model": 0.732,
+      "ecr": 0.625
+    },
+    {
+      "position": "RB",
+      "n": 106,
+      "model": 0.773,
+      "ecr": 0.635
+    },
+    {
+      "position": "TE",
+      "n": 81,
+      "model": 0.745,
+      "ecr": 0.546
+    },
+    {
+      "position": "WR",
+      "n": 156,
+      "model": 0.576,
+      "ecr": 0.466
+    }
+  ],
+  "ecr_kind": "season"
+}

@@ -1,0 +1,61 @@
+{
+  "season": 2025,
+  "week": 17,
+  "n_bets": 6,
+  "bets": [
+    {
+      "game": "LA @ ATL",
+      "bet": "LA spread",
+      "odds": -102,
+      "ev": 0.077,
+      "kelly": 0.101,
+      "stake": 10,
+      "payout_if_win": 10
+    },
+    {
+      "game": "PIT @ CLE",
+      "bet": "PIT spread",
+      "odds": -108,
+      "ev": 0.057,
+      "kelly": 0.076,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "DET @ MIN",
+      "bet": "DET spread",
+      "odds": -120,
+      "ev": 0.054,
+      "kelly": 0.079,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "PIT @ CLE",
+      "bet": "PIT ml",
+      "odds": -205,
+      "ev": 0.1,
+      "kelly": 0.269,
+      "stake": 20,
+      "payout_if_win": 10
+    },
+    {
+      "game": "HOU @ LAC",
+      "bet": "LAC ml",
+      "odds": -118,
+      "ev": 0.066,
+      "kelly": 0.099,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "TB @ MIA",
+      "bet": "TB ml",
+      "odds": -250,
+      "ev": 0.075,
+      "kelly": 0.238,
+      "stake": 20,
+      "payout_if_win": 8
+    }
+  ]
+}

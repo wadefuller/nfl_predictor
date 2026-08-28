@@ -1,0 +1,43 @@
+{
+  "season": 2025,
+  "week": 9,
+  "n_bets": 4,
+  "bets": [
+    {
+      "game": "KC @ BUF",
+      "bet": "BUF spread",
+      "odds": -115,
+      "ev": 0.061,
+      "kelly": 0.087,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "DEN @ HOU",
+      "bet": "DEN spread",
+      "odds": -110,
+      "ev": 0.059,
+      "kelly": 0.081,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "DEN @ HOU",
+      "bet": "DEN ml",
+      "odds": 105,
+      "ev": 0.083,
+      "kelly": 0.102,
+      "stake": 10,
+      "payout_if_win": 10
+    },
+    {
+      "game": "SF @ NYG",
+      "bet": "SF ml",
+      "odds": -148,
+      "ev": 0.064,
+      "kelly": 0.119,
+      "stake": 10,
+      "payout_if_win": 7
+    }
+  ]
+}

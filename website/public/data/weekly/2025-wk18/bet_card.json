@@ -1,0 +1,70 @@
+{
+  "season": 2025,
+  "week": 18,
+  "n_bets": 7,
+  "bets": [
+    {
+      "game": "LAC @ DEN",
+      "bet": "DEN spread",
+      "odds": -112,
+      "ev": 0.052,
+      "kelly": 0.071,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "TEN @ JAX",
+      "bet": "JAX spread",
+      "odds": -110,
+      "ev": 0.083,
+      "kelly": 0.118,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "KC @ LV",
+      "bet": "KC spread",
+      "odds": -112,
+      "ev": 0.078,
+      "kelly": 0.111,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "GB @ MIN",
+      "bet": "GB spread",
+      "odds": -108,
+      "ev": 0.054,
+      "kelly": 0.07,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "DAL @ NYG",
+      "bet": "NYG spread",
+      "odds": -105,
+      "ev": 0.085,
+      "kelly": 0.116,
+      "stake": 10,
+      "payout_if_win": 10
+    },
+    {
+      "game": "KC @ LV",
+      "bet": "KC ml",
+      "odds": -225,
+      "ev": 0.071,
+      "kelly": 0.202,
+      "stake": 15,
+      "payout_if_win": 7
+    },
+    {
+      "game": "CAR @ TB",
+      "bet": "TB ml",
+      "odds": -155,
+      "ev": 0.071,
+      "kelly": 0.14,
+      "stake": 10,
+      "payout_if_win": 6
+    }
+  ]
+}

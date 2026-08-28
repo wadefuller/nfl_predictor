@@ -1,192 +1,260 @@
 ---
-title: "NFL Score Prediction Model: Make a Prediction"
+title: "NFL Predictor: Current Week Bet Card + YTD Portfolio Performance"
 author: "Wade Fuller"
-date: "11/21/2022"
 output:
-  pdf_document: default
   html_document: default
 ---
 
 ```{r setup, include=FALSE}
-library(tidyverse)
-library(tidymodels)
-library(recipeselectors)
-library(knitr)
-library(dplyr)
-library(googlesheets4)
-library(googlesheets)
-library(ggplot2)
-library(ggrepel)
-knitr::opts_chunk$set(cache = TRUE, echo = TRUE,
-                      message = FALSE, dpi = 180,
-                      fig.width = 8, fig.height = 5)
-knitr::opts_knit$set(root.dir = "~/Documents/Scripts/R/")
-wd <- "~/Documents/Scripts/R/pred/"
-# source("~/Documents/Scripts/R/pred/feature_engineering.rmd")
-game_w_features <- read.csv("~/Documents/Scripts/R/pred/game_w_features.csv")
-nfl_predictor_model <- readRDS("~/Documents/Scripts/R/pred/nfl_predictor_model.rds")
-nfl_predictor_model_class <- readRDS("~/Documents/Scripts/R/pred/nfl_predictor_model_class.rds")
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(knitr)
+  library(googlesheets4)
+})
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# Paths + helpers from ensemble_lib.R (sourced below). Override via
+# `NFL_PROJECT_DIR=/some/path` to relocate the repo.
+
+# Constants
+SHEETS_URL     <- 'https://docs.google.com/spreadsheets/d/1bBT9MqBJO8FUqHRNk33IfHDlvAMWZS-NBgruz5EKhe8/edit?usp=sharing'
+
+# TARGET_SEASON + TARGET_WEEK explicitly pick what to predict.
+# Set TARGET_WEEK = NULL to auto-detect "current" week (first incomplete week).
+# Both must be present in data/game_w_features.csv — rebuild features if missing.
+TARGET_SEASON  <- 2026
+TARGET_WEEK    <- 1     # NULL for auto
+
+# Portfolio config — set BANKROLL to your current bankroll. Betting params + EV
+# calibration come from the canonical engine, set below once ensemble_lib + the
+# bundle are loaded (PARAMS = PORTFOLIO_DEFAULTS, EV cal baked into the bundle).
+BANKROLL       <- 10000   # dollars
+
+source("~/Projects/R/nfl_predictor/ensemble_lib.R")
+BUNDLE_PATH     <- file.path(MODELS_DIR, "ensemble_latest.rds")
+game_w_features <- read.csv(file.path(DATA_DIR, "game_w_features.csv"))
+bundle          <- readRDS(BUNDLE_PATH)
+
+# Canonical betting engine: PORTFOLIO_DEFAULTS (min_ev = 0.05 on CALIBRATED EV)
+# + the bundle's baked EV calibration — identical to export_upcoming/grade_week.
+PARAMS <- PORTFOLIO_DEFAULTS
+EV_CAL <- ev_calibration_from_bundle(bundle)
+
+cat(sprintf("Bundle: trained %s on %d games (seasons %d-%d) | σ=%.2f\n",
+            bundle$metadata$trained_date,
+            bundle$metadata$n_training_games,
+            bundle$metadata$training_seasons[1],
+            bundle$metadata$training_seasons[2],
+            bundle$sigma))
+cat(sprintf("Portfolio: bankroll $%s | min_ev=%.2f | kelly_mult=%.2f\n",
+            format(BANKROLL, big.mark = ","), PARAMS$min_ev, PARAMS$kelly_mult))
+
+# Verify target season/week exists in features
+available_seasons <- sort(unique(game_w_features$season))
+if (!TARGET_SEASON %in% available_seasons) {
+  stop(sprintf(
+    "TARGET_SEASON=%d not in game_w_features.csv (have %d-%d). Run build_features.R.",
+    TARGET_SEASON, min(available_seasons), max(available_seasons)))
+}
+target_games_check <- game_w_features %>%
+  filter(season == TARGET_SEASON,
+         if (!is.null(TARGET_WEEK)) week == TARGET_WEEK else TRUE)
+if (nrow(target_games_check) == 0) {
+  stop(sprintf("No games found for season=%d week=%s — rebuild features.",
+               TARGET_SEASON, if (is.null(TARGET_WEEK)) "(any)" else TARGET_WEEK))
+}
+cat(sprintf("Target: season %d, week %s (%d games available)\n",
+            TARGET_SEASON,
+            if (is.null(TARGET_WEEK)) "<auto>" else as.character(TARGET_WEEK),
+            nrow(target_games_check)))
 ```
 
-# Use the model to predict the current week.
+```{r helpers}
+# Resolve TARGET_WEEK: if NULL, pick the earliest week with any incomplete games
+resolve_target_week <- function(data, season, target_week) {
+  if (!is.null(target_week)) return(target_week)
+  cand <- data %>%
+    filter(season == !!season) %>%
+    transmute(week, gameday = as.Date(gameday)) %>%
+    group_by(week) %>%
+    summarise(last_gameday = max(gameday), .groups = 'drop') %>%
+    filter(Sys.Date() <= last_gameday) %>%
+    arrange(week) %>%
+    slice(1) %>%
+    pull(week)
+  if (length(cand) == 0) stop(sprintf(
+    "No incomplete week found in season %d — all games look completed. Set TARGET_WEEK explicitly.",
+    season))
+  cand
+}
 
-```{r}
-season_weeks <- game_w_features %>% transmute(season,week,gameday = as.Date(gameday)) %>% group_by(season,week) %>% summarise(first_gameday = min(gameday),last_gameday = max(gameday))
-cur_wk_num <- season_weeks %>% filter(season=='2022',Sys.Date() <= last_gameday) %>% ungroup() %>% head(1) %>% select(week)
-# wk_num <- 06
-cur_wk <- game_w_features %>% filter(week == cur_wk_num[[1]] & season == 2022)
-cur_wk_reg <- cur_wk %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
-cur_wk_class <- cur_wk %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
-cur_wk_preds <- predict(nfl_predictor_model, new_data = cur_wk_reg)
-cur_wk_class_w_reg <- cbind(cur_wk_class,cur_wk_preds) %>% rename(nfl_predictor_line = .pred)
-cur_wk_preds_class <- predict(nfl_predictor_model_class, new_data = cur_wk_class_w_reg, type = 'prob')
-cur_wk_preds_class <- cur_wk_preds_class %>% transmute(pred_win_pct = .pred_1)
-cur_wk_pred <- cur_wk %>% bind_cols(cur_wk_preds) %>% rename(nfl_predictor_line = .pred) %>% bind_cols(cur_wk_preds_class) %>%
-  transmute(
-          game_id
-         ,home_team
-         ,away_team
-         ,pred_winner = if_else(nfl_predictor_line*-1<0,home_team,away_team)
-         ,pred_win_pct = round(if_else(pred_win_pct>.5,pred_win_pct,1-pred_win_pct),2)
-         ,nfl_predictor_line = round(nfl_predictor_line*-1,1)
-         ,spread_line
-         ,total_line
-         ,home_impl_pts = round((total_line / 2) - (nfl_predictor_line / 2),1)
-         ,away_impl_pts = round((total_line / 2) + (nfl_predictor_line / 2),1)
-         )
-cur_wk_pred %>% View()
-season_wk <- paste0("season_",cur_wk$season,"_wk_",cur_wk$week,'_',Sys.Date())[[1]]
-# sht <- gs4_find("nfl_game_preds_2021")
-# sheet_write(cur_wk_pred, ss = sht, sheet = season_wk)
-# googlesheets4::gs4_create("nfl_game_preds_2021", sheets = cur_wk_pred)
-googlesheets4::sheet_write(cur_wk_pred,ss = 'https://docs.google.com/spreadsheets/d/1bBT9MqBJO8FUqHRNk33IfHDlvAMWZS-NBgruz5EKhe8/edit?usp=sharing',sheet = season_wk)
-# 
+# Add cover/ml correctness back in (needed for historical YTD scoring)
+score_predictions <- function(preds, raw_games) {
+  preds %>%
+    left_join(
+      raw_games %>% select(game_id, home_result, home_win,
+                           home_spread_odds, away_spread_odds),
+      by = "game_id"
+    ) %>%
+    mutate(
+      spread_winner       = if_else(home_result - spread_line > 0, home_team, away_team),
+      pred_spread_winner  = if_else(line_diff > 0, home_team, away_team),
+      pred_winner         = if_else(nfl_predictor_line > 0, home_team, away_team),
+      winning_team        = if_else(home_win == 1, home_team, away_team),
+      spread_push         = !is.na(home_result) & !is.na(spread_line) &
+                             (home_result - spread_line == 0),
+      ml_tie              = !is.na(home_result) & (home_result == 0),
+      cover_correct       = if_else(spread_push, NA_integer_,
+                                     as.integer(pred_spread_winner == spread_winner)),
+      ml_correct          = if_else(ml_tie, NA_integer_,
+                                     as.integer(pred_winner == winning_team))
+    )
+}
 ```
 
-```{r}
-ytd_gms <- game_w_features %>% filter(week <= cur_wk_num[[1]] & season == 2022)
-ytd_reg <- ytd_gms %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
-ytd_class <- ytd_gms %>% mutate(week = as.factor(week), season = as.factor(season), div_game = as.factor(div_game))
-ytd_preds <- predict(nfl_predictor_model, new_data = ytd_reg)
-ytd_class_w_reg <- cbind(ytd_class,ytd_preds) %>% rename(nfl_predictor_line = .pred)
-ytd_preds_class <- predict(nfl_predictor_model_class, new_data = ytd_class_w_reg, type = 'prob') 
-ytd_preds_class <- ytd_preds_class %>% transmute(pred_win_pct = .pred_1)
-ytd_pred <- ytd_gms %>% bind_cols(ytd_preds) %>% rename(nfl_predictor_line = .pred) %>% bind_cols(ytd_preds_class) %>%
+# Bet card
+
+```{r current-week}
+target_week <- resolve_target_week(game_w_features, TARGET_SEASON, TARGET_WEEK)
+
+cur_wk_games <- game_w_features %>%
+  filter(week == target_week, season == TARGET_SEASON)
+
+cat(sprintf("Predictions for Week %d, %d (%d games)\n\n",
+            target_week, TARGET_SEASON, nrow(cur_wk_games)))
+
+cur_wk_preds <- predict_with_ensemble(bundle, cur_wk_games) %>%
+  left_join(cur_wk_games %>% select(game_id, home_spread_odds, away_spread_odds),
+            by = "game_id")
+
+bet_card <- generate_bet_card(cur_wk_preds, BANKROLL, PARAMS, bundle = bundle)
+
+if (nrow(bet_card) == 0) {
+  cat("No bets pass the EV threshold this week.\n")
+} else {
+  cat(sprintf("Bet card: %d bets totaling $%s of stake\n\n",
+              nrow(bet_card), format(round(sum(bet_card$stake)), big.mark = ",")))
+  bet_card %>%
+    transmute(
+      game     = sprintf("%s @ %s", away_team, home_team),
+      bet      = sprintf("%s %s", bet_team, str_remove(bet_type, "^(home|away)_")),
+      odds     = sprintf("%+d", round(odds)),
+      ev       = sprintf("%.1f%%", 100 * ev),
+      kelly    = sprintf("%.3f", kelly_frac),
+      stake    = sprintf("$%s", format(stake, big.mark = ",")),
+      win_pays = sprintf("+$%s", format(round(payout_if_win), big.mark = ","))
+    ) %>% print()
+
+  cat(sprintf("\nTotal expected value this week: $%s\n",
+              format(round(sum(bet_card$expected_value)), big.mark = ",")))
+}
+
+# Push to Google Sheet
+if (interactive()) {
+  sheet_name <- glue::glue("bet_card_{TARGET_SEASON}_wk{target_week}_{Sys.Date()}")
+  sheet_write(bet_card, ss = SHEETS_URL, sheet = sheet_name)
+}
+```
+
+# All predictions (for reference, not bets)
+
+```{r all-predictions}
+all_preds_display <- cur_wk_preds %>%
   transmute(
-          game_id
-         ,season
-         ,week
-         ,home_team
-         ,away_team
-         ,pred_winner = if_else(nfl_predictor_line*-1<0,home_team,away_team)
-         ,pred_win_pct = round(if_else(pred_win_pct>.5,pred_win_pct,1-pred_win_pct),2)
-         ,nfl_predictor_line = round(nfl_predictor_line*-1,1)
-         ,spread_line
-         ,nfl_predictor_line - spread_line
-         ,home_moneyline
-         ,away_moneyline
-         ,home_spread_odds
-         ,away_spread_odds
-         ,pred_spread_adj_winner = if_else(nfl_predictor_line - spread_line > 0,away_team,home_team)
-         ,total_line
-         ,home_result
-         ,home_win
-         ,winning_team = if_else(home_win == 1,home_team,away_team)
-         ,spread_winner = if_else(home_result+spread_line>0,home_team,away_team)
-         # moneyline
-         ,wf_pred_winner = pred_winner
-         ,wf_correct_pred = if_else(wf_pred_winner==winning_team,1,0)
-         ,fte_pred_winner = if_else(elo_prob1>.5,home_team,away_team) 
-         ,fte_correct_pred = if_else(fte_pred_winner==winning_team,1,0)
-         ,veg_pred_winner = if_else(spread_line<0,home_team,away_team) 
-         ,veg_correct_pred = if_else(veg_pred_winner==winning_team,1,0)
-         # vs spread
-         ,wf_pred_winner_spr = pred_spread_adj_winner
-         ,wf_correct_pred_spr = if_else(wf_pred_winner_spr==spread_winner,1,0)
-         ,veg_pred_winner_spr = if_else(spread_line<0,home_team,away_team) 
-         ,veg_correct_pred_spr = if_else(veg_pred_winner==spread_winner,1,0)
-         # ROI
-         ,wager = 100
-         ,ml_outcome = case_when(
-           # correct // home
-           wf_correct_pred == 1 & pred_winner == home_team & home_moneyline > 0 ~ round(home_moneyline,2)
-          ,wf_correct_pred == 1 & pred_winner == home_team & home_moneyline < 0 ~ round(100/abs(home_moneyline)*100,2)
-           # correct // away
-          ,wf_correct_pred == 1 & pred_winner == away_team & away_moneyline > 0 ~ round(away_moneyline,2)
-          ,wf_correct_pred == 1 & pred_winner == away_team & away_moneyline < 0 ~ round(100/abs(away_moneyline)*100,2)
-           # incorrect
-          ,TRUE ~ as.double((-1*wager))
-         )
-         ,spr_outcome = case_when(
-           # correct // home
-           wf_correct_pred_spr == 1 & pred_spread_adj_winner == home_team & home_spread_odds > 0 ~ round(home_spread_odds,2)
-          ,wf_correct_pred_spr == 1 & pred_spread_adj_winner == home_team & home_spread_odds < 0 ~ round(100/abs(home_spread_odds)*100,2)
-           # correct // away
-          ,wf_correct_pred_spr == 1 & pred_spread_adj_winner == away_team & away_spread_odds > 0 ~ round(away_spread_odds,2)
-          ,wf_correct_pred_spr == 1 & pred_spread_adj_winner == away_team & away_spread_odds < 0 ~ round(100/abs(away_spread_odds)*100,2)
-           # incorrect
-          ,TRUE ~ as.double((-1*wager))
-         )
-         )
-ytd_pred %>% filter(week == 1) %>% View()
-ytd_tbl <- ytd_pred %>%
-  group_by(season,week) %>%
-  arrange(-season,week) %>%
-  summarise(gms = n()
-            # moneyline
-           ,wk_wf_correct = sum(wf_correct_pred)
-           ,wk_veg_correct = sum(veg_correct_pred)
-           ,wk_fte_correct = sum(fte_correct_pred)
-           ,wk_wf_accuracy = mean(wf_correct_pred)
-           ,wk_veg_accuracy = mean(veg_correct_pred)
-           ,wk_fte_accuracy = mean(fte_correct_pred)
-           # spread
-           ,wk_wf_correct_spr = sum(wf_correct_pred_spr)
-           ,wk_veg_correct_spr = sum(veg_correct_pred_spr)
-           ,wk_wf_accuracy_spr = mean(wf_correct_pred_spr)
-           ,wk_veg_accuracy_spr = mean(veg_correct_pred_spr)
-           # ROI
-           ,wk_ml_outcome = sum(ml_outcome)
-           ,wk_spr_outcome = sum(spr_outcome)
-           ,wk_ml_roi = round(sum(ml_outcome) / (gms*100),3)
-           ,wk_spr_roi = round(sum(spr_outcome) / (gms*100),3)
-           ) %>%
-  ungroup() %>%
-  mutate(cml_gms = cumsum(gms)
-         # moneyline
-        ,cml_wf_correct = cumsum(wk_wf_correct)
-        ,cml_veg_correct = cumsum(wk_veg_correct)
-        ,cml_fte_correct = cumsum(wk_fte_correct)
-        ,cml_wf_accuracy = cml_wf_correct/cml_gms
-        ,cml_veg_accuracy = cml_veg_correct/cml_gms
-        ,cml_fte_accuracy = cml_fte_correct/cml_gms
-        # spread
-        ,cml_wf_correct_spr = cumsum(wk_wf_correct_spr)
-        ,cml_veg_correct_spr = cumsum(wk_veg_correct_spr)
-        ,cml_wf_accuracy_spr = cml_wf_correct_spr/cml_gms
-        ,cml_veg_accuracy_spr = cml_veg_correct_spr/cml_gms
-        # ROI
-        ,cml_ml_roi = round(cumsum(wk_ml_outcome) / (cml_gms*100),3)
-        ,cml_spr_roi = round(cumsum(wk_spr_outcome) / (cml_gms*100),3)
+    game           = sprintf("%s @ %s", away_team, home_team),
+    spread         = spread_line,
+    model_margin   = round(nfl_predictor_line, 1),
+    line_diff      = round(line_diff, 1),
+    pred_win_pct   = round(pred_win_pct, 3),
+    cover_prob_h   = round(cover_prob_home, 3)
   )
-# ytd_gg <- ytd_tbl %>%
-#   ggplot(aes(x=interaction(season, week, lex.order = TRUE), group = 1)) +
-#   geom_line(aes(y = cml_wf_accuracy, colour = 'cml_wf_accuracy')) +
-#   geom_line(aes(y = cml_veg_accuracy, colour = 'cml_veg_accuracy')) +
-#   geom_line(aes(y = cml_fte_accuracy, colour = 'cml_fte_accuracy')) +
-#   theme_minimal() +
-#   theme(axis.text.x = element_text(angle = 90)) +
-#   scale_y_continuous(labels = scales::percent) +
-#   ggtitle("Model Accuracy: NFLPredictor vs Vegas vs Fivethirtyeight",subtitle = "2022 season") +
-#   labs(y= "Cumulative Prediction Performance", x = "Season.Week") +
-#   scale_colour_manual("", 
-#     values = c("cml_wf_accuracy"="steelblue", "cml_veg_accuracy"="darkred", "cml_fte_accuracy"="darkgreen"))
-# ytd_gg
-#sht <- gs4_find("nfl_game_preds_2021")
-#season_wk <- paste0("season_",cur_wk$season,"_wk_",cur_wk$week,'_curdate_',Sys.Date())[[1]]
-#sheet_write(ytd_tbl, ss = sht, sheet = season_wk)
-#x <- gs_edit_cells(ss=sht, ws = season_wk, input='=IMAGE("https://i.stack.imgur.com/FrDZc.jpg")')
+print(all_preds_display)
+```
 
-cml_perf <- "Prediction Performance"
-googlesheets4::sheet_write(ytd_tbl,ss = 'https://docs.google.com/spreadsheets/d/1bBT9MqBJO8FUqHRNk33IfHDlvAMWZS-NBgruz5EKhe8/edit?usp=sharing',sheet = cml_perf)
+# YTD portfolio performance
+
+Replay the bet card retroactively for each completed week of the target season
+prior to TARGET_WEEK, then walk the bankroll forward.
+
+```{r ytd-portfolio}
+ytd_completed <- game_w_features %>%
+  filter(season == TARGET_SEASON, week < target_week, !is.na(home_result))
+
+if (nrow(ytd_completed) == 0) {
+  cat("No completed games yet this season.\n")
+} else {
+  ytd_preds <- predict_with_ensemble(bundle, ytd_completed) %>%
+    left_join(ytd_completed %>% select(game_id, home_spread_odds, away_spread_odds),
+              by = "game_id") %>%
+    score_predictions(ytd_completed)
+
+  cands_with_outcomes <- build_bet_candidates(ytd_preds)
+
+  # Walk bankroll forward week by week
+  bankroll <- BANKROLL
+  ytd_bets <- list()
+  for (wk in sort(unique(cands_with_outcomes$week))) {
+    wk_cands <- cands_with_outcomes %>% filter(week == wk)
+    wk_bets  <- filter_and_size_bets(wk_cands, bankroll, PARAMS, EV_CAL)
+    if (nrow(wk_bets) > 0) {
+      wk_bets <- wk_bets %>%
+        mutate(
+          pnl = case_when(
+            is.na(correct)   ~ 0,
+            correct == 1     ~ pnl_for_win(stake, odds),
+            TRUE             ~ -stake
+          )
+        )
+      bankroll <- bankroll + sum(wk_bets$pnl)
+      wk_bets$bankroll_after <- bankroll
+      ytd_bets[[length(ytd_bets) + 1]] <- wk_bets
+    }
+  }
+  ytd_bets <- bind_rows(ytd_bets)
+
+  if (nrow(ytd_bets) == 0) {
+    cat(sprintf("No bets cleared the %.0f%% EV threshold YTD.\n", 100 * PARAMS$min_ev))
+  } else {
+    cat(sprintf("YTD: %d bets, %d wins, %d pushes, %d losses\n",
+                nrow(ytd_bets),
+                sum(ytd_bets$correct == 1, na.rm = TRUE),
+                sum(is.na(ytd_bets$correct)),
+                sum(ytd_bets$correct == 0, na.rm = TRUE)))
+    cat(sprintf("Total staked: $%s | Total PnL: $%s | ROI: %.2f%%\n",
+                format(round(sum(ytd_bets$stake)),  big.mark = ","),
+                format(round(sum(ytd_bets$pnl)),    big.mark = ","),
+                100 * sum(ytd_bets$pnl) / sum(ytd_bets$stake)))
+    cat(sprintf("Bankroll: $%s → $%s (%.1f%%)\n",
+                format(BANKROLL, big.mark = ","),
+                format(round(bankroll), big.mark = ","),
+                100 * (bankroll - BANKROLL) / BANKROLL))
+
+    # By bet type
+    cat("\nBy bet type:\n")
+    ytd_bets %>%
+      group_by(bet_type) %>%
+      summarise(
+        n       = n(),
+        wins    = sum(correct == 1, na.rm = TRUE),
+        win_pct = round(mean(correct, na.rm = TRUE), 3),
+        stake   = round(sum(stake), 0),
+        pnl     = round(sum(pnl), 0),
+        roi     = round(sum(pnl) / sum(stake), 3),
+        .groups = "drop"
+      ) %>% print()
+
+    # By week
+    cat("\nBy week:\n")
+    ytd_bets %>%
+      group_by(week) %>%
+      summarise(
+        n_bets   = n(),
+        stake    = round(sum(stake), 0),
+        pnl      = round(sum(pnl), 0),
+        bankroll = round(last(bankroll_after), 0),
+        .groups = "drop"
+      ) %>% print()
+  }
+}
 ```

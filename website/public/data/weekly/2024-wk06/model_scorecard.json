@@ -1,0 +1,210 @@
+{
+  "season": 2024,
+  "week": 6,
+  "source": "walk_forward_oos",
+  "metrics": [
+    {
+      "games": 14,
+      "mae": 11.678,
+      "cover_acc": 0.5,
+      "ml_acc": 0.857,
+      "brier": 0.159
+    }
+  ],
+  "bet_summary": [
+    {
+      "n_bets": 0,
+      "staked": 0,
+      "pnl": 0,
+      "roi": null,
+      "wins": 0,
+      "losses": 0,
+      "pushes": 0
+    }
+  ],
+  "games": [
+    {
+      "game": "WAS @ BAL",
+      "spread_line": 6.5,
+      "total_line": 51.5,
+      "pred_margin": 6.8,
+      "actual_margin": 7,
+      "abs_err": 0.2,
+      "pred_win_pct": 0.715,
+      "vegas_win_pct": 0.71,
+      "edge_pct": 0.005,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "ATL @ CAR",
+      "spread_line": -6,
+      "total_line": 45.5,
+      "pred_margin": -5.5,
+      "actual_margin": -18,
+      "abs_err": 12.5,
+      "pred_win_pct": 0.324,
+      "vegas_win_pct": 0.309,
+      "edge_pct": 0.015,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "JAX @ CHI",
+      "spread_line": -1.5,
+      "total_line": 44.5,
+      "pred_margin": -0.1,
+      "actual_margin": 19,
+      "abs_err": 19.1,
+      "pred_win_pct": 0.498,
+      "vegas_win_pct": 0.478,
+      "edge_pct": 0.02,
+      "cover_correct": 1,
+      "ml_correct": 0
+    },
+    {
+      "game": "DET @ DAL",
+      "spread_line": -3.5,
+      "total_line": 52.5,
+      "pred_margin": -2.4,
+      "actual_margin": -38,
+      "abs_err": 35.6,
+      "pred_win_pct": 0.421,
+      "vegas_win_pct": 0.384,
+      "edge_pct": 0.037,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "LAC @ DEN",
+      "spread_line": -3,
+      "total_line": 37,
+      "pred_margin": -1.3,
+      "actual_margin": -7,
+      "abs_err": 5.7,
+      "pred_win_pct": 0.456,
+      "vegas_win_pct": 0.417,
+      "edge_pct": 0.039,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "ARI @ GB",
+      "spread_line": 5.5,
+      "total_line": 47,
+      "pred_margin": 5,
+      "actual_margin": 21,
+      "abs_err": 16,
+      "pred_win_pct": 0.664,
+      "vegas_win_pct": 0.675,
+      "edge_pct": -0.011,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "PIT @ LV",
+      "spread_line": -3.5,
+      "total_line": 36.5,
+      "pred_margin": -4,
+      "actual_margin": -19,
+      "abs_err": 15,
+      "pred_win_pct": 0.37,
+      "vegas_win_pct": 0.384,
+      "edge_pct": -0.014,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "HOU @ NE",
+      "spread_line": -6.5,
+      "total_line": 38.5,
+      "pred_margin": -6.4,
+      "actual_margin": -20,
+      "abs_err": 13.6,
+      "pred_win_pct": 0.297,
+      "vegas_win_pct": 0.304,
+      "edge_pct": -0.007,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "TB @ NO",
+      "spread_line": -3.5,
+      "total_line": 42.5,
+      "pred_margin": -3.2,
+      "actual_margin": -24,
+      "abs_err": 20.8,
+      "pred_win_pct": 0.393,
+      "vegas_win_pct": 0.391,
+      "edge_pct": 0.002,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "CIN @ NYG",
+      "spread_line": -4.5,
+      "total_line": 46,
+      "pred_margin": -4.6,
+      "actual_margin": -10,
+      "abs_err": 5.4,
+      "pred_win_pct": 0.351,
+      "vegas_win_pct": 0.331,
+      "edge_pct": 0.02,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "BUF @ NYJ",
+      "spread_line": -1,
+      "total_line": 42,
+      "pred_margin": -0.2,
+      "actual_margin": -3,
+      "abs_err": 2.8,
+      "pred_win_pct": 0.494,
+      "vegas_win_pct": 0.474,
+      "edge_pct": 0.02,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "CLE @ PHI",
+      "spread_line": 8,
+      "total_line": 42,
+      "pred_margin": 7.2,
+      "actual_margin": 4,
+      "abs_err": 3.2,
+      "pred_win_pct": 0.728,
+      "vegas_win_pct": 0.777,
+      "edge_pct": -0.049,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "SF @ SEA",
+      "spread_line": -3.5,
+      "total_line": 49,
+      "pred_margin": -3.5,
+      "actual_margin": -12,
+      "abs_err": 8.5,
+      "pred_win_pct": 0.384,
+      "vegas_win_pct": 0.363,
+      "edge_pct": 0.021,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "IND @ TEN",
+      "spread_line": 2.5,
+      "total_line": 42,
+      "pred_margin": 2,
+      "actual_margin": -3,
+      "abs_err": 5,
+      "pred_win_pct": 0.567,
+      "vegas_win_pct": 0.551,
+      "edge_pct": 0.016,
+      "cover_correct": 1,
+      "ml_correct": 0
+    }
+  ],
+  "bets": []
+}

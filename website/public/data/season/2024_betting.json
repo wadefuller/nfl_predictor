@@ -1,0 +1,216 @@
+{
+  "season": 2024,
+  "start_bankroll": 500,
+  "updated": "2026-08-08T14:48:27-0700",
+  "grading": "walk_forward_oos",
+  "weeks": [
+    {
+      "week": 1,
+      "source": "walk_forward_oos",
+      "n_bets": 3,
+      "staked": 25,
+      "pnl": 20,
+      "cum_staked": 25,
+      "cum_pnl": 20,
+      "roi": 0.8,
+      "bankroll": 520
+    },
+    {
+      "week": 2,
+      "source": "walk_forward_oos",
+      "n_bets": 1,
+      "staked": 5,
+      "pnl": 5,
+      "cum_staked": 30,
+      "cum_pnl": 25,
+      "roi": 0.8333,
+      "bankroll": 525
+    },
+    {
+      "week": 3,
+      "source": "walk_forward_oos",
+      "n_bets": 0,
+      "staked": 0,
+      "pnl": 0,
+      "cum_staked": 30,
+      "cum_pnl": 25,
+      "roi": 0.8333,
+      "bankroll": 525
+    },
+    {
+      "week": 4,
+      "source": "walk_forward_oos",
+      "n_bets": 0,
+      "staked": 0,
+      "pnl": 0,
+      "cum_staked": 30,
+      "cum_pnl": 25,
+      "roi": 0.8333,
+      "bankroll": 525
+    },
+    {
+      "week": 5,
+      "source": "walk_forward_oos",
+      "n_bets": 0,
+      "staked": 0,
+      "pnl": 0,
+      "cum_staked": 30,
+      "cum_pnl": 25,
+      "roi": 0.8333,
+      "bankroll": 525
+    },
+    {
+      "week": 6,
+      "source": "walk_forward_oos",
+      "n_bets": 0,
+      "staked": 0,
+      "pnl": 0,
+      "cum_staked": 30,
+      "cum_pnl": 25,
+      "roi": 0.8333,
+      "bankroll": 525
+    },
+    {
+      "week": 7,
+      "source": "walk_forward_oos",
+      "n_bets": 1,
+      "staked": 10,
+      "pnl": -10,
+      "cum_staked": 40,
+      "cum_pnl": 15,
+      "roi": 0.375,
+      "bankroll": 515
+    },
+    {
+      "week": 8,
+      "source": "walk_forward_oos",
+      "n_bets": 0,
+      "staked": 0,
+      "pnl": 0,
+      "cum_staked": 40,
+      "cum_pnl": 15,
+      "roi": 0.375,
+      "bankroll": 515
+    },
+    {
+      "week": 9,
+      "source": "walk_forward_oos",
+      "n_bets": 1,
+      "staked": 5,
+      "pnl": 5,
+      "cum_staked": 45,
+      "cum_pnl": 20,
+      "roi": 0.4444,
+      "bankroll": 520
+    },
+    {
+      "week": 10,
+      "source": "walk_forward_oos",
+      "n_bets": 0,
+      "staked": 0,
+      "pnl": 0,
+      "cum_staked": 45,
+      "cum_pnl": 20,
+      "roi": 0.4444,
+      "bankroll": 520
+    },
+    {
+      "week": 11,
+      "source": "walk_forward_oos",
+      "n_bets": 3,
+      "staked": 20,
+      "pnl": 19,
+      "cum_staked": 65,
+      "cum_pnl": 39,
+      "roi": 0.6,
+      "bankroll": 539
+    },
+    {
+      "week": 12,
+      "source": "walk_forward_oos",
+      "n_bets": 0,
+      "staked": 0,
+      "pnl": 0,
+      "cum_staked": 65,
+      "cum_pnl": 39,
+      "roi": 0.6,
+      "bankroll": 539
+    },
+    {
+      "week": 13,
+      "source": "walk_forward_oos",
+      "n_bets": 1,
+      "staked": 5,
+      "pnl": -5,
+      "cum_staked": 70,
+      "cum_pnl": 34,
+      "roi": 0.4857,
+      "bankroll": 534
+    },
+    {
+      "week": 14,
+      "source": "walk_forward_oos",
+      "n_bets": 1,
+      "staked": 10,
+      "pnl": 10,
+      "cum_staked": 80,
+      "cum_pnl": 44,
+      "roi": 0.55,
+      "bankroll": 544
+    },
+    {
+      "week": 15,
+      "source": "walk_forward_oos",
+      "n_bets": 2,
+      "staked": 15,
+      "pnl": 4,
+      "cum_staked": 95,
+      "cum_pnl": 48,
+      "roi": 0.5053,
+      "bankroll": 548
+    },
+    {
+      "week": 16,
+      "source": "walk_forward_oos",
+      "n_bets": 4,
+      "staked": 30,
+      "pnl": 29,
+      "cum_staked": 125,
+      "cum_pnl": 77,
+      "roi": 0.616,
+      "bankroll": 577
+    },
+    {
+      "week": 17,
+      "source": "walk_forward_oos",
+      "n_bets": 2,
+      "staked": 15,
+      "pnl": 5,
+      "cum_staked": 140,
+      "cum_pnl": 82,
+      "roi": 0.5857,
+      "bankroll": 582
+    },
+    {
+      "week": 18,
+      "source": "walk_forward_oos",
+      "n_bets": 3,
+      "staked": 35,
+      "pnl": 26,
+      "cum_staked": 175,
+      "cum_pnl": 108,
+      "roi": 0.6171,
+      "bankroll": 608
+    }
+  ],
+  "totals": {
+    "bets": 22,
+    "staked": 175,
+    "pnl": 108,
+    "roi": 0.6171,
+    "wins": 18,
+    "losses": 4,
+    "pushes": 0,
+    "final_bankroll": 608
+  }
+}

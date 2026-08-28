@@ -1,0 +1,52 @@
+{
+  "season": 2025,
+  "week": 8,
+  "n_bets": 5,
+  "bets": [
+    {
+      "game": "MIA @ ATL",
+      "bet": "MIA spread",
+      "odds": -115,
+      "ev": 0.053,
+      "kelly": 0.074,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "BUF @ CAR",
+      "bet": "BUF spread",
+      "odds": -115,
+      "ev": 0.083,
+      "kelly": 0.123,
+      "stake": 10,
+      "payout_if_win": 9
+    },
+    {
+      "game": "CLE @ NE",
+      "bet": "NE spread",
+      "odds": -105,
+      "ev": 0.085,
+      "kelly": 0.115,
+      "stake": 10,
+      "payout_if_win": 10
+    },
+    {
+      "game": "TB @ NO",
+      "bet": "TB spread",
+      "odds": -105,
+      "ev": 0.067,
+      "kelly": 0.088,
+      "stake": 5,
+      "payout_if_win": 5
+    },
+    {
+      "game": "TB @ NO",
+      "bet": "TB ml",
+      "odds": -218,
+      "ev": 0.084,
+      "kelly": 0.235,
+      "stake": 20,
+      "payout_if_win": 9
+    }
+  ]
+}

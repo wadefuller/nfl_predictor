@@ -1,0 +1,34 @@
+{
+  "season": 2024,
+  "week": 1,
+  "n_bets": 3,
+  "bets": [
+    {
+      "game": "DAL @ CLE",
+      "bet": "DAL spread",
+      "odds": -112,
+      "ev": 0.058,
+      "kelly": 0.08,
+      "stake": 5,
+      "payout_if_win": 4
+    },
+    {
+      "game": "NYJ @ SF",
+      "bet": "SF spread",
+      "odds": -105,
+      "ev": 0.106,
+      "kelly": 0.147,
+      "stake": 10,
+      "payout_if_win": 10
+    },
+    {
+      "game": "NYJ @ SF",
+      "bet": "SF ml",
+      "odds": -180,
+      "ev": 0.07,
+      "kelly": 0.159,
+      "stake": 10,
+      "payout_if_win": 6
+    }
+  ]
+}

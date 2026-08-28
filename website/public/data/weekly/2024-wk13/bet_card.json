@@ -1,0 +1,16 @@
+{
+  "season": 2024,
+  "week": 13,
+  "n_bets": 1,
+  "bets": [
+    {
+      "game": "HOU @ JAX",
+      "bet": "HOU spread",
+      "odds": -110,
+      "ev": 0.057,
+      "kelly": 0.077,
+      "stake": 5,
+      "payout_if_win": 5
+    }
+  ]
+}

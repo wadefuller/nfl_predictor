@@ -1,0 +1,306 @@
+{
+  "season": 2025,
+  "week": 16,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 427,
+      "mae": 3.64,
+      "spearman": 0.728,
+      "ceiling_cov": 0.899,
+      "floor_cov": 0.946
+    },
+    {
+      "position": "QB",
+      "n": 51,
+      "mae": 5.79,
+      "spearman": 0.742,
+      "ceiling_cov": 0.882,
+      "floor_cov": 0.843
+    },
+    {
+      "position": "RB",
+      "n": 109,
+      "mae": 3.84,
+      "spearman": 0.799,
+      "ceiling_cov": 0.89,
+      "floor_cov": 0.927
+    },
+    {
+      "position": "TE",
+      "n": 97,
+      "mae": 2.78,
+      "spearman": 0.637,
+      "ceiling_cov": 0.907,
+      "floor_cov": 0.969
+    },
+    {
+      "position": "WR",
+      "n": 170,
+      "mae": 3.37,
+      "spearman": 0.705,
+      "ceiling_cov": 0.906,
+      "floor_cov": 0.976
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 25,
+      "bust": 17,
+      "met": 111
+    }
+  ],
+  "beats": [
+    {
+      "player": "Puka Nacua",
+      "position": "WR",
+      "team": "LA",
+      "proj": 11.9,
+      "actual": 40.5,
+      "surprise": 28.6,
+      "class": "boom"
+    },
+    {
+      "player": "Chris Olave",
+      "position": "WR",
+      "team": "NO",
+      "proj": 10.4,
+      "actual": 31.8,
+      "surprise": 21.4,
+      "class": "boom"
+    },
+    {
+      "player": "Ashton Jeanty",
+      "position": "RB",
+      "team": "LV",
+      "proj": 11.5,
+      "actual": 31.3,
+      "surprise": 19.8,
+      "class": "boom"
+    },
+    {
+      "player": "Jaylen Warren",
+      "position": "RB",
+      "team": "PIT",
+      "proj": 9,
+      "actual": 28.1,
+      "surprise": 19.1,
+      "class": "boom"
+    },
+    {
+      "player": "Chase Brown",
+      "position": "RB",
+      "team": "CIN",
+      "proj": 13.3,
+      "actual": 30.9,
+      "surprise": 17.6,
+      "class": "boom"
+    },
+    {
+      "player": "Matthew Stafford",
+      "position": "QB",
+      "team": "LA",
+      "proj": 13.6,
+      "actual": 30.9,
+      "surprise": 17.3,
+      "class": "boom"
+    },
+    {
+      "player": "Parker Washington",
+      "position": "WR",
+      "team": "JAX",
+      "proj": 6.9,
+      "actual": 23.5,
+      "surprise": 16.6,
+      "class": "boom"
+    },
+    {
+      "player": "Kenneth Walker III",
+      "position": "RB",
+      "team": "SEA",
+      "proj": 8.8,
+      "actual": 23.9,
+      "surprise": 15.1,
+      "class": "boom"
+    },
+    {
+      "player": "Alec Pierce",
+      "position": "WR",
+      "team": "IND",
+      "proj": 8,
+      "actual": 22.6,
+      "surprise": 14.6,
+      "class": "boom"
+    },
+    {
+      "player": "Trevor Lawrence",
+      "position": "QB",
+      "team": "JAX",
+      "proj": 17.3,
+      "actual": 31.2,
+      "surprise": 13.9,
+      "class": "boom"
+    },
+    {
+      "player": "Justin Herbert",
+      "position": "QB",
+      "team": "LAC",
+      "proj": 16.7,
+      "actual": 30.2,
+      "surprise": 13.5,
+      "class": "boom"
+    },
+    {
+      "player": "Brock Purdy",
+      "position": "QB",
+      "team": "SF",
+      "proj": 17.5,
+      "actual": 30.9,
+      "surprise": 13.4,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Lamar Jackson",
+      "position": "QB",
+      "team": "BAL",
+      "proj": 18.9,
+      "actual": 4.7,
+      "surprise": -14.2,
+      "class": "bust"
+    },
+    {
+      "player": "Jaxson Dart",
+      "position": "QB",
+      "team": "NYG",
+      "proj": 13.8,
+      "actual": 0,
+      "surprise": -13.8,
+      "class": "bust"
+    },
+    {
+      "player": "Josh Allen",
+      "position": "QB",
+      "team": "BUF",
+      "proj": 19.2,
+      "actual": 6.9,
+      "surprise": -12.3,
+      "class": "bust"
+    },
+    {
+      "player": "Jordan Love",
+      "position": "QB",
+      "team": "GB",
+      "proj": 15.4,
+      "actual": 3.8,
+      "surprise": -11.6,
+      "class": "bust"
+    },
+    {
+      "player": "Josh Jacobs",
+      "position": "RB",
+      "team": "GB",
+      "proj": 13.5,
+      "actual": 3.8,
+      "surprise": -9.7,
+      "class": "bust"
+    },
+    {
+      "player": "TreVeyon Henderson",
+      "position": "RB",
+      "team": "NE",
+      "proj": 11.3,
+      "actual": 1.7,
+      "surprise": -9.6,
+      "class": "bust"
+    },
+    {
+      "player": "Marcus Mariota",
+      "position": "QB",
+      "team": "WAS",
+      "proj": 12.3,
+      "actual": 3.7,
+      "surprise": -8.6,
+      "class": "met"
+    },
+    {
+      "player": "Brian Thomas Jr.",
+      "position": "WR",
+      "team": "JAX",
+      "proj": 10.7,
+      "actual": 2.8,
+      "surprise": -7.9,
+      "class": "met"
+    },
+    {
+      "player": "Brady Cook",
+      "position": "QB",
+      "team": "NYJ",
+      "proj": 10.9,
+      "actual": 3.7,
+      "surprise": -7.2,
+      "class": "met"
+    },
+    {
+      "player": "Amon-Ra St. Brown",
+      "position": "WR",
+      "team": "DET",
+      "proj": 14.5,
+      "actual": 7.4,
+      "surprise": -7.1,
+      "class": "met"
+    },
+    {
+      "player": "Javonte Williams",
+      "position": "RB",
+      "team": "DAL",
+      "proj": 12.1,
+      "actual": 5.3,
+      "surprise": -6.8,
+      "class": "met"
+    },
+    {
+      "player": "J.J. McCarthy",
+      "position": "QB",
+      "team": "MIN",
+      "proj": 15,
+      "actual": 8.3,
+      "surprise": -6.7,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 339,
+      "model": 0.7,
+      "ecr": 0.556
+    },
+    {
+      "position": "QB",
+      "n": 37,
+      "model": 0.648,
+      "ecr": 0.597
+    },
+    {
+      "position": "RB",
+      "n": 98,
+      "model": 0.778,
+      "ecr": 0.65
+    },
+    {
+      "position": "TE",
+      "n": 70,
+      "model": 0.516,
+      "ecr": 0.413
+    },
+    {
+      "position": "WR",
+      "n": 134,
+      "model": 0.662,
+      "ecr": 0.512
+    }
+  ],
+  "ecr_kind": "season"
+}

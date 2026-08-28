@@ -1,0 +1,306 @@
+{
+  "season": 2024,
+  "week": 5,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 387,
+      "mae": 3.7,
+      "spearman": 0.669,
+      "ceiling_cov": 0.876,
+      "floor_cov": 0.961
+    },
+    {
+      "position": "QB",
+      "n": 48,
+      "mae": 4.64,
+      "spearman": 0.814,
+      "ceiling_cov": 0.875,
+      "floor_cov": 0.938
+    },
+    {
+      "position": "RB",
+      "n": 95,
+      "mae": 3.91,
+      "spearman": 0.609,
+      "ceiling_cov": 0.884,
+      "floor_cov": 0.968
+    },
+    {
+      "position": "TE",
+      "n": 87,
+      "mae": 2.61,
+      "spearman": 0.581,
+      "ceiling_cov": 0.885,
+      "floor_cov": 0.989
+    },
+    {
+      "position": "WR",
+      "n": 157,
+      "mae": 3.88,
+      "spearman": 0.636,
+      "ceiling_cov": 0.866,
+      "floor_cov": 0.949
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 20,
+      "bust": 16,
+      "met": 104
+    }
+  ],
+  "beats": [
+    {
+      "player": "Ja'Marr Chase",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 11.2,
+      "actual": 36.3,
+      "surprise": 25.1,
+      "class": "boom"
+    },
+    {
+      "player": "Kirk Cousins",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 15.6,
+      "actual": 34.4,
+      "surprise": 18.8,
+      "class": "boom"
+    },
+    {
+      "player": "Darnell Mooney",
+      "position": "WR",
+      "team": "ATL",
+      "proj": 9.3,
+      "actual": 27,
+      "surprise": 17.7,
+      "class": "boom"
+    },
+    {
+      "player": "Joe Burrow",
+      "position": "QB",
+      "team": "CIN",
+      "proj": 16.9,
+      "actual": 33.8,
+      "surprise": 16.9,
+      "class": "boom"
+    },
+    {
+      "player": "Tucker Kraft",
+      "position": "TE",
+      "team": "GB",
+      "proj": 6.2,
+      "actual": 22.8,
+      "surprise": 16.6,
+      "class": "boom"
+    },
+    {
+      "player": "Drake London",
+      "position": "WR",
+      "team": "ATL",
+      "proj": 11.4,
+      "actual": 27.4,
+      "surprise": 16,
+      "class": "boom"
+    },
+    {
+      "player": "Tee Higgins",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 9.6,
+      "actual": 24.8,
+      "surprise": 15.2,
+      "class": "boom"
+    },
+    {
+      "player": "Alec Pierce",
+      "position": "WR",
+      "team": "IND",
+      "proj": 6.4,
+      "actual": 20.9,
+      "surprise": 14.5,
+      "class": "boom"
+    },
+    {
+      "player": "Joe Flacco",
+      "position": "QB",
+      "team": "IND",
+      "proj": 12.3,
+      "actual": 26.6,
+      "surprise": 14.3,
+      "class": "boom"
+    },
+    {
+      "player": "Lamar Jackson",
+      "position": "QB",
+      "team": "BAL",
+      "proj": 19.8,
+      "actual": 33.4,
+      "surprise": 13.6,
+      "class": "boom"
+    },
+    {
+      "player": "Brock Bowers",
+      "position": "TE",
+      "team": "LV",
+      "proj": 6.3,
+      "actual": 19.7,
+      "surprise": 13.4,
+      "class": "boom"
+    },
+    {
+      "player": "DJ Moore",
+      "position": "WR",
+      "team": "CHI",
+      "proj": 11.6,
+      "actual": 25,
+      "surprise": 13.4,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Jonathan Taylor",
+      "position": "RB",
+      "team": "IND",
+      "proj": 13.9,
+      "actual": 0,
+      "surprise": -13.9,
+      "class": "bust"
+    },
+    {
+      "player": "Anthony Richardson",
+      "position": "QB",
+      "team": "IND",
+      "proj": 10.4,
+      "actual": 0,
+      "surprise": -10.4,
+      "class": "bust"
+    },
+    {
+      "player": "Sam Darnold",
+      "position": "QB",
+      "team": "MIN",
+      "proj": 14.6,
+      "actual": 4.3,
+      "surprise": -10.3,
+      "class": "bust"
+    },
+    {
+      "player": "Deebo Samuel Sr.",
+      "position": "WR",
+      "team": "SF",
+      "proj": 12.4,
+      "actual": 2.5,
+      "surprise": -9.9,
+      "class": "met"
+    },
+    {
+      "player": "De'Von Achane",
+      "position": "RB",
+      "team": "MIA",
+      "proj": 10.9,
+      "actual": 2.2,
+      "surprise": -8.7,
+      "class": "met"
+    },
+    {
+      "player": "Aaron Jones",
+      "position": "RB",
+      "team": "MIN",
+      "proj": 12.9,
+      "actual": 5.8,
+      "surprise": -7.1,
+      "class": "met"
+    },
+    {
+      "player": "Zach Charbonnet",
+      "position": "RB",
+      "team": "SEA",
+      "proj": 11.4,
+      "actual": 4.5,
+      "surprise": -6.9,
+      "class": "met"
+    },
+    {
+      "player": "George Pickens",
+      "position": "WR",
+      "team": "PIT",
+      "proj": 10.7,
+      "actual": 4.1,
+      "surprise": -6.6,
+      "class": "met"
+    },
+    {
+      "player": "Andy Dalton",
+      "position": "QB",
+      "team": "CAR",
+      "proj": 10.1,
+      "actual": 3.7,
+      "surprise": -6.4,
+      "class": "met"
+    },
+    {
+      "player": "Marvin Harrison Jr.",
+      "position": "WR",
+      "team": "ARI",
+      "proj": 10.9,
+      "actual": 4.6,
+      "surprise": -6.3,
+      "class": "met"
+    },
+    {
+      "player": "Breece Hall",
+      "position": "RB",
+      "team": "NYJ",
+      "proj": 11.3,
+      "actual": 5.2,
+      "surprise": -6.1,
+      "class": "met"
+    },
+    {
+      "player": "DK Metcalf",
+      "position": "WR",
+      "team": "SEA",
+      "proj": 10.9,
+      "actual": 5.5,
+      "surprise": -5.4,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 341,
+      "model": 0.658,
+      "ecr": 0.488
+    },
+    {
+      "position": "QB",
+      "n": 42,
+      "model": 0.776,
+      "ecr": 0.607
+    },
+    {
+      "position": "RB",
+      "n": 90,
+      "model": 0.59,
+      "ecr": 0.427
+    },
+    {
+      "position": "TE",
+      "n": 71,
+      "model": 0.619,
+      "ecr": 0.388
+    },
+    {
+      "position": "WR",
+      "n": 138,
+      "model": 0.61,
+      "ecr": 0.469
+    }
+  ],
+  "ecr_kind": "season"
+}

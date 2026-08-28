@@ -1,0 +1,306 @@
+{
+  "season": 2025,
+  "week": 14,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 407,
+      "mae": 3.37,
+      "spearman": 0.698,
+      "ceiling_cov": 0.909,
+      "floor_cov": 0.941
+    },
+    {
+      "position": "QB",
+      "n": 49,
+      "mae": 5.83,
+      "spearman": 0.651,
+      "ceiling_cov": 0.918,
+      "floor_cov": 0.857
+    },
+    {
+      "position": "RB",
+      "n": 103,
+      "mae": 3.07,
+      "spearman": 0.806,
+      "ceiling_cov": 0.893,
+      "floor_cov": 0.981
+    },
+    {
+      "position": "TE",
+      "n": 93,
+      "mae": 2.46,
+      "spearman": 0.661,
+      "ceiling_cov": 0.925,
+      "floor_cov": 0.989
+    },
+    {
+      "position": "WR",
+      "n": 162,
+      "mae": 3.35,
+      "spearman": 0.651,
+      "ceiling_cov": 0.907,
+      "floor_cov": 0.914
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 17,
+      "bust": 13,
+      "met": 107
+    }
+  ],
+  "beats": [
+    {
+      "player": "Michael Wilson",
+      "position": "WR",
+      "team": "ARI",
+      "proj": 8.2,
+      "actual": 31.7,
+      "surprise": 23.5,
+      "class": "boom"
+    },
+    {
+      "player": "Shedeur Sanders",
+      "position": "QB",
+      "team": "CLE",
+      "proj": 10.1,
+      "actual": 33.5,
+      "surprise": 23.4,
+      "class": "boom"
+    },
+    {
+      "player": "Tony Pollard",
+      "position": "RB",
+      "team": "TEN",
+      "proj": 8.6,
+      "actual": 28.1,
+      "surprise": 19.5,
+      "class": "boom"
+    },
+    {
+      "player": "Blake Corum",
+      "position": "RB",
+      "team": "LA",
+      "proj": 7.3,
+      "actual": 25.6,
+      "surprise": 18.3,
+      "class": "boom"
+    },
+    {
+      "player": "Puka Nacua",
+      "position": "WR",
+      "team": "LA",
+      "proj": 14.4,
+      "actual": 32.2,
+      "surprise": 17.8,
+      "class": "boom"
+    },
+    {
+      "player": "Josh Allen",
+      "position": "QB",
+      "team": "BUF",
+      "proj": 20.2,
+      "actual": 37.8,
+      "surprise": 17.6,
+      "class": "boom"
+    },
+    {
+      "player": "Tee Higgins",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 6.7,
+      "actual": 24.2,
+      "surprise": 17.5,
+      "class": "boom"
+    },
+    {
+      "player": "Jahmyr Gibbs",
+      "position": "RB",
+      "team": "DET",
+      "proj": 18.4,
+      "actual": 33.5,
+      "surprise": 15.1,
+      "class": "boom"
+    },
+    {
+      "player": "Harold Fannin Jr.",
+      "position": "TE",
+      "team": "CLE",
+      "proj": 6.9,
+      "actual": 21.4,
+      "surprise": 14.5,
+      "class": "boom"
+    },
+    {
+      "player": "Christian Watson",
+      "position": "WR",
+      "team": "GB",
+      "proj": 8.4,
+      "actual": 22.9,
+      "surprise": 14.5,
+      "class": "boom"
+    },
+    {
+      "player": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "team": "SEA",
+      "proj": 12,
+      "actual": 24.6,
+      "surprise": 12.6,
+      "class": "boom"
+    },
+    {
+      "player": "Aaron Rodgers",
+      "position": "QB",
+      "team": "PIT",
+      "proj": 8.9,
+      "actual": 21,
+      "surprise": 12.1,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Marcus Mariota",
+      "position": "QB",
+      "team": "WAS",
+      "proj": 15.8,
+      "actual": -2.1,
+      "surprise": -17.9,
+      "class": "bust"
+    },
+    {
+      "player": "Daniel Jones",
+      "position": "QB",
+      "team": "IND",
+      "proj": 15,
+      "actual": 0.8,
+      "surprise": -14.2,
+      "class": "bust"
+    },
+    {
+      "player": "Jalen Hurts",
+      "position": "QB",
+      "team": "PHI",
+      "proj": 16.6,
+      "actual": 2.4,
+      "surprise": -14.2,
+      "class": "bust"
+    },
+    {
+      "player": "Tyrod Taylor",
+      "position": "QB",
+      "team": "NYJ",
+      "proj": 11.1,
+      "actual": -1.8,
+      "surprise": -12.9,
+      "class": "bust"
+    },
+    {
+      "player": "Patrick Mahomes",
+      "position": "QB",
+      "team": "KC",
+      "proj": 18,
+      "actual": 5.8,
+      "surprise": -12.2,
+      "class": "bust"
+    },
+    {
+      "player": "Justin Jefferson",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 13,
+      "actual": 2.1,
+      "surprise": -10.9,
+      "class": "bust"
+    },
+    {
+      "player": "Marvin Harrison Jr.",
+      "position": "WR",
+      "team": "ARI",
+      "proj": 10,
+      "actual": 0,
+      "surprise": -10,
+      "class": "bust"
+    },
+    {
+      "player": "Kirk Cousins",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 11.3,
+      "actual": 2.5,
+      "surprise": -8.8,
+      "class": "met"
+    },
+    {
+      "player": "Emeka Egbuka",
+      "position": "WR",
+      "team": "TB",
+      "proj": 10.8,
+      "actual": 2.5,
+      "surprise": -8.3,
+      "class": "met"
+    },
+    {
+      "player": "Kenneth Walker III",
+      "position": "RB",
+      "team": "SEA",
+      "proj": 11.3,
+      "actual": 3.3,
+      "surprise": -8,
+      "class": "met"
+    },
+    {
+      "player": "Ashton Jeanty",
+      "position": "RB",
+      "team": "LV",
+      "proj": 12.5,
+      "actual": 4.8,
+      "surprise": -7.7,
+      "class": "met"
+    },
+    {
+      "player": "Breece Hall",
+      "position": "RB",
+      "team": "NYJ",
+      "proj": 11.7,
+      "actual": 4.3,
+      "surprise": -7.4,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 321,
+      "model": 0.69,
+      "ecr": 0.594
+    },
+    {
+      "position": "QB",
+      "n": 39,
+      "model": 0.575,
+      "ecr": 0.615
+    },
+    {
+      "position": "RB",
+      "n": 91,
+      "model": 0.824,
+      "ecr": 0.64
+    },
+    {
+      "position": "TE",
+      "n": 66,
+      "model": 0.535,
+      "ecr": 0.438
+    },
+    {
+      "position": "WR",
+      "n": 125,
+      "model": 0.641,
+      "ecr": 0.588
+    }
+  ],
+  "ecr_kind": "season"
+}

@@ -1,0 +1,307 @@
+{
+  "season": 2025,
+  "week": 18,
+  "source": "walk_forward_oos",
+  "metrics": [
+    {
+      "games": 16,
+      "mae": 7.842,
+      "cover_acc": 0.562,
+      "ml_acc": 0.625,
+      "brier": 0.1984
+    }
+  ],
+  "bet_summary": [
+    {
+      "n_bets": 7,
+      "staked": 65,
+      "pnl": -0,
+      "roi": 0,
+      "wins": 4,
+      "losses": 3,
+      "pushes": 0
+    }
+  ],
+  "games": [
+    {
+      "game": "NO @ ATL",
+      "spread_line": 4.5,
+      "total_line": 43.5,
+      "pred_margin": 3.7,
+      "actual_margin": 2,
+      "abs_err": 1.7,
+      "pred_win_pct": 0.637,
+      "vegas_win_pct": 0.645,
+      "edge_pct": -0.008,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "NYJ @ BUF",
+      "spread_line": 12.5,
+      "total_line": 39.5,
+      "pred_margin": 12.1,
+      "actual_margin": 27,
+      "abs_err": 14.9,
+      "pred_win_pct": 0.887,
+      "vegas_win_pct": 0.852,
+      "edge_pct": 0.035,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "DET @ CHI",
+      "spread_line": 3.5,
+      "total_line": 51.5,
+      "pred_margin": 2.3,
+      "actual_margin": -3,
+      "abs_err": 5.3,
+      "pred_win_pct": 0.581,
+      "vegas_win_pct": 0.616,
+      "edge_pct": -0.035,
+      "cover_correct": 1,
+      "ml_correct": 0
+    },
+    {
+      "game": "CLE @ CIN",
+      "spread_line": 9.5,
+      "total_line": 47.5,
+      "pred_margin": 8.8,
+      "actual_margin": -2,
+      "abs_err": 10.8,
+      "pred_win_pct": 0.811,
+      "vegas_win_pct": 0.787,
+      "edge_pct": 0.024,
+      "cover_correct": 1,
+      "ml_correct": 0
+    },
+    {
+      "game": "LAC @ DEN",
+      "spread_line": 14.5,
+      "total_line": 37.5,
+      "pred_margin": 16.5,
+      "actual_margin": 16,
+      "abs_err": 0.5,
+      "pred_win_pct": 0.949,
+      "vegas_win_pct": 0.904,
+      "edge_pct": 0.045,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "IND @ HOU",
+      "spread_line": 9.5,
+      "total_line": 37.5,
+      "pred_margin": 11.2,
+      "actual_margin": 8,
+      "abs_err": 3.2,
+      "pred_win_pct": 0.868,
+      "vegas_win_pct": 0.808,
+      "edge_pct": 0.06,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "TEN @ JAX",
+      "spread_line": 12.5,
+      "total_line": 46.5,
+      "pred_margin": 15.1,
+      "actual_margin": 34,
+      "abs_err": 18.9,
+      "pred_win_pct": 0.934,
+      "vegas_win_pct": 0.847,
+      "edge_pct": 0.087,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "ARI @ LA",
+      "spread_line": 14.5,
+      "total_line": 49.5,
+      "pred_margin": 15,
+      "actual_margin": 17,
+      "abs_err": 2,
+      "pred_win_pct": 0.932,
+      "vegas_win_pct": 0.893,
+      "edge_pct": 0.039,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "KC @ LV",
+      "spread_line": -3.5,
+      "total_line": 36.5,
+      "pred_margin": -6.1,
+      "actual_margin": 2,
+      "abs_err": 8.1,
+      "pred_win_pct": 0.246,
+      "vegas_win_pct": 0.336,
+      "edge_pct": -0.09,
+      "cover_correct": 0,
+      "ml_correct": 0
+    },
+    {
+      "game": "GB @ MIN",
+      "spread_line": 12.5,
+      "total_line": 37.5,
+      "pred_margin": 10.8,
+      "actual_margin": 13,
+      "abs_err": 2.2,
+      "pred_win_pct": 0.86,
+      "vegas_win_pct": 0.832,
+      "edge_pct": 0.028,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "MIA @ NE",
+      "spread_line": 14,
+      "total_line": 44.5,
+      "pred_margin": 14.5,
+      "actual_margin": 28,
+      "abs_err": 13.5,
+      "pred_win_pct": 0.926,
+      "vegas_win_pct": 0.872,
+      "edge_pct": 0.054,
+      "cover_correct": 1,
+      "ml_correct": 1
+    },
+    {
+      "game": "DAL @ NYG",
+      "spread_line": -3,
+      "total_line": 50.5,
+      "pred_margin": -0.8,
+      "actual_margin": 17,
+      "abs_err": 17.8,
+      "pred_win_pct": 0.451,
+      "vegas_win_pct": 0.4,
+      "edge_pct": 0.051,
+      "cover_correct": 1,
+      "ml_correct": 0
+    },
+    {
+      "game": "WAS @ PHI",
+      "spread_line": 3,
+      "total_line": 38.5,
+      "pred_margin": 4.4,
+      "actual_margin": -7,
+      "abs_err": 11.4,
+      "pred_win_pct": 0.663,
+      "vegas_win_pct": 0.616,
+      "edge_pct": 0.047,
+      "cover_correct": 0,
+      "ml_correct": 0
+    },
+    {
+      "game": "BAL @ PIT",
+      "spread_line": -4.5,
+      "total_line": 41.5,
+      "pred_margin": -2.7,
+      "actual_margin": 2,
+      "abs_err": 4.7,
+      "pred_win_pct": 0.372,
+      "vegas_win_pct": 0.336,
+      "edge_pct": 0.036,
+      "cover_correct": 1,
+      "ml_correct": 0
+    },
+    {
+      "game": "SEA @ SF",
+      "spread_line": -2.5,
+      "total_line": 47.5,
+      "pred_margin": -1.9,
+      "actual_margin": -10,
+      "abs_err": 8.1,
+      "pred_win_pct": 0.402,
+      "vegas_win_pct": 0.428,
+      "edge_pct": -0.026,
+      "cover_correct": 0,
+      "ml_correct": 1
+    },
+    {
+      "game": "CAR @ TB",
+      "spread_line": 3,
+      "total_line": 43.5,
+      "pred_margin": 4.4,
+      "actual_margin": 2,
+      "abs_err": 2.4,
+      "pred_win_pct": 0.663,
+      "vegas_win_pct": 0.583,
+      "edge_pct": 0.08,
+      "cover_correct": 0,
+      "ml_correct": 1
+    }
+  ],
+  "bets": [
+    {
+      "game": "LAC @ DEN",
+      "bet": "DEN spread",
+      "odds": -112,
+      "ev": 0.052,
+      "stake": 5,
+      "units": 1,
+      "result": "WIN",
+      "pnl": 4
+    },
+    {
+      "game": "TEN @ JAX",
+      "bet": "JAX spread",
+      "odds": -110,
+      "ev": 0.083,
+      "stake": 10,
+      "units": 2,
+      "result": "WIN",
+      "pnl": 9
+    },
+    {
+      "game": "KC @ LV",
+      "bet": "KC spread",
+      "odds": -112,
+      "ev": 0.078,
+      "stake": 10,
+      "units": 2,
+      "result": "LOSS",
+      "pnl": -10
+    },
+    {
+      "game": "GB @ MIN",
+      "bet": "GB spread",
+      "odds": -108,
+      "ev": 0.054,
+      "stake": 5,
+      "units": 1,
+      "result": "LOSS",
+      "pnl": -5
+    },
+    {
+      "game": "DAL @ NYG",
+      "bet": "NYG spread",
+      "odds": -105,
+      "ev": 0.085,
+      "stake": 10,
+      "units": 2,
+      "result": "WIN",
+      "pnl": 10
+    },
+    {
+      "game": "KC @ LV",
+      "bet": "KC ml",
+      "odds": -225,
+      "ev": 0.071,
+      "stake": 15,
+      "units": 3,
+      "result": "LOSS",
+      "pnl": -15
+    },
+    {
+      "game": "CAR @ TB",
+      "bet": "TB ml",
+      "odds": -155,
+      "ev": 0.071,
+      "stake": 10,
+      "units": 2,
+      "result": "WIN",
+      "pnl": 6
+    }
+  ]
+}

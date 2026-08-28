@@ -1,0 +1,16 @@
+{
+  "season": 2024,
+  "week": 9,
+  "n_bets": 1,
+  "bets": [
+    {
+      "game": "LV @ CIN",
+      "bet": "CIN spread",
+      "odds": -110,
+      "ev": 0.054,
+      "kelly": 0.073,
+      "stake": 5,
+      "payout_if_win": 5
+    }
+  ]
+}

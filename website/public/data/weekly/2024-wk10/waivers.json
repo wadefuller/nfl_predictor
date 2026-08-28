@@ -1,0 +1,54 @@
+{
+  "season": 2024,
+  "week": 10,
+  "waivers": [
+    {
+      "position": "QB",
+      "suggested_add": "Mason Rudolph",
+      "add_projected_ppg": 9.2,
+      "suggested_drop": "Richardson, Anthony",
+      "drop_projected_ppg": 2.7,
+      "net_gain": 6.5,
+      "season": 2024,
+      "week": 10,
+      "league": "UNH SuperFlex Dynasty",
+      "franchise": "Amon-Ra St. Boomorbust"
+    },
+    {
+      "position": "RB",
+      "suggested_add": "Chris Rodriguez Jr.",
+      "add_projected_ppg": 4.9,
+      "suggested_drop": "Laube, Dylan",
+      "drop_projected_ppg": 0,
+      "net_gain": 4.9,
+      "season": 2024,
+      "week": 10,
+      "league": "UNH SuperFlex Dynasty",
+      "franchise": "Amon-Ra St. Boomorbust"
+    },
+    {
+      "position": "WR",
+      "suggested_add": "Noah Brown",
+      "add_projected_ppg": 6.2,
+      "suggested_drop": "Burton, Jermaine",
+      "drop_projected_ppg": 1.5,
+      "net_gain": 4.7,
+      "season": 2024,
+      "week": 10,
+      "league": "UNH SuperFlex Dynasty",
+      "franchise": "Amon-Ra St. Boomorbust"
+    },
+    {
+      "position": "TE",
+      "suggested_add": "Josh Oliver",
+      "add_projected_ppg": 2.8,
+      "suggested_drop": "Dulcich, Greg",
+      "drop_projected_ppg": 0.4,
+      "net_gain": 2.4,
+      "season": 2024,
+      "week": 10,
+      "league": "UNH SuperFlex Dynasty",
+      "franchise": "Amon-Ra St. Boomorbust"
+    }
+  ]
+}
