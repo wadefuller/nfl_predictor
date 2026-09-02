@@ -1,7 +1,15 @@
 import type { Game } from '../../types';
 import { num } from '../ui/primitives';
 
-interface GameCardProps { game: Game }
+interface GameCardProps {
+  game: Game;
+  /** Mapped Polymarket YES contracts for this game, when the public feed has them. */
+  polymarket?: any[];
+  /** Kalshi's near-even, executable game-spread contract. */
+  kalshi?: any[];
+  /** Kalshi's closest currently listed outcome: team wins by 2+ points. */
+  kalshiWin?: any[];
+}
 
 // Color encodes SOURCE, not team. Blue is always my model, grey is always the
 // market — so every comparison on the card reads the same way. (Team colors were
@@ -29,7 +37,7 @@ function spreadLabel(line: number, home: string, away: string) {
   return line > 0 ? `${home} -${Math.abs(line)}` : `${away} -${Math.abs(line)}`;
 }
 
-export function GameCard({ game }: GameCardProps) {
+export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [] }: GameCardProps) {
   const { prediction: p, result } = game;
   const done = result !== null;
 
@@ -127,7 +135,81 @@ export function GameCard({ game }: GameCardProps) {
               <span>Vegas {pct(vp.home)}</span>
             </div>
           )}
+          {kalshiWin.length > 0 && (
+            <div className="mt-1 flex items-center justify-between gap-2 rounded border border-[#f0a00040] bg-[#f0a0000a] px-1.5 py-1 text-[9px] tabular-nums">
+              <span className="shrink-0 text-[#f0b44d]">Kalshi 2+ win</span>
+              <span className="min-w-0 text-right text-text-secondary">
+                {kalshiWin.map((m: any) => `${m.team} ${Math.round(Number(m.ask) * 100)}¢`).join(' · ')}
+                <span className="ml-1 text-text-muted">not exact ML</span>
+              </span>
+            </div>
+          )}
         </div>
+
+        {/* POLYMARKET — a separate, prediction-market view. We retain both
+            sides rather than collapsing them into one number: each YES contract
+            is its own tradable price and may not add to exactly 100¢. */}
+        {polymarket.length > 0 ? (
+          <div className="rounded-lg border border-[#a371f759] bg-[#a371f70a] overflow-hidden">
+            <div className="flex items-center justify-between px-2 py-1 border-b border-[#a371f733]">
+              <span className="text-[9px] uppercase tracking-wide text-[#c9a7ff]">Polymarket winner contracts</span>
+              <span className="text-[9px] text-text-muted">YES ask vs model</span>
+            </div>
+            <div className="divide-y divide-[#a371f726]">
+              {polymarket.map((m: any) => {
+                const ask = Math.round(Number(m.ask) * 100);
+                const model = Math.round(Number(m.model_probability) * 100);
+                const gap = model - ask;
+                return (
+                  <a key={m.market_id ?? m.bet_team} href={`https://polymarket.com/event/${m.slug}`}
+                    target="_blank" rel="noreferrer" className="flex items-center justify-between gap-2 px-2 py-1.5 hover:bg-[#a371f712]">
+                    <span className="min-w-0 text-[11px] font-semibold text-text-primary">
+                      {m.bet_team} YES
+                      {m.qualifies && <span className="ml-1 rounded border border-win/40 bg-win/10 px-1 py-px text-[8px] uppercase tracking-wide text-win">EV+</span>}
+                    </span>
+                    <span className="shrink-0 text-right text-[10px] tabular-nums text-text-secondary">
+                      <span className="text-[#c9a7ff]">{ask}¢</span>
+                      <span className="mx-1 text-text-muted">·</span>
+                      model {model}%
+                      <span className={gap >= 0 ? 'ml-1 text-win' : 'ml-1 text-loss'}>{gap >= 0 ? '+' : ''}{gap} pts</span>
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+            <div className="px-2 py-1 text-[9px] text-text-muted">Contract price is the cost of a $1 YES payout. Open to inspect rules and order book.</div>
+          </div>
+        ) : !done && (
+          <div className="flex items-center justify-between rounded-lg border border-border-light bg-bg-card/30 px-2 py-1.5 text-[10px]">
+            <span className="font-medium text-[#c9a7ff]">Polymarket</span>
+            <span className="text-text-muted">Game-winner contract not listed yet</span>
+          </div>
+        )}
+
+        {/* KALSHI — its game-spread ladder provides a market line rather than a
+            single moneyline. Selecting the contract closest to 50¢ creates a
+            readable "fair spread" comparison with the point model. */}
+        {kalshi.length > 0 ? kalshi.map((m: any) => {
+          const ask = Math.round(Number(m.ask) * 100);
+          const modelProbability = Math.round(Number(m.model_probability) * 100);
+          const ev = Number(m.ev) * 100;
+          return (
+            <a key={m.market_ticker} href={`https://kalshi.com/markets/${m.event_ticker}`} target="_blank" rel="noreferrer"
+              className="flex items-center justify-between gap-2 rounded-lg border border-[#f0a00059] bg-[#f0a0000a] px-2 py-1.5 text-[10px] hover:bg-[#f0a00012]">
+              <span className="shrink-0 font-medium text-[#f0b44d]">Kalshi</span>
+              <span className="min-w-0 text-right tabular-nums text-text-secondary">
+                <span className="font-semibold text-text-primary">{m.team} -{Number(m.threshold).toFixed(1)}</span>
+                <span className="mx-1 text-text-muted">·</span>{ask}¢ ask
+                <span className="ml-1.5 text-text-muted">· {modelProbability}% model</span>
+                <span className={ev >= 0 ? 'ml-1.5 font-medium text-win' : 'ml-1.5 font-medium text-loss'}>{ev >= 0 ? '+' : ''}{ev.toFixed(1)}% EV</span>
+              </span>
+            </a>
+          );
+        }) : !done && (
+          <div className="flex items-center justify-between rounded-lg border border-border-light bg-bg-card/30 px-2 py-1.5 text-[10px]">
+            <span className="font-medium text-[#f0b44d]">Kalshi</span><span className="text-text-muted">Game spread not listed yet</span>
+          </div>
+        )}
 
         {/* SPREAD — both lines stated the same way, stacked so the difference is
             a vertical read rather than mental arithmetic. */}

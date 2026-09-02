@@ -9,7 +9,7 @@
       "season": 2026,
       "history_seasons": 5,
       "enabled": true,
-      "market_format": "dynasty_sf",
+      "market_format": "redraft_half",
       "lineup": {
         "QB": 1,
         "RB": 2,
@@ -67,7 +67,7 @@
       "history_seasons": 2,
       "enabled": false,
       "market_format": "redraft_ppr",
-      "_note": "League deleted on Sleeper (rosters endpoint 404s) \u2014 disabled.",
+      "_note": "League deleted on Sleeper (rosters endpoint 404s) — disabled.",
       "lineup": {
         "QB": 1,
         "RB": 2,
@@ -92,6 +92,25 @@
         "FLEX": 9
       },
       "scoring": "ppr"
+    },
+    {
+      "key": "sffantasy",
+      "label": "SF Fantasy",
+      "platform": "espn",
+      "league_id": "540987531",
+      "season": 2026,
+      "history_seasons": 0,
+      "enabled": true,
+      "market_format": "redraft_half",
+      "_note": "ESPN, 12-team redraft, half PPR. Starters 1QB/2RB/2WR/1TE/1FLEX + K and D/ST, 7 BE + 1 IR. Wade is team id 5 (named \"Gruden's Grinders\" as of 2026-08-28; ESPN team names change freely, the id does not). Private league - needs espn_s2/SWID via shared/espn.R. K is not projected by the weekly model and D/ST is handled by the DST streamer, so neither appears in the lineup block below. New league for 2026, so history_seasons=0 - asking ESPN for 2025 standings returns 401, not an empty result.",
+      "lineup": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 1
+      },
+      "scoring": "half"
     }
   ]
 }

@@ -16,9 +16,13 @@ import { getWeekLabel } from './data/weekLabels';
 // respectively; both are still accepted from old permalinks and redirected.
 type View = 'weekly' | 'season' | 'market' | 'league';
 type AnyView = View | 'predictions' | 'rankings';
+type Product = 'predictor' | 'fantasy';
 
-const NFL_TABS = [
+const PREDICTOR_TABS = [
   ['weekly', 'This Week'], ['season', 'Season'],
+] as const;
+const FANTASY_TABS = [
+  ['weekly', 'Game Day'], ['league', 'My Teams'], ['market', 'Market'],
 ] as const;
 
 const VIEW_ALIAS: Record<string, View> = { predictions: 'weekly', rankings: 'season' };
@@ -65,7 +69,18 @@ export default function App() {
   // falls back to its own default rather than inheriting a foreign key.
   const [sub, setSub] = useState<string | null>(null);
   const [leagueKey, setLeagueKey] = useState<string | null>(null);
-  const changeView = (v: View) => { setView(v); setSub(null); };
+  const [product, setProduct] = useState<Product>('predictor');
+  const changeView = (v: View, nextSub: string | null = null) => {
+    setView(v); setSub(nextSub);
+    if (v === 'market' || v === 'league') setProduct('fantasy');
+  };
+  const changeProduct = (next: Product) => {
+    setProduct(next);
+    // Each product opens on the job users do most often: the current slate for
+    // Predictor and their active teams for Fantasy HQ.
+    if (next === 'fantasy') changeView('league');
+    else changeView('weekly');
+  };
   const { meta: fantasyMeta } = useFantasyMeta();
   const { meta, performance, loading, error, getGamesForWeek, loadSeason } =
     useGameData();
@@ -95,6 +110,9 @@ export default function App() {
       else if (h.view === 'season' && SEASON_GROUP_KEYS.includes(h.sub)) setSub(h.sub);
       else if (h.view === 'weekly' && WEEKLY_GROUP_KEYS.includes(h.sub)) setSub(h.sub);
     }
+    if (h.view === 'market' || h.view === 'league' ||
+        (h.view === 'weekly' && (h.sub === 'lineups' || h.sub === 'fantasy')))
+      setProduct('fantasy');
     setHashApplied(true);
   }, [hashApplied, meta, setSelectedSeason, setSelectedWeek]);
 
@@ -135,14 +153,16 @@ export default function App() {
         onSeasonChange={setSelectedSeason}
         onWeekChange={setSelectedWeek}
         showControls={!isFantasy}
+        product={product}
+        onProductChange={changeProduct}
       />
 
       <main className="mx-auto max-w-7xl px-4 py-6 space-y-4">
-        <div className="flex flex-wrap items-center gap-1 border-b border-border-light">
-          {NFL_TABS.map(([k, label]) => (
+        <div className="flex flex-wrap items-center gap-1 border-b border-border-light" aria-label={`${product === 'predictor' ? 'Predictor' : 'Fantasy HQ'} navigation`}>
+          {(product === 'predictor' ? PREDICTOR_TABS : FANTASY_TABS).map(([k, label]) => (
             <button
               key={k}
-              onClick={() => changeView(k)}
+              onClick={() => changeView(k, k === 'weekly' && product === 'fantasy' ? 'lineups' : null)}
               className={`px-3 py-1.5 text-sm font-medium -mb-px border-b-2 ${
                 view === k
                   ? 'border-accent text-text-primary'
@@ -152,24 +172,9 @@ export default function App() {
               {label}
             </button>
           ))}
-
-          {/* Fantasy lives in the same shell but is a separate domain, so it
-              gets a labeled divider rather than blending into the model tabs. */}
-          <span className="mx-2 h-4 w-px bg-border" aria-hidden="true" />
-          <span className="text-[10px] uppercase tracking-[0.14em] text-text-muted pr-1">Fantasy</span>
-          {([['market', 'Market'], ['league', 'My League']] as const).map(([k, label]) => (
-            <button
-              key={k}
-              onClick={() => changeView(k)}
-              className={`px-3 py-1.5 text-sm font-medium -mb-px border-b-2 ${
-                view === k
-                  ? 'border-accent text-text-primary'
-                  : 'border-transparent text-text-muted hover:text-text-secondary'
-              }`}
-            >
-              {label}
-            </button>
-          ))}
+          <span className="ml-auto hidden sm:block pb-1 text-[10px] text-text-muted">
+            {product === 'predictor' ? 'model, markets, and performance' : 'teams, matchups, and roster decisions'}
+          </span>
         </div>
 
         {view === 'market' ? (
@@ -227,6 +232,7 @@ export default function App() {
           <WeeklyReport
             season={selectedSeason}
             week={selectedWeek}
+            scope={product}
             group={sub}
             onGroupChange={setSub}
             onNavigate={(s, w) => { setSelectedSeason(s); setSelectedWeek(w); }}
@@ -237,9 +243,7 @@ export default function App() {
             betsFallback={loading ? null : (
               <TopBets games={games} bankroll={meta?.bankroll} unitSize={meta?.unitSize} />
             )}
-            gamesFallback={loading ? (
-              <Skeleton h={280} />
-            ) : (
+            gamesFallback={loading ? (() => <Skeleton h={280} />) : ((markets) => (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-semibold text-text-primary">{getWeekLabel(selectedWeek)}</h3>
@@ -247,9 +251,9 @@ export default function App() {
                     {games.length} game{games.length !== 1 ? 's' : ''}
                   </span>
                 </div>
-                <GameGrid games={games} week={selectedWeek} />
+                <GameGrid games={games} week={selectedWeek} polymarket={markets.polymarket} kalshi={markets.kalshi} kalshiWin={markets.kalshiWin} />
               </div>
-            )}
+            ))}
           />
         ) : (
           <SeasonReport

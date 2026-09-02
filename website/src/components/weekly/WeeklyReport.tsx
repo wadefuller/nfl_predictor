@@ -416,6 +416,271 @@ function BetCard({ d }: { d: any }) {
   return <div id="bet_card"><TopBets bets={rows} limit={rows.length} freshness={d._freshness} /></div>;
 }
 
+function PolymarketBets({ d }: { d: any }) {
+  const allMarkets = arr(d.markets);
+  const markets = allMarkets.filter((m: any) => m.qualifies);
+  const dollars = (v: any) => `$${Math.round(Number(v ?? 0)).toLocaleString()}`;
+  const probability = (v: any) => `${Math.round(Number(v ?? 0) * 100)}%`;
+  return (
+    <Section id="polymarket_bets" title="Polymarket opportunities" accent="#a371f7"
+      subtitle="NFL winner contracts · model compared with executable YES ask">
+      {markets.length === 0 ? (
+        <div className="rounded-lg border border-border-light bg-bg-card/30 px-3 py-2.5 text-xs text-text-muted">
+          No mapped, liquid NFL moneyline contract clears the model’s 5% net-EV threshold right now.
+          <span className="block mt-1 text-[10px]">Contracts must be a mapped game winner with at least {dollars(d.min_liquidity)} liquidity; a 1¢ execution allowance is included before ranking.</span>
+        </div>
+      ) : (
+        <div className="overflow-hidden rounded-xl border border-border-light">
+          <div className="hidden grid-cols-[minmax(0,1fr)_4.5rem_4.5rem_4.5rem_5.5rem] gap-3 border-b border-border-light bg-bg-card-hover/50 px-3 py-1.5 text-[8px] font-medium uppercase tracking-wider text-text-muted sm:grid">
+            <span>Contract</span><span className="text-right">Model</span><span className="text-right">YES ask</span><span className="text-right">Net EV</span><span className="text-right">Liquidity</span>
+          </div>
+          <div className="divide-y divide-border-light">
+            {markets.map((m: any) => (
+              <a key={`${m.market_id}-${m.bet_team}`} href={`https://polymarket.com/event/${m.slug}`} target="_blank" rel="noreferrer"
+                className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 px-3 py-2.5 hover:bg-bg-card-hover sm:grid-cols-[minmax(0,1fr)_4.5rem_4.5rem_4.5rem_5.5rem] sm:items-center">
+                <div className="min-w-0">
+                  <div className="truncate text-xs font-semibold text-text-primary">Buy {m.bet_team} YES</div>
+                  <div className="truncate text-[10px] text-text-muted">{m.question} · {m.opponent} opponent</div>
+                </div>
+                <div className="text-right text-xs font-semibold tabular-nums text-text-primary">{probability(m.model_probability)}<span className="block text-[9px] font-normal text-text-muted sm:hidden">model</span></div>
+                <div className="hidden text-right text-xs tabular-nums text-text-secondary sm:block">{probability(m.ask)}<span className="block text-[9px] text-text-muted">+{Math.round(Number(d.execution_buffer ?? 0) * 100)}¢ allowance</span></div>
+                <div className="hidden text-right text-xs font-semibold tabular-nums text-win sm:block">+{num(Number(m.net_ev) * 100, 1)}%</div>
+                <div className="hidden text-right text-xs tabular-nums text-text-secondary sm:block">{dollars(m.liquidity)}</div>
+                <div className="col-span-2 mt-1 flex items-center gap-2 text-[10px] tabular-nums sm:hidden"><span>YES ask {probability(m.ask)}</span><span className="font-semibold text-win">+{num(Number(m.net_ev) * 100, 1)}% net EV</span><span>{dollars(m.liquidity)} liquidity</span></div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+      <p className="text-[10px] leading-relaxed text-text-muted">Read-only analysis—not an execution tool. Net EV uses the model probability divided by the displayed YES ask plus a 1¢ allowance for fees and slippage. Open a contract to inspect its rules and order book.</p>
+    </Section>
+  );
+}
+
+function KalshiLines({ d }: { d: any }) {
+  const lines = arr(d.lines).filter((m: any) => m.qualifies).sort((a: any, b: any) => Number(b.ev) - Number(a.ev));
+  const pct = (v: any) => `${Math.round(Number(v ?? 0) * 100)}%`;
+  return (
+    <Section id="kalshi_lines" title="Kalshi spread opportunities" accent="#f0a000"
+      subtitle="Exact spread contracts · model probability, executable ask, and fee-aware EV">
+      {lines.length === 0 ? (
+        <p className="rounded-lg border border-border-light bg-bg-card/30 px-3 py-2.5 text-xs text-text-muted">No Kalshi spread rung clears the 5% calibrated-EV threshold right now.</p>
+      ) : (
+        <div className="overflow-hidden rounded-xl border border-border-light">
+          <div className="hidden grid-cols-[minmax(0,1fr)_4rem_4rem_4rem_4rem] gap-3 border-b border-border-light bg-bg-card-hover/50 px-3 py-1.5 text-[8px] font-medium uppercase tracking-wider text-text-muted sm:grid">
+            <span>Contract</span><span className="text-right">Model</span><span className="text-right">YES ask</span><span className="text-right">Fee est.</span><span className="text-right">Net EV</span>
+          </div>
+          <div className="divide-y divide-border-light">
+            {lines.map((m: any) => (
+              <a key={m.market_ticker} href={`https://kalshi.com/markets/${m.event_ticker}`} target="_blank" rel="noreferrer"
+                className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 px-3 py-2.5 hover:bg-bg-card-hover sm:grid-cols-[minmax(0,1fr)_4rem_4rem_4rem_4rem] sm:items-center">
+                <div><div className="text-xs font-semibold text-text-primary">{m.team} by more than {Number(m.threshold).toFixed(1)}</div><div className="text-[10px] text-text-muted">{m.game_id?.replace(/^\d{4}_\d{2}_/, '').replace('_', ' @ ')}</div></div>
+                <div className="text-right text-xs font-semibold tabular-nums text-text-primary">{pct(m.model_probability)}<span className="block text-[9px] font-normal text-text-muted sm:hidden">model</span></div>
+                <div className="hidden text-right text-xs tabular-nums text-text-secondary sm:block">{Math.round(Number(m.ask) * 100)}¢</div>
+                <div className="hidden text-right text-xs tabular-nums text-text-secondary sm:block">{(Number(m.fee_estimate) * 100).toFixed(1)}¢</div>
+                <div className="hidden text-right text-xs font-semibold tabular-nums text-win sm:block">+{num(Number(m.ev) * 100, 1)}%</div>
+                <div className="col-span-2 mt-1 flex gap-2 text-[10px] tabular-nums text-text-muted sm:hidden"><span>{Math.round(Number(m.ask) * 100)}¢ ask</span><span>{(Number(m.fee_estimate) * 100).toFixed(1)}¢ fee est.</span><span className="font-semibold text-win">+{num(Number(m.ev) * 100, 1)}% EV</span></div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+      <p className="text-[10px] leading-relaxed text-text-muted">Model probability uses the ensemble’s calibrated margin uncertainty at this exact Kalshi threshold. EV subtracts the executable YES ask and estimated quadratic fee, then uses the same historical EV calibration as the sportsbook bet card. Actual fees can vary slightly with order size and cent rounding.</p>
+    </Section>
+  );
+}
+
+function LiveSunday({ d }: { d: any }) {
+  const leagues = useMemo(() => arr(d.leagues), [d.leagues]);
+  const watchedTeams = useMemo(() => Array.from(new Set([
+    ...arr(d.lineups).filter((p: any) => p.status === 'START').map((p: any) => p.team),
+    ...arr(d.opponent_lineups).map((p: any) => p.team),
+  ].filter(Boolean))), [d]);
+  const [nonce, setNonce] = useState(0);
+  const [live, setLive] = useState<{ loading: boolean; checked?: string; scores: any[]; games: Record<string, any>; error?: string }>({
+    loading: true, scores: [], games: {},
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      setLive(v => ({ ...v, loading: true, error: undefined }));
+      try {
+        // Sleeper reports the league's own live fantasy totals, which means
+        // custom scoring needs no browser-side reimplementation.
+        const sleeper = leagues.filter((l: any) => l.platform === 'sleeper' && l.league_id && l.franchise_id);
+        const sleeperScores = await Promise.all(sleeper.map(async (l: any) => { try {
+          const response = await fetch(`/api/live?source=sleeper&league=${l.league_id}&week=${d.week}`);
+          if (!response.ok) throw new Error(`Sleeper ${response.status}`);
+          const rows = await response.json();
+          const mine = arr(rows).find((r: any) => String(r.roster_id) === String(l.franchise_id));
+          const opponent = mine ? arr(rows).find((r: any) => r.matchup_id === mine.matchup_id && String(r.roster_id) !== String(mine.roster_id)) : null;
+          return mine ? { league: l.league, source: 'Sleeper', mine: mine.points ?? 0, opponent: opponent?.points ?? 0, opponentName: l.opponent } : null;
+        } catch { return null; } }));
+        const mfl = leagues.filter((l: any) => l.platform === 'mfl' && l.league_id && l.franchise_id);
+        const mflScores = await Promise.all(mfl.map(async (l: any) => { try {
+          const response = await fetch(`/api/live?source=mfl&league=${l.league_id}&week=${d.week}&season=${d.season}`);
+          if (!response.ok) throw new Error(`MFL ${response.status}`);
+          const payload = await response.json();
+          const matchupsRaw = payload?.liveScoring?.matchup ?? payload?.liveScoring?.matchups;
+          const matchups = Array.isArray(matchupsRaw) ? matchupsRaw : matchupsRaw ? [matchupsRaw] : [];
+          const target = Number(l.franchise_id);
+          for (const matchup of matchups) {
+            const franchisesRaw = matchup?.franchise ?? matchup?.franchises;
+            const franchises = Array.isArray(franchisesRaw) ? franchisesRaw : franchisesRaw ? [franchisesRaw] : [];
+            const mine = franchises.find((f: any) => Number(f.id ?? f.franchise_id) === target);
+            if (!mine) continue;
+            const opponent = franchises.find((f: any) => Number(f.id ?? f.franchise_id) !== target);
+            const points = (f: any) => Number(f?.score ?? f?.points ?? f?.liveScore ?? 0);
+            return { league: l.league, source: 'MFL', mine: points(mine), opponent: points(opponent), opponentName: l.opponent };
+          }
+          return null;
+        } catch { return null; } }));
+        // The public ESPN scoreboard is deliberately used only for NFL game
+        // state; it complements (rather than replaces) league-native scoring.
+        const boardResponse = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=100');
+        const board = boardResponse.ok ? await boardResponse.json() : { events: [] };
+        const games: Record<string, any> = {};
+        arr(board.events).forEach((event: any) => {
+          const competition = event.competitions?.[0];
+          const status = event.status ?? competition?.status;
+          const competitors = competition?.competitors ?? [];
+          competitors.forEach((c: any) => {
+            const team = c.team?.abbreviation;
+            if (team) games[team] = {
+              event: event.name, score: c.score ?? '0', state: status?.type?.state,
+              detail: status?.type?.detail ?? status?.type?.shortDetail ?? 'Scheduled',
+            };
+          });
+        });
+        if (!cancelled) setLive({ loading: false, checked: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
+          scores: [...sleeperScores, ...mflScores].filter(Boolean), games });
+      } catch {
+        if (!cancelled) setLive(v => ({ ...v, loading: false, error: 'Live sources are temporarily unavailable.' }));
+      }
+    };
+    load();
+    // A single page polls at a conservative cadence. The page remains useful
+    // pregame, while in-progress matchups receive a fresh read each minute.
+    const timer = window.setInterval(load, 60_000);
+    return () => { cancelled = true; window.clearInterval(timer); };
+  }, [d.week, leagues, nonce]);
+
+  const activeGames = watchedTeams.map(team => ({ team, ...live.games[team] })).filter((g: any) => g.event);
+  return (
+    <Section id="live_sunday" title="Live Sunday" accent={SECTION_ACCENT.lineups}
+      subtitle="league-native live scores · NFL game state from ESPN"
+      right={<button type="button" onClick={() => setNonce(n => n + 1)} disabled={live.loading}
+        className="rounded border border-border-light bg-bg-card-hover px-1.5 py-0.5 text-[9px] font-medium text-text-secondary hover:text-text-primary disabled:opacity-50">
+        {live.loading ? 'Refreshing…' : 'Refresh'}
+      </button>}>
+      {live.error && <p className="text-xs text-loss">{live.error}</p>}
+      {!live.error && <>
+        <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-4">
+          {live.scores.map((s: any) => (
+            <div key={s.league} className="rounded-lg border border-border-light bg-bg-card/30 px-2.5 py-2">
+              <div className="truncate text-[10px] font-medium text-text-secondary">{s.league}</div>
+              <div className="mt-1 flex items-baseline justify-between gap-2 tabular-nums">
+                <span className="text-base font-bold text-text-primary">{num(s.mine)}</span>
+                <span className="text-[10px] text-text-muted">vs {s.opponentName}</span>
+                <span className="text-base font-semibold text-text-secondary">{num(s.opponent)}</span>
+              </div>
+              <div className="mt-0.5 text-[9px] text-text-muted">live league score · {s.source}</div>
+            </div>
+          ))}
+          {leagues.some((l: any) => l.platform === 'mfl') && !live.scores.some((s: any) => s.source === 'MFL') && (
+            <div className="rounded-lg border border-border-light bg-bg-card/30 px-2.5 py-2">
+              <div className="text-[10px] font-medium text-text-secondary">UNH SuperFlex Dynasty</div>
+              <div className="mt-1 text-[11px] text-text-muted">MFL live score is not available yet.</div>
+            </div>
+          )}
+        </div>
+        {activeGames.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 border-t border-border-light pt-2">
+            {activeGames.map((g: any) => <span key={g.team} className={`rounded-full border px-2 py-0.5 text-[10px] tabular-nums ${g.state === 'in' ? 'border-win/40 bg-win/10 text-win' : 'border-border-light text-text-muted'}`}>
+              {g.team} {g.score} · {g.detail}
+            </span>)}
+          </div>
+        )}
+        <p className="text-[9px] text-text-muted">Refreshes every 60 seconds{live.checked ? ` · checked ${live.checked}` : ''}. Sleeper totals use each league’s actual scoring; ESPN supplies game clock and score.</p>
+      </>}
+    </Section>
+  );
+}
+
+function WatchingGuide({ d }: { d: any }) {
+  // Count only projected starters. A player on a bench is useful context for
+  // lineup decisions, but should not make a live game feel like an active
+  // rooting conflict.
+  const exposures = useMemo(() => {
+    const grouped = new Map<string, any>();
+    const add = (p: any, side: 'mine' | 'against') => {
+      if (!p?.player || !p?.team) return;
+      const key = `${p.team}::${p.player}`;
+      const current = grouped.get(key) ?? {
+        key, player: p.player, team: p.team, position: p.position,
+        opponent: p.opponent, mine: [] as any[], against: [] as any[],
+      };
+      current[side].push(p);
+      grouped.set(key, current);
+    };
+    arr(d.lineups).filter((p: any) => p.status === 'START').forEach((p: any) => add(p, 'mine'));
+    arr(d.opponent_lineups).forEach((p: any) => add(p, 'against'));
+    return Array.from(grouped.values()).map(p => ({ ...p, net: p.mine.length - p.against.length }))
+      .sort((a, b) => Math.abs(b.net) - Math.abs(a.net) || (b.mine.length + b.against.length) - (a.mine.length + a.against.length));
+  }, [d]);
+  const forPlayers = exposures.filter(p => p.net > 0);
+  const againstPlayers = exposures.filter(p => p.net < 0);
+  const neutralPlayers = exposures.filter(p => p.net === 0);
+  const Row = ({ p, direction }: { p: any; direction: 'for' | 'against' }) => {
+    const net = Math.abs(p.net);
+    return (
+      <div className="grid grid-cols-[2.1rem_minmax(0,1fr)_auto] items-center gap-2 border-b border-border-light/60 px-2.5 py-1.5 last:border-b-0 hover:bg-bg-card-hover">
+        <span className="rounded bg-bg-card-hover py-0.5 text-center text-[9px] font-bold text-text-muted">{p.position}</span>
+        <div className="min-w-0">
+          <div className="truncate text-[11.5px] font-medium text-text-primary">
+            <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full align-middle" style={{ backgroundColor: readableTeamColor(p.team) }} />
+            {p.player}
+          </div>
+          <div className="truncate text-[9.5px] text-text-muted">{p.team} vs {p.opponent} · {p.mine.length} yours / {p.against.length} against</div>
+        </div>
+        <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold tabular-nums ${
+          direction === 'for' ? 'bg-win/10 text-win' : 'bg-loss/10 text-loss'
+        }`}>{direction === 'for' ? 'Root for' : 'Root against'} ×{net}</span>
+      </div>
+    );
+  };
+  return (
+    <Section id="watching_guide" title="Watching Guide" accent={SECTION_ACCENT.lineups}
+      subtitle="projected starters across your leagues · exposure is active lineup count">
+      {exposures.length === 0 ? <p className="text-xs text-text-muted">Opponent lineups are not available yet.</p> : (
+        <>
+          <div className="grid grid-cols-3 gap-2">
+            <StatTile label="Root for" value={forPlayers.length} accent="#3fb950" sub="net positive exposure" />
+            <StatTile label="Root against" value={againstPlayers.length} accent="#f85149" sub="net opponent exposure" />
+            <StatTile label="Conflicts" value={neutralPlayers.length} sub="even on both sides" />
+          </div>
+          <div className="grid gap-3 lg:grid-cols-2">
+            <div className="overflow-hidden rounded-xl border border-win/30 bg-bg-card/30">
+              <div className="border-b border-border-light px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-win">Root for</div>
+              <div className="max-h-[27rem] overflow-y-auto overscroll-contain">
+                {forPlayers.map(p => <Row key={p.key} p={p} direction="for" />)}
+              </div>
+            </div>
+            <div className="overflow-hidden rounded-xl border border-loss/30 bg-bg-card/30">
+              <div className="border-b border-border-light px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-loss">Root against</div>
+              <div className="max-h-[27rem] overflow-y-auto overscroll-contain">
+                {againstPlayers.map(p => <Row key={p.key} p={p} direction="against" />)}
+              </div>
+            </div>
+          </div>
+          {neutralPlayers.length > 0 && <p className="text-[10px] text-text-muted">Even exposure: {neutralPlayers.map(p => `${p.player} (${p.mine.length}–${p.against.length})`).join(' · ')}</p>}
+        </>
+      )}
+    </Section>
+  );
+}
+
 function Lineups({ d }: { d: any }) {
   const rows = arr(d.lineups);
   const meta = arr(d.leagues);
@@ -469,6 +734,8 @@ function Lineups({ d }: { d: any }) {
           const half = starters.reduce((a, s) => a + (s.half_ppr ?? s.proj ?? 0), 0);
           const m = meta.find((x: any) => x.league === league);
           const custom = Math.abs(total - half) > 0.5;
+          const hasMatchup = Boolean(m?.opponent) && Number.isFinite(Number(m?.opponent_proj));
+          const winPct = Number(m?.win_probability);
           return (
             <div key={league} className="rounded-xl border border-border-light bg-bg-card/40 overflow-hidden">
               <div className="flex items-baseline justify-between gap-2 border-b border-border-light px-2.5 py-1.5">
@@ -484,6 +751,25 @@ function Lineups({ d }: { d: any }) {
                   {custom && <div className="text-[9px] text-text-muted tabular-nums">half-PPR {num(half)}</div>}
                 </div>
               </div>
+              {hasMatchup && (
+                <div className="flex items-center justify-between gap-2 border-b border-border-light bg-bg-card-hover/30 px-2.5 py-1 text-[10px]">
+                  <span className="min-w-0 truncate text-text-secondary">
+                    <span className="text-text-muted">This week vs </span>
+                    <span className="font-medium text-text-primary">{m.opponent}</span>
+                    <span className="text-text-muted"> · model {num(total)}–{num(m.opponent_proj)}</span>
+                  </span>
+                  {Number.isFinite(winPct) && (
+                    <span
+                      className={`shrink-0 rounded-full px-1.5 py-0.5 font-semibold tabular-nums ${
+                        winPct >= 0.5 ? 'bg-win/10 text-win' : 'bg-loss/10 text-loss'
+                      }`}
+                      title="Model win chance based on both optimized projected lineups and their player ranges. It is not a betting-market probability."
+                    >
+                      {Math.round(winPct * 100)}% win
+                    </span>
+                  )}
+                </div>
+              )}
               <div className="px-1.5 py-1.5">
                 {starters.map((s, i) => <Row key={i} p={s} />)}
                 {bench.length > 0 && (
@@ -517,6 +803,10 @@ function Lineups({ d }: { d: any }) {
       )}
     </Section>
   );
+}
+
+function MyLineups({ d }: { d: any }) {
+  return <><LiveSunday d={d} /><WatchingGuide d={d} /><Lineups d={d} /></>;
 }
 
 function Waivers({ d }: { d: any }) {
@@ -884,8 +1174,39 @@ function LeagueReport({ d, onNav }: { d: any; onNav?: (s: number, w: number) => 
   );
 }
 
+// One week inside a multi-week DST run. Colour is graded against the same
+// threshold the exporter used to count `n_good`, so the strip and the badge can
+// never disagree. A bye is drawn as its own state rather than as a bad matchup —
+// it is a zero-point week, which is a different thing from a hard one.
+function RunWeek({ w, thr }: { w: any; thr?: number | null }) {
+  const base = 'inline-flex min-w-[2.6rem] flex-col items-center rounded px-1 py-0.5 text-[9px] leading-tight border';
+  if (w.bye)
+    return <span className={`${base} border-dashed border-border-light bg-transparent text-text-muted`}
+                 title={`Week ${w.week} — bye`}>
+             <span className="font-semibold">BYE</span><span className="opacity-60">w{w.week}</span>
+           </span>;
+  if (w.opp_implied == null)
+    return <span className={`${base} border-border-light bg-bg-card-hover text-text-muted`}
+                 title={`Week ${w.week} — no line posted`}>
+             <span className="font-semibold">{w.opp}</span><span className="opacity-60">—</span>
+           </span>;
+  const good = thr != null && w.opp_implied <= thr;
+  const bad = thr != null && w.opp_implied >= thr + 3;
+  const cls = good ? 'border-win/40 bg-win/10 text-win'
+            : bad ? 'border-loss/30 bg-loss/10 text-loss'
+            : 'border-border-light bg-bg-card-hover text-text-secondary';
+  return <span className={`${base} ${cls}`}
+               title={`Week ${w.week} — ${w.is_home ? 'vs' : '@'} ${w.opp}, ${w.opp_implied} implied opponent points`}>
+           <span className="font-semibold">{w.is_home ? '' : '@'}{w.opp}</span>
+           <span className="tabular-nums opacity-80">{w.opp_implied}</span>
+         </span>;
+}
+
 function DstStream({ d }: { d: any }) {
   const board = d.board ?? [];
+  const runs = d.runs ?? null;
+  const runWeeks: number[] = arr(runs?.weeks);
+  const runThr: number | null = runs?.good_threshold ?? null;
   const leagues: any[] = Array.isArray(d.leagues) ? d.leagues : d.leagues ? [d.leagues] : [];
   const dstLeagues = leagues.filter(lg => lg.uses_dst !== false);
   const best = board[0];
@@ -925,6 +1246,38 @@ function DstStream({ d }: { d: any }) {
                 </div>
                 </>
               )}
+              {arr(lg.top_runs).length > 0 && runWeeks.length > 0 && (
+                <div className="mt-2 border-t border-border-light pt-2">
+                  <div className="mb-1.5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 text-[10px]">
+                    <span className="font-medium text-text-secondary">
+                      Best runs of games
+                      <span className="font-normal text-text-muted"> · worth holding through weeks {runWeeks[0]}–{runWeeks[runWeeks.length - 1]}</span>
+                    </span>
+                    <span className="text-text-muted">avg opponent implied · lower is better</span>
+                  </div>
+                  <div className="space-y-1">
+                    {arr(lg.top_runs).map((t: any, k: number) => (
+                      <div key={k} className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <TeamChip team={t.team} />
+                        <span className="w-9 text-right text-xs font-semibold tabular-nums text-text-primary">{num(t.avg_opp_implied)}</span>
+                        <span className="text-[9px] text-text-muted">
+                          {/* n_good is null when too few lines are posted to set a
+                              threshold; show coverage alone rather than "null/2". */}
+                          {t.n_good == null
+                            ? `${t.n_covered} wk${t.n_covered === 1 ? '' : 's'} priced`
+                            : `${t.n_good}/${t.n_covered} good`}
+                          {t.n_bye > 0 ? ` · ${t.n_bye} bye` : ''}
+                          {t.team === lg.my_dst ? ' · yours' : ''}
+                        </span>
+                        <div className="flex flex-wrap gap-1">
+                          {arr(t.weeks).map((w: any, wi: number) => <RunWeek key={wi} w={w} thr={runThr} />)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {runs?.note && <p className="pt-1 text-[9px] text-text-muted">{runs.note}</p>}
+                </div>
+              )}
             </div>
           ))}
           <div className="space-y-1 pt-1">
@@ -952,22 +1305,22 @@ function DstStream({ d }: { d: any }) {
 }
 
 const RENDERERS: Record<string, (p: { d: any; onNav?: (s: number, w: number) => void }) => React.ReactNode> = {
-  games_preview: GamesPreview, games_result: GamesResult, bet_card: BetCard, lineups: Lineups, waivers: Waivers, fantasy_ranks: FantasyRanks,
+  games_preview: GamesPreview, games_result: GamesResult, bet_card: BetCard, polymarket_bets: PolymarketBets, kalshi_lines: KalshiLines, lineups: MyLineups, waivers: Waivers, fantasy_ranks: FantasyRanks,
   projections: Projections, model_scorecard: ModelScorecard, fantasy_recap: FantasyRecap,
   weekly_accuracy: WeeklyAccuracy, league_report: LeagueReport, dst_stream: DstStream,
 };
-const PRE_ORDER = ['games_preview', 'bet_card', 'lineups', 'waivers', 'dst_stream', 'projections'];
+const PRE_ORDER = ['games_preview', 'bet_card', 'polymarket_bets', 'kalshi_lines', 'lineups', 'waivers', 'dst_stream', 'projections'];
 const POST_ORDER = ['games_result', 'fantasy_ranks', 'league_report', 'model_scorecard', 'fantasy_recap', 'weekly_accuracy'];
 
 // Sections grouped by the QUESTION being asked, so the page shows one coherent
 // group at a time instead of a ten-section scroll mixing model, fantasy and league.
 type GroupKey = 'games' | 'lineups' | 'fantasy' | 'results';
 const GROUPS: { key: GroupKey; label: string; accent: string; sections: string[] }[] = [
-  { key: 'games',   label: 'Games & Bets', accent: '#58a6ff', sections: ['games_result', 'games_preview', 'bet_card'] },
+  { key: 'games',   label: 'Games & Bets', accent: '#58a6ff', sections: ['games_result', 'games_preview', 'bet_card', 'polymarket_bets', 'kalshi_lines'] },
   // Lineups get their own tab rather than sitting fifth in the fantasy stack:
   // it's the one section that is about MY teams and gets acted on every week.
   { key: 'lineups', label: 'My Lineups',   accent: '#3fb950', sections: ['lineups'] },
-  { key: 'fantasy', label: 'Fantasy',      accent: '#3fb950', sections: ['fantasy_ranks', 'dst_stream', 'waivers', 'projections'] },
+  { key: 'fantasy', label: 'Roster Tools', accent: '#3fb950', sections: ['fantasy_ranks', 'dst_stream', 'waivers', 'projections'] },
   { key: 'results', label: 'Results',      accent: '#f778ba', sections: ['model_scorecard', 'fantasy_recap', 'weekly_accuracy', 'league_report'] },
 ];
 
@@ -984,13 +1337,15 @@ interface WeeklyReportProps {
   onGroupChange?: (g: string) => void;
   /** Canonical game cards, available for EVERY week from seasons/<yr>.json.
    *  These are now the standard pre-kickoff view — see `ready` below. */
-  gamesFallback?: React.ReactNode;
+  gamesFallback?: (markets: { polymarket: any[]; kalshi: any[]; kalshiWin: any[] }) => React.ReactNode;
   /** EV-ordered top bets built from the season JSON. Only used when the week
    *  has no bet_card of its own, which is the richer source. */
   betsFallback?: React.ReactNode;
+  /** Predictor and Fantasy HQ share the same weekly data but not the same job. */
+  scope?: 'predictor' | 'fantasy';
 }
 
-export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFallback, group: groupProp, onGroupChange }: WeeklyReportProps) {
+export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFallback, group: groupProp, onGroupChange, scope = 'predictor' }: WeeklyReportProps) {
   const [index, setIndex] = useState<IndexFile | null>(null);
   const [data, setData] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(true);
@@ -1036,7 +1391,9 @@ export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFall
 
   // Groups that actually have something to show. "Games" always qualifies because
   // the fallback game cards exist for every week.
+  const permitted = scope === 'fantasy' ? new Set<GroupKey>(['lineups', 'fantasy']) : new Set<GroupKey>(['games', 'results']);
   const groups = GROUPS
+    .filter(g => permitted.has(g.key))
     .map(g => ({ ...g, ready: g.sections.filter(s => ready.includes(s)) }))
     .filter(g => g.ready.length > 0 || (g.key === 'games' && gamesFallback));
   const active = groups.find(g => g.key === group) ?? groups[0];
@@ -1065,7 +1422,7 @@ export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFall
             );
           })}
           {/* canonical game cards — the standard view for any unplayed week */}
-          {active?.key === 'games' && !played && gamesFallback}
+          {active?.key === 'games' && !played && gamesFallback?.({ polymarket: arr(data.polymarket_bets?.markets), kalshi: arr(data.kalshi_lines?.lines), kalshiWin: arr(data.kalshi_win_probs?.markets) })}
         </div>
       )}
     </div>

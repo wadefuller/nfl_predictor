@@ -20,10 +20,10 @@ source("~/Projects/R/nfl_predictor/ensemble_lib.R")
 EXPORT_SEASONS <- c(2024, 2025, 2026)
 # Bankroll the stake recommendations are sized against (Kelly fraction of this).
 # A UNIT is 1% of bankroll — the standard way to talk about bet size independent
-# of how much money is actually behind it. With the engine's $5 rounding, a $500
-# bankroll makes 1 unit = $5 exactly, so every Kelly stake lands on a whole unit
+# of how much money is actually behind it. With the engine's $5 rounding, a $1,000
+# bankroll makes 1 unit = $10 exactly, so every Kelly stake lands on a whole unit
 # (max bet is 5% = 5u). Raise BANKROLL and the unit scales with it.
-BET_BANKROLL   <- as.numeric(Sys.getenv("BANKROLL", "500"))
+BET_BANKROLL   <- as.numeric(Sys.getenv("BANKROLL", "1000"))
 BET_UNIT       <- BET_BANKROLL / 100
 WAGER_AMOUNT   <- 100
 OUTPUT_DIR     <- file.path(PROJECT_DIR, "website", "public", "data")

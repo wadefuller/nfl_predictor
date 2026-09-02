@@ -109,7 +109,7 @@ model_metrics <- scored %>% summarise(
 # Canonical engine: PORTFOLIO_DEFAULTS (min_ev = 0.05, calibrated) + the bundle's
 # baked EV calibration — identical policy to the pre-week card, so what we grade
 # is exactly the set of bets the card showed.
-BANKROLL <- as.numeric(Sys.getenv("BANKROLL", "500"))   # 1 unit = 1% = $5
+BANKROLL <- as.numeric(Sys.getenv("BANKROLL", "1000"))  # 1 unit = 1% = $10
 PARAMS   <- PORTFOLIO_DEFAULTS
 ev_cal <- ev_calibration_from_bundle(bundle)
 

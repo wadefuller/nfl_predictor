@@ -3,15 +3,15 @@
   "week": 12,
   "has_actuals": true,
   "scoring": "ppr",
-  "updated": "2026-08-27T22:45:56-0400",
+  "updated": "2026-09-01T22:44:49-0400",
   "source_file": "season_model_rankings_2025.csv",
   "source_build": "2026-08-08T04:20:10",
   "accuracy": [
     {
       "group": "ALL",
-      "n": 414,
-      "my_acc": 0.722,
-      "ecr_acc": 0.717,
+      "n": 413,
+      "my_acc": 0.725,
+      "ecr_acc": 0.72,
       "my_hit12": 0.333,
       "ecr_hit12": 0.25,
       "my_hit24": 0.417,
@@ -34,12 +34,12 @@
     {
       "group": "RB",
       "n": 116,
-      "my_acc": 0.774,
-      "ecr_acc": 0.772,
+      "my_acc": 0.787,
+      "ecr_acc": 0.787,
       "my_hit12": 0.667,
       "ecr_hit12": 0.667,
-      "my_hit24": 0.667,
-      "ecr_hit24": 0.667,
+      "my_hit24": 0.708,
+      "ecr_hit24": 0.708,
       "my_hit36": 0.806,
       "ecr_hit36": 0.806
     },
@@ -57,15 +57,15 @@
     },
     {
       "group": "WR",
-      "n": 164,
-      "my_acc": 0.798,
-      "ecr_acc": 0.793,
+      "n": 163,
+      "my_acc": 0.797,
+      "ecr_acc": 0.792,
       "my_hit12": 0.5,
       "ecr_hit12": 0.5,
       "my_hit24": 0.542,
       "ecr_hit24": 0.542,
-      "my_hit36": 0.694,
-      "ecr_hit36": 0.722
+      "my_hit36": 0.722,
+      "ecr_hit36": 0.75
     }
   ],
   "players": [
@@ -462,11 +462,11 @@
       "vor": 81,
       "actual_ppg": 14.3,
       "actual_pts": 57.1,
-      "actual_finish": 77,
+      "actual_finish": 76,
       "actual_ppg_finish": 14,
       "games": 4,
-      "my_err": 71,
-      "ecr_err": 72
+      "my_err": 70,
+      "ecr_err": 71
     },
     {
       "player": "Nico Collins",
@@ -709,11 +709,11 @@
       "vor": 61,
       "actual_ppg": 9.8,
       "actual_pts": 39.3,
-      "actual_finish": 98,
+      "actual_finish": 97,
       "actual_ppg_finish": 48,
       "games": 4,
-      "my_err": 85,
-      "ecr_err": 80
+      "my_err": 84,
+      "ecr_err": 79
     },
     {
       "player": "Sam LaPorta",
@@ -842,11 +842,11 @@
       "vor": 52,
       "actual_ppg": 8.5,
       "actual_pts": 34,
-      "actual_finish": 110,
-      "actual_ppg_finish": 59,
+      "actual_finish": 109,
+      "actual_ppg_finish": 58,
       "games": 4,
-      "my_err": 95,
-      "ecr_err": 97.5
+      "my_err": 94,
+      "ecr_err": 96.5
     },
     {
       "player": "Davante Adams",
@@ -1013,11 +1013,11 @@
       "vor": 41,
       "actual_ppg": 13.4,
       "actual_pts": 53.5,
-      "actual_finish": 81,
+      "actual_finish": 80,
       "actual_ppg_finish": 23,
       "games": 4,
-      "my_err": 59,
-      "ecr_err": 65
+      "my_err": 58,
+      "ecr_err": 64
     },
     {
       "player": "TreVeyon Henderson",
@@ -1147,7 +1147,7 @@
       "actual_ppg": 8.7,
       "actual_pts": 78.3,
       "actual_finish": 58,
-      "actual_ppg_finish": 58,
+      "actual_ppg_finish": 57,
       "games": 9,
       "my_err": 34,
       "ecr_err": 35
@@ -1429,13 +1429,13 @@
       "delta": 0,
       "proj": 14.6,
       "vor": 22,
-      "actual_ppg": 9.1,
-      "actual_pts": 63.8,
-      "actual_finish": 70,
-      "actual_ppg_finish": 54,
-      "games": 7,
-      "my_err": 39,
-      "ecr_err": 39
+      "actual_ppg": null,
+      "actual_pts": null,
+      "actual_finish": null,
+      "actual_ppg_finish": null,
+      "games": 0,
+      "my_err": null,
+      "ecr_err": null
     },
     {
       "player": "Matthew Golden",
@@ -1450,11 +1450,11 @@
       "vor": 21,
       "actual_ppg": 6.3,
       "actual_pts": 57.1,
-      "actual_finish": 78,
-      "actual_ppg_finish": 83,
+      "actual_finish": 77,
+      "actual_ppg_finish": 82,
       "games": 9,
-      "my_err": 46,
-      "ecr_err": 39
+      "my_err": 45,
+      "ecr_err": 38
     },
     {
       "player": "Calvin Ridley",
@@ -1469,11 +1469,11 @@
       "vor": 19,
       "actual_ppg": 6.8,
       "actual_pts": 47.3,
-      "actual_finish": 88,
-      "actual_ppg_finish": 77,
+      "actual_finish": 87,
+      "actual_ppg_finish": 76,
       "games": 7,
-      "my_err": 55,
-      "ecr_err": 63
+      "my_err": 54,
+      "ecr_err": 62
     },
     {
       "player": "Tyrone Tracy Jr.",
@@ -1564,11 +1564,11 @@
       "vor": 15,
       "actual_ppg": 1.1,
       "actual_pts": 7.7,
-      "actual_finish": 97,
-      "actual_ppg_finish": 100,
+      "actual_finish": 95,
+      "actual_ppg_finish": 99,
       "games": 7,
-      "my_err": 69,
-      "ecr_err": 69
+      "my_err": 67,
+      "ecr_err": 67
     },
     {
       "player": "Colston Loveland",
@@ -1850,7 +1850,7 @@
       "actual_ppg": 6.9,
       "actual_pts": 75.5,
       "actual_finish": 60,
-      "actual_ppg_finish": 76,
+      "actual_ppg_finish": 75,
       "games": 11,
       "my_err": 22,
       "ecr_err": 24
@@ -1964,7 +1964,7 @@
       "actual_ppg": 8.9,
       "actual_pts": 88.6,
       "actual_finish": 47,
-      "actual_ppg_finish": 56,
+      "actual_ppg_finish": 55,
       "games": 10,
       "my_err": 8,
       "ecr_err": 0
@@ -2000,7 +2000,7 @@
       "proj": 20,
       "vor": -8,
       "actual_ppg": 19.5,
-      "actual_pts": 214.2,
+      "actual_pts": 214.7,
       "actual_finish": 7,
       "actual_ppg_finish": 8,
       "games": 11,
@@ -2172,11 +2172,11 @@
       "vor": -20,
       "actual_ppg": 9.3,
       "actual_pts": 56.1,
-      "actual_finish": 79,
+      "actual_finish": 78,
       "actual_ppg_finish": 53,
       "games": 6,
-      "my_err": 36,
-      "ecr_err": 46
+      "my_err": 35,
+      "ecr_err": 45
     },
     {
       "player": "Darnell Mooney",
@@ -2191,11 +2191,11 @@
       "vor": -20,
       "actual_ppg": 6.1,
       "actual_pts": 54.8,
-      "actual_finish": 80,
-      "actual_ppg_finish": 85,
+      "actual_finish": 79,
+      "actual_ppg_finish": 84,
       "games": 9,
-      "my_err": 36,
-      "ecr_err": 32
+      "my_err": 35,
+      "ecr_err": 31
     },
     {
       "player": "Drake Maye",
@@ -2249,7 +2249,7 @@
       "actual_ppg": 9,
       "actual_pts": 81,
       "actual_finish": 51,
-      "actual_ppg_finish": 55,
+      "actual_ppg_finish": 54,
       "games": 9,
       "my_err": 6,
       "ecr_err": 6
@@ -2400,11 +2400,11 @@
       "vor": -36,
       "actual_ppg": 6,
       "actual_pts": 59.6,
-      "actual_finish": 74,
-      "actual_ppg_finish": 87,
+      "actual_finish": 73,
+      "actual_ppg_finish": 86,
       "games": 10,
-      "my_err": 27,
-      "ecr_err": 16
+      "my_err": 26,
+      "ecr_err": 15
     },
     {
       "player": "Cade Otton",
@@ -2458,7 +2458,7 @@
       "actual_ppg": 7.6,
       "actual_pts": 76.4,
       "actual_finish": 59,
-      "actual_ppg_finish": 64,
+      "actual_ppg_finish": 63,
       "games": 10,
       "my_err": 11,
       "ecr_err": 10
@@ -2476,11 +2476,11 @@
       "vor": -36,
       "actual_ppg": 13.5,
       "actual_pts": 13.5,
-      "actual_finish": 151,
+      "actual_finish": 150,
       "actual_ppg_finish": null,
       "games": 1,
-      "my_err": 102,
-      "ecr_err": 107
+      "my_err": 101,
+      "ecr_err": 106
     },
     {
       "player": "Rhamondre Stevenson",
@@ -2552,11 +2552,11 @@
       "vor": -40,
       "actual_ppg": 7,
       "actual_pts": 63,
-      "actual_finish": 71,
-      "actual_ppg_finish": 73,
+      "actual_finish": 70,
+      "actual_ppg_finish": 72,
       "games": 9,
-      "my_err": 21,
-      "ecr_err": 17
+      "my_err": 20,
+      "ecr_err": 16
     },
     {
       "player": "Austin Ekeler",
@@ -2609,11 +2609,11 @@
       "vor": -42,
       "actual_ppg": 5.5,
       "actual_pts": 49.4,
-      "actual_finish": 86,
-      "actual_ppg_finish": 93,
+      "actual_finish": 85,
+      "actual_ppg_finish": 92,
       "games": 9,
-      "my_err": 35,
-      "ecr_err": 33
+      "my_err": 34,
+      "ecr_err": 32
     },
     {
       "player": "Stefon Diggs",
@@ -2837,11 +2837,11 @@
       "vor": -50,
       "actual_ppg": 3.9,
       "actual_pts": 11.6,
-      "actual_finish": 88,
+      "actual_finish": 87,
       "actual_ppg_finish": 72,
       "games": 3,
-      "my_err": 47,
-      "ecr_err": 47
+      "my_err": 46,
+      "ecr_err": 46
     },
     {
       "player": "Nick Chubb",
@@ -2876,7 +2876,7 @@
       "actual_ppg": 7.3,
       "actual_pts": 80.5,
       "actual_finish": 52,
-      "actual_ppg_finish": 67,
+      "actual_ppg_finish": 66,
       "games": 11,
       "my_err": -5,
       "ecr_err": -14
@@ -2914,7 +2914,7 @@
       "actual_ppg": 7.3,
       "actual_pts": 80.4,
       "actual_finish": 53,
-      "actual_ppg_finish": 69,
+      "actual_ppg_finish": 68,
       "games": 11,
       "my_err": -6,
       "ecr_err": -6
@@ -3008,11 +3008,11 @@
       "vor": -58,
       "actual_ppg": 5.7,
       "actual_pts": 45.2,
-      "actual_finish": 92,
-      "actual_ppg_finish": 89,
+      "actual_finish": 91,
+      "actual_ppg_finish": 88,
       "games": 8,
-      "my_err": 31,
-      "ecr_err": 29
+      "my_err": 30,
+      "ecr_err": 28
     },
     {
       "player": "Joe Mixon",
@@ -3198,11 +3198,11 @@
       "vor": -69,
       "actual_ppg": 2,
       "actual_pts": 8,
-      "actual_finish": 94,
+      "actual_finish": 93,
       "actual_ppg_finish": 90,
       "games": 4,
-      "my_err": 43,
-      "ecr_err": 42
+      "my_err": 42,
+      "ecr_err": 41
     },
     {
       "player": "Brandon Aiyuk",
@@ -3274,11 +3274,11 @@
       "vor": -71,
       "actual_ppg": 4.7,
       "actual_pts": 14.1,
-      "actual_finish": 148,
-      "actual_ppg_finish": 108,
+      "actual_finish": 147,
+      "actual_ppg_finish": 107,
       "games": 3,
-      "my_err": 84,
-      "ecr_err": 98
+      "my_err": 83,
+      "ecr_err": 97
     },
     {
       "player": "Adonai Mitchell",
@@ -3293,11 +3293,11 @@
       "vor": -71,
       "actual_ppg": 3,
       "actual_pts": 30.4,
-      "actual_finish": 115,
-      "actual_ppg_finish": 135,
+      "actual_finish": 114,
+      "actual_ppg_finish": 134,
       "games": 10,
-      "my_err": 50,
-      "ecr_err": 37
+      "my_err": 49,
+      "ecr_err": 36
     },
     {
       "player": "Noah Gray",
@@ -3369,11 +3369,11 @@
       "vor": -72,
       "actual_ppg": 6.6,
       "actual_pts": 46.4,
-      "actual_finish": 91,
-      "actual_ppg_finish": 80,
+      "actual_finish": 90,
+      "actual_ppg_finish": 79,
       "games": 7,
-      "my_err": 25,
-      "ecr_err": 34
+      "my_err": 24,
+      "ecr_err": 33
     },
     {
       "player": "Tre Harris",
@@ -3388,11 +3388,11 @@
       "vor": -73,
       "actual_ppg": 3.6,
       "actual_pts": 35.7,
-      "actual_finish": 105,
-      "actual_ppg_finish": 121,
+      "actual_finish": 104,
+      "actual_ppg_finish": 120,
       "games": 10,
-      "my_err": 38,
-      "ecr_err": 36
+      "my_err": 37,
+      "ecr_err": 35
     },
     {
       "player": "Kyle Williams",
@@ -3407,11 +3407,11 @@
       "vor": -74,
       "actual_ppg": 2.3,
       "actual_pts": 20.8,
-      "actual_finish": 129,
-      "actual_ppg_finish": 146,
+      "actual_finish": 128,
+      "actual_ppg_finish": 145,
       "games": 9,
-      "my_err": 61,
-      "ecr_err": 62
+      "my_err": 60,
+      "ecr_err": 61
     },
     {
       "player": "Xavier Legette",
@@ -3427,7 +3427,7 @@
       "actual_ppg": 7.4,
       "actual_pts": 73.6,
       "actual_finish": 61,
-      "actual_ppg_finish": 65,
+      "actual_ppg_finish": 64,
       "games": 10,
       "my_err": -8,
       "ecr_err": -3
@@ -3445,11 +3445,11 @@
       "vor": -74,
       "actual_ppg": 6.5,
       "actual_pts": 58.6,
-      "actual_finish": 75,
-      "actual_ppg_finish": 82,
+      "actual_finish": 74,
+      "actual_ppg_finish": 81,
       "games": 9,
-      "my_err": 5,
-      "ecr_err": 1
+      "my_err": 4,
+      "ecr_err": 0
     },
     {
       "player": "Ollie Gordon II",
@@ -3521,11 +3521,11 @@
       "vor": -76,
       "actual_ppg": 5.2,
       "actual_pts": 31,
-      "actual_finish": 114,
-      "actual_ppg_finish": 97,
+      "actual_finish": 113,
+      "actual_ppg_finish": 96,
       "games": 6,
-      "my_err": 42,
-      "ecr_err": 41
+      "my_err": 41,
+      "ecr_err": 40
     },
     {
       "player": "Michael Wilson",
@@ -3560,7 +3560,7 @@
       "actual_ppg": 7.3,
       "actual_pts": 65.8,
       "actual_finish": 68,
-      "actual_ppg_finish": 68,
+      "actual_ppg_finish": 67,
       "games": 9,
       "my_err": -6,
       "ecr_err": -16
@@ -3711,11 +3711,11 @@
       "vor": -87,
       "actual_ppg": 6.9,
       "actual_pts": 62.1,
-      "actual_finish": 72,
-      "actual_ppg_finish": 75,
+      "actual_finish": 71,
+      "actual_ppg_finish": 74,
       "games": 9,
-      "my_err": -4,
-      "ecr_err": -8
+      "my_err": -5,
+      "ecr_err": -9
     },
     {
       "player": "Oronde Gadsden II",
@@ -3806,11 +3806,11 @@
       "vor": -88,
       "actual_ppg": 2.1,
       "actual_pts": 8.3,
-      "actual_finish": 83,
+      "actual_finish": 82,
       "actual_ppg_finish": 77,
       "games": 4,
-      "my_err": 40,
-      "ecr_err": 39
+      "my_err": 39,
+      "ecr_err": 38
     },
     {
       "player": "AJ Barner",
@@ -3863,11 +3863,11 @@
       "vor": -88,
       "actual_ppg": 6.7,
       "actual_pts": 46.8,
-      "actual_finish": 90,
-      "actual_ppg_finish": 79,
+      "actual_finish": 89,
+      "actual_ppg_finish": 78,
       "games": 7,
-      "my_err": 13,
-      "ecr_err": 34
+      "my_err": 12,
+      "ecr_err": 33
     },
     {
       "player": "Cam Ward",
@@ -3901,11 +3901,11 @@
       "vor": -89,
       "actual_ppg": 0.3,
       "actual_pts": 1.7,
-      "actual_finish": 115,
-      "actual_ppg_finish": 116,
+      "actual_finish": 113,
+      "actual_ppg_finish": 114,
       "games": 6,
-      "my_err": 56,
-      "ecr_err": 56
+      "my_err": 54,
+      "ecr_err": 54
     },
     {
       "player": "Ben Sinnott",
@@ -3977,11 +3977,11 @@
       "vor": -90,
       "actual_ppg": 4.6,
       "actual_pts": 50.2,
-      "actual_finish": 84,
-      "actual_ppg_finish": 111,
+      "actual_finish": 83,
+      "actual_ppg_finish": 110,
       "games": 11,
-      "my_err": 6,
-      "ecr_err": 12
+      "my_err": 5,
+      "ecr_err": 11
     },
     {
       "player": "Isaac TeSlaa",
@@ -3996,11 +3996,11 @@
       "vor": -90,
       "actual_ppg": 2.8,
       "actual_pts": 22.5,
-      "actual_finish": 127,
-      "actual_ppg_finish": 138,
+      "actual_finish": 126,
+      "actual_ppg_finish": 137,
       "games": 8,
-      "my_err": 48,
-      "ecr_err": 45
+      "my_err": 47,
+      "ecr_err": 44
     },
     {
       "player": "Pat Bryant",
@@ -4015,11 +4015,11 @@
       "vor": -91,
       "actual_ppg": 4.9,
       "actual_pts": 44.1,
-      "actual_finish": 94,
-      "actual_ppg_finish": 104,
+      "actual_finish": 93,
+      "actual_ppg_finish": 103,
       "games": 9,
-      "my_err": 14,
-      "ecr_err": 18
+      "my_err": 13,
+      "ecr_err": 17
     },
     {
       "player": "Jaylen Wright",
@@ -4034,11 +4034,11 @@
       "vor": -91,
       "actual_ppg": 2,
       "actual_pts": 5.9,
-      "actual_finish": 104,
+      "actual_finish": 102,
       "actual_ppg_finish": 91,
       "games": 3,
-      "my_err": 44,
-      "ecr_err": 43
+      "my_err": 42,
+      "ecr_err": 41
     },
     {
       "player": "Kyle Monangai",
@@ -4072,11 +4072,11 @@
       "vor": -93,
       "actual_ppg": 2.3,
       "actual_pts": 18.2,
-      "actual_finish": 135,
-      "actual_ppg_finish": 148,
+      "actual_finish": 134,
+      "actual_ppg_finish": 147,
       "games": 8,
-      "my_err": 54,
-      "ecr_err": 56
+      "my_err": 53,
+      "ecr_err": 55
     },
     {
       "player": "Will Shipley",
@@ -4091,11 +4091,11 @@
       "vor": -93,
       "actual_ppg": 1.4,
       "actual_pts": 11.3,
-      "actual_finish": 89,
-      "actual_ppg_finish": 98,
+      "actual_finish": 88,
+      "actual_ppg_finish": 97,
       "games": 8,
-      "my_err": 27,
-      "ecr_err": 26
+      "my_err": 26,
+      "ecr_err": 25
     },
     {
       "player": "Dontayvion Wicks",
@@ -4110,11 +4110,11 @@
       "vor": -93,
       "actual_ppg": 4.6,
       "actual_pts": 41.3,
-      "actual_finish": 97,
-      "actual_ppg_finish": 110,
+      "actual_finish": 96,
+      "actual_ppg_finish": 109,
       "games": 9,
-      "my_err": 15,
-      "ecr_err": 14
+      "my_err": 14,
+      "ecr_err": 13
     },
     {
       "player": "Troy Franklin",
@@ -4148,11 +4148,11 @@
       "vor": -93,
       "actual_ppg": 1.9,
       "actual_pts": 16.9,
-      "actual_finish": 140,
-      "actual_ppg_finish": 157,
+      "actual_finish": 139,
+      "actual_ppg_finish": 156,
       "games": 9,
-      "my_err": 56,
-      "ecr_err": 75
+      "my_err": 55,
+      "ecr_err": 74
     },
     {
       "player": "Elic Ayomanor",
@@ -4168,7 +4168,7 @@
       "actual_ppg": 7.3,
       "actual_pts": 73.4,
       "actual_finish": 62,
-      "actual_ppg_finish": 66,
+      "actual_ppg_finish": 65,
       "games": 10,
       "my_err": -23,
       "ecr_err": -15
@@ -4186,11 +4186,11 @@
       "vor": -95,
       "actual_ppg": 5.2,
       "actual_pts": 47.2,
-      "actual_finish": 89,
-      "actual_ppg_finish": 96,
+      "actual_finish": 88,
+      "actual_ppg_finish": 95,
       "games": 9,
-      "my_err": 3,
-      "ecr_err": -14
+      "my_err": 2,
+      "ecr_err": -15
     },
     {
       "player": "Tory Horton",
@@ -4206,7 +4206,7 @@
       "actual_ppg": 8.1,
       "actual_pts": 65.1,
       "actual_finish": 69,
-      "actual_ppg_finish": 61,
+      "actual_ppg_finish": 60,
       "games": 8,
       "my_err": -18,
       "ecr_err": -18
@@ -4224,11 +4224,11 @@
       "vor": -95,
       "actual_ppg": 5.5,
       "actual_pts": 49.5,
-      "actual_finish": 85,
-      "actual_ppg_finish": 92,
+      "actual_finish": 84,
+      "actual_ppg_finish": 91,
       "games": 9,
-      "my_err": -3,
-      "ecr_err": -4
+      "my_err": -4,
+      "ecr_err": -5
     },
     {
       "player": "Michael Mayer",
@@ -4262,11 +4262,11 @@
       "vor": -98,
       "actual_ppg": 1.4,
       "actual_pts": 5.5,
-      "actual_finish": 89,
+      "actual_finish": 88,
       "actual_ppg_finish": 87,
       "games": 4,
-      "my_err": 39,
-      "ecr_err": 37
+      "my_err": 38,
+      "ecr_err": 36
     },
     {
       "player": "Jack Bech",
@@ -4281,11 +4281,11 @@
       "vor": -98,
       "actual_ppg": 1.9,
       "actual_pts": 17.2,
-      "actual_finish": 138,
-      "actual_ppg_finish": 155,
+      "actual_finish": 137,
+      "actual_ppg_finish": 154,
       "games": 9,
-      "my_err": 49,
-      "ecr_err": 57
+      "my_err": 48,
+      "ecr_err": 56
     },
     {
       "player": "Gunnar Helm",
@@ -4339,7 +4339,7 @@
       "actual_ppg": 7.3,
       "actual_pts": 80.2,
       "actual_finish": 54,
-      "actual_ppg_finish": 70,
+      "actual_ppg_finish": 69,
       "games": 11,
       "my_err": -37,
       "ecr_err": -44
@@ -4357,11 +4357,11 @@
       "vor": -99,
       "actual_ppg": 4.4,
       "actual_pts": 39.2,
-      "actual_finish": 99,
-      "actual_ppg_finish": 114,
+      "actual_finish": 98,
+      "actual_ppg_finish": 113,
       "games": 9,
-      "my_err": 7,
-      "ecr_err": 2
+      "my_err": 6,
+      "ecr_err": 1
     },
     {
       "player": "Cade Stover",
@@ -4376,11 +4376,11 @@
       "vor": -100,
       "actual_ppg": 3.1,
       "actual_pts": 6.2,
-      "actual_finish": 87,
+      "actual_finish": 86,
       "actual_ppg_finish": 63,
       "games": 2,
-      "my_err": 35,
-      "ecr_err": 37
+      "my_err": 34,
+      "ecr_err": 36
     },
     {
       "player": "Tommy Tremble",
@@ -4452,11 +4452,11 @@
       "vor": -103,
       "actual_ppg": 5.3,
       "actual_pts": 26.4,
-      "actual_finish": 119,
-      "actual_ppg_finish": 95,
+      "actual_finish": 118,
+      "actual_ppg_finish": 94,
       "games": 5,
-      "my_err": 26,
-      "ecr_err": 18
+      "my_err": 25,
+      "ecr_err": 17
     },
     {
       "player": "Colby Parkinson",
@@ -4623,11 +4623,11 @@
       "vor": -106,
       "actual_ppg": 4.4,
       "actual_pts": 48.2,
-      "actual_finish": 87,
-      "actual_ppg_finish": 113,
+      "actual_finish": 86,
+      "actual_ppg_finish": 112,
       "games": 11,
-      "my_err": -7,
-      "ecr_err": 2
+      "my_err": -8,
+      "ecr_err": 1
     },
     {
       "player": "Ray-Ray McCloud",
@@ -4642,11 +4642,11 @@
       "vor": -107,
       "actual_ppg": 2.3,
       "actual_pts": 13.9,
-      "actual_finish": 149,
-      "actual_ppg_finish": 145,
+      "actual_finish": 148,
+      "actual_ppg_finish": 144,
       "games": 6,
-      "my_err": 54,
-      "ecr_err": 49
+      "my_err": 53,
+      "ecr_err": 48
     },
     {
       "player": "Roman Wilson",
@@ -4661,11 +4661,11 @@
       "vor": -109,
       "actual_ppg": 4.8,
       "actual_pts": 38.6,
-      "actual_finish": 100,
-      "actual_ppg_finish": 106,
+      "actual_finish": 99,
+      "actual_ppg_finish": 105,
       "games": 8,
-      "my_err": 4,
-      "ecr_err": 10
+      "my_err": 3,
+      "ecr_err": 9
     },
     {
       "player": "Elijah Higgins",
@@ -4718,11 +4718,11 @@
       "vor": -109,
       "actual_ppg": 3.9,
       "actual_pts": 42.9,
-      "actual_finish": 96,
-      "actual_ppg_finish": 119,
+      "actual_finish": 95,
+      "actual_ppg_finish": 118,
       "games": 11,
-      "my_err": -1,
-      "ecr_err": 8
+      "my_err": -2,
+      "ecr_err": 7
     },
     {
       "player": "Jalen Royals",
@@ -4737,11 +4737,11 @@
       "vor": -110,
       "actual_ppg": 0,
       "actual_pts": 0,
-      "actual_finish": 223,
+      "actual_finish": 224,
       "actual_ppg_finish": null,
       "games": 1,
-      "my_err": 125,
-      "ecr_err": 130
+      "my_err": 126,
+      "ecr_err": 131
     },
     {
       "player": "Sam Darnold",
@@ -4813,11 +4813,11 @@
       "vor": -112,
       "actual_ppg": 0.6,
       "actual_pts": 4,
-      "actual_finish": 92,
-      "actual_ppg_finish": 96,
+      "actual_finish": 91,
+      "actual_ppg_finish": 95,
       "games": 7,
-      "my_err": 30,
-      "ecr_err": 32
+      "my_err": 29,
+      "ecr_err": 31
     },
     {
       "player": "Montrell Johnson Jr.",
@@ -4927,11 +4927,11 @@
       "vor": -114,
       "actual_ppg": 1.6,
       "actual_pts": 9.8,
-      "actual_finish": 80,
+      "actual_finish": 79,
       "actual_ppg_finish": 82,
       "games": 6,
-      "my_err": 14,
-      "ecr_err": 14
+      "my_err": 13,
+      "ecr_err": 13
     },
     {
       "player": "MarShawn Lloyd",
@@ -4965,11 +4965,11 @@
       "vor": -114,
       "actual_ppg": 1.7,
       "actual_pts": 6.6,
-      "actual_finish": 101,
-      "actual_ppg_finish": 94,
+      "actual_finish": 99,
+      "actual_ppg_finish": 93,
       "games": 4,
-      "my_err": 30,
-      "ecr_err": 32
+      "my_err": 28,
+      "ecr_err": 30
     },
     {
       "player": "Josh Whyle",
@@ -4984,11 +4984,11 @@
       "vor": -114,
       "actual_ppg": 4.2,
       "actual_pts": 8.3,
-      "actual_finish": 85,
+      "actual_finish": 84,
       "actual_ppg_finish": 50,
       "games": 2,
-      "my_err": 18,
-      "ecr_err": 21
+      "my_err": 17,
+      "ecr_err": 20
     },
     {
       "player": "Drew Sample",
@@ -5041,11 +5041,11 @@
       "vor": -117,
       "actual_ppg": 3.2,
       "actual_pts": 28.6,
-      "actual_finish": 117,
-      "actual_ppg_finish": 133,
+      "actual_finish": 116,
+      "actual_ppg_finish": 132,
       "games": 9,
-      "my_err": 17,
-      "ecr_err": 12
+      "my_err": 16,
+      "ecr_err": 11
     },
     {
       "player": "Adam Trautman",
@@ -5098,11 +5098,11 @@
       "vor": -117,
       "actual_ppg": 0.3,
       "actual_pts": 2.8,
-      "actual_finish": 112,
-      "actual_ppg_finish": 114,
+      "actual_finish": 110,
+      "actual_ppg_finish": 112,
       "games": 9,
-      "my_err": 39,
-      "ecr_err": 38
+      "my_err": 37,
+      "ecr_err": 36
     },
     {
       "player": "Dameon Pierce",
@@ -5117,11 +5117,11 @@
       "vor": -117,
       "actual_ppg": 0.7,
       "actual_pts": 2.6,
-      "actual_finish": 113,
-      "actual_ppg_finish": 107,
+      "actual_finish": 111,
+      "actual_ppg_finish": 105,
       "games": 4,
-      "my_err": 39,
-      "ecr_err": 36
+      "my_err": 37,
+      "ecr_err": 34
     },
     {
       "player": "Jarquez Hunter",
@@ -5156,7 +5156,7 @@
       "actual_ppg": 6.1,
       "actual_pts": 67.3,
       "actual_finish": 66,
-      "actual_ppg_finish": 84,
+      "actual_ppg_finish": 83,
       "games": 11,
       "my_err": -35,
       "ecr_err": -41
@@ -5174,11 +5174,11 @@
       "vor": -117,
       "actual_ppg": 2.2,
       "actual_pts": 19.9,
-      "actual_finish": 132,
-      "actual_ppg_finish": 150,
+      "actual_finish": 131,
+      "actual_ppg_finish": 149,
       "games": 9,
-      "my_err": 30,
-      "ecr_err": 37
+      "my_err": 29,
+      "ecr_err": 36
     },
     {
       "player": "Thomas Fidone II",
@@ -5193,11 +5193,11 @@
       "vor": -119,
       "actual_ppg": 0,
       "actual_pts": 0,
-      "actual_finish": 128,
+      "actual_finish": 127,
       "actual_ppg_finish": null,
       "games": 1,
-      "my_err": 55,
-      "ecr_err": 65.5
+      "my_err": 54,
+      "ecr_err": 64.5
     },
     {
       "player": "Devin Singletary",
@@ -5248,13 +5248,13 @@
       "delta": 3,
       "proj": 3.6,
       "vor": -120,
-      "actual_ppg": 11.5,
-      "actual_pts": 127,
-      "actual_finish": 22,
-      "actual_ppg_finish": 24,
-      "games": 11,
-      "my_err": -56,
-      "ecr_err": -59
+      "actual_ppg": null,
+      "actual_pts": null,
+      "actual_finish": null,
+      "actual_ppg_finish": null,
+      "games": 0,
+      "my_err": null,
+      "ecr_err": null
     },
     {
       "player": "Greg Dortch",
@@ -5270,7 +5270,7 @@
       "actual_ppg": 6.5,
       "actual_pts": 71.7,
       "actual_finish": 63,
-      "actual_ppg_finish": 81,
+      "actual_ppg_finish": 80,
       "games": 11,
       "my_err": -40,
       "ecr_err": -86
@@ -5383,11 +5383,11 @@
       "vor": -121,
       "actual_ppg": 4,
       "actual_pts": 24.1,
-      "actual_finish": 124,
-      "actual_ppg_finish": 117,
+      "actual_finish": 123,
+      "actual_ppg_finish": 116,
       "games": 6,
-      "my_err": 20,
-      "ecr_err": 28
+      "my_err": 19,
+      "ecr_err": 27
     },
     {
       "player": "Jordan Whittington",
@@ -5402,11 +5402,11 @@
       "vor": -121,
       "actual_ppg": 3.5,
       "actual_pts": 31.9,
-      "actual_finish": 112,
-      "actual_ppg_finish": 122,
+      "actual_finish": 111,
+      "actual_ppg_finish": 121,
       "games": 9,
-      "my_err": 7,
-      "ecr_err": -4
+      "my_err": 6,
+      "ecr_err": -5
     },
     {
       "player": "Jaleel McLaughlin",
@@ -5421,11 +5421,11 @@
       "vor": -122,
       "actual_ppg": 4.2,
       "actual_pts": 8.4,
-      "actual_finish": 92,
+      "actual_finish": 91,
       "actual_ppg_finish": 67,
       "games": 2,
-      "my_err": 11,
-      "ecr_err": 7
+      "my_err": 10,
+      "ecr_err": 6
     },
     {
       "player": "Isaiah Davis",
@@ -5478,11 +5478,11 @@
       "vor": -124,
       "actual_ppg": 0,
       "actual_pts": 0,
-      "actual_finish": 116,
-      "actual_ppg_finish": 109,
+      "actual_finish": 115,
+      "actual_ppg_finish": 108,
       "games": 2,
-      "my_err": 39,
-      "ecr_err": 46
+      "my_err": 38,
+      "ecr_err": 45
     },
     {
       "player": "Mitchell Evans",
@@ -5516,11 +5516,11 @@
       "vor": -125,
       "actual_ppg": 4.6,
       "actual_pts": 23.1,
-      "actual_finish": 125,
-      "actual_ppg_finish": 109,
+      "actual_finish": 124,
+      "actual_ppg_finish": 108,
       "games": 5,
-      "my_err": 16,
-      "ecr_err": 21
+      "my_err": 15,
+      "ecr_err": 20
     },
     {
       "player": "Isaiah Bond",
@@ -5535,11 +5535,11 @@
       "vor": -125,
       "actual_ppg": 3.6,
       "actual_pts": 32.8,
-      "actual_finish": 111,
-      "actual_ppg_finish": 120,
+      "actual_finish": 110,
+      "actual_ppg_finish": 119,
       "games": 9,
-      "my_err": 1,
-      "ecr_err": -9
+      "my_err": 0,
+      "ecr_err": -10
     },
     {
       "player": "Christian Watson",
@@ -5554,11 +5554,11 @@
       "vor": -125,
       "actual_ppg": 11.5,
       "actual_pts": 57.3,
-      "actual_finish": 76,
+      "actual_finish": 75,
       "actual_ppg_finish": 37,
       "games": 5,
-      "my_err": -35,
-      "ecr_err": -32
+      "my_err": -36,
+      "ecr_err": -33
     },
     {
       "player": "Elijah Mitchell",
@@ -5725,11 +5725,11 @@
       "vor": -128,
       "actual_ppg": 3.4,
       "actual_pts": 27.3,
-      "actual_finish": 118,
-      "actual_ppg_finish": 129,
+      "actual_finish": 117,
+      "actual_ppg_finish": 128,
       "games": 8,
-      "my_err": 6,
-      "ecr_err": 8
+      "my_err": 5,
+      "ecr_err": 7
     },
     {
       "player": "Parker Washington",
@@ -5783,7 +5783,7 @@
       "actual_ppg": 3.3,
       "actual_pts": 6.6,
       "actual_finish": 167,
-      "actual_ppg_finish": 130,
+      "actual_ppg_finish": 129,
       "games": 2,
       "my_err": 52,
       "ecr_err": 56
@@ -5839,11 +5839,11 @@
       "vor": -129,
       "actual_ppg": 4.1,
       "actual_pts": 45.2,
-      "actual_finish": 93,
-      "actual_ppg_finish": 116,
+      "actual_finish": 92,
+      "actual_ppg_finish": 115,
       "games": 11,
-      "my_err": -26,
-      "ecr_err": -16
+      "my_err": -27,
+      "ecr_err": -17
     },
     {
       "player": "Lucas Krull",
@@ -5858,11 +5858,11 @@
       "vor": -130,
       "actual_ppg": 1.8,
       "actual_pts": 3.5,
-      "actual_finish": 95,
+      "actual_finish": 94,
       "actual_ppg_finish": 81,
       "games": 2,
-      "my_err": 9,
-      "ecr_err": 15
+      "my_err": 8,
+      "ecr_err": 14
     },
     {
       "player": "Olamide Zaccheaus",
@@ -5878,7 +5878,7 @@
       "actual_ppg": 6.7,
       "actual_pts": 66.9,
       "actual_finish": 67,
-      "actual_ppg_finish": 78,
+      "actual_ppg_finish": 77,
       "games": 10,
       "my_err": -53,
       "ecr_err": -45
@@ -5896,11 +5896,11 @@
       "vor": -130,
       "actual_ppg": 0,
       "actual_pts": 0,
-      "actual_finish": 123,
-      "actual_ppg_finish": 113,
+      "actual_finish": 122,
+      "actual_ppg_finish": 112,
       "games": 5,
-      "my_err": 36,
-      "ecr_err": 45
+      "my_err": 35,
+      "ecr_err": 44
     },
     {
       "player": "Erick All",
@@ -5991,11 +5991,11 @@
       "vor": -130,
       "actual_ppg": 5.7,
       "actual_pts": 51.3,
-      "actual_finish": 83,
-      "actual_ppg_finish": 88,
+      "actual_finish": 82,
+      "actual_ppg_finish": 87,
       "games": 9,
-      "my_err": -38,
-      "ecr_err": -39
+      "my_err": -39,
+      "ecr_err": -40
     },
     {
       "player": "Gabe Davis",
@@ -6010,11 +6010,11 @@
       "vor": -130,
       "actual_ppg": 5.1,
       "actual_pts": 10.2,
-      "actual_finish": 158,
-      "actual_ppg_finish": 99,
+      "actual_finish": 157,
+      "actual_ppg_finish": 98,
       "games": 2,
-      "my_err": 35,
-      "ecr_err": 37
+      "my_err": 34,
+      "ecr_err": 36
     },
     {
       "player": "Charlie Kolar",
@@ -6048,11 +6048,11 @@
       "vor": -132,
       "actual_ppg": 3.5,
       "actual_pts": 21.1,
-      "actual_finish": 128,
-      "actual_ppg_finish": 124,
+      "actual_finish": 127,
+      "actual_ppg_finish": 123,
       "games": 6,
-      "my_err": 4,
-      "ecr_err": -4
+      "my_err": 3,
+      "ecr_err": -5
     },
     {
       "player": "KeAndre Lambert-Smith",
@@ -6086,11 +6086,11 @@
       "vor": -132,
       "actual_ppg": 4.9,
       "actual_pts": 44,
-      "actual_finish": 95,
-      "actual_ppg_finish": 105,
+      "actual_finish": 94,
+      "actual_ppg_finish": 104,
       "games": 9,
-      "my_err": -31,
-      "ecr_err": -33
+      "my_err": -32,
+      "ecr_err": -34
     },
     {
       "player": "Jahan Dotson",
@@ -6105,11 +6105,11 @@
       "vor": -132,
       "actual_ppg": 3.5,
       "actual_pts": 35.4,
-      "actual_finish": 107,
-      "actual_ppg_finish": 123,
+      "actual_finish": 106,
+      "actual_ppg_finish": 122,
       "games": 10,
-      "my_err": -20,
-      "ecr_err": -24
+      "my_err": -21,
+      "ecr_err": -25
     },
     {
       "player": "Geno Smith",
@@ -6162,11 +6162,11 @@
       "vor": -133,
       "actual_ppg": 6,
       "actual_pts": 35.9,
-      "actual_finish": 104,
-      "actual_ppg_finish": 86,
+      "actual_finish": 103,
+      "actual_ppg_finish": 85,
       "games": 6,
-      "my_err": -24,
-      "ecr_err": -22
+      "my_err": -25,
+      "ecr_err": -23
     },
     {
       "player": "Audric Estimé",
@@ -6200,11 +6200,11 @@
       "vor": -134,
       "actual_ppg": 0,
       "actual_pts": 0,
-      "actual_finish": 126,
-      "actual_ppg_finish": 115,
+      "actual_finish": 125,
+      "actual_ppg_finish": 114,
       "games": 2,
-      "my_err": 30,
-      "ecr_err": 44
+      "my_err": 29,
+      "ecr_err": 43
     },
     {
       "player": "Charlie Woerner",
@@ -6219,11 +6219,11 @@
       "vor": -135,
       "actual_ppg": 2.1,
       "actual_pts": 8.3,
-      "actual_finish": 84,
+      "actual_finish": 83,
       "actual_ppg_finish": 78,
       "games": 4,
-      "my_err": -14,
-      "ecr_err": -2
+      "my_err": -15,
+      "ecr_err": -3
     },
     {
       "player": "Harrison Bryant",
@@ -6238,11 +6238,11 @@
       "vor": -135,
       "actual_ppg": 0.5,
       "actual_pts": 2.7,
-      "actual_finish": 97,
-      "actual_ppg_finish": 98,
+      "actual_finish": 96,
+      "actual_ppg_finish": 97,
       "games": 5,
-      "my_err": -2,
-      "ecr_err": 12
+      "my_err": -3,
+      "ecr_err": 11
     },
     {
       "player": "Trevor Etienne",
@@ -6257,11 +6257,11 @@
       "vor": -136,
       "actual_ppg": 1,
       "actual_pts": 12.3,
-      "actual_finish": 87,
-      "actual_ppg_finish": 101,
+      "actual_finish": 86,
+      "actual_ppg_finish": 100,
       "games": 12,
-      "my_err": -2,
-      "ecr_err": 3
+      "my_err": -3,
+      "ecr_err": 2
     },
     {
       "player": "Ty Johnson",
@@ -6295,11 +6295,11 @@
       "vor": -136,
       "actual_ppg": 1.6,
       "actual_pts": 7.8,
-      "actual_finish": 95,
-      "actual_ppg_finish": 96,
+      "actual_finish": 94,
+      "actual_ppg_finish": 95,
       "games": 5,
-      "my_err": 4,
-      "ecr_err": 1
+      "my_err": 3,
+      "ecr_err": 0
     },
     {
       "player": "Emanuel Wilson",
@@ -6353,7 +6353,7 @@
       "actual_ppg": 7.2,
       "actual_pts": 79,
       "actual_finish": 56,
-      "actual_ppg_finish": 71,
+      "actual_ppg_finish": 70,
       "games": 11,
       "my_err": -73,
       "ecr_err": -100
@@ -6390,11 +6390,11 @@
       "vor": -137,
       "actual_ppg": 1,
       "actual_pts": 6,
-      "actual_finish": 103,
-      "actual_ppg_finish": 102,
+      "actual_finish": 101,
+      "actual_ppg_finish": 101,
       "games": 6,
-      "my_err": 9,
-      "ecr_err": 8
+      "my_err": 7,
+      "ecr_err": 6
     },
     {
       "player": "Chris Brooks",
@@ -6410,7 +6410,7 @@
       "actual_ppg": 1.5,
       "actual_pts": 17,
       "actual_finish": 82,
-      "actual_ppg_finish": 97,
+      "actual_ppg_finish": 96,
       "games": 11,
       "my_err": -13,
       "ecr_err": -14
@@ -6447,11 +6447,11 @@
       "vor": -139,
       "actual_ppg": 2.6,
       "actual_pts": 20.7,
-      "actual_finish": 130,
-      "actual_ppg_finish": 140,
+      "actual_finish": 129,
+      "actual_ppg_finish": 139,
       "games": 8,
-      "my_err": -2,
-      "ecr_err": 3
+      "my_err": -3,
+      "ecr_err": 2
     },
     {
       "player": "Jordan James",
@@ -6504,11 +6504,11 @@
       "vor": -141,
       "actual_ppg": 2.5,
       "actual_pts": 7.4,
-      "actual_finish": 99,
+      "actual_finish": 97,
       "actual_ppg_finish": 83,
       "games": 3,
-      "my_err": 0,
-      "ecr_err": -1
+      "my_err": -2,
+      "ecr_err": -3
     },
     {
       "player": "Sincere McCormick",
@@ -6542,11 +6542,11 @@
       "vor": -141,
       "actual_ppg": 6.3,
       "actual_pts": 6.3,
-      "actual_finish": 102,
+      "actual_finish": 100,
       "actual_ppg_finish": null,
       "games": 1,
-      "my_err": 1,
-      "ecr_err": 0
+      "my_err": -1,
+      "ecr_err": -2
     },
     {
       "player": "Phil Mafah",
@@ -6580,11 +6580,11 @@
       "vor": -142,
       "actual_ppg": 5,
       "actual_pts": 30.3,
-      "actual_finish": 116,
-      "actual_ppg_finish": 100,
+      "actual_finish": 115,
+      "actual_ppg_finish": 99,
       "games": 6,
-      "my_err": -17,
-      "ecr_err": -18
+      "my_err": -18,
+      "ecr_err": -19
     },
     {
       "player": "Jermaine Burton",
@@ -6618,11 +6618,11 @@
       "vor": -142,
       "actual_ppg": 3.9,
       "actual_pts": 35.5,
-      "actual_finish": 106,
-      "actual_ppg_finish": 118,
+      "actual_finish": 105,
+      "actual_ppg_finish": 117,
       "games": 9,
-      "my_err": -30,
-      "ecr_err": 7
+      "my_err": -31,
+      "ecr_err": 6
     },
     {
       "player": "Ameer Abdullah",
@@ -6675,11 +6675,11 @@
       "vor": -143,
       "actual_ppg": 3.2,
       "actual_pts": 19.4,
-      "actual_finish": 133,
-      "actual_ppg_finish": 131,
+      "actual_finish": 132,
+      "actual_ppg_finish": 130,
       "games": 6,
-      "my_err": -4,
-      "ecr_err": 0
+      "my_err": -5,
+      "ecr_err": -1
     },
     {
       "player": "Bam Knight",
@@ -6790,7 +6790,7 @@
       "actual_ppg": 8.3,
       "actual_pts": 82.9,
       "actual_finish": 50,
-      "actual_ppg_finish": 60,
+      "actual_ppg_finish": 59,
       "games": 10,
       "my_err": -90,
       "ecr_err": -74
@@ -6866,7 +6866,7 @@
       "actual_ppg": 1.6,
       "actual_pts": 18.1,
       "actual_finish": 80,
-      "actual_ppg_finish": 95,
+      "actual_ppg_finish": 94,
       "games": 11,
       "my_err": -33,
       "ecr_err": -29
@@ -6884,11 +6884,11 @@
       "vor": -148,
       "actual_ppg": 2,
       "actual_pts": 8,
-      "actual_finish": 163,
-      "actual_ppg_finish": 153,
+      "actual_finish": 162,
+      "actual_ppg_finish": 152,
       "games": 4,
-      "my_err": 21,
-      "ecr_err": 26
+      "my_err": 20,
+      "ecr_err": 25
     },
     {
       "player": "John Metchie III",
@@ -6903,11 +6903,11 @@
       "vor": -149,
       "actual_ppg": 5.5,
       "actual_pts": 38.4,
-      "actual_finish": 101,
-      "actual_ppg_finish": 94,
+      "actual_finish": 100,
+      "actual_ppg_finish": 93,
       "games": 7,
-      "my_err": -42,
-      "ecr_err": -35
+      "my_err": -43,
+      "ecr_err": -36
     },
     {
       "player": "Tyrell Shavers",
@@ -6922,11 +6922,11 @@
       "vor": -149,
       "actual_ppg": 4.3,
       "actual_pts": 34.2,
-      "actual_finish": 109,
-      "actual_ppg_finish": 115,
+      "actual_finish": 108,
+      "actual_ppg_finish": 114,
       "games": 8,
-      "my_err": -35,
-      "ecr_err": -10
+      "my_err": -36,
+      "ecr_err": -11
     },
     {
       "player": "George Holani",
@@ -6960,11 +6960,11 @@
       "vor": -150,
       "actual_ppg": 0.7,
       "actual_pts": 4,
-      "actual_finish": 109,
-      "actual_ppg_finish": 106,
+      "actual_finish": 107,
+      "actual_ppg_finish": 104,
       "games": 6,
-      "my_err": -7,
-      "ecr_err": -4
+      "my_err": -9,
+      "ecr_err": -6
     },
     {
       "player": "Cam Akers",
@@ -6979,11 +6979,11 @@
       "vor": -150,
       "actual_ppg": 3.6,
       "actual_pts": 7.2,
-      "actual_finish": 100,
+      "actual_finish": 98,
       "actual_ppg_finish": 76,
       "games": 2,
-      "my_err": -19,
-      "ecr_err": -14
+      "my_err": -21,
+      "ecr_err": -16
     },
     {
       "player": "Demarcus Robinson",
@@ -6998,11 +6998,11 @@
       "vor": -150,
       "actual_ppg": 3.5,
       "actual_pts": 31.3,
-      "actual_finish": 113,
-      "actual_ppg_finish": 125,
+      "actual_finish": 112,
+      "actual_ppg_finish": 124,
       "games": 9,
-      "my_err": -33,
-      "ecr_err": -12
+      "my_err": -34,
+      "ecr_err": -13
     },
     {
       "player": "Savion Williams",
@@ -7017,11 +7017,11 @@
       "vor": -150,
       "actual_ppg": 2.2,
       "actual_pts": 24.6,
-      "actual_finish": 123,
-      "actual_ppg_finish": 149,
+      "actual_finish": 122,
+      "actual_ppg_finish": 148,
       "games": 11,
-      "my_err": -24,
-      "ecr_err": -12
+      "my_err": -25,
+      "ecr_err": -13
     },
     {
       "player": "David Moore",
@@ -7055,11 +7055,11 @@
       "vor": -151,
       "actual_ppg": 0.9,
       "actual_pts": 8.4,
-      "actual_finish": 91,
-      "actual_ppg_finish": 105,
+      "actual_finish": 90,
+      "actual_ppg_finish": 103,
       "games": 9,
-      "my_err": -30,
-      "ecr_err": -26
+      "my_err": -31,
+      "ecr_err": -27
     },
     {
       "player": "Russell Gage",
@@ -7094,7 +7094,7 @@
       "actual_ppg": 7.8,
       "actual_pts": 70.2,
       "actual_finish": 64,
-      "actual_ppg_finish": 63,
+      "actual_ppg_finish": 62,
       "games": 9,
       "my_err": -86,
       "ecr_err": -74
@@ -7207,11 +7207,11 @@
       "vor": -154,
       "actual_ppg": 0.4,
       "actual_pts": 3.9,
-      "actual_finish": 110,
-      "actual_ppg_finish": 111,
+      "actual_finish": 108,
+      "actual_ppg_finish": 109,
       "games": 10,
-      "my_err": -20,
-      "ecr_err": -8
+      "my_err": -22,
+      "ecr_err": -10
     },
     {
       "player": "Ja'Quinden Jackson",
@@ -7245,11 +7245,11 @@
       "vor": -154,
       "actual_ppg": 2.1,
       "actual_pts": 4.2,
-      "actual_finish": 107,
+      "actual_finish": 105,
       "actual_ppg_finish": 85,
       "games": 2,
-      "my_err": -26,
-      "ecr_err": -16
+      "my_err": -28,
+      "ecr_err": -18
     },
     {
       "player": "Jalen Brooks",
@@ -7264,11 +7264,11 @@
       "vor": -155,
       "actual_ppg": 0,
       "actual_pts": 0,
-      "actual_finish": 213,
+      "actual_finish": 214,
       "actual_ppg_finish": null,
       "games": 1,
-      "my_err": 60,
-      "ecr_err": 69
+      "my_err": 61,
+      "ecr_err": 70
     },
     {
       "player": "Xavier Hutchinson",
@@ -7284,7 +7284,7 @@
       "actual_ppg": 7,
       "actual_pts": 69.8,
       "actual_finish": 65,
-      "actual_ppg_finish": 74,
+      "actual_ppg_finish": 73,
       "games": 10,
       "my_err": -89,
       "ecr_err": -77
@@ -7302,11 +7302,11 @@
       "vor": -156,
       "actual_ppg": 1.2,
       "actual_pts": 8.3,
-      "actual_finish": 93,
-      "actual_ppg_finish": 99,
+      "actual_finish": 92,
+      "actual_ppg_finish": 98,
       "games": 7,
-      "my_err": -43,
-      "ecr_err": -32
+      "my_err": -44,
+      "ecr_err": -33
     },
     {
       "player": "Chimere Dike",
@@ -7322,7 +7322,7 @@
       "actual_ppg": 7.2,
       "actual_pts": 78.9,
       "actual_finish": 57,
-      "actual_ppg_finish": 72,
+      "actual_ppg_finish": 71,
       "games": 11,
       "my_err": -98,
       "ecr_err": -83
@@ -7341,7 +7341,7 @@
       "actual_ppg": 7.8,
       "actual_pts": 86.1,
       "actual_finish": 48,
-      "actual_ppg_finish": 62,
+      "actual_ppg_finish": 61,
       "games": 11,
       "my_err": -108,
       "ecr_err": -91
@@ -7359,11 +7359,11 @@
       "vor": -156,
       "actual_ppg": 0.1,
       "actual_pts": 0.4,
-      "actual_finish": 123,
+      "actual_finish": 122,
       "actual_ppg_finish": 120,
       "games": 5,
-      "my_err": -15,
-      "ecr_err": -3
+      "my_err": -16,
+      "ecr_err": -4
     },
     {
       "player": "Hunter Luepke",
@@ -7511,11 +7511,11 @@
       "vor": -158,
       "actual_ppg": 5,
       "actual_pts": 34.7,
-      "actual_finish": 108,
-      "actual_ppg_finish": 103,
+      "actual_finish": 107,
+      "actual_ppg_finish": 102,
       "games": 7,
-      "my_err": -50,
-      "ecr_err": -54
+      "my_err": -51,
+      "ecr_err": -55
     },
     {
       "player": "Efton Chism III",
@@ -7530,11 +7530,11 @@
       "vor": -158,
       "actual_ppg": 0,
       "actual_pts": 0,
-      "actual_finish": 221,
-      "actual_ppg_finish": 206,
+      "actual_finish": 222,
+      "actual_ppg_finish": 207,
       "games": 5,
-      "my_err": 62,
-      "ecr_err": 80
+      "my_err": 63,
+      "ecr_err": 81
     },
     {
       "player": "D'Ernest Johnson",
@@ -7549,11 +7549,11 @@
       "vor": -158,
       "actual_ppg": 0.2,
       "actual_pts": 0.7,
-      "actual_finish": 121,
-      "actual_ppg_finish": 117,
+      "actual_finish": 120,
+      "actual_ppg_finish": 115,
       "games": 3,
-      "my_err": -28,
-      "ecr_err": -19
+      "my_err": -29,
+      "ecr_err": -20
     },
     {
       "player": "Alec Ingold",
@@ -7587,11 +7587,11 @@
       "vor": -159,
       "actual_ppg": 3.4,
       "actual_pts": 37.9,
-      "actual_finish": 102,
-      "actual_ppg_finish": 126,
+      "actual_finish": 101,
+      "actual_ppg_finish": 125,
       "games": 11,
-      "my_err": -58,
-      "ecr_err": -44
+      "my_err": -59,
+      "ecr_err": -45
     },
     {
       "player": "Pierre Strong",
@@ -7663,11 +7663,11 @@
       "vor": -160,
       "actual_ppg": 0.5,
       "actual_pts": 5.3,
-      "actual_finish": 105,
-      "actual_ppg_finish": 109,
+      "actual_finish": 103,
+      "actual_ppg_finish": 107,
       "games": 11,
-      "my_err": -51,
-      "ecr_err": -38
+      "my_err": -53,
+      "ecr_err": -40
     },
     {
       "player": "DeeJay Dallas",
@@ -7720,11 +7720,11 @@
       "vor": -160,
       "actual_ppg": 0.3,
       "actual_pts": 3,
-      "actual_finish": 111,
-      "actual_ppg_finish": 113,
+      "actual_finish": 109,
+      "actual_ppg_finish": 111,
       "games": 9,
-      "my_err": -54,
-      "ecr_err": -28
+      "my_err": -56,
+      "ecr_err": -30
     },
     {
       "player": "Jake Bobo",
@@ -7740,7 +7740,7 @@
       "actual_ppg": 1,
       "actual_pts": 4,
       "actual_finish": 182,
-      "actual_ppg_finish": 177,
+      "actual_ppg_finish": 176,
       "games": 4,
       "my_err": 18,
       "ecr_err": 22
@@ -7758,11 +7758,11 @@
       "vor": -160,
       "actual_ppg": 1,
       "actual_pts": 5,
-      "actual_finish": 106,
-      "actual_ppg_finish": 103,
+      "actual_finish": 104,
+      "actual_ppg_finish": 102,
       "games": 5,
-      "my_err": -60,
-      "ecr_err": -53
+      "my_err": -62,
+      "ecr_err": -55
     },
     {
       "player": "Patrick Ricard",
@@ -7775,13 +7775,13 @@
       "delta": -22,
       "proj": 0.6,
       "vor": -160,
-      "actual_ppg": null,
-      "actual_pts": null,
-      "actual_finish": null,
-      "actual_ppg_finish": null,
-      "games": 0,
-      "my_err": null,
-      "ecr_err": null
+      "actual_ppg": 0.2,
+      "actual_pts": 0.3,
+      "actual_finish": 124,
+      "actual_ppg_finish": 117,
+      "games": 2,
+      "my_err": -45,
+      "ecr_err": -23
     },
     {
       "player": "Michael Burton",
@@ -7853,11 +7853,11 @@
       "vor": -161,
       "actual_ppg": 0.1,
       "actual_pts": 0.4,
-      "actual_finish": 124,
+      "actual_finish": 123,
       "actual_ppg_finish": 118,
       "games": 3,
-      "my_err": -52,
-      "ecr_err": -12
+      "my_err": -53,
+      "ecr_err": -13
     },
     {
       "player": "Corey Kiner",
@@ -7910,11 +7910,11 @@
       "vor": -161,
       "actual_ppg": 5.6,
       "actual_pts": 61.9,
-      "actual_finish": 73,
-      "actual_ppg_finish": 90,
+      "actual_finish": 72,
+      "actual_ppg_finish": 89,
       "games": 11,
-      "my_err": -93,
-      "ecr_err": -82
+      "my_err": -94,
+      "ecr_err": -83
     },
     {
       "player": "Casey Washington",
@@ -7929,11 +7929,11 @@
       "vor": -161,
       "actual_ppg": 3.1,
       "actual_pts": 15.4,
-      "actual_finish": 142,
-      "actual_ppg_finish": 134,
+      "actual_finish": 141,
+      "actual_ppg_finish": 133,
       "games": 5,
-      "my_err": -26,
-      "ecr_err": -5.5
+      "my_err": -27,
+      "ecr_err": -6.5
     },
     {
       "player": "Frank Gore Jr.",
@@ -7986,11 +7986,11 @@
       "vor": -162,
       "actual_ppg": 0,
       "actual_pts": 0,
-      "actual_finish": 136,
+      "actual_finish": 135,
       "actual_ppg_finish": null,
       "games": 1,
-      "my_err": -50,
-      "ecr_err": -21.5
+      "my_err": -51,
+      "ecr_err": -22.5
     },
     {
       "player": "Keilan Robinson",
@@ -8024,11 +8024,11 @@
       "vor": -163,
       "actual_ppg": 1.7,
       "actual_pts": 8.5,
-      "actual_finish": 162,
-      "actual_ppg_finish": 158,
+      "actual_finish": 161,
+      "actual_ppg_finish": 157,
       "games": 5,
-      "my_err": -9,
-      "ecr_err": -3
+      "my_err": -10,
+      "ecr_err": -4
     },
     {
       "player": "Marcus Yarns",
@@ -8100,11 +8100,11 @@
       "vor": -163,
       "actual_ppg": 0.6,
       "actual_pts": 1.1,
-      "actual_finish": 118,
-      "actual_ppg_finish": 108,
+      "actual_finish": 117,
+      "actual_ppg_finish": 106,
       "games": 2,
-      "my_err": -110,
-      "ecr_err": -36
+      "my_err": -111,
+      "ecr_err": -37
     },
     {
       "player": "Jase McClellan",
@@ -8138,11 +8138,11 @@
       "vor": -163,
       "actual_ppg": 1.3,
       "actual_pts": 11.8,
-      "actual_finish": 153,
-      "actual_ppg_finish": 169,
+      "actual_finish": 152,
+      "actual_ppg_finish": 168,
       "games": 9,
-      "my_err": -19,
-      "ecr_err": -4
+      "my_err": -20,
+      "ecr_err": -5
     },
     {
       "player": "Robert Woods",
@@ -8195,11 +8195,11 @@
       "vor": -163,
       "actual_ppg": 2.4,
       "actual_pts": 14.6,
-      "actual_finish": 145,
-      "actual_ppg_finish": 143,
+      "actual_finish": 144,
+      "actual_ppg_finish": 142,
       "games": 6,
-      "my_err": -30,
-      "ecr_err": -46
+      "my_err": -31,
+      "ecr_err": -47
     },
     {
       "player": "Ainias Smith",
@@ -8253,7 +8253,7 @@
       "actual_ppg": 8.8,
       "actual_pts": 79.2,
       "actual_finish": 55,
-      "actual_ppg_finish": 57,
+      "actual_ppg_finish": 56,
       "games": 9,
       "my_err": -124,
       "ecr_err": -104
@@ -8290,11 +8290,11 @@
       "vor": -164,
       "actual_ppg": 2.5,
       "actual_pts": 15.2,
-      "actual_finish": 143,
-      "actual_ppg_finish": 141,
+      "actual_finish": 142,
+      "actual_ppg_finish": 140,
       "games": 6,
-      "my_err": -37,
-      "ecr_err": -8
+      "my_err": -38,
+      "ecr_err": -9
     },
     {
       "player": "Justin Watson",
@@ -8310,7 +8310,7 @@
       "actual_ppg": 3,
       "actual_pts": 6,
       "actual_finish": 170,
-      "actual_ppg_finish": 136,
+      "actual_ppg_finish": 135,
       "games": 2,
       "my_err": -13,
       "ecr_err": -2
@@ -8328,11 +8328,11 @@
       "vor": -166,
       "actual_ppg": 5.6,
       "actual_pts": 11.2,
-      "actual_finish": 155,
-      "actual_ppg_finish": 91,
+      "actual_finish": 154,
+      "actual_ppg_finish": 90,
       "games": 2,
-      "my_err": -33,
-      "ecr_err": 5
+      "my_err": -34,
+      "ecr_err": 4
     },
     {
       "player": "Xavier Gipson",
@@ -8386,7 +8386,7 @@
       "actual_ppg": 1.6,
       "actual_pts": 6.3,
       "actual_finish": 168,
-      "actual_ppg_finish": 162,
+      "actual_ppg_finish": 161,
       "games": 4,
       "my_err": -30,
       "ecr_err": -15
@@ -8405,7 +8405,7 @@
       "actual_ppg": 1.5,
       "actual_pts": 2.9,
       "actual_finish": 184,
-      "actual_ppg_finish": 164,
+      "actual_ppg_finish": 163,
       "games": 2,
       "my_err": -17,
       "ecr_err": -5
@@ -8423,11 +8423,11 @@
       "vor": -169,
       "actual_ppg": 1.3,
       "actual_pts": 14.6,
-      "actual_finish": 146,
-      "actual_ppg_finish": 168,
+      "actual_finish": 145,
+      "actual_ppg_finish": 167,
       "games": 11,
-      "my_err": -56,
-      "ecr_err": -12
+      "my_err": -57,
+      "ecr_err": -13
     },
     {
       "player": "Dante Pettis",
@@ -8443,7 +8443,7 @@
       "actual_ppg": 1.2,
       "actual_pts": 2.4,
       "actual_finish": 190,
-      "actual_ppg_finish": 174,
+      "actual_ppg_finish": 173,
       "games": 2,
       "my_err": -15,
       "ecr_err": 11
@@ -8518,11 +8518,11 @@
       "vor": -172,
       "actual_ppg": 5,
       "actual_pts": 25,
-      "actual_finish": 121,
-      "actual_ppg_finish": 101,
+      "actual_finish": 120,
+      "actual_ppg_finish": 100,
       "games": 5,
-      "my_err": -96,
-      "ecr_err": -46
+      "my_err": -97,
+      "ecr_err": -47
     },
     {
       "player": "Beaux Collins",
@@ -8538,7 +8538,7 @@
       "actual_ppg": 1.1,
       "actual_pts": 4.5,
       "actual_finish": 178,
-      "actual_ppg_finish": 176,
+      "actual_ppg_finish": 175,
       "games": 4,
       "my_err": -41,
       "ecr_err": 5
@@ -8556,11 +8556,11 @@
       "vor": -172,
       "actual_ppg": 3.4,
       "actual_pts": 13.7,
-      "actual_finish": 150,
-      "actual_ppg_finish": 128,
+      "actual_finish": 149,
+      "actual_ppg_finish": 127,
       "games": 4,
-      "my_err": -71,
-      "ecr_err": -32
+      "my_err": -72,
+      "ecr_err": -33
     },
     {
       "player": "Jimmy Horn Jr.",
@@ -8575,11 +8575,11 @@
       "vor": -173,
       "actual_ppg": 3.2,
       "actual_pts": 19.1,
-      "actual_finish": 134,
-      "actual_ppg_finish": 132,
+      "actual_finish": 133,
+      "actual_ppg_finish": 131,
       "games": 6,
-      "my_err": -89,
-      "ecr_err": -37
+      "my_err": -90,
+      "ecr_err": -38
     },
     {
       "player": "Mecole Hardman",
@@ -8670,11 +8670,11 @@
       "vor": -175,
       "actual_ppg": 0.9,
       "actual_pts": 10.5,
-      "actual_finish": 156,
+      "actual_finish": 155,
       "actual_ppg_finish": 181,
       "games": 12,
-      "my_err": -97,
-      "ecr_err": -21
+      "my_err": -98,
+      "ecr_err": -22
     },
     {
       "player": "Trent Sherfield",
@@ -8690,7 +8690,7 @@
       "actual_ppg": 1.7,
       "actual_pts": 5.1,
       "actual_finish": 173,
-      "actual_ppg_finish": 159,
+      "actual_ppg_finish": 158,
       "games": 3,
       "my_err": -99,
       "ecr_err": -1
@@ -8728,7 +8728,7 @@
       "actual_ppg": 2.3,
       "actual_pts": 4.6,
       "actual_finish": 175,
-      "actual_ppg_finish": 147,
+      "actual_ppg_finish": 146,
       "games": 2,
       "my_err": -103,
       "ecr_err": 5

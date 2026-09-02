@@ -8,6 +8,6 @@
     "2025": 22,
     "2026": 7
   },
-  "bankroll": 500,
-  "unitSize": 5
+  "bankroll": 1000,
+  "unitSize": 10
 }

@@ -24,6 +24,7 @@ OUTPUT_DIR   <- file.path(PROJECT_DIR, "website", "public", "data", "fantasy")
 SNAPSHOT_DIR <- file.path(PROJECT_DIR, "data", "fantasy_snapshots")
 CACHE_DIR    <- file.path(PROJECT_DIR, "data", "fantasy_cache")
 CONFIG_PATH  <- file.path(PROJECT_DIR, "fantasy_leagues.json")
+source("/Users/wadefuller/Projects/R/shared/espn.R")   # espn_auth(), ff_connect_auth()
 
 dir.create(OUTPUT_DIR, recursive = TRUE, showWarnings = FALSE)
 dir.create(SNAPSHOT_DIR, recursive = TRUE, showWarnings = FALSE)
@@ -48,6 +49,21 @@ cached <- function(key, expr) {
   val <- force(expr)
   if (!is.null(val)) saveRDS(val, path)
   val
+}
+
+# jsonlite renders a NULL field as {} rather than [], so any array-shaped field
+# that came back empty reaches the browser as an object and throws the moment a
+# component calls .map on it — a blank tab with no server-side error. This is the
+# same shape bug that blanked the site once already this cycle, and it recurs
+# whenever a platform is missing an endpoint: ESPN has no readable transactions
+# feed through ffscrapr, so `transactions` is NULL on every ESPN league.
+# Everything the website iterates is forced to an array before it is written.
+JSON_ARRAY_FIELDS <- c("franchises", "roster", "transactions", "history",
+                       "all_time", "pick_capital")
+
+as_json_arrays <- function(x, fields = JSON_ARRAY_FIELDS) {
+  for (f in fields) if (f %in% names(x) && is.null(x[[f]])) x[[f]] <- list()
+  x
 }
 
 write_json_file <- function(x, ...) {
@@ -185,7 +201,8 @@ XWALK <- local({
   x <- tryCatch(nflreadr::load_ff_playerids(), error = function(e) NULL)
   if (is.null(x)) return(NULL)
   x %>%
-    transmute(gsis_id, sleeper_id = as.character(sleeper_id), mfl_id = as.character(mfl_id)) %>%
+    transmute(gsis_id, sleeper_id = as.character(sleeper_id),
+              mfl_id = as.character(mfl_id), espn_id = as.character(espn_id)) %>%
     filter(!is.na(gsis_id))
 })
 
@@ -270,6 +287,23 @@ fetch_fantasycalc <- function(spec) {
 
 build_market_index <- function(df, spec) {
   top <- max(df$value, na.rm = TRUE)
+  # ESPN id is not in the vendor feed (FantasyCalc ships mflId and sleeperId
+  # only), so it is derived from the crosswalk: sleeper_id first because its
+  # coverage is better, then mfl_id for anyone that misses. Without this an ESPN
+  # league joins on nothing and every market value comes back NA.
+  df <- if (is.null(XWALK)) {
+    df %>% mutate(espn_id = NA_character_)
+  } else {
+    df %>%
+      left_join(XWALK %>% filter(!is.na(sleeper_id), sleeper_id != "") %>%
+                  distinct(sleeper_id, .keep_all = TRUE) %>%
+                  select(sleeper_id, espn_sl = espn_id), by = "sleeper_id") %>%
+      left_join(XWALK %>% filter(!is.na(mfl_id), mfl_id != "") %>%
+                  distinct(mfl_id, .keep_all = TRUE) %>%
+                  select(mfl_id, espn_mf = espn_id), by = "mfl_id") %>%
+      mutate(espn_id = coalesce(espn_sl, espn_mf)) %>%
+      select(-espn_sl, -espn_mf)
+  }
   df %>%
     mutate(
       # 0-100 index, linear in value so the numbers stay additive: two players
@@ -510,8 +544,9 @@ power_rankings <- function(roster, lineup, spec, seed = 42L) {
 
 pull_league <- function(cfg) {
   cat(sprintf("\n== League: %s (%s %s) ==\n", cfg$label, cfg$platform, cfg$league_id))
-  conn <- ff_connect(platform = cfg$platform, league_id = cfg$league_id,
-                     season = cfg$season)
+  # ff_connect_auth, not ff_connect: the generic constructor drops espn_s2/swid,
+  # and a private ESPN league returns the same 404 as a nonexistent one.
+  conn <- ff_connect_auth(cfg$platform, cfg$league_id, cfg$season)
 
   soft <- function(expr, what) tryCatch(expr, error = function(e) {
     cat(sprintf("  ! %s unavailable: %s\n", what, conditionMessage(e))); NULL
@@ -532,7 +567,10 @@ pull_league <- function(cfg) {
   fmt <- cfg$market_format %||% "dynasty_sf"
   idx <- market[[fmt]]
   if (is.null(idx)) idx <- market[[1]]
-  join_col <- if (identical(cfg$platform, "sleeper")) "sleeper_id" else "mfl_id"
+  # Each platform reports rosters under its OWN player id, so the market index
+  # has to be keyed to match. FantasyCalc ships mflId and sleeperId but no ESPN
+  # id, so espn_id is derived from the crosswalk further up.
+  join_col <- switch(cfg$platform, sleeper = "sleeper_id", espn = "espn_id", "mfl_id")
   vals <- idx %>%
     filter(!is.na(.data[[join_col]]), .data[[join_col]] != "") %>%
     distinct(.data[[join_col]], .keep_all = TRUE) %>%
@@ -542,9 +580,21 @@ pull_league <- function(cfg) {
               # Projected points + availability drive the depth-aware power model.
               my_proj, my_games, my_vor, my_pos_rank)
 
+  # Platforms disagree on which roster columns exist. MFL and Sleeper both
+  # report age and MFL reports salary; ESPN reports neither, so both are probed
+  # rather than assumed — an unguarded reference fails the whole league with
+  # "object 'age' not found" well after the data has been fetched.
   has_salary <- "salary" %in% names(rosters)
+  has_age    <- "age"    %in% names(rosters)
   roster <- rosters %>%
-    mutate(player_id = as.character(player_id),
+    # franchise_id to character to match the franchises table, which is cast the
+    # same way further down. MFL and Sleeper already hand back strings, but ESPN
+    # returns integers, so the website's strict `p.franchise_id === fid` filter
+    # matched nothing and every ESPN roster rendered as an empty table under a
+    # correctly-populated header.
+    mutate(franchise_id = as.character(franchise_id),
+           player_id = as.character(player_id),
+           age    = if (has_age)    suppressWarnings(as.numeric(age)) else NA_real_,
            salary = if (has_salary) num_col(salary) else NA_real_) %>%
     left_join(vals, by = "player_id") %>%
     mutate(
@@ -787,7 +837,7 @@ for (cfg in leagues) {
     }
     next
   }
-  write_json_file(out, OUTPUT_DIR, "leagues", paste0(cfg$key, ".json"))
+  write_json_file(as_json_arrays(out), OUTPUT_DIR, "leagues", paste0(cfg$key, ".json"))
   league_meta[[length(league_meta) + 1]] <- list(
     key = out$key, label = out$label, platform = out$platform,
     season = out$season, has_salary = out$has_salary,

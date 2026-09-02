@@ -87,7 +87,7 @@ export function LeagueReport({ leagueKey }: { leagueKey: string }) {
       {view === 'power' && <PowerTable data={data} />}
       {view === 'positions' && <PositionMatrix data={data} />}
       {view === 'rosters' && <Rosters data={data} />}
-      {view === 'transactions' && <Activity txns={data.transactions ?? []} />}
+      {view === 'transactions' && <Activity txns={arr(data.transactions)} />}
       {view === 'history' && <History data={data} />}
     </div>
   );
@@ -436,11 +436,15 @@ function History({ data }: { data: LeagueData }) {
     [data.history]
   );
 
-  if (!data.all_time || data.all_time.length === 0) {
+  // arr(), not a truthiness check: jsonlite writes an empty field as {}, which
+  // is truthy and whose .length is undefined, so `!data.all_time ||
+  // data.all_time.length === 0` lets an object straight through to .map below.
+  const allTime = arr(data.all_time);
+  if (allTime.length === 0) {
     return <div className="rounded-2xl border border-border bg-bg-card px-3 py-8 text-center text-sm text-text-muted">No history available.</div>;
   }
 
-  const maxWinPct = Math.max(...data.all_time.map(a => a.win_pct), 0.001);
+  const maxWinPct = Math.max(...allTime.map(a => a.win_pct), 0.001);
 
   return (
     <div className="space-y-3">
@@ -464,7 +468,7 @@ function History({ data }: { data: LeagueData }) {
             </tr>
           </thead>
           <tbody>
-            {data.all_time.map((a, i) => (
+            {allTime.map((a, i) => (
               <tr key={a.franchise_name} className="border-b border-border-light/60 hover:bg-bg-card-hover">
                 <td className="px-3 py-2 tabular-nums text-text-muted">{i + 1}</td>
                 <td className="px-3 py-2 font-medium text-text-primary">{a.franchise_name}</td>

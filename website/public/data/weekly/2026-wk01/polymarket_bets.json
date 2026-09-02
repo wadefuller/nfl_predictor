@@ -1,0 +1,8 @@
+{
+  "season": 2026,
+  "week": 1,
+  "fetched_at": null,
+  "min_liquidity": 1000,
+  "execution_buffer": 0.01,
+  "markets": []
+}

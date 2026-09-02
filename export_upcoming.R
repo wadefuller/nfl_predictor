@@ -23,6 +23,8 @@ suppressPackageStartupMessages({ library(tidyverse) })
 
 source(file.path(
   Sys.getenv("NFL_PROJECT_DIR", "~/Projects/R/nfl_predictor"), "ensemble_lib.R"))
+source(file.path(PROJECT_DIR, "polymarket_lib.R"))
+source(file.path(PROJECT_DIR, "kalshi_lib.R"))
 
 # ---- resolve target season/week --------------------------------------------
 args <- commandArgs(trailingOnly = TRUE)
@@ -94,7 +96,7 @@ cat(sprintf("  wrote %d games -> %s\n", nrow(out), up_path))
 # + the bundle's baked EV calibration. This is the true production policy — the
 # same one portfolio_sim.R evaluates — so the card reflects the bets the model
 # would actually place. (Do NOT hardcode min_ev=0.15 or the stale default cal.)
-BANKROLL <- as.numeric(Sys.getenv("BANKROLL", "500"))   # 1 unit = 1% = $5
+BANKROLL <- as.numeric(Sys.getenv("BANKROLL", "1000"))  # 1 unit = 1% = $10
 PARAMS   <- PORTFOLIO_DEFAULTS
 
 card <- tryCatch({
@@ -107,3 +109,27 @@ card <- tryCatch({
 card_path <- file.path(DATA_DIR, "upcoming_bet_card.csv")
 readr::write_csv(card, card_path)
 cat(sprintf("  wrote %d bets -> %s\n", nrow(card), card_path))
+
+# ---- Polymarket moneyline comparison (read-only) ---------------------------
+# This is a separate source from sportsbook recommendations. It compares the
+# model to the executable YES ask plus a 1-cent execution allowance, and does
+# not place orders or imply that a contract can be filled at the displayed price.
+poly <- fetch_polymarket_moneylines(out, target_season, target_week)
+poly_path <- file.path(DATA_DIR, "polymarket_nfl_moneyline.csv")
+readr::write_csv(poly, poly_path)
+cat(sprintf("  wrote %d mapped Polymarket moneyline contracts (%d EV+) -> %s\n",
+            nrow(poly), sum(poly$qualifies %||% FALSE), poly_path))
+
+# Kalshi's public NFL spread ladder is a distinct, read-only prediction-market
+# source. It supplies executable YES bid/ask contracts around each game's fair
+# spread; no account credentials or order placement are involved.
+kalshi <- fetch_kalshi_game_spreads(out, target_season, target_week,
+                                    sigma = bundle$sigma,
+                                    ev_cal = ev_calibration_from_bundle(bundle))
+kalshi_path <- file.path(DATA_DIR, "kalshi_nfl_game_spreads.csv")
+readr::write_csv(kalshi, kalshi_path)
+cat(sprintf("  wrote %d Kalshi NFL game spread references -> %s\n", nrow(kalshi), kalshi_path))
+kalshi_win <- fetch_kalshi_win_proxies(out, target_season, target_week, sigma = bundle$sigma)
+kalshi_win_path <- file.path(DATA_DIR, "kalshi_nfl_win_proxies.csv")
+readr::write_csv(kalshi_win, kalshi_win_path)
+cat(sprintf("  wrote %d Kalshi NFL 2+ win probability proxies -> %s\n", nrow(kalshi_win), kalshi_win_path))

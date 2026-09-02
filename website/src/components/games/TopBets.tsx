@@ -41,7 +41,7 @@ const pct = (p: number) => `${Math.round(p * 100)}%`;
  * Reads the `bet` already attached to each game by export_json.R, so it's the
  * same engine (and same numbers) as the per-game cards and the season curve.
  */
-export function TopBets({ games, bets: betRows, bankroll = 500, unitSize = 5,
+export function TopBets({ games, bets: betRows, bankroll = 1000, unitSize = 10,
                          limit = 8, subtitle, freshness }: TopBetsProps) {
   const rows: TopBetRow[] = (betRows ?? (games ?? [])
     .filter(g => g.bet)
