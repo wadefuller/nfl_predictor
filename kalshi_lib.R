@@ -80,7 +80,19 @@ fetch_kalshi_game_spreads <- function(predictions, season, week, sigma,
         # Standard Kalshi quadratic taker-fee estimate, before cent rounding.
         # Actual fee can vary slightly with order size and is surfaced in the UI.
         fee_estimate = fee_rate * ask * (1 - ask),
-        ev_raw = model_probability - ask - fee_estimate,
+        # EV PER DOLLAR STAKED, matching the sportsbook card.
+        #
+        # `model_probability - ask - fee` is the expected profit on ONE CONTRACT,
+        # which costs `ask`, not on one dollar. Dividing by `ask` converts to the
+        # same basis the sportsbook uses (`p*(dec-1) - (1-p)`), and it matters:
+        # on a 46c contract the per-contract figure understates the per-dollar
+        # return by more than a factor of ten once the fee is taken out. It also
+        # made calibrate_ev() wrong here, since that calibration was fitted on
+        # per-dollar sportsbook EV — feeding it a per-contract number applied a
+        # slope to the wrong scale, so Kalshi could never clear a threshold the
+        # book cleared on identical edge.
+        ev_per_contract = model_probability - ask - fee_estimate,
+        ev_raw = ev_per_contract / pmax(ask, 1e-6),
         ev = calibrate_ev(ev_raw, ev_cal),
         qualifies = ev >= min_ev,
         fetched_at = fetched_at

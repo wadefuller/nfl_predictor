@@ -17,11 +17,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "ARI",
-        "predWinPct": 0.792,
-        "nflPredictorLine": 8.2,
+        "predWinPct": 0.791,
+        "nflPredictorLine": 8.3,
         "homeImplPts": 26.9,
         "awayImplPts": 18.6,
-        "lineDiff": 1.2
+        "lineDiff": 1.3
       },
       "result": {
         "homePoints": 27,
@@ -69,12 +69,12 @@
         "side": "ARI",
         "type": "spread",
         "odds": -110,
-        "ev": 0.059,
-        "stake": 5,
+        "ev": 0.051,
+        "stake": 10,
         "units": 1,
-        "toWin": 5,
+        "toWin": 9,
         "result": "loss",
-        "pnl": -5
+        "pnl": -10
       }
     },
     {
@@ -93,11 +93,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "ARI",
-        "predWinPct": 0.832,
-        "nflPredictorLine": 9.7,
+        "predWinPct": 0.833,
+        "nflPredictorLine": 9.8,
         "homeImplPts": 25.6,
         "awayImplPts": 15.9,
-        "lineDiff": 2.2
+        "lineDiff": 2.3
       },
       "result": {
         "homePoints": 21,
@@ -112,12 +112,12 @@
         "side": "ARI",
         "type": "spread",
         "odds": -112,
-        "ev": 0.058,
-        "stake": 5,
-        "units": 1,
-        "toWin": 4,
+        "ev": 0.055,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 13,
         "result": "loss",
-        "pnl": -5
+        "pnl": -15
       }
     },
     {
@@ -136,11 +136,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.809,
-        "nflPredictorLine": -7.6,
+        "predWinPct": 0.808,
+        "nflPredictorLine": -7.7,
         "homeImplPts": 18.4,
         "awayImplPts": 26.1,
-        "lineDiff": -0.6
+        "lineDiff": -0.7
       },
       "result": {
         "homePoints": 23,
@@ -169,11 +169,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.655,
-        "nflPredictorLine": -3.1,
-        "homeImplPts": 22.7,
-        "awayImplPts": 25.8,
-        "lineDiff": 0.4
+        "predWinPct": 0.66,
+        "nflPredictorLine": -3.3,
+        "homeImplPts": 22.6,
+        "awayImplPts": 25.9,
+        "lineDiff": 0.2
       },
       "result": {
         "homePoints": 22,
@@ -203,10 +203,10 @@
       "prediction": {
         "predWinner": "JAX",
         "predWinPct": 0.633,
-        "nflPredictorLine": -2.5,
+        "nflPredictorLine": -2.6,
         "homeImplPts": 22.5,
         "awayImplPts": 25,
-        "lineDiff": -0
+        "lineDiff": -0.1
       },
       "result": {
         "homePoints": 24,
@@ -221,12 +221,12 @@
         "side": "JAX",
         "type": "ml",
         "odds": -135,
-        "ev": 0.079,
-        "stake": 10,
+        "ev": 0.069,
+        "stake": 20,
         "units": 2,
-        "toWin": 7,
+        "toWin": 15,
         "result": "win",
-        "pnl": 7
+        "pnl": 15
       }
     },
     {
@@ -245,11 +245,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.87,
-        "nflPredictorLine": -10.1,
-        "homeImplPts": 19.7,
-        "awayImplPts": 29.8,
-        "lineDiff": -0.6
+        "predWinPct": 0.874,
+        "nflPredictorLine": -10.4,
+        "homeImplPts": 19.5,
+        "awayImplPts": 30,
+        "lineDiff": -0.9
       },
       "result": {
         "homePoints": 17,
@@ -278,10 +278,10 @@
       "divGame": false,
       "prediction": {
         "predWinner": "ATL",
-        "predWinPct": 0.593,
+        "predWinPct": 0.595,
         "nflPredictorLine": -1.6,
-        "homeImplPts": 23.5,
-        "awayImplPts": 25,
+        "homeImplPts": 23.4,
+        "awayImplPts": 25.1,
         "lineDiff": 0.9
       },
       "result": {
@@ -311,11 +311,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "TB",
-        "predWinPct": 0.548,
-        "nflPredictorLine": -0.5,
+        "predWinPct": 0.55,
+        "nflPredictorLine": -0.6,
         "homeImplPts": 23.5,
         "awayImplPts": 24,
-        "lineDiff": 1
+        "lineDiff": 0.9
       },
       "result": {
         "homePoints": 20,
@@ -344,7 +344,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "ATL",
-        "predWinPct": 0.573,
+        "predWinPct": 0.572,
         "nflPredictorLine": 2.3,
         "homeImplPts": 22.9,
         "awayImplPts": 20.6,
@@ -377,11 +377,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.703,
-        "nflPredictorLine": -4.3,
-        "homeImplPts": 22.6,
-        "awayImplPts": 26.9,
-        "lineDiff": -0.8
+        "predWinPct": 0.707,
+        "nflPredictorLine": -4.5,
+        "homeImplPts": 22.5,
+        "awayImplPts": 27,
+        "lineDiff": -1
       },
       "result": {
         "homePoints": 24,
@@ -410,11 +410,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "ATL",
-        "predWinPct": 0.672,
-        "nflPredictorLine": 4.8,
-        "homeImplPts": 24.6,
-        "awayImplPts": 19.9,
-        "lineDiff": -2.2
+        "predWinPct": 0.663,
+        "nflPredictorLine": 4.6,
+        "homeImplPts": 24.5,
+        "awayImplPts": 20,
+        "lineDiff": -2.4
       },
       "result": {
         "homePoints": 10,
@@ -430,11 +430,11 @@
         "type": "spread",
         "odds": -115,
         "ev": 0.052,
-        "stake": 5,
-        "units": 1,
-        "toWin": 4,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 13,
         "result": "win",
-        "pnl": 4
+        "pnl": 13
       }
     },
     {
@@ -453,11 +453,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "ATL",
-        "predWinPct": 0.643,
-        "nflPredictorLine": 4,
-        "homeImplPts": 23.3,
-        "awayImplPts": 19.2,
-        "lineDiff": -0.5
+        "predWinPct": 0.639,
+        "nflPredictorLine": 3.9,
+        "homeImplPts": 23.2,
+        "awayImplPts": 19.3,
+        "lineDiff": -0.6
       },
       "result": {
         "homePoints": 27,
@@ -487,10 +487,10 @@
       "prediction": {
         "predWinner": "SEA",
         "predWinPct": 0.817,
-        "nflPredictorLine": -7.9,
-        "homeImplPts": 18.3,
-        "awayImplPts": 26.2,
-        "lineDiff": -0.9
+        "nflPredictorLine": -8,
+        "homeImplPts": 18.2,
+        "awayImplPts": 26.3,
+        "lineDiff": -1
       },
       "result": {
         "homePoints": 9,
@@ -519,11 +519,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.846,
-        "nflPredictorLine": -9,
-        "homeImplPts": 19.7,
-        "awayImplPts": 28.8,
-        "lineDiff": -1.5
+        "predWinPct": 0.847,
+        "nflPredictorLine": -9.2,
+        "homeImplPts": 19.6,
+        "awayImplPts": 28.9,
+        "lineDiff": -1.7
       },
       "result": {
         "homePoints": 27,
@@ -538,12 +538,12 @@
         "side": "LA",
         "type": "spread",
         "odds": -102,
-        "ev": 0.067,
-        "stake": 5,
-        "units": 1,
-        "toWin": 5,
+        "ev": 0.065,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 15,
         "result": "loss",
-        "pnl": -5
+        "pnl": -15
       }
     },
     {
@@ -595,11 +595,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.885,
-        "nflPredictorLine": 12,
-        "homeImplPts": 29.2,
-        "awayImplPts": 17.3,
-        "lineDiff": -0.5
+        "predWinPct": 0.886,
+        "nflPredictorLine": 12.1,
+        "homeImplPts": 29.3,
+        "awayImplPts": 17.2,
+        "lineDiff": -0.4
       },
       "result": {
         "homePoints": 41,
@@ -628,11 +628,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.688,
-        "nflPredictorLine": 5.2,
+        "predWinPct": 0.685,
+        "nflPredictorLine": 5.1,
         "homeImplPts": 29.3,
         "awayImplPts": 24.2,
-        "lineDiff": 0.7
+        "lineDiff": 0.6
       },
       "result": {
         "homePoints": 30,
@@ -661,7 +661,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "HOU",
-        "predWinPct": 0.59,
+        "predWinPct": 0.588,
         "nflPredictorLine": -1.5,
         "homeImplPts": 20,
         "awayImplPts": 21.5,
@@ -694,11 +694,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.761,
-        "nflPredictorLine": -6,
+        "predWinPct": 0.76,
+        "nflPredictorLine": -6.1,
         "homeImplPts": 18.7,
         "awayImplPts": 24.8,
-        "lineDiff": 1
+        "lineDiff": 0.9
       },
       "result": {
         "homePoints": 3,
@@ -727,7 +727,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.544,
+        "predWinPct": 0.547,
         "nflPredictorLine": 1.7,
         "homeImplPts": 23.6,
         "awayImplPts": 21.9,
@@ -760,11 +760,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.936,
-        "nflPredictorLine": 15.3,
-        "homeImplPts": 29.9,
-        "awayImplPts": 14.6,
-        "lineDiff": 1.3
+        "predWinPct": 0.933,
+        "nflPredictorLine": 15.1,
+        "homeImplPts": 29.8,
+        "awayImplPts": 14.7,
+        "lineDiff": 1.1
       },
       "result": {
         "homePoints": 23,
@@ -793,11 +793,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.859,
-        "nflPredictorLine": 10.8,
-        "homeImplPts": 31.7,
-        "awayImplPts": 20.8,
-        "lineDiff": 3.8
+        "predWinPct": 0.862,
+        "nflPredictorLine": 11,
+        "homeImplPts": 31.8,
+        "awayImplPts": 20.7,
+        "lineDiff": 4
       },
       "result": {
         "homePoints": 14,
@@ -812,12 +812,12 @@
         "side": "BAL",
         "type": "spread",
         "odds": -120,
-        "ev": 0.098,
-        "stake": 10,
-        "units": 2,
-        "toWin": 8,
+        "ev": 0.093,
+        "stake": 25,
+        "units": 2.5,
+        "toWin": 21,
         "result": "loss",
-        "pnl": -10
+        "pnl": -25
       }
     },
     {
@@ -836,7 +836,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.74,
+        "predWinPct": 0.738,
         "nflPredictorLine": 6.6,
         "homeImplPts": 25.1,
         "awayImplPts": 18.4,
@@ -869,11 +869,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.53,
-        "nflPredictorLine": 1.3,
-        "homeImplPts": 24.9,
-        "awayImplPts": 23.6,
-        "lineDiff": -2.2
+        "predWinPct": 0.55,
+        "nflPredictorLine": 1.8,
+        "homeImplPts": 25.2,
+        "awayImplPts": 23.3,
+        "lineDiff": -1.7
       },
       "result": {
         "homePoints": 24,
@@ -902,11 +902,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.581,
-        "nflPredictorLine": -1.3,
-        "homeImplPts": 24.6,
-        "awayImplPts": 25.9,
-        "lineDiff": 0.2
+        "predWinPct": 0.587,
+        "nflPredictorLine": -1.4,
+        "homeImplPts": 24.5,
+        "awayImplPts": 26,
+        "lineDiff": 0.1
       },
       "result": {
         "homePoints": 41,
@@ -935,10 +935,10 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.855,
+        "predWinPct": 0.852,
         "nflPredictorLine": 10.6,
-        "homeImplPts": 30.6,
-        "awayImplPts": 19.9,
+        "homeImplPts": 30.5,
+        "awayImplPts": 20,
         "lineDiff": -1.9
       },
       "result": {
@@ -950,17 +950,7 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
-      "bet": {
-        "side": "MIA",
-        "type": "spread",
-        "odds": -110,
-        "ev": 0.053,
-        "stake": 5,
-        "units": 1,
-        "toWin": 5,
-        "result": "win",
-        "pnl": 5
-      }
+      "bet": null
     },
     {
       "gameId": "2025_04_NO_BUF",
@@ -978,11 +968,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.929,
-        "nflPredictorLine": 14.7,
-        "homeImplPts": 31.6,
-        "awayImplPts": 16.9,
-        "lineDiff": -0.8
+        "predWinPct": 0.93,
+        "nflPredictorLine": 14.9,
+        "homeImplPts": 31.7,
+        "awayImplPts": 16.8,
+        "lineDiff": -0.6
       },
       "result": {
         "homePoints": 31,
@@ -1011,11 +1001,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.786,
-        "nflPredictorLine": 8,
-        "homeImplPts": 28.8,
-        "awayImplPts": 20.7,
-        "lineDiff": 0.5
+        "predWinPct": 0.8,
+        "nflPredictorLine": 8.6,
+        "homeImplPts": 29,
+        "awayImplPts": 20.5,
+        "lineDiff": 1.1
       },
       "result": {
         "homePoints": 20,
@@ -1044,7 +1034,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.528,
+        "predWinPct": 0.527,
         "nflPredictorLine": -0,
         "homeImplPts": 26.7,
         "awayImplPts": 26.8,
@@ -1063,12 +1053,12 @@
         "side": "BUF",
         "type": "spread",
         "odds": -115,
-        "ev": 0.062,
-        "stake": 5,
-        "units": 1,
-        "toWin": 4,
+        "ev": 0.054,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 13,
         "result": "win",
-        "pnl": 4
+        "pnl": 13
       }
     },
     {
@@ -1088,10 +1078,10 @@
       "prediction": {
         "predWinner": "BUF",
         "predWinPct": 0.74,
-        "nflPredictorLine": 6.6,
+        "nflPredictorLine": 6.7,
         "homeImplPts": 26.6,
         "awayImplPts": 19.9,
-        "lineDiff": 0.6
+        "lineDiff": 0.7
       },
       "result": {
         "homePoints": 44,
@@ -1120,11 +1110,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.827,
-        "nflPredictorLine": 9.5,
+        "predWinPct": 0.828,
+        "nflPredictorLine": 9.6,
         "homeImplPts": 32,
         "awayImplPts": 22.5,
-        "lineDiff": 3.5
+        "lineDiff": 3.6
       },
       "result": {
         "homePoints": 39,
@@ -1139,12 +1129,12 @@
         "side": "BUF",
         "type": "spread",
         "odds": -112,
-        "ev": 0.111,
-        "stake": 10,
-        "units": 2,
-        "toWin": 9,
+        "ev": 0.102,
+        "stake": 25,
+        "units": 2.5,
+        "toWin": 22,
         "result": "loss",
-        "pnl": -10
+        "pnl": -25
       }
     },
     {
@@ -1163,11 +1153,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.643,
-        "nflPredictorLine": 4,
+        "predWinPct": 0.647,
+        "nflPredictorLine": 4.2,
         "homeImplPts": 24.8,
         "awayImplPts": 20.7,
-        "lineDiff": 1
+        "lineDiff": 1.2
       },
       "result": {
         "homePoints": 12,
@@ -1196,11 +1186,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.888,
-        "nflPredictorLine": 12.2,
-        "homeImplPts": 25.8,
-        "awayImplPts": 13.7,
-        "lineDiff": -0.3
+        "predWinPct": 0.881,
+        "nflPredictorLine": 11.9,
+        "homeImplPts": 25.7,
+        "awayImplPts": 13.8,
+        "lineDiff": -0.6
       },
       "result": {
         "homePoints": 35,
@@ -1229,11 +1219,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "ATL",
-        "predWinPct": 0.739,
-        "nflPredictorLine": -5.4,
-        "homeImplPts": 19.6,
-        "awayImplPts": 24.9,
-        "lineDiff": 0.1
+        "predWinPct": 0.741,
+        "nflPredictorLine": -5.5,
+        "homeImplPts": 19.5,
+        "awayImplPts": 25,
+        "lineDiff": 0
       },
       "result": {
         "homePoints": 30,
@@ -1244,17 +1234,7 @@
         "predCorrect": false,
         "vegasCorrect": false
       },
-      "bet": {
-        "side": "ATL",
-        "type": "ml",
-        "odds": -225,
-        "ev": 0.055,
-        "stake": 10,
-        "units": 2,
-        "toWin": 4,
-        "result": "loss",
-        "pnl": -10
-      }
+      "bet": null
     },
     {
       "gameId": "2025_05_MIA_CAR",
@@ -1272,11 +1252,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "MIA",
-        "predWinPct": 0.602,
-        "nflPredictorLine": -1.8,
-        "homeImplPts": 21.4,
-        "awayImplPts": 23.1,
-        "lineDiff": -0.3
+        "predWinPct": 0.608,
+        "nflPredictorLine": -2,
+        "homeImplPts": 21.3,
+        "awayImplPts": 23.2,
+        "lineDiff": -0.5
       },
       "result": {
         "homePoints": 27,
@@ -1291,12 +1271,12 @@
         "side": "MIA",
         "type": "ml",
         "odds": -120,
-        "ev": 0.081,
-        "stake": 10,
+        "ev": 0.078,
+        "stake": 20,
         "units": 2,
-        "toWin": 8,
+        "toWin": 17,
         "result": "loss",
-        "pnl": -10
+        "pnl": -20
       }
     },
     {
@@ -1315,11 +1295,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DAL",
-        "predWinPct": 0.652,
+        "predWinPct": 0.649,
         "nflPredictorLine": -3,
-        "homeImplPts": 22.2,
-        "awayImplPts": 25.3,
-        "lineDiff": -0
+        "homeImplPts": 22.3,
+        "awayImplPts": 25.2,
+        "lineDiff": 0
       },
       "result": {
         "homePoints": 30,
@@ -1348,11 +1328,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.862,
-        "nflPredictorLine": -9.8,
-        "homeImplPts": 18.9,
-        "awayImplPts": 28.6,
-        "lineDiff": -2.8
+        "predWinPct": 0.867,
+        "nflPredictorLine": -10.1,
+        "homeImplPts": 18.7,
+        "awayImplPts": 28.8,
+        "lineDiff": -3.1
       },
       "result": {
         "homePoints": 9,
@@ -1367,12 +1347,12 @@
         "side": "BUF",
         "type": "spread",
         "odds": -115,
-        "ev": 0.073,
-        "stake": 10,
+        "ev": 0.075,
+        "stake": 20,
         "units": 2,
-        "toWin": 9,
+        "toWin": 17,
         "result": "win",
-        "pnl": 9
+        "pnl": 17
       }
     },
     {
@@ -1391,11 +1371,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "CAR",
-        "predWinPct": 0.737,
-        "nflPredictorLine": 6.5,
+        "predWinPct": 0.736,
+        "nflPredictorLine": 6.6,
         "homeImplPts": 22.5,
         "awayImplPts": 16,
-        "lineDiff": 1
+        "lineDiff": 1.1
       },
       "result": {
         "homePoints": 7,
@@ -1425,10 +1405,10 @@
       "prediction": {
         "predWinner": "LA",
         "predWinPct": 0.844,
-        "nflPredictorLine": -9,
-        "homeImplPts": 17.8,
-        "awayImplPts": 26.7,
-        "lineDiff": 1
+        "nflPredictorLine": -9.1,
+        "homeImplPts": 17.7,
+        "awayImplPts": 26.8,
+        "lineDiff": 0.9
       },
       "result": {
         "homePoints": 31,
@@ -1457,7 +1437,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "TB",
-        "predWinPct": 0.641,
+        "predWinPct": 0.639,
         "nflPredictorLine": -2.7,
         "homeImplPts": 20.9,
         "awayImplPts": 23.6,
@@ -1490,11 +1470,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.783,
-        "nflPredictorLine": -6.7,
+        "predWinPct": 0.782,
+        "nflPredictorLine": -6.8,
         "homeImplPts": 17.9,
         "awayImplPts": 24.6,
-        "lineDiff": -0.2
+        "lineDiff": -0.3
       },
       "result": {
         "homePoints": 10,
@@ -1524,10 +1504,10 @@
       "prediction": {
         "predWinner": "LA",
         "predWinPct": 0.852,
-        "nflPredictorLine": -9.3,
-        "homeImplPts": 17.6,
-        "awayImplPts": 26.9,
-        "lineDiff": 0.7
+        "nflPredictorLine": -9.4,
+        "homeImplPts": 17.5,
+        "awayImplPts": 27,
+        "lineDiff": 0.6
       },
       "result": {
         "homePoints": 31,
@@ -1556,11 +1536,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "MIN",
-        "predWinPct": 0.572,
-        "nflPredictorLine": -1,
+        "predWinPct": 0.573,
+        "nflPredictorLine": -1.1,
         "homeImplPts": 21.2,
         "awayImplPts": 22.3,
-        "lineDiff": 0.5
+        "lineDiff": 0.4
       },
       "result": {
         "homePoints": 24,
@@ -1575,12 +1555,12 @@
         "side": "MIN",
         "type": "ml",
         "odds": -112,
-        "ev": 0.065,
-        "stake": 5,
-        "units": 1,
-        "toWin": 4,
+        "ev": 0.059,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 13,
         "result": "win",
-        "pnl": 4
+        "pnl": 13
       }
     },
     {
@@ -1599,7 +1579,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DAL",
-        "predWinPct": 0.582,
+        "predWinPct": 0.581,
         "nflPredictorLine": -1.3,
         "homeImplPts": 24.1,
         "awayImplPts": 25.4,
@@ -1632,11 +1612,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CHI",
-        "predWinPct": 0.638,
-        "nflPredictorLine": 3.9,
+        "predWinPct": 0.634,
+        "nflPredictorLine": 3.8,
         "homeImplPts": 23.7,
         "awayImplPts": 19.8,
-        "lineDiff": -0.6
+        "lineDiff": -0.7
       },
       "result": {
         "homePoints": 26,
@@ -1665,11 +1645,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CHI",
-        "predWinPct": 0.684,
-        "nflPredictorLine": 5.1,
+        "predWinPct": 0.681,
+        "nflPredictorLine": 5,
         "homeImplPts": 25.3,
         "awayImplPts": 20.2,
-        "lineDiff": 0.6
+        "lineDiff": 0.5
       },
       "result": {
         "homePoints": 24,
@@ -1698,11 +1678,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CHI",
-        "predWinPct": 0.655,
-        "nflPredictorLine": 4.3,
-        "homeImplPts": 25.4,
-        "awayImplPts": 21.1,
-        "lineDiff": 1.3
+        "predWinPct": 0.647,
+        "nflPredictorLine": 4.2,
+        "homeImplPts": 25.3,
+        "awayImplPts": 21.2,
+        "lineDiff": 1.2
       },
       "result": {
         "homePoints": 31,
@@ -1713,17 +1693,7 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
-      "bet": {
-        "side": "CHI",
-        "type": "ml",
-        "odds": -155,
-        "ev": 0.062,
-        "stake": 10,
-        "units": 2,
-        "toWin": 6,
-        "result": "win",
-        "pnl": 6
-      }
+      "bet": null
     },
     {
       "gameId": "2025_15_CLE_CHI",
@@ -1741,11 +1711,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CHI",
-        "predWinPct": 0.813,
-        "nflPredictorLine": 9,
-        "homeImplPts": 23.7,
-        "awayImplPts": 14.8,
-        "lineDiff": 1.5
+        "predWinPct": 0.815,
+        "nflPredictorLine": 9.1,
+        "homeImplPts": 23.8,
+        "awayImplPts": 14.7,
+        "lineDiff": 1.6
       },
       "result": {
         "homePoints": 31,
@@ -1774,11 +1744,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.531,
-        "nflPredictorLine": -0.1,
-        "homeImplPts": 22.7,
-        "awayImplPts": 22.8,
-        "lineDiff": -1.6
+        "predWinPct": 0.537,
+        "nflPredictorLine": -0.2,
+        "homeImplPts": 22.6,
+        "awayImplPts": 22.9,
+        "lineDiff": -1.7
       },
       "result": {
         "homePoints": 22,
@@ -1807,7 +1777,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "CHI",
-        "predWinPct": 0.572,
+        "predWinPct": 0.57,
         "nflPredictorLine": 2.3,
         "homeImplPts": 26.9,
         "awayImplPts": 24.6,
@@ -1840,11 +1810,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.555,
-        "nflPredictorLine": -0.7,
+        "predWinPct": 0.56,
+        "nflPredictorLine": -0.8,
         "homeImplPts": 22.4,
         "awayImplPts": 23.1,
-        "lineDiff": 1.8
+        "lineDiff": 1.7
       },
       "result": {
         "homePoints": 31,
@@ -1873,11 +1843,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.705,
-        "nflPredictorLine": -4.4,
+        "predWinPct": 0.708,
+        "nflPredictorLine": -4.6,
         "homeImplPts": 22.5,
         "awayImplPts": 27,
-        "lineDiff": -0.9
+        "lineDiff": -1.1
       },
       "result": {
         "homePoints": 17,
@@ -1906,11 +1876,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CIN",
-        "predWinPct": 0.664,
-        "nflPredictorLine": 4.6,
+        "predWinPct": 0.662,
+        "nflPredictorLine": 4.5,
         "homeImplPts": 27,
         "awayImplPts": 22.5,
-        "lineDiff": 1.1
+        "lineDiff": 1
       },
       "result": {
         "homePoints": 31,
@@ -1939,11 +1909,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DET",
-        "predWinPct": 0.848,
-        "nflPredictorLine": -9.1,
-        "homeImplPts": 20.2,
-        "awayImplPts": 29.3,
-        "lineDiff": 1.4
+        "predWinPct": 0.849,
+        "nflPredictorLine": -9.3,
+        "homeImplPts": 20.1,
+        "awayImplPts": 29.4,
+        "lineDiff": 1.2
       },
       "result": {
         "homePoints": 24,
@@ -1972,11 +1942,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "PIT",
-        "predWinPct": 0.786,
-        "nflPredictorLine": -6.8,
-        "homeImplPts": 19.3,
-        "awayImplPts": 26.2,
-        "lineDiff": -1.3
+        "predWinPct": 0.791,
+        "nflPredictorLine": -7.1,
+        "homeImplPts": 19.2,
+        "awayImplPts": 26.3,
+        "lineDiff": -1.6
       },
       "result": {
         "homePoints": 33,
@@ -1991,12 +1961,12 @@
         "side": "PIT",
         "type": "ml",
         "odds": -245,
-        "ev": 0.083,
-        "stake": 20,
+        "ev": 0.077,
+        "stake": 40,
         "units": 4,
-        "toWin": 8,
+        "toWin": 16,
         "result": "loss",
-        "pnl": -20
+        "pnl": -40
       }
     },
     {
@@ -2015,11 +1985,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CIN",
-        "predWinPct": 0.655,
-        "nflPredictorLine": 4.3,
-        "homeImplPts": 23.9,
-        "awayImplPts": 19.6,
-        "lineDiff": -1.2
+        "predWinPct": 0.644,
+        "nflPredictorLine": 4.1,
+        "homeImplPts": 23.8,
+        "awayImplPts": 19.7,
+        "lineDiff": -1.4
       },
       "result": {
         "homePoints": 38,
@@ -2048,11 +2018,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CHI",
-        "predWinPct": 0.653,
+        "predWinPct": 0.65,
         "nflPredictorLine": -3,
-        "homeImplPts": 24.2,
-        "awayImplPts": 27.3,
-        "lineDiff": -0
+        "homeImplPts": 24.3,
+        "awayImplPts": 27.2,
+        "lineDiff": 0
       },
       "result": {
         "homePoints": 42,
@@ -2081,11 +2051,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.846,
-        "nflPredictorLine": -9,
-        "homeImplPts": 20.7,
-        "awayImplPts": 29.8,
-        "lineDiff": -1.5
+        "predWinPct": 0.834,
+        "nflPredictorLine": -8.7,
+        "homeImplPts": 20.9,
+        "awayImplPts": 29.6,
+        "lineDiff": -1.2
       },
       "result": {
         "homePoints": 20,
@@ -2114,11 +2084,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.737,
-        "nflPredictorLine": -5.3,
-        "homeImplPts": 23.1,
-        "awayImplPts": 28.4,
-        "lineDiff": -2.8
+        "predWinPct": 0.742,
+        "nflPredictorLine": -5.5,
+        "homeImplPts": 23,
+        "awayImplPts": 28.5,
+        "lineDiff": -3
       },
       "result": {
         "homePoints": 0,
@@ -2133,12 +2103,12 @@
         "side": "BAL",
         "type": "ml",
         "odds": -162,
-        "ev": 0.143,
-        "stake": 25,
+        "ev": 0.131,
+        "stake": 50,
         "units": 5,
-        "toWin": 15,
+        "toWin": 31,
         "result": "win",
-        "pnl": 15
+        "pnl": 31
       }
     },
     {
@@ -2157,11 +2127,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CIN",
-        "predWinPct": 0.699,
-        "nflPredictorLine": 5.5,
+        "predWinPct": 0.696,
+        "nflPredictorLine": 5.4,
         "homeImplPts": 29,
         "awayImplPts": 23.5,
-        "lineDiff": -1.5
+        "lineDiff": -1.6
       },
       "result": {
         "homePoints": 37,
@@ -2190,11 +2160,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "CIN",
-        "predWinPct": 0.806,
-        "nflPredictorLine": 8.7,
-        "homeImplPts": 28.1,
-        "awayImplPts": 19.4,
-        "lineDiff": -0.8
+        "predWinPct": 0.808,
+        "nflPredictorLine": 8.8,
+        "homeImplPts": 28.2,
+        "awayImplPts": 19.3,
+        "lineDiff": -0.7
       },
       "result": {
         "homePoints": 18,
@@ -2223,11 +2193,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "CIN",
-        "predWinPct": 0.76,
-        "nflPredictorLine": -6,
+        "predWinPct": 0.761,
+        "nflPredictorLine": -6.1,
         "homeImplPts": 20.7,
         "awayImplPts": 26.8,
-        "lineDiff": -0.5
+        "lineDiff": -0.6
       },
       "result": {
         "homePoints": 16,
@@ -2242,12 +2212,12 @@
         "side": "CIN",
         "type": "ml",
         "odds": -238,
-        "ev": 0.064,
-        "stake": 15,
+        "ev": 0.057,
+        "stake": 30,
         "units": 3,
-        "toWin": 6,
+        "toWin": 13,
         "result": "win",
-        "pnl": 6
+        "pnl": 13
       }
     },
     {
@@ -2266,11 +2236,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.85,
-        "nflPredictorLine": -9.2,
+        "predWinPct": 0.851,
+        "nflPredictorLine": -9.4,
         "homeImplPts": 16.1,
         "awayImplPts": 25.4,
-        "lineDiff": -0.7
+        "lineDiff": -0.9
       },
       "result": {
         "homePoints": 13,
@@ -2299,11 +2269,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "MIN",
-        "predWinPct": 0.758,
-        "nflPredictorLine": -5.9,
-        "homeImplPts": 14.8,
-        "awayImplPts": 20.7,
-        "lineDiff": -2.4
+        "predWinPct": 0.76,
+        "nflPredictorLine": -6.1,
+        "homeImplPts": 14.7,
+        "awayImplPts": 20.8,
+        "lineDiff": -2.6
       },
       "result": {
         "homePoints": 17,
@@ -2318,12 +2288,12 @@
         "side": "MIN",
         "type": "ml",
         "odds": -198,
-        "ev": 0.106,
-        "stake": 20,
-        "units": 4,
-        "toWin": 10,
+        "ev": 0.095,
+        "stake": 45,
+        "units": 4.5,
+        "toWin": 23,
         "result": "win",
-        "pnl": 10
+        "pnl": 23
       }
     },
     {
@@ -2341,12 +2311,12 @@
       "awayMoneyline": 124,
       "divGame": false,
       "prediction": {
-        "predWinner": "CLE",
-        "predWinPct": 0.523,
-        "nflPredictorLine": 0.1,
-        "homeImplPts": 17.3,
-        "awayImplPts": 17.2,
-        "lineDiff": -2.4
+        "predWinner": "MIA",
+        "predWinPct": 0.528,
+        "nflPredictorLine": -0,
+        "homeImplPts": 17.2,
+        "awayImplPts": 17.3,
+        "lineDiff": -2.5
       },
       "result": {
         "homePoints": 31,
@@ -2354,19 +2324,19 @@
         "homeResult": 25,
         "homeWin": true,
         "winningTeam": "CLE",
-        "predCorrect": true,
+        "predCorrect": false,
         "vegasCorrect": true
       },
       "bet": {
         "side": "MIA",
         "type": "ml",
         "odds": 124,
-        "ev": 0.128,
-        "stake": 10,
+        "ev": 0.12,
+        "stake": 20,
         "units": 2,
-        "toWin": 12,
-        "result": "win",
-        "pnl": 12
+        "toWin": 25,
+        "result": "loss",
+        "pnl": -20
       }
     },
     {
@@ -2385,11 +2355,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.865,
-        "nflPredictorLine": -9.9,
-        "homeImplPts": 13.8,
-        "awayImplPts": 23.7,
-        "lineDiff": -2.4
+        "predWinPct": 0.869,
+        "nflPredictorLine": -10.2,
+        "homeImplPts": 13.7,
+        "awayImplPts": 23.8,
+        "lineDiff": -2.7
       },
       "result": {
         "homePoints": 16,
@@ -2405,11 +2375,11 @@
         "type": "spread",
         "odds": -105,
         "ev": 0.091,
-        "stake": 10,
+        "stake": 20,
         "units": 2,
-        "toWin": 10,
+        "toWin": 19,
         "result": "loss",
-        "pnl": -10
+        "pnl": -20
       }
     },
     {
@@ -2428,11 +2398,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.769,
-        "nflPredictorLine": -6.3,
-        "homeImplPts": 14.6,
-        "awayImplPts": 20.9,
-        "lineDiff": -0.8
+        "predWinPct": 0.771,
+        "nflPredictorLine": -6.4,
+        "homeImplPts": 14.5,
+        "awayImplPts": 21,
+        "lineDiff": -0.9
       },
       "result": {
         "homePoints": 8,
@@ -2447,12 +2417,12 @@
         "side": "SF",
         "type": "ml",
         "odds": -250,
-        "ev": 0.061,
-        "stake": 15,
+        "ev": 0.055,
+        "stake": 30,
         "units": 3,
-        "toWin": 6,
+        "toWin": 12,
         "result": "win",
-        "pnl": 6
+        "pnl": 12
       }
     },
     {
@@ -2471,7 +2441,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CLE",
-        "predWinPct": 0.586,
+        "predWinPct": 0.588,
         "nflPredictorLine": 2.7,
         "homeImplPts": 18.1,
         "awayImplPts": 15.4,
@@ -2505,10 +2475,10 @@
       "prediction": {
         "predWinner": "BUF",
         "predWinPct": 0.899,
-        "nflPredictorLine": -11.6,
+        "nflPredictorLine": -11.8,
         "homeImplPts": 14.9,
         "awayImplPts": 26.6,
-        "lineDiff": -1.1
+        "lineDiff": -1.3
       },
       "result": {
         "homePoints": 20,
@@ -2537,11 +2507,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "PIT",
-        "predWinPct": 0.762,
-        "nflPredictorLine": -6.1,
-        "homeImplPts": 14.7,
-        "awayImplPts": 20.8,
-        "lineDiff": -1.6
+        "predWinPct": 0.765,
+        "nflPredictorLine": -6.2,
+        "homeImplPts": 14.6,
+        "awayImplPts": 20.9,
+        "lineDiff": -1.7
       },
       "result": {
         "homePoints": 13,
@@ -2556,12 +2526,12 @@
         "side": "PIT",
         "type": "ml",
         "odds": -205,
-        "ev": 0.101,
-        "stake": 20,
+        "ev": 0.092,
+        "stake": 40,
         "units": 4,
-        "toWin": 10,
+        "toWin": 20,
         "result": "loss",
-        "pnl": -20
+        "pnl": -40
       }
     },
     {
@@ -2580,11 +2550,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "DAL",
-        "predWinPct": 0.61,
-        "nflPredictorLine": 3.2,
-        "homeImplPts": 23.9,
-        "awayImplPts": 20.6,
-        "lineDiff": -1.3
+        "predWinPct": 0.602,
+        "nflPredictorLine": 3,
+        "homeImplPts": 23.8,
+        "awayImplPts": 20.7,
+        "lineDiff": -1.5
       },
       "result": {
         "homePoints": 40,
@@ -2599,12 +2569,12 @@
         "side": "NYG",
         "type": "spread",
         "odds": 100,
-        "ev": 0.063,
-        "stake": 5,
-        "units": 1,
-        "toWin": 5,
+        "ev": 0.062,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 15,
         "result": "win",
-        "pnl": 5
+        "pnl": 15
       }
     },
     {
@@ -2623,11 +2593,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.798,
-        "nflPredictorLine": -7.3,
-        "homeImplPts": 20.1,
-        "awayImplPts": 27.4,
-        "lineDiff": -0.3
+        "predWinPct": 0.802,
+        "nflPredictorLine": -7.5,
+        "homeImplPts": 20,
+        "awayImplPts": 27.5,
+        "lineDiff": -0.5
       },
       "result": {
         "homePoints": 40,
@@ -2657,10 +2627,10 @@
       "prediction": {
         "predWinner": "DAL",
         "predWinPct": 0.504,
-        "nflPredictorLine": 0.7,
-        "homeImplPts": 27.6,
-        "awayImplPts": 26.9,
-        "lineDiff": -0.8
+        "nflPredictorLine": 0.5,
+        "homeImplPts": 27.5,
+        "awayImplPts": 27,
+        "lineDiff": -1
       },
       "result": {
         "homePoints": 44,
@@ -2689,11 +2659,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DAL",
-        "predWinPct": 0.645,
-        "nflPredictorLine": 4.1,
+        "predWinPct": 0.642,
+        "nflPredictorLine": 4,
         "homeImplPts": 28.8,
         "awayImplPts": 24.7,
-        "lineDiff": 0.6
+        "lineDiff": 0.5
       },
       "result": {
         "homePoints": 17,
@@ -2722,7 +2692,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.63,
+        "predWinPct": 0.632,
         "nflPredictorLine": -2.5,
         "homeImplPts": 22.5,
         "awayImplPts": 25,
@@ -2755,11 +2725,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.668,
-        "nflPredictorLine": -3.4,
+        "predWinPct": 0.669,
+        "nflPredictorLine": -3.5,
         "homeImplPts": 25,
         "awayImplPts": 28.5,
-        "lineDiff": 0.1
+        "lineDiff": -0
       },
       "result": {
         "homePoints": 31,
@@ -2788,11 +2758,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DAL",
-        "predWinPct": 0.723,
-        "nflPredictorLine": 6.1,
-        "homeImplPts": 26.8,
-        "awayImplPts": 20.7,
-        "lineDiff": 0.6
+        "predWinPct": 0.716,
+        "nflPredictorLine": 6,
+        "homeImplPts": 26.7,
+        "awayImplPts": 20.8,
+        "lineDiff": 0.5
       },
       "result": {
         "homePoints": 26,
@@ -2821,11 +2791,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DAL",
-        "predWinPct": 0.508,
-        "nflPredictorLine": 0.5,
-        "homeImplPts": 25.5,
-        "awayImplPts": 25,
-        "lineDiff": -1
+        "predWinPct": 0.512,
+        "nflPredictorLine": 0.3,
+        "homeImplPts": 25.4,
+        "awayImplPts": 25.1,
+        "lineDiff": -1.2
       },
       "result": {
         "homePoints": 17,
@@ -2855,10 +2825,10 @@
       "prediction": {
         "predWinner": "DEN",
         "predWinPct": 0.8,
-        "nflPredictorLine": 8.5,
+        "nflPredictorLine": 8.6,
         "homeImplPts": 25.5,
         "awayImplPts": 17,
-        "lineDiff": 0
+        "lineDiff": 0.1
       },
       "result": {
         "homePoints": 20,
@@ -2887,11 +2857,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.758,
-        "nflPredictorLine": 7.1,
+        "predWinPct": 0.751,
+        "nflPredictorLine": 7,
         "homeImplPts": 25.8,
         "awayImplPts": 18.7,
-        "lineDiff": -0.4
+        "lineDiff": -0.5
       },
       "result": {
         "homePoints": 28,
@@ -2920,11 +2890,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.834,
-        "nflPredictorLine": 9.8,
-        "homeImplPts": 24.6,
-        "awayImplPts": 14.9,
-        "lineDiff": 2.3
+        "predWinPct": 0.836,
+        "nflPredictorLine": 9.9,
+        "homeImplPts": 24.7,
+        "awayImplPts": 14.8,
+        "lineDiff": 2.4
       },
       "result": {
         "homePoints": 33,
@@ -2939,12 +2909,12 @@
         "side": "DEN",
         "type": "spread",
         "odds": -115,
-        "ev": 0.053,
-        "stake": 5,
-        "units": 1,
-        "toWin": 4,
+        "ev": 0.051,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 13,
         "result": "loss",
-        "pnl": -5
+        "pnl": -15
       }
     },
     {
@@ -2963,11 +2933,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.677,
-        "nflPredictorLine": 4.9,
+        "predWinPct": 0.678,
+        "nflPredictorLine": 5,
         "homeImplPts": 28.2,
         "awayImplPts": 23.3,
-        "lineDiff": 1.4
+        "lineDiff": 1.5
       },
       "result": {
         "homePoints": 44,
@@ -2996,10 +2966,10 @@
       "divGame": true,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.84,
+        "predWinPct": 0.839,
         "nflPredictorLine": 10,
-        "homeImplPts": 26.2,
-        "awayImplPts": 16.3,
+        "homeImplPts": 26.3,
+        "awayImplPts": 16.2,
         "lineDiff": 0.5
       },
       "result": {
@@ -3029,10 +2999,10 @@
       "divGame": true,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.642,
+        "predWinPct": 0.643,
         "nflPredictorLine": -2.8,
-        "homeImplPts": 20.9,
-        "awayImplPts": 23.6,
+        "homeImplPts": 20.8,
+        "awayImplPts": 23.7,
         "lineDiff": 0.7
       },
       "result": {
@@ -3062,11 +3032,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.538,
-        "nflPredictorLine": -0.3,
+        "predWinPct": 0.541,
+        "nflPredictorLine": -0.4,
         "homeImplPts": 21.1,
         "awayImplPts": 21.4,
-        "lineDiff": 1.2
+        "lineDiff": 1.1
       },
       "result": {
         "homePoints": 34,
@@ -3095,11 +3065,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.636,
-        "nflPredictorLine": 3.9,
+        "predWinPct": 0.634,
+        "nflPredictorLine": 3.8,
         "homeImplPts": 25.2,
         "awayImplPts": 21.3,
-        "lineDiff": 0.4
+        "lineDiff": 0.3
       },
       "result": {
         "homePoints": 20,
@@ -3129,10 +3099,10 @@
       "prediction": {
         "predWinner": "DEN",
         "predWinPct": 0.957,
-        "nflPredictorLine": 17.2,
+        "nflPredictorLine": 17.3,
         "homeImplPts": 27.4,
         "awayImplPts": 10.1,
-        "lineDiff": 2.7
+        "lineDiff": 2.8
       },
       "result": {
         "homePoints": 19,
@@ -3147,12 +3117,12 @@
         "side": "DEN",
         "type": "spread",
         "odds": -112,
-        "ev": 0.081,
-        "stake": 10,
+        "ev": 0.075,
+        "stake": 20,
         "units": 2,
-        "toWin": 9,
+        "toWin": 18,
         "result": "win",
-        "pnl": 9
+        "pnl": 18
       }
     },
     {
@@ -3171,11 +3141,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.538,
-        "nflPredictorLine": 1.5,
+        "predWinPct": 0.534,
+        "nflPredictorLine": 1.4,
         "homeImplPts": 23.5,
         "awayImplPts": 22,
-        "lineDiff": 0
+        "lineDiff": -0.1
       },
       "result": {
         "homePoints": 33,
@@ -3204,11 +3174,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.799,
-        "nflPredictorLine": -7.3,
-        "homeImplPts": 18.1,
-        "awayImplPts": 25.4,
-        "lineDiff": -3.8
+        "predWinPct": 0.789,
+        "nflPredictorLine": -7,
+        "homeImplPts": 18.2,
+        "awayImplPts": 25.3,
+        "lineDiff": -3.5
       },
       "result": {
         "homePoints": 7,
@@ -3223,12 +3193,12 @@
         "side": "NE",
         "type": "ml",
         "odds": -205,
-        "ev": 0.14,
-        "stake": 25,
+        "ev": 0.114,
+        "stake": 50,
         "units": 5,
-        "toWin": 12,
+        "toWin": 24,
         "result": "win",
-        "pnl": 12
+        "pnl": 24
       }
     },
     {
@@ -3280,11 +3250,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DET",
-        "predWinPct": 0.843,
-        "nflPredictorLine": 10.1,
+        "predWinPct": 0.842,
+        "nflPredictorLine": 10.2,
         "homeImplPts": 27.3,
         "awayImplPts": 17.2,
-        "lineDiff": 0.1
+        "lineDiff": 0.2
       },
       "result": {
         "homePoints": 34,
@@ -3313,11 +3283,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DET",
-        "predWinPct": 0.713,
-        "nflPredictorLine": 5.9,
+        "predWinPct": 0.709,
+        "nflPredictorLine": 5.8,
         "homeImplPts": 30.2,
         "awayImplPts": 24.3,
-        "lineDiff": -0.1
+        "lineDiff": -0.2
       },
       "result": {
         "homePoints": 24,
@@ -3346,11 +3316,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "DET",
-        "predWinPct": 0.867,
-        "nflPredictorLine": 11.1,
+        "predWinPct": 0.866,
+        "nflPredictorLine": 11.2,
         "homeImplPts": 29.3,
         "awayImplPts": 18.2,
-        "lineDiff": 1.6
+        "lineDiff": 1.7
       },
       "result": {
         "homePoints": 24,
@@ -3380,10 +3350,10 @@
       "prediction": {
         "predWinner": "DET",
         "predWinPct": 0.935,
-        "nflPredictorLine": 15.2,
-        "homeImplPts": 32.8,
-        "awayImplPts": 17.7,
-        "lineDiff": 1.2
+        "nflPredictorLine": 15.3,
+        "homeImplPts": 32.9,
+        "awayImplPts": 17.6,
+        "lineDiff": 1.3
       },
       "result": {
         "homePoints": 34,
@@ -3412,11 +3382,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "DET",
-        "predWinPct": 0.589,
-        "nflPredictorLine": 2.7,
+        "predWinPct": 0.585,
+        "nflPredictorLine": 2.6,
         "homeImplPts": 25.6,
         "awayImplPts": 22.9,
-        "lineDiff": 0.2
+        "lineDiff": 0.1
       },
       "result": {
         "homePoints": 24,
@@ -3445,11 +3415,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DET",
-        "predWinPct": 0.671,
-        "nflPredictorLine": 4.7,
+        "predWinPct": 0.672,
+        "nflPredictorLine": 4.8,
         "homeImplPts": 30.1,
         "awayImplPts": 25.4,
-        "lineDiff": 1.2
+        "lineDiff": 1.3
       },
       "result": {
         "homePoints": 44,
@@ -3478,11 +3448,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DET",
-        "predWinPct": 0.764,
-        "nflPredictorLine": 7.3,
-        "homeImplPts": 29.9,
-        "awayImplPts": 22.6,
-        "lineDiff": -0.2
+        "predWinPct": 0.757,
+        "nflPredictorLine": 7.2,
+        "homeImplPts": 29.8,
+        "awayImplPts": 22.7,
+        "lineDiff": -0.3
       },
       "result": {
         "homePoints": 24,
@@ -3511,11 +3481,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.544,
-        "nflPredictorLine": 1.7,
-        "homeImplPts": 25.1,
-        "awayImplPts": 23.4,
-        "lineDiff": 0.2
+        "predWinPct": 0.541,
+        "nflPredictorLine": 1.6,
+        "homeImplPts": 25,
+        "awayImplPts": 23.5,
+        "lineDiff": 0.1
       },
       "result": {
         "homePoints": 27,
@@ -3544,11 +3514,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.582,
-        "nflPredictorLine": 2.6,
+        "predWinPct": 0.581,
+        "nflPredictorLine": 2.5,
         "homeImplPts": 25.5,
         "awayImplPts": 23,
-        "lineDiff": -0.9
+        "lineDiff": -1
       },
       "result": {
         "homePoints": 27,
@@ -3577,7 +3547,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.912,
+        "predWinPct": 0.91,
         "nflPredictorLine": 13.5,
         "homeImplPts": 29,
         "awayImplPts": 15.5,
@@ -3610,11 +3580,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.906,
-        "nflPredictorLine": 13.1,
-        "homeImplPts": 28.3,
-        "awayImplPts": 15.2,
-        "lineDiff": 0.6
+        "predWinPct": 0.905,
+        "nflPredictorLine": 13.2,
+        "homeImplPts": 28.4,
+        "awayImplPts": 15.1,
+        "lineDiff": 0.7
       },
       "result": {
         "homePoints": 13,
@@ -3662,12 +3632,12 @@
         "side": "GB",
         "type": "ml",
         "odds": -110,
-        "ev": 0.06,
-        "stake": 5,
-        "units": 1,
-        "toWin": 5,
+        "ev": 0.053,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 14,
         "result": "loss",
-        "pnl": -5
+        "pnl": -15
       }
     },
     {
@@ -3686,11 +3656,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.822,
-        "nflPredictorLine": 9.3,
-        "homeImplPts": 25.4,
-        "awayImplPts": 16.1,
-        "lineDiff": 2.8
+        "predWinPct": 0.823,
+        "nflPredictorLine": 9.4,
+        "homeImplPts": 25.5,
+        "awayImplPts": 16,
+        "lineDiff": 2.9
       },
       "result": {
         "homePoints": 23,
@@ -3705,12 +3675,12 @@
         "side": "GB",
         "type": "spread",
         "odds": -108,
-        "ev": 0.098,
-        "stake": 10,
+        "ev": 0.089,
+        "stake": 20,
         "units": 2,
-        "toWin": 9,
+        "toWin": 19,
         "result": "win",
-        "pnl": 9
+        "pnl": 19
       }
     },
     {
@@ -3729,11 +3699,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.789,
-        "nflPredictorLine": 8.2,
-        "homeImplPts": 26.3,
-        "awayImplPts": 18.2,
-        "lineDiff": 1.7
+        "predWinPct": 0.794,
+        "nflPredictorLine": 8.4,
+        "homeImplPts": 26.4,
+        "awayImplPts": 18.1,
+        "lineDiff": 1.9
       },
       "result": {
         "homePoints": 28,
@@ -3762,11 +3732,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.51,
-        "nflPredictorLine": 0.9,
-        "homeImplPts": 19.7,
-        "awayImplPts": 18.8,
-        "lineDiff": -1.6
+        "predWinPct": 0.503,
+        "nflPredictorLine": 0.6,
+        "homeImplPts": 19.5,
+        "awayImplPts": 19,
+        "lineDiff": -1.9
       },
       "result": {
         "homePoints": 24,
@@ -3777,7 +3747,17 @@
         "predCorrect": false,
         "vegasCorrect": false
       },
-      "bet": null
+      "bet": {
+        "side": "BAL",
+        "type": "ml",
+        "odds": 120,
+        "ev": 0.072,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 18,
+        "result": "loss",
+        "pnl": -15
+      }
     },
     {
       "gameId": "2025_02_TB_HOU",
@@ -3795,11 +3775,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "HOU",
-        "predWinPct": 0.501,
-        "nflPredictorLine": 0.6,
-        "homeImplPts": 21.6,
-        "awayImplPts": 20.9,
-        "lineDiff": -1.9
+        "predWinPct": 0.506,
+        "nflPredictorLine": 0.5,
+        "homeImplPts": 21.5,
+        "awayImplPts": 21,
+        "lineDiff": -2
       },
       "result": {
         "homePoints": 19,
@@ -3812,14 +3792,14 @@
       },
       "bet": {
         "side": "TB",
-        "type": "spread",
-        "odds": -110,
-        "ev": 0.053,
-        "stake": 5,
+        "type": "ml",
+        "odds": 114,
+        "ev": 0.057,
+        "stake": 10,
         "units": 1,
-        "toWin": 5,
-        "result": "win",
-        "pnl": 5
+        "toWin": 11,
+        "result": "loss",
+        "pnl": -10
       }
     },
     {
@@ -3839,10 +3819,10 @@
       "prediction": {
         "predWinner": "HOU",
         "predWinPct": 0.795,
-        "nflPredictorLine": 8.3,
-        "homeImplPts": 23.9,
-        "awayImplPts": 15.6,
-        "lineDiff": 0.8
+        "nflPredictorLine": 8.4,
+        "homeImplPts": 24,
+        "awayImplPts": 15.5,
+        "lineDiff": 0.9
       },
       "result": {
         "homePoints": 26,
@@ -3871,11 +3851,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "HOU",
-        "predWinPct": 0.615,
-        "nflPredictorLine": 3.3,
-        "homeImplPts": 22.4,
-        "awayImplPts": 19.1,
-        "lineDiff": 0.8
+        "predWinPct": 0.617,
+        "nflPredictorLine": 3.4,
+        "homeImplPts": 22.5,
+        "awayImplPts": 19,
+        "lineDiff": 0.9
       },
       "result": {
         "homePoints": 26,
@@ -3904,11 +3884,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.545,
-        "nflPredictorLine": -0.4,
+        "predWinPct": 0.547,
+        "nflPredictorLine": -0.5,
         "homeImplPts": 20,
         "awayImplPts": 20.5,
-        "lineDiff": -1.9
+        "lineDiff": -2
       },
       "result": {
         "homePoints": 15,
@@ -3923,12 +3903,12 @@
         "side": "DEN",
         "type": "ml",
         "odds": 105,
-        "ev": 0.091,
-        "stake": 10,
-        "units": 2,
-        "toWin": 10,
+        "ev": 0.082,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 16,
         "result": "win",
-        "pnl": 10
+        "pnl": 16
       }
     },
     {
@@ -3947,7 +3927,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "JAX",
-        "predWinPct": 0.553,
+        "predWinPct": 0.55,
         "nflPredictorLine": -0.6,
         "homeImplPts": 18.5,
         "awayImplPts": 19,
@@ -3980,11 +3960,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.771,
-        "nflPredictorLine": -6.3,
-        "homeImplPts": 18.6,
-        "awayImplPts": 24.9,
-        "lineDiff": -0.8
+        "predWinPct": 0.774,
+        "nflPredictorLine": -6.5,
+        "homeImplPts": 18.5,
+        "awayImplPts": 25,
+        "lineDiff": -1
       },
       "result": {
         "homePoints": 23,
@@ -3999,12 +3979,12 @@
         "side": "BUF",
         "type": "ml",
         "odds": -258,
-        "ev": 0.057,
-        "stake": 15,
+        "ev": 0.052,
+        "stake": 30,
         "units": 3,
-        "toWin": 6,
+        "toWin": 12,
         "result": "loss",
-        "pnl": -15
+        "pnl": -30
       }
     },
     {
@@ -4023,11 +4003,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "HOU",
-        "predWinPct": 0.841,
-        "nflPredictorLine": 10,
+        "predWinPct": 0.842,
+        "nflPredictorLine": 10.1,
         "homeImplPts": 26.3,
         "awayImplPts": 16.2,
-        "lineDiff": -0.5
+        "lineDiff": -0.4
       },
       "result": {
         "homePoints": 40,
@@ -4056,11 +4036,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "HOU",
-        "predWinPct": 0.916,
-        "nflPredictorLine": 13.8,
-        "homeImplPts": 26.6,
-        "awayImplPts": 12.9,
-        "lineDiff": -0.7
+        "predWinPct": 0.915,
+        "nflPredictorLine": 13.9,
+        "homeImplPts": 26.7,
+        "awayImplPts": 12.8,
+        "lineDiff": -0.6
       },
       "result": {
         "homePoints": 23,
@@ -4089,7 +4069,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "HOU",
-        "predWinPct": 0.874,
+        "predWinPct": 0.873,
         "nflPredictorLine": 11.5,
         "homeImplPts": 24.5,
         "awayImplPts": 13,
@@ -4108,12 +4088,12 @@
         "side": "HOU",
         "type": "spread",
         "odds": -110,
-        "ev": 0.057,
-        "stake": 5,
+        "ev": 0.051,
+        "stake": 10,
         "units": 1,
-        "toWin": 5,
+        "toWin": 9,
         "result": "loss",
-        "pnl": -5
+        "pnl": -10
       }
     },
     {
@@ -4132,11 +4112,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "MIA",
-        "predWinPct": 0.527,
-        "nflPredictorLine": -0,
+        "predWinPct": 0.53,
+        "nflPredictorLine": -0.1,
         "homeImplPts": 23.7,
         "awayImplPts": 23.8,
-        "lineDiff": -1.5
+        "lineDiff": -1.6
       },
       "result": {
         "homePoints": 33,
@@ -4165,11 +4145,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.643,
-        "nflPredictorLine": -2.8,
-        "homeImplPts": 20.4,
-        "awayImplPts": 23.1,
-        "lineDiff": -0.3
+        "predWinPct": 0.644,
+        "nflPredictorLine": -2.9,
+        "homeImplPts": 20.3,
+        "awayImplPts": 23.2,
+        "lineDiff": -0.4
       },
       "result": {
         "homePoints": 29,
@@ -4184,12 +4164,12 @@
         "side": "DEN",
         "type": "ml",
         "odds": -130,
-        "ev": 0.104,
-        "stake": 15,
-        "units": 3,
-        "toWin": 12,
+        "ev": 0.093,
+        "stake": 25,
+        "units": 2.5,
+        "toWin": 19,
         "result": "loss",
-        "pnl": -15
+        "pnl": -25
       }
     },
     {
@@ -4208,7 +4188,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "IND",
-        "predWinPct": 0.751,
+        "predWinPct": 0.75,
         "nflPredictorLine": 7,
         "homeImplPts": 26.7,
         "awayImplPts": 19.8,
@@ -4241,7 +4221,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "IND",
-        "predWinPct": 0.804,
+        "predWinPct": 0.802,
         "nflPredictorLine": 8.7,
         "homeImplPts": 27.6,
         "awayImplPts": 18.9,
@@ -4274,11 +4254,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "IND",
-        "predWinPct": 0.932,
-        "nflPredictorLine": 14.9,
+        "predWinPct": 0.931,
+        "nflPredictorLine": 15,
         "homeImplPts": 31.2,
         "awayImplPts": 16.3,
-        "lineDiff": -0.6
+        "lineDiff": -0.5
       },
       "result": {
         "homePoints": 38,
@@ -4307,7 +4287,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "IND",
-        "predWinPct": 0.764,
+        "predWinPct": 0.761,
         "nflPredictorLine": 7.3,
         "homeImplPts": 27.9,
         "awayImplPts": 20.6,
@@ -4340,11 +4320,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "IND",
-        "predWinPct": 0.693,
-        "nflPredictorLine": 5.3,
-        "homeImplPts": 24.9,
-        "awayImplPts": 19.6,
-        "lineDiff": 2.3
+        "predWinPct": 0.697,
+        "nflPredictorLine": 5.5,
+        "homeImplPts": 25,
+        "awayImplPts": 19.5,
+        "lineDiff": 2.5
       },
       "result": {
         "homePoints": 16,
@@ -4359,12 +4339,12 @@
         "side": "IND",
         "type": "ml",
         "odds": -170,
-        "ev": 0.078,
-        "stake": 15,
-        "units": 3,
-        "toWin": 9,
+        "ev": 0.072,
+        "stake": 25,
+        "units": 2.5,
+        "toWin": 15,
         "result": "loss",
-        "pnl": -15
+        "pnl": -25
       }
     },
     {
@@ -4383,11 +4363,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.73,
-        "nflPredictorLine": -5.1,
-        "homeImplPts": 20.7,
-        "awayImplPts": 25.8,
-        "lineDiff": -0.6
+        "predWinPct": 0.732,
+        "nflPredictorLine": -5.2,
+        "homeImplPts": 20.6,
+        "awayImplPts": 25.9,
+        "lineDiff": -0.7
       },
       "result": {
         "homePoints": 27,
@@ -4416,11 +4396,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "JAX",
-        "predWinPct": 0.757,
-        "nflPredictorLine": -5.9,
-        "homeImplPts": 21.3,
-        "awayImplPts": 27.2,
-        "lineDiff": -2.4
+        "predWinPct": 0.758,
+        "nflPredictorLine": -6,
+        "homeImplPts": 21.2,
+        "awayImplPts": 27.3,
+        "lineDiff": -2.5
       },
       "result": {
         "homePoints": 17,
@@ -4435,12 +4415,12 @@
         "side": "JAX",
         "type": "ml",
         "odds": -225,
-        "ev": 0.074,
-        "stake": 15,
+        "ev": 0.065,
+        "stake": 30,
         "units": 3,
-        "toWin": 7,
+        "toWin": 13,
         "result": "win",
-        "pnl": 7
+        "pnl": 13
       }
     },
     {
@@ -4459,11 +4439,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "JAX",
-        "predWinPct": 0.634,
-        "nflPredictorLine": 3.8,
-        "homeImplPts": 24.7,
-        "awayImplPts": 20.8,
-        "lineDiff": -0.7
+        "predWinPct": 0.627,
+        "nflPredictorLine": 3.7,
+        "homeImplPts": 24.6,
+        "awayImplPts": 20.9,
+        "lineDiff": -0.8
       },
       "result": {
         "homePoints": 26,
@@ -4492,11 +4472,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "JAX",
-        "predWinPct": 0.539,
+        "predWinPct": 0.537,
         "nflPredictorLine": 1.5,
         "homeImplPts": 22.5,
         "awayImplPts": 21,
-        "lineDiff": 0
+        "lineDiff": -0
       },
       "result": {
         "homePoints": 17,
@@ -4525,11 +4505,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.663,
-        "nflPredictorLine": -3.3,
-        "homeImplPts": 21.1,
-        "awayImplPts": 24.4,
-        "lineDiff": 0.2
+        "predWinPct": 0.666,
+        "nflPredictorLine": -3.4,
+        "homeImplPts": 21,
+        "awayImplPts": 24.5,
+        "lineDiff": 0.1
       },
       "result": {
         "homePoints": 31,
@@ -4558,11 +4538,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.566,
-        "nflPredictorLine": -0.9,
-        "homeImplPts": 23.3,
-        "awayImplPts": 24.2,
-        "lineDiff": 0.6
+        "predWinPct": 0.569,
+        "nflPredictorLine": -1,
+        "homeImplPts": 23.2,
+        "awayImplPts": 24.3,
+        "lineDiff": 0.5
       },
       "result": {
         "homePoints": 12,
@@ -4591,11 +4571,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.66,
-        "nflPredictorLine": -3.2,
-        "homeImplPts": 20.7,
-        "awayImplPts": 23.8,
-        "lineDiff": -0.2
+        "predWinPct": 0.664,
+        "nflPredictorLine": -3.4,
+        "homeImplPts": 20.6,
+        "awayImplPts": 23.9,
+        "lineDiff": -0.4
       },
       "result": {
         "homePoints": 7,
@@ -4626,8 +4606,8 @@
         "predWinner": "LAC",
         "predWinPct": 0.644,
         "nflPredictorLine": -2.8,
-        "homeImplPts": 20.4,
-        "awayImplPts": 23.1,
+        "homeImplPts": 20.3,
+        "awayImplPts": 23.2,
         "lineDiff": 0.2
       },
       "result": {
@@ -4657,7 +4637,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "JAX",
-        "predWinPct": 0.524,
+        "predWinPct": 0.525,
         "nflPredictorLine": 1.2,
         "homeImplPts": 22.8,
         "awayImplPts": 21.7,
@@ -4676,12 +4656,12 @@
         "side": "JAX",
         "type": "spread",
         "odds": -108,
-        "ev": 0.133,
-        "stake": 15,
+        "ev": 0.118,
+        "stake": 30,
         "units": 3,
-        "toWin": 14,
+        "toWin": 28,
         "result": "win",
-        "pnl": 14
+        "pnl": 28
       }
     },
     {
@@ -4700,11 +4680,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "JAX",
-        "predWinPct": 0.938,
-        "nflPredictorLine": 15.4,
-        "homeImplPts": 28,
-        "awayImplPts": 12.5,
-        "lineDiff": 1.9
+        "predWinPct": 0.933,
+        "nflPredictorLine": 15.2,
+        "homeImplPts": 27.8,
+        "awayImplPts": 12.7,
+        "lineDiff": 1.7
       },
       "result": {
         "homePoints": 48,
@@ -4733,11 +4713,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "JAX",
-        "predWinPct": 0.936,
-        "nflPredictorLine": 15.3,
-        "homeImplPts": 30.9,
-        "awayImplPts": 15.6,
-        "lineDiff": 2.8
+        "predWinPct": 0.937,
+        "nflPredictorLine": 15.5,
+        "homeImplPts": 31,
+        "awayImplPts": 15.5,
+        "lineDiff": 3
       },
       "result": {
         "homePoints": 41,
@@ -4752,12 +4732,12 @@
         "side": "JAX",
         "type": "spread",
         "odds": -110,
-        "ev": 0.089,
-        "stake": 10,
+        "ev": 0.086,
+        "stake": 20,
         "units": 2,
-        "toWin": 9,
+        "toWin": 18,
         "result": "win",
-        "pnl": 9
+        "pnl": 18
       }
     },
     {
@@ -4776,11 +4756,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "JAX",
-        "predWinPct": 0.547,
-        "nflPredictorLine": 1.7,
+        "predWinPct": 0.543,
+        "nflPredictorLine": 1.6,
         "homeImplPts": 26.6,
         "awayImplPts": 24.9,
-        "lineDiff": 0.2
+        "lineDiff": 0.1
       },
       "result": {
         "homePoints": 24,
@@ -4828,12 +4808,12 @@
         "side": "PHI",
         "type": "ml",
         "odds": -122,
-        "ev": 0.071,
-        "stake": 10,
-        "units": 2,
-        "toWin": 8,
+        "ev": 0.062,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 12,
         "result": "win",
-        "pnl": 8
+        "pnl": 12
       }
     },
     {
@@ -4852,11 +4832,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.619,
-        "nflPredictorLine": -2.2,
-        "homeImplPts": 23.2,
-        "awayImplPts": 25.3,
-        "lineDiff": 0.3
+        "predWinPct": 0.625,
+        "nflPredictorLine": -2.4,
+        "homeImplPts": 23.1,
+        "awayImplPts": 25.4,
+        "lineDiff": 0.1
       },
       "result": {
         "homePoints": 37,
@@ -4885,11 +4865,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.549,
-        "nflPredictorLine": 1.8,
+        "predWinPct": 0.547,
+        "nflPredictorLine": 1.7,
         "homeImplPts": 26.6,
         "awayImplPts": 24.9,
-        "lineDiff": -0.7
+        "lineDiff": -0.8
       },
       "result": {
         "homePoints": 30,
@@ -4951,11 +4931,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.86,
-        "nflPredictorLine": 10.8,
+        "predWinPct": 0.859,
+        "nflPredictorLine": 10.9,
         "homeImplPts": 29.7,
         "awayImplPts": 18.8,
-        "lineDiff": 0.3
+        "lineDiff": 0.4
       },
       "result": {
         "homePoints": 28,
@@ -5017,11 +4997,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.72,
-        "nflPredictorLine": 6.1,
-        "homeImplPts": 23.8,
-        "awayImplPts": 17.7,
-        "lineDiff": 1.6
+        "predWinPct": 0.724,
+        "nflPredictorLine": 6.2,
+        "homeImplPts": 23.9,
+        "awayImplPts": 17.6,
+        "lineDiff": 1.7
       },
       "result": {
         "homePoints": 10,
@@ -5036,12 +5016,12 @@
         "side": "KC",
         "type": "spread",
         "odds": -105,
-        "ev": 0.056,
-        "stake": 5,
-        "units": 1,
-        "toWin": 5,
+        "ev": 0.055,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 14,
         "result": "loss",
-        "pnl": -5
+        "pnl": -15
       }
     },
     {
@@ -5060,11 +5040,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.707,
-        "nflPredictorLine": 5.7,
+        "predWinPct": 0.709,
+        "nflPredictorLine": 5.8,
         "homeImplPts": 23.6,
         "awayImplPts": 17.9,
-        "lineDiff": 0.2
+        "lineDiff": 0.3
       },
       "result": {
         "homePoints": 13,
@@ -5093,11 +5073,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.909,
-        "nflPredictorLine": -12.2,
-        "homeImplPts": 12.6,
-        "awayImplPts": 24.9,
-        "lineDiff": 1.3
+        "predWinPct": 0.904,
+        "nflPredictorLine": -12.1,
+        "homeImplPts": 12.7,
+        "awayImplPts": 24.8,
+        "lineDiff": 1.4
       },
       "result": {
         "homePoints": 13,
@@ -5126,11 +5106,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.641,
-        "nflPredictorLine": 4,
-        "homeImplPts": 23.7,
-        "awayImplPts": 19.8,
-        "lineDiff": 0.5
+        "predWinPct": 0.644,
+        "nflPredictorLine": 4.1,
+        "homeImplPts": 23.8,
+        "awayImplPts": 19.7,
+        "lineDiff": 0.6
       },
       "result": {
         "homePoints": 14,
@@ -5159,11 +5139,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.634,
-        "nflPredictorLine": 3.8,
+        "predWinPct": 0.636,
+        "nflPredictorLine": 3.9,
         "homeImplPts": 26.7,
         "awayImplPts": 22.8,
-        "lineDiff": 0.3
+        "lineDiff": 0.4
       },
       "result": {
         "homePoints": 27,
@@ -5192,11 +5172,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.786,
-        "nflPredictorLine": 8,
+        "predWinPct": 0.785,
+        "nflPredictorLine": 8.1,
         "homeImplPts": 25.8,
         "awayImplPts": 17.7,
-        "lineDiff": -0.5
+        "lineDiff": -0.4
       },
       "result": {
         "homePoints": 23,
@@ -5225,11 +5205,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.941,
-        "nflPredictorLine": 15.7,
-        "homeImplPts": 30.1,
-        "awayImplPts": 14.4,
-        "lineDiff": 1.7
+        "predWinPct": 0.942,
+        "nflPredictorLine": 15.8,
+        "homeImplPts": 30.2,
+        "awayImplPts": 14.3,
+        "lineDiff": 1.8
       },
       "result": {
         "homePoints": 34,
@@ -5258,7 +5238,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.675,
+        "predWinPct": 0.676,
         "nflPredictorLine": 4.9,
         "homeImplPts": 27.2,
         "awayImplPts": 22.3,
@@ -5273,17 +5253,7 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
-      "bet": {
-        "side": "LA",
-        "type": "ml",
-        "odds": -175,
-        "ev": 0.051,
-        "stake": 10,
-        "units": 2,
-        "toWin": 6,
-        "result": "win",
-        "pnl": 6
-      }
+      "bet": null
     },
     {
       "gameId": "2025_12_TB_LA",
@@ -5301,11 +5271,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.796,
-        "nflPredictorLine": 8.4,
-        "homeImplPts": 28.9,
-        "awayImplPts": 20.6,
-        "lineDiff": 1.4
+        "predWinPct": 0.797,
+        "nflPredictorLine": 8.5,
+        "homeImplPts": 29,
+        "awayImplPts": 20.5,
+        "lineDiff": 1.5
       },
       "result": {
         "homePoints": 34,
@@ -5334,7 +5304,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.715,
+        "predWinPct": 0.714,
         "nflPredictorLine": 5.9,
         "homeImplPts": 30.2,
         "awayImplPts": 24.3,
@@ -5367,7 +5337,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.932,
+        "predWinPct": 0.931,
         "nflPredictorLine": 15,
         "homeImplPts": 32.2,
         "awayImplPts": 17.3,
@@ -5400,11 +5370,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.614,
-        "nflPredictorLine": -2.1,
-        "homeImplPts": 22.7,
-        "awayImplPts": 24.8,
-        "lineDiff": 0.9
+        "predWinPct": 0.622,
+        "nflPredictorLine": -2.3,
+        "homeImplPts": 22.6,
+        "awayImplPts": 24.9,
+        "lineDiff": 0.7
       },
       "result": {
         "homePoints": 27,
@@ -5433,7 +5403,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.567,
+        "predWinPct": 0.566,
         "nflPredictorLine": 2.2,
         "homeImplPts": 23.8,
         "awayImplPts": 21.7,
@@ -5499,11 +5469,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.557,
-        "nflPredictorLine": 2,
+        "predWinPct": 0.553,
+        "nflPredictorLine": 1.9,
         "homeImplPts": 25.2,
         "awayImplPts": 23.3,
-        "lineDiff": -0.5
+        "lineDiff": -0.6
       },
       "result": {
         "homePoints": 24,
@@ -5532,7 +5502,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.637,
+        "predWinPct": 0.635,
         "nflPredictorLine": 3.9,
         "homeImplPts": 24.7,
         "awayImplPts": 20.8,
@@ -5565,11 +5535,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.629,
-        "nflPredictorLine": 3.7,
-        "homeImplPts": 24.6,
-        "awayImplPts": 20.9,
-        "lineDiff": 0.7
+        "predWinPct": 0.622,
+        "nflPredictorLine": 3.5,
+        "homeImplPts": 24.5,
+        "awayImplPts": 21,
+        "lineDiff": 0.5
       },
       "result": {
         "homePoints": 25,
@@ -5598,11 +5568,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.852,
-        "nflPredictorLine": 10.5,
-        "homeImplPts": 25.5,
-        "awayImplPts": 15,
-        "lineDiff": 0.5
+        "predWinPct": 0.853,
+        "nflPredictorLine": 10.6,
+        "homeImplPts": 25.6,
+        "awayImplPts": 14.9,
+        "lineDiff": 0.6
       },
       "result": {
         "homePoints": 31,
@@ -5631,7 +5601,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.516,
+        "predWinPct": 0.514,
         "nflPredictorLine": 0.3,
         "homeImplPts": 20.9,
         "awayImplPts": 20.6,
@@ -5664,11 +5634,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.581,
-        "nflPredictorLine": 2.5,
-        "homeImplPts": 21.5,
-        "awayImplPts": 19,
-        "lineDiff": 1
+        "predWinPct": 0.586,
+        "nflPredictorLine": 2.7,
+        "homeImplPts": 21.6,
+        "awayImplPts": 18.9,
+        "lineDiff": 1.2
       },
       "result": {
         "homePoints": 16,
@@ -5683,12 +5653,12 @@
         "side": "LAC",
         "type": "ml",
         "odds": -118,
-        "ev": 0.059,
-        "stake": 5,
-        "units": 1,
-        "toWin": 4,
+        "ev": 0.058,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 13,
         "result": "loss",
-        "pnl": -5
+        "pnl": -15
       }
     },
     {
@@ -5707,7 +5677,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.631,
+        "predWinPct": 0.629,
         "nflPredictorLine": -2.5,
         "homeImplPts": 22,
         "awayImplPts": 24.5,
@@ -5740,7 +5710,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LV",
-        "predWinPct": 0.52,
+        "predWinPct": 0.519,
         "nflPredictorLine": 1.1,
         "homeImplPts": 24.3,
         "awayImplPts": 23.2,
@@ -5773,11 +5743,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LV",
-        "predWinPct": 0.624,
-        "nflPredictorLine": 3.6,
+        "predWinPct": 0.622,
+        "nflPredictorLine": 3.5,
         "homeImplPts": 22.5,
         "awayImplPts": 19,
-        "lineDiff": 0.1
+        "lineDiff": 0
       },
       "result": {
         "homePoints": 20,
@@ -5806,11 +5776,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "JAX",
-        "predWinPct": 0.596,
-        "nflPredictorLine": -1.6,
+        "predWinPct": 0.598,
+        "nflPredictorLine": -1.7,
         "homeImplPts": 20.9,
         "awayImplPts": 22.6,
-        "lineDiff": 0.9
+        "lineDiff": 0.8
       },
       "result": {
         "homePoints": 29,
@@ -5839,11 +5809,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DAL",
-        "predWinPct": 0.694,
-        "nflPredictorLine": -4.1,
-        "homeImplPts": 22.2,
-        "awayImplPts": 26.3,
-        "lineDiff": -0.6
+        "predWinPct": 0.696,
+        "nflPredictorLine": -4.2,
+        "homeImplPts": 22.1,
+        "awayImplPts": 26.4,
+        "lineDiff": -0.7
       },
       "result": {
         "homePoints": 16,
@@ -5874,8 +5844,8 @@
         "predWinner": "LV",
         "predWinPct": 0.665,
         "nflPredictorLine": 4.6,
-        "homeImplPts": 20,
-        "awayImplPts": 15.5,
+        "homeImplPts": 20.1,
+        "awayImplPts": 15.4,
         "lineDiff": 1.6
       },
       "result": {
@@ -5891,12 +5861,12 @@
         "side": "LV",
         "type": "ml",
         "odds": -162,
-        "ev": 0.061,
-        "stake": 10,
+        "ev": 0.053,
+        "stake": 20,
         "units": 2,
-        "toWin": 6,
+        "toWin": 12,
         "result": "loss",
-        "pnl": -10
+        "pnl": -20
       }
     },
     {
@@ -5915,7 +5885,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.826,
+        "predWinPct": 0.825,
         "nflPredictorLine": -8.3,
         "homeImplPts": 16.1,
         "awayImplPts": 24.4,
@@ -5948,7 +5918,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NYG",
-        "predWinPct": 0.63,
+        "predWinPct": 0.631,
         "nflPredictorLine": -2.5,
         "homeImplPts": 19,
         "awayImplPts": 21.5,
@@ -5981,11 +5951,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.771,
-        "nflPredictorLine": -6.3,
-        "homeImplPts": 15.1,
-        "awayImplPts": 21.4,
-        "lineDiff": -2.8
+        "predWinPct": 0.78,
+        "nflPredictorLine": -6.7,
+        "homeImplPts": 14.9,
+        "awayImplPts": 21.6,
+        "lineDiff": -3.2
       },
       "result": {
         "homePoints": 14,
@@ -5998,12 +5968,12 @@
       },
       "bet": {
         "side": "KC",
-        "type": "ml",
-        "odds": -225,
-        "ev": 0.087,
+        "type": "spread",
+        "odds": -112,
+        "ev": 0.088,
         "stake": 20,
-        "units": 4,
-        "toWin": 9,
+        "units": 2,
+        "toWin": 18,
         "result": "loss",
         "pnl": -20
       }
@@ -6024,11 +5994,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "MIA",
-        "predWinPct": 0.508,
-        "nflPredictorLine": 0.8,
-        "homeImplPts": 22.2,
-        "awayImplPts": 21.3,
-        "lineDiff": -0.7
+        "predWinPct": 0.528,
+        "nflPredictorLine": 1.3,
+        "homeImplPts": 22.4,
+        "awayImplPts": 21.1,
+        "lineDiff": -0.2
       },
       "result": {
         "homePoints": 27,
@@ -6057,11 +6027,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "MIA",
-        "predWinPct": 0.608,
-        "nflPredictorLine": 3.2,
-        "homeImplPts": 23.8,
-        "awayImplPts": 20.7,
-        "lineDiff": 0.7
+        "predWinPct": 0.591,
+        "nflPredictorLine": 2.8,
+        "homeImplPts": 23.6,
+        "awayImplPts": 20.9,
+        "lineDiff": 0.3
       },
       "result": {
         "homePoints": 27,
@@ -6090,7 +6060,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.682,
+        "predWinPct": 0.68,
         "nflPredictorLine": -3.8,
         "homeImplPts": 20.9,
         "awayImplPts": 24.6,
@@ -6123,11 +6093,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.775,
-        "nflPredictorLine": -6.5,
-        "homeImplPts": 22.5,
-        "awayImplPts": 29,
-        "lineDiff": 1
+        "predWinPct": 0.779,
+        "nflPredictorLine": -6.7,
+        "homeImplPts": 22.4,
+        "awayImplPts": 29.1,
+        "lineDiff": 0.8
       },
       "result": {
         "homePoints": 6,
@@ -6156,11 +6126,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.828,
-        "nflPredictorLine": -8.3,
-        "homeImplPts": 21.1,
-        "awayImplPts": 29.4,
-        "lineDiff": 0.2
+        "predWinPct": 0.829,
+        "nflPredictorLine": -8.5,
+        "homeImplPts": 21,
+        "awayImplPts": 29.5,
+        "lineDiff": 0
       },
       "result": {
         "homePoints": 30,
@@ -6189,7 +6159,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "MIA",
-        "predWinPct": 0.597,
+        "predWinPct": 0.595,
         "nflPredictorLine": 2.9,
         "homeImplPts": 25.2,
         "awayImplPts": 22.3,
@@ -6222,11 +6192,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "MIA",
-        "predWinPct": 0.755,
-        "nflPredictorLine": 7.1,
-        "homeImplPts": 24.3,
-        "awayImplPts": 17.2,
-        "lineDiff": 1.6
+        "predWinPct": 0.758,
+        "nflPredictorLine": 7.2,
+        "homeImplPts": 24.4,
+        "awayImplPts": 17.1,
+        "lineDiff": 1.7
       },
       "result": {
         "homePoints": 21,
@@ -6255,11 +6225,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CIN",
-        "predWinPct": 0.663,
-        "nflPredictorLine": -3.3,
+        "predWinPct": 0.665,
+        "nflPredictorLine": -3.4,
         "homeImplPts": 22.6,
         "awayImplPts": 25.9,
-        "lineDiff": 0.2
+        "lineDiff": 0.1
       },
       "result": {
         "homePoints": 21,
@@ -6288,7 +6258,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "TB",
-        "predWinPct": 0.797,
+        "predWinPct": 0.795,
         "nflPredictorLine": -7.2,
         "homeImplPts": 18.6,
         "awayImplPts": 25.9,
@@ -6307,12 +6277,12 @@
         "side": "TB",
         "type": "ml",
         "odds": -250,
-        "ev": 0.089,
-        "stake": 20,
+        "ev": 0.076,
+        "stake": 40,
         "units": 4,
-        "toWin": 8,
+        "toWin": 16,
         "result": "loss",
-        "pnl": -20
+        "pnl": -40
       }
     },
     {
@@ -6331,7 +6301,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "MIN",
-        "predWinPct": 0.606,
+        "predWinPct": 0.603,
         "nflPredictorLine": 3.1,
         "homeImplPts": 23.8,
         "awayImplPts": 20.7,
@@ -6364,11 +6334,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "MIN",
-        "predWinPct": 0.561,
-        "nflPredictorLine": 2.1,
-        "homeImplPts": 21.8,
-        "awayImplPts": 19.7,
-        "lineDiff": -0.9
+        "predWinPct": 0.556,
+        "nflPredictorLine": 1.9,
+        "homeImplPts": 21.7,
+        "awayImplPts": 19.8,
+        "lineDiff": -1.1
       },
       "result": {
         "homePoints": 48,
@@ -6397,11 +6367,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.609,
-        "nflPredictorLine": -1.9,
-        "homeImplPts": 20.8,
-        "awayImplPts": 22.7,
-        "lineDiff": 0.6
+        "predWinPct": 0.61,
+        "nflPredictorLine": -2,
+        "homeImplPts": 20.7,
+        "awayImplPts": 22.8,
+        "lineDiff": 0.5
       },
       "result": {
         "homePoints": 22,
@@ -6430,11 +6400,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.733,
-        "nflPredictorLine": -5.2,
-        "homeImplPts": 21.7,
-        "awayImplPts": 26.8,
-        "lineDiff": -0.7
+        "predWinPct": 0.74,
+        "nflPredictorLine": -5.5,
+        "homeImplPts": 21.5,
+        "awayImplPts": 27,
+        "lineDiff": -1
       },
       "result": {
         "homePoints": 19,
@@ -6463,7 +6433,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "MIN",
-        "predWinPct": 0.505,
+        "predWinPct": 0.506,
         "nflPredictorLine": 0.8,
         "homeImplPts": 24.1,
         "awayImplPts": 23.4,
@@ -6478,17 +6448,7 @@
         "predCorrect": false,
         "vegasCorrect": false
       },
-      "bet": {
-        "side": "CHI",
-        "type": "spread",
-        "odds": -115,
-        "ev": 0.052,
-        "stake": 5,
-        "units": 1,
-        "toWin": 4,
-        "result": "win",
-        "pnl": 4
-      }
+      "bet": null
     },
     {
       "gameId": "2025_14_WAS_MIN",
@@ -6506,11 +6466,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "WAS",
-        "predWinPct": 0.554,
-        "nflPredictorLine": -0.6,
+        "predWinPct": 0.557,
+        "nflPredictorLine": -0.7,
         "homeImplPts": 21.4,
         "awayImplPts": 22.1,
-        "lineDiff": 0.9
+        "lineDiff": 0.8
       },
       "result": {
         "homePoints": 31,
@@ -6539,11 +6499,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "DET",
-        "predWinPct": 0.867,
-        "nflPredictorLine": -10,
-        "homeImplPts": 17.8,
-        "awayImplPts": 27.7,
-        "lineDiff": -3
+        "predWinPct": 0.869,
+        "nflPredictorLine": -10.2,
+        "homeImplPts": 17.7,
+        "awayImplPts": 27.8,
+        "lineDiff": -3.2
       },
       "result": {
         "homePoints": 23,
@@ -6558,12 +6518,12 @@
         "side": "DET",
         "type": "spread",
         "odds": -120,
-        "ev": 0.067,
-        "stake": 10,
-        "units": 2,
-        "toWin": 8,
+        "ev": 0.065,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 12,
         "result": "loss",
-        "pnl": -10
+        "pnl": -15
       }
     },
     {
@@ -6582,11 +6542,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "MIN",
-        "predWinPct": 0.861,
-        "nflPredictorLine": 10.9,
+        "predWinPct": 0.857,
+        "nflPredictorLine": 10.8,
         "homeImplPts": 24.2,
         "awayImplPts": 13.3,
-        "lineDiff": -1.6
+        "lineDiff": -1.7
       },
       "result": {
         "homePoints": 16,
@@ -6615,11 +6575,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.552,
-        "nflPredictorLine": 1.9,
-        "homeImplPts": 23.2,
-        "awayImplPts": 21.3,
-        "lineDiff": -0.6
+        "predWinPct": 0.542,
+        "nflPredictorLine": 1.6,
+        "homeImplPts": 23.1,
+        "awayImplPts": 21.4,
+        "lineDiff": -0.9
       },
       "result": {
         "homePoints": 13,
@@ -6648,11 +6608,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PIT",
-        "predWinPct": 0.567,
-        "nflPredictorLine": -0.9,
-        "homeImplPts": 21.8,
-        "awayImplPts": 22.7,
-        "lineDiff": 0.6
+        "predWinPct": 0.581,
+        "nflPredictorLine": -1.3,
+        "homeImplPts": 21.6,
+        "awayImplPts": 22.9,
+        "lineDiff": 0.2
       },
       "result": {
         "homePoints": 14,
@@ -6681,11 +6641,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.721,
-        "nflPredictorLine": 6.1,
-        "homeImplPts": 24.3,
-        "awayImplPts": 18.2,
-        "lineDiff": 0.6
+        "predWinPct": 0.714,
+        "nflPredictorLine": 5.9,
+        "homeImplPts": 24.2,
+        "awayImplPts": 18.3,
+        "lineDiff": 0.4
       },
       "result": {
         "homePoints": 42,
@@ -6714,11 +6674,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.827,
-        "nflPredictorLine": 9.5,
+        "predWinPct": 0.824,
+        "nflPredictorLine": 9.4,
         "homeImplPts": 25,
         "awayImplPts": 15.5,
-        "lineDiff": 2.5
+        "lineDiff": 2.4
       },
       "result": {
         "homePoints": 32,
@@ -6733,12 +6693,12 @@
         "side": "NE",
         "type": "spread",
         "odds": -105,
-        "ev": 0.095,
-        "stake": 10,
+        "ev": 0.082,
+        "stake": 20,
         "units": 2,
-        "toWin": 10,
+        "toWin": 19,
         "result": "win",
-        "pnl": 10
+        "pnl": 19
       }
     },
     {
@@ -6757,11 +6717,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.733,
-        "nflPredictorLine": 6.4,
-        "homeImplPts": 26,
-        "awayImplPts": 19.5,
-        "lineDiff": 0.9
+        "predWinPct": 0.725,
+        "nflPredictorLine": 6.2,
+        "homeImplPts": 25.9,
+        "awayImplPts": 19.6,
+        "lineDiff": 0.7
       },
       "result": {
         "homePoints": 24,
@@ -6790,11 +6750,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.906,
-        "nflPredictorLine": 13.2,
-        "homeImplPts": 28.3,
-        "awayImplPts": 15.2,
-        "lineDiff": 0.7
+        "predWinPct": 0.896,
+        "nflPredictorLine": 12.7,
+        "homeImplPts": 28.1,
+        "awayImplPts": 15.4,
+        "lineDiff": 0.2
       },
       "result": {
         "homePoints": 27,
@@ -6823,11 +6783,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.842,
-        "nflPredictorLine": 10.1,
+        "predWinPct": 0.839,
+        "nflPredictorLine": 10,
         "homeImplPts": 28.3,
         "awayImplPts": 18.2,
-        "lineDiff": 3.1
+        "lineDiff": 3
       },
       "result": {
         "homePoints": 33,
@@ -6842,12 +6802,12 @@
         "side": "NE",
         "type": "spread",
         "odds": -115,
-        "ev": 0.085,
-        "stake": 10,
+        "ev": 0.073,
+        "stake": 20,
         "units": 2,
-        "toWin": 9,
+        "toWin": 17,
         "result": "win",
-        "pnl": 9
+        "pnl": 17
       }
     },
     {
@@ -6866,11 +6826,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.574,
-        "nflPredictorLine": -1.1,
-        "homeImplPts": 24.2,
-        "awayImplPts": 25.3,
-        "lineDiff": 1.4
+        "predWinPct": 0.585,
+        "nflPredictorLine": -1.4,
+        "homeImplPts": 24.1,
+        "awayImplPts": 25.4,
+        "lineDiff": 1.1
       },
       "result": {
         "homePoints": 31,
@@ -6899,11 +6859,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.936,
-        "nflPredictorLine": 15.2,
-        "homeImplPts": 29.9,
-        "awayImplPts": 14.6,
-        "lineDiff": 1.2
+        "predWinPct": 0.933,
+        "nflPredictorLine": 15.1,
+        "homeImplPts": 29.8,
+        "awayImplPts": 14.7,
+        "lineDiff": 1.1
       },
       "result": {
         "homePoints": 38,
@@ -6932,11 +6892,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.725,
-        "nflPredictorLine": 6.2,
+        "predWinPct": 0.721,
+        "nflPredictorLine": 6.1,
         "homeImplPts": 25.8,
         "awayImplPts": 19.7,
-        "lineDiff": 2.7
+        "lineDiff": 2.6
       },
       "result": {
         "homePoints": 16,
@@ -6951,12 +6911,12 @@
         "side": "NE",
         "type": "ml",
         "odds": -198,
-        "ev": 0.072,
-        "stake": 15,
-        "units": 3,
-        "toWin": 8,
+        "ev": 0.059,
+        "stake": 25,
+        "units": 2.5,
+        "toWin": 13,
         "result": "win",
-        "pnl": 8
+        "pnl": 13
       }
     },
     {
@@ -6975,7 +6935,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.708,
+        "predWinPct": 0.705,
         "nflPredictorLine": 5.7,
         "homeImplPts": 23.1,
         "awayImplPts": 17.4,
@@ -6994,12 +6954,12 @@
         "side": "NE",
         "type": "ml",
         "odds": -180,
-        "ev": 0.079,
-        "stake": 15,
-        "units": 3,
-        "toWin": 8,
+        "ev": 0.066,
+        "stake": 25,
+        "units": 2.5,
+        "toWin": 14,
         "result": "win",
-        "pnl": 8
+        "pnl": 14
       }
     },
     {
@@ -7018,11 +6978,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.612,
-        "nflPredictorLine": -2,
+        "predWinPct": 0.615,
+        "nflPredictorLine": -2.1,
         "homeImplPts": 21.7,
         "awayImplPts": 23.8,
-        "lineDiff": 2.5
+        "lineDiff": 2.4
       },
       "result": {
         "homePoints": 13,
@@ -7037,12 +6997,12 @@
         "side": "NE",
         "type": "spread",
         "odds": -105,
-        "ev": 0.095,
-        "stake": 10,
+        "ev": 0.08,
+        "stake": 20,
         "units": 2,
-        "toWin": 10,
+        "toWin": 19,
         "result": "loss",
-        "pnl": -10
+        "pnl": -20
       }
     },
     {
@@ -7061,11 +7021,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "ARI",
-        "predWinPct": 0.74,
-        "nflPredictorLine": -5.4,
+        "predWinPct": 0.741,
+        "nflPredictorLine": -5.5,
         "homeImplPts": 19.5,
         "awayImplPts": 25,
-        "lineDiff": 0.6
+        "lineDiff": 0.5
       },
       "result": {
         "homePoints": 13,
@@ -7094,10 +7054,10 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.659,
+        "predWinPct": 0.66,
         "nflPredictorLine": -3.2,
-        "homeImplPts": 18.7,
-        "awayImplPts": 21.8,
+        "homeImplPts": 18.6,
+        "awayImplPts": 21.9,
         "lineDiff": -0.2
       },
       "result": {
@@ -7127,11 +7087,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NO",
-        "predWinPct": 0.523,
-        "nflPredictorLine": 1.2,
+        "predWinPct": 0.521,
+        "nflPredictorLine": 1.1,
         "homeImplPts": 21.3,
         "awayImplPts": 20.2,
-        "lineDiff": -0.3
+        "lineDiff": -0.4
       },
       "result": {
         "homePoints": 26,
@@ -7160,11 +7120,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.713,
-        "nflPredictorLine": -4.6,
-        "homeImplPts": 20.9,
-        "awayImplPts": 25.6,
-        "lineDiff": -1.1
+        "predWinPct": 0.699,
+        "nflPredictorLine": -4.3,
+        "homeImplPts": 21.1,
+        "awayImplPts": 25.4,
+        "lineDiff": -0.8
       },
       "result": {
         "homePoints": 19,
@@ -7175,17 +7135,7 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
-      "bet": {
-        "side": "NE",
-        "type": "ml",
-        "odds": -192,
-        "ev": 0.067,
-        "stake": 10,
-        "units": 2,
-        "toWin": 5,
-        "result": "win",
-        "pnl": 5
-      }
+      "bet": null
     },
     {
       "gameId": "2025_08_TB_NO",
@@ -7203,11 +7153,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "TB",
-        "predWinPct": 0.776,
-        "nflPredictorLine": -6.5,
-        "homeImplPts": 20,
-        "awayImplPts": 26.5,
-        "lineDiff": -2
+        "predWinPct": 0.782,
+        "nflPredictorLine": -6.8,
+        "homeImplPts": 19.9,
+        "awayImplPts": 26.6,
+        "lineDiff": -2.3
       },
       "result": {
         "homePoints": 3,
@@ -7222,12 +7172,12 @@
         "side": "TB",
         "type": "ml",
         "odds": -218,
-        "ev": 0.101,
-        "stake": 20,
-        "units": 4,
-        "toWin": 9,
+        "ev": 0.093,
+        "stake": 45,
+        "units": 4.5,
+        "toWin": 21,
         "result": "win",
-        "pnl": 9
+        "pnl": 21
       }
     },
     {
@@ -7246,11 +7196,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "NO",
-        "predWinPct": 0.512,
-        "nflPredictorLine": 0.3,
-        "homeImplPts": 20.9,
-        "awayImplPts": 20.6,
-        "lineDiff": -1.2
+        "predWinPct": 0.518,
+        "nflPredictorLine": 0.2,
+        "homeImplPts": 20.8,
+        "awayImplPts": 20.7,
+        "lineDiff": -1.3
       },
       "result": {
         "homePoints": 10,
@@ -7279,11 +7229,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "CAR",
-        "predWinPct": 0.653,
-        "nflPredictorLine": -3,
+        "predWinPct": 0.656,
+        "nflPredictorLine": -3.2,
         "homeImplPts": 19.2,
         "awayImplPts": 22.3,
-        "lineDiff": -0.5
+        "lineDiff": -0.7
       },
       "result": {
         "homePoints": 20,
@@ -7298,12 +7248,12 @@
         "side": "CAR",
         "type": "ml",
         "odds": -148,
-        "ev": 0.074,
-        "stake": 10,
+        "ev": 0.068,
+        "stake": 20,
         "units": 2,
-        "toWin": 7,
+        "toWin": 14,
         "result": "loss",
-        "pnl": -10
+        "pnl": -20
       }
     },
     {
@@ -7322,11 +7272,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NO",
-        "predWinPct": 0.762,
-        "nflPredictorLine": 7.3,
-        "homeImplPts": 23.4,
-        "awayImplPts": 16.1,
-        "lineDiff": 0.8
+        "predWinPct": 0.747,
+        "nflPredictorLine": 6.9,
+        "homeImplPts": 23.2,
+        "awayImplPts": 16.3,
+        "lineDiff": 0.4
       },
       "result": {
         "homePoints": 29,
@@ -7355,11 +7305,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.792,
-        "nflPredictorLine": -7,
-        "homeImplPts": 18.7,
-        "awayImplPts": 25.8,
-        "lineDiff": -1
+        "predWinPct": 0.795,
+        "nflPredictorLine": -7.2,
+        "homeImplPts": 18.6,
+        "awayImplPts": 25.9,
+        "lineDiff": -1.2
       },
       "result": {
         "homePoints": 9,
@@ -7388,11 +7338,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.79,
-        "nflPredictorLine": -7,
-        "homeImplPts": 18.3,
-        "awayImplPts": 25.2,
-        "lineDiff": -1
+        "predWinPct": 0.791,
+        "nflPredictorLine": -7.1,
+        "homeImplPts": 18.2,
+        "awayImplPts": 25.3,
+        "lineDiff": -1.1
       },
       "result": {
         "homePoints": 21,
@@ -7403,17 +7353,7 @@
         "predCorrect": false,
         "vegasCorrect": false
       },
-      "bet": {
-        "side": "LAC",
-        "type": "ml",
-        "odds": -285,
-        "ev": 0.055,
-        "stake": 15,
-        "units": 3,
-        "toWin": 5,
-        "result": "loss",
-        "pnl": -15
-      }
+      "bet": null
     },
     {
       "gameId": "2025_06_PHI_NYG",
@@ -7431,11 +7371,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.838,
-        "nflPredictorLine": -8.7,
-        "homeImplPts": 15.9,
-        "awayImplPts": 24.6,
-        "lineDiff": -1.7
+        "predWinPct": 0.839,
+        "nflPredictorLine": -8.9,
+        "homeImplPts": 15.8,
+        "awayImplPts": 24.7,
+        "lineDiff": -1.9
       },
       "result": {
         "homePoints": 34,
@@ -7464,11 +7404,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.658,
-        "nflPredictorLine": -3.2,
-        "homeImplPts": 22.2,
-        "awayImplPts": 25.3,
-        "lineDiff": -0.7
+        "predWinPct": 0.66,
+        "nflPredictorLine": -3.3,
+        "homeImplPts": 22.1,
+        "awayImplPts": 25.4,
+        "lineDiff": -0.8
       },
       "result": {
         "homePoints": 24,
@@ -7483,12 +7423,12 @@
         "side": "SF",
         "type": "ml",
         "odds": -148,
-        "ev": 0.08,
-        "stake": 10,
-        "units": 2,
-        "toWin": 7,
+        "ev": 0.072,
+        "stake": 25,
+        "units": 2.5,
+        "toWin": 17,
         "result": "win",
-        "pnl": 7
+        "pnl": 17
       }
     },
     {
@@ -7507,11 +7447,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.893,
-        "nflPredictorLine": -11.3,
-        "homeImplPts": 15.1,
-        "awayImplPts": 26.4,
-        "lineDiff": -3.8
+        "predWinPct": 0.896,
+        "nflPredictorLine": -11.6,
+        "homeImplPts": 15,
+        "awayImplPts": 26.5,
+        "lineDiff": -4.1
       },
       "result": {
         "homePoints": 20,
@@ -7526,12 +7466,12 @@
         "side": "GB",
         "type": "spread",
         "odds": -110,
-        "ev": 0.13,
-        "stake": 15,
+        "ev": 0.125,
+        "stake": 30,
         "units": 3,
-        "toWin": 14,
+        "toWin": 27,
         "result": "loss",
-        "pnl": -15
+        "pnl": -30
       }
     },
     {
@@ -7550,11 +7490,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "NYG",
-        "predWinPct": 0.53,
-        "nflPredictorLine": 1.3,
+        "predWinPct": 0.527,
+        "nflPredictorLine": 1.2,
         "homeImplPts": 23.9,
         "awayImplPts": 22.6,
-        "lineDiff": -1.2
+        "lineDiff": -1.3
       },
       "result": {
         "homePoints": 21,
@@ -7583,10 +7523,10 @@
       "divGame": false,
       "prediction": {
         "predWinner": "MIN",
-        "predWinPct": 0.61,
+        "predWinPct": 0.612,
         "nflPredictorLine": -2,
-        "homeImplPts": 19.8,
-        "awayImplPts": 21.7,
+        "homeImplPts": 19.7,
+        "awayImplPts": 21.8,
         "lineDiff": 0.5
       },
       "result": {
@@ -7616,11 +7556,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "DAL",
-        "predWinPct": 0.534,
-        "nflPredictorLine": -0.2,
+        "predWinPct": 0.528,
+        "nflPredictorLine": -0,
         "homeImplPts": 25.2,
         "awayImplPts": 25.3,
-        "lineDiff": 2.8
+        "lineDiff": 3
       },
       "result": {
         "homePoints": 34,
@@ -7635,12 +7575,12 @@
         "side": "NYG",
         "type": "spread",
         "odds": -105,
-        "ev": 0.11,
-        "stake": 10,
-        "units": 2,
-        "toWin": 10,
+        "ev": 0.102,
+        "stake": 25,
+        "units": 2.5,
+        "toWin": 24,
         "result": "win",
-        "pnl": 10
+        "pnl": 24
       }
     },
     {
@@ -7659,11 +7599,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PIT",
-        "predWinPct": 0.612,
-        "nflPredictorLine": -2,
-        "homeImplPts": 17.7,
-        "awayImplPts": 19.8,
-        "lineDiff": 1
+        "predWinPct": 0.62,
+        "nflPredictorLine": -2.2,
+        "homeImplPts": 17.6,
+        "awayImplPts": 19.9,
+        "lineDiff": 0.8
       },
       "result": {
         "homePoints": 32,
@@ -7692,11 +7632,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.765,
-        "nflPredictorLine": -6.2,
-        "homeImplPts": 20.7,
-        "awayImplPts": 26.8,
-        "lineDiff": -0.2
+        "predWinPct": 0.771,
+        "nflPredictorLine": -6.4,
+        "homeImplPts": 20.5,
+        "awayImplPts": 27,
+        "lineDiff": -0.4
       },
       "result": {
         "homePoints": 10,
@@ -7725,7 +7665,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DAL",
-        "predWinPct": 0.54,
+        "predWinPct": 0.539,
         "nflPredictorLine": -0.3,
         "homeImplPts": 24.1,
         "awayImplPts": 24.4,
@@ -7759,10 +7699,10 @@
       "prediction": {
         "predWinner": "DEN",
         "predWinPct": 0.807,
-        "nflPredictorLine": -7.5,
-        "homeImplPts": 18,
-        "awayImplPts": 25.5,
-        "lineDiff": -0
+        "nflPredictorLine": -7.6,
+        "homeImplPts": 17.9,
+        "awayImplPts": 25.6,
+        "lineDiff": -0.1
       },
       "result": {
         "homePoints": 11,
@@ -7791,11 +7731,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "CAR",
-        "predWinPct": 0.571,
-        "nflPredictorLine": -1,
-        "homeImplPts": 19.2,
-        "awayImplPts": 20.3,
-        "lineDiff": -2.5
+        "predWinPct": 0.577,
+        "nflPredictorLine": -1.2,
+        "homeImplPts": 19.1,
+        "awayImplPts": 20.4,
+        "lineDiff": -2.7
       },
       "result": {
         "homePoints": 6,
@@ -7810,12 +7750,12 @@
         "side": "CAR",
         "type": "ml",
         "odds": -108,
-        "ev": 0.077,
-        "stake": 10,
+        "ev": 0.076,
+        "stake": 20,
         "units": 2,
-        "toWin": 9,
+        "toWin": 19,
         "result": "win",
-        "pnl": 9
+        "pnl": 19
       }
     },
     {
@@ -7834,7 +7774,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NYJ",
-        "predWinPct": 0.525,
+        "predWinPct": 0.522,
         "nflPredictorLine": 0.1,
         "homeImplPts": 18.8,
         "awayImplPts": 18.7,
@@ -7853,12 +7793,12 @@
         "side": "NYJ",
         "type": "spread",
         "odds": -105,
-        "ev": 0.057,
-        "stake": 5,
+        "ev": 0.051,
+        "stake": 10,
         "units": 1,
-        "toWin": 5,
+        "toWin": 10,
         "result": "win",
-        "pnl": 5
+        "pnl": 10
       }
     },
     {
@@ -7877,11 +7817,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "ATL",
-        "predWinPct": 0.663,
-        "nflPredictorLine": -3.3,
-        "homeImplPts": 17.6,
-        "awayImplPts": 20.9,
-        "lineDiff": -0.3
+        "predWinPct": 0.668,
+        "nflPredictorLine": -3.5,
+        "homeImplPts": 17.5,
+        "awayImplPts": 21,
+        "lineDiff": -0.5
       },
       "result": {
         "homePoints": 27,
@@ -7892,17 +7832,7 @@
         "predCorrect": false,
         "vegasCorrect": false
       },
-      "bet": {
-        "side": "ATL",
-        "type": "ml",
-        "odds": -166,
-        "ev": 0.052,
-        "stake": 10,
-        "units": 2,
-        "toWin": 6,
-        "result": "loss",
-        "pnl": -10
-      }
+      "bet": null
     },
     {
       "gameId": "2025_14_MIA_NYJ",
@@ -7920,11 +7850,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "MIA",
-        "predWinPct": 0.743,
-        "nflPredictorLine": -5.5,
-        "homeImplPts": 18,
-        "awayImplPts": 23.5,
-        "lineDiff": -3
+        "predWinPct": 0.75,
+        "nflPredictorLine": -5.8,
+        "homeImplPts": 17.9,
+        "awayImplPts": 23.6,
+        "lineDiff": -3.3
       },
       "result": {
         "homePoints": 10,
@@ -7939,12 +7869,12 @@
         "side": "MIA",
         "type": "ml",
         "odds": -148,
-        "ev": 0.181,
-        "stake": 25,
+        "ev": 0.168,
+        "stake": 50,
         "units": 5,
-        "toWin": 17,
+        "toWin": 34,
         "result": "win",
-        "pnl": 17
+        "pnl": 34
       }
     },
     {
@@ -7963,11 +7893,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.945,
-        "nflPredictorLine": -14.9,
-        "homeImplPts": 13.8,
-        "awayImplPts": 28.7,
-        "lineDiff": -2.4
+        "predWinPct": 0.94,
+        "nflPredictorLine": -14.6,
+        "homeImplPts": 13.9,
+        "awayImplPts": 28.6,
+        "lineDiff": -2.1
       },
       "result": {
         "homePoints": 10,
@@ -7996,11 +7926,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.83,
-        "nflPredictorLine": 9.6,
+        "predWinPct": 0.832,
+        "nflPredictorLine": 9.8,
         "homeImplPts": 28.6,
         "awayImplPts": 18.9,
-        "lineDiff": 1.1
+        "lineDiff": 1.3
       },
       "result": {
         "homePoints": 24,
@@ -8029,11 +7959,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.652,
-        "nflPredictorLine": 4.3,
-        "homeImplPts": 24.9,
-        "awayImplPts": 20.6,
-        "lineDiff": 0.8
+        "predWinPct": 0.649,
+        "nflPredictorLine": 4.2,
+        "homeImplPts": 24.8,
+        "awayImplPts": 20.7,
+        "lineDiff": 0.7
       },
       "result": {
         "homePoints": 33,
@@ -8062,11 +7992,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.67,
-        "nflPredictorLine": 4.7,
+        "predWinPct": 0.671,
+        "nflPredictorLine": 4.8,
         "homeImplPts": 24.6,
         "awayImplPts": 19.9,
-        "lineDiff": 1.2
+        "lineDiff": 1.3
       },
       "result": {
         "homePoints": 17,
@@ -8095,11 +8025,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.829,
-        "nflPredictorLine": 9.5,
-        "homeImplPts": 26.5,
-        "awayImplPts": 17,
-        "lineDiff": 2.5
+        "predWinPct": 0.831,
+        "nflPredictorLine": 9.7,
+        "homeImplPts": 26.6,
+        "awayImplPts": 16.9,
+        "lineDiff": 2.7
       },
       "result": {
         "homePoints": 38,
@@ -8114,12 +8044,12 @@
         "side": "PHI",
         "type": "spread",
         "odds": -118,
-        "ev": 0.055,
-        "stake": 5,
-        "units": 1,
-        "toWin": 4,
+        "ev": 0.054,
+        "stake": 15,
+        "units": 1.5,
+        "toWin": 13,
         "result": "win",
-        "pnl": 4
+        "pnl": 13
       }
     },
     {
@@ -8138,7 +8068,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.583,
+        "predWinPct": 0.582,
         "nflPredictorLine": 2.6,
         "homeImplPts": 24.5,
         "awayImplPts": 22,
@@ -8171,11 +8101,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.77,
-        "nflPredictorLine": 7.5,
-        "homeImplPts": 25.5,
-        "awayImplPts": 18,
-        "lineDiff": 0.5
+        "predWinPct": 0.773,
+        "nflPredictorLine": 7.7,
+        "homeImplPts": 25.6,
+        "awayImplPts": 17.9,
+        "lineDiff": 0.7
       },
       "result": {
         "homePoints": 15,
@@ -8204,11 +8134,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.935,
-        "nflPredictorLine": 15.2,
-        "homeImplPts": 26.4,
-        "awayImplPts": 11.1,
-        "lineDiff": 2.7
+        "predWinPct": 0.937,
+        "nflPredictorLine": 15.4,
+        "homeImplPts": 26.5,
+        "awayImplPts": 11,
+        "lineDiff": 2.9
       },
       "result": {
         "homePoints": 31,
@@ -8223,12 +8153,12 @@
         "side": "PHI",
         "type": "spread",
         "odds": -112,
-        "ev": 0.08,
-        "stake": 10,
+        "ev": 0.078,
+        "stake": 20,
         "units": 2,
-        "toWin": 9,
+        "toWin": 18,
         "result": "win",
-        "pnl": 9
+        "pnl": 18
       }
     },
     {
@@ -8247,11 +8177,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.658,
-        "nflPredictorLine": 4.4,
-        "homeImplPts": 21.5,
-        "awayImplPts": 17,
-        "lineDiff": 1.4
+        "predWinPct": 0.654,
+        "nflPredictorLine": 4.3,
+        "homeImplPts": 21.4,
+        "awayImplPts": 17.1,
+        "lineDiff": 1.3
       },
       "result": {
         "homePoints": 17,
@@ -8280,11 +8210,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.758,
-        "nflPredictorLine": 7.2,
+        "predWinPct": 0.755,
+        "nflPredictorLine": 7.1,
         "homeImplPts": 25.8,
         "awayImplPts": 18.7,
-        "lineDiff": 1.2
+        "lineDiff": 1.1
       },
       "result": {
         "homePoints": 19,
@@ -8313,11 +8243,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PIT",
-        "predWinPct": 0.659,
-        "nflPredictorLine": 4.4,
+        "predWinPct": 0.66,
+        "nflPredictorLine": 4.5,
         "homeImplPts": 22.5,
         "awayImplPts": 18,
-        "lineDiff": 0.9
+        "lineDiff": 1
       },
       "result": {
         "homePoints": 17,
@@ -8346,11 +8276,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "MIN",
-        "predWinPct": 0.552,
-        "nflPredictorLine": -0.6,
+        "predWinPct": 0.546,
+        "nflPredictorLine": -0.5,
         "homeImplPts": 20.5,
         "awayImplPts": 21,
-        "lineDiff": 1.9
+        "lineDiff": 2
       },
       "result": {
         "homePoints": 24,
@@ -8365,12 +8295,12 @@
         "side": "PIT",
         "type": "spread",
         "odds": 105,
-        "ev": 0.11,
-        "stake": 10,
+        "ev": 0.102,
+        "stake": 20,
         "units": 2,
-        "toWin": 10,
+        "toWin": 21,
         "result": "win",
-        "pnl": 10
+        "pnl": 21
       }
     },
     {
@@ -8389,11 +8319,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "PIT",
-        "predWinPct": 0.78,
-        "nflPredictorLine": 7.9,
-        "homeImplPts": 22.7,
-        "awayImplPts": 14.8,
-        "lineDiff": 2.4
+        "predWinPct": 0.785,
+        "nflPredictorLine": 8.1,
+        "homeImplPts": 22.8,
+        "awayImplPts": 14.7,
+        "lineDiff": 2.6
       },
       "result": {
         "homePoints": 23,
@@ -8404,17 +8334,7 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
-      "bet": {
-        "side": "PIT",
-        "type": "ml",
-        "odds": -278,
-        "ev": 0.05,
-        "stake": 15,
-        "units": 3,
-        "toWin": 5,
-        "result": "win",
-        "pnl": 5
-      }
+      "bet": null
     },
     {
       "gameId": "2025_08_GB_PIT",
@@ -8432,11 +8352,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.631,
-        "nflPredictorLine": -2.5,
+        "predWinPct": 0.627,
+        "nflPredictorLine": -2.4,
         "homeImplPts": 22,
         "awayImplPts": 24.5,
-        "lineDiff": 0.5
+        "lineDiff": 0.6
       },
       "result": {
         "homePoints": 25,
@@ -8465,7 +8385,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "IND",
-        "predWinPct": 0.672,
+        "predWinPct": 0.671,
         "nflPredictorLine": -3.5,
         "homeImplPts": 24,
         "awayImplPts": 27.5,
@@ -8498,11 +8418,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "PIT",
-        "predWinPct": 0.711,
-        "nflPredictorLine": 5.8,
+        "predWinPct": 0.713,
+        "nflPredictorLine": 5.9,
         "homeImplPts": 27.2,
         "awayImplPts": 21.3,
-        "lineDiff": 0.3
+        "lineDiff": 0.4
       },
       "result": {
         "homePoints": 34,
@@ -8532,10 +8452,10 @@
       "prediction": {
         "predWinner": "BUF",
         "predWinPct": 0.68,
-        "nflPredictorLine": -3.7,
+        "nflPredictorLine": -3.8,
         "homeImplPts": 20.4,
         "awayImplPts": 24.1,
-        "lineDiff": -0.7
+        "lineDiff": -0.8
       },
       "result": {
         "homePoints": 7,
@@ -8550,12 +8470,12 @@
         "side": "BUF",
         "type": "ml",
         "odds": -166,
-        "ev": 0.071,
-        "stake": 10,
+        "ev": 0.062,
+        "stake": 20,
         "units": 2,
-        "toWin": 6,
+        "toWin": 12,
         "result": "win",
-        "pnl": 6
+        "pnl": 12
       }
     },
     {
@@ -8574,7 +8494,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PIT",
-        "predWinPct": 0.612,
+        "predWinPct": 0.615,
         "nflPredictorLine": 3.3,
         "homeImplPts": 22.9,
         "awayImplPts": 19.6,
@@ -8607,7 +8527,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.632,
+        "predWinPct": 0.628,
         "nflPredictorLine": -2.5,
         "homeImplPts": 19.5,
         "awayImplPts": 22,
@@ -8640,11 +8560,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "HOU",
-        "predWinPct": 0.578,
-        "nflPredictorLine": -1.2,
-        "homeImplPts": 18.7,
-        "awayImplPts": 19.8,
-        "lineDiff": 1.8
+        "predWinPct": 0.568,
+        "nflPredictorLine": -1,
+        "homeImplPts": 18.8,
+        "awayImplPts": 19.7,
+        "lineDiff": 2
       },
       "result": {
         "homePoints": 6,
@@ -8673,11 +8593,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.578,
-        "nflPredictorLine": -1.2,
-        "homeImplPts": 21.2,
-        "awayImplPts": 22.3,
-        "lineDiff": 1.3
+        "predWinPct": 0.581,
+        "nflPredictorLine": -1.3,
+        "homeImplPts": 21.1,
+        "awayImplPts": 22.4,
+        "lineDiff": 1.2
       },
       "result": {
         "homePoints": 13,
@@ -8706,11 +8626,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.78,
-        "nflPredictorLine": 7.8,
+        "predWinPct": 0.782,
+        "nflPredictorLine": 8,
         "homeImplPts": 24.7,
         "awayImplPts": 16.8,
-        "lineDiff": 0.3
+        "lineDiff": 0.5
       },
       "result": {
         "homePoints": 44,
@@ -8772,7 +8692,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.637,
+        "predWinPct": 0.638,
         "nflPredictorLine": 3.9,
         "homeImplPts": 22.7,
         "awayImplPts": 18.8,
@@ -8806,10 +8726,10 @@
       "prediction": {
         "predWinner": "SEA",
         "predWinPct": 0.801,
-        "nflPredictorLine": 8.5,
-        "homeImplPts": 26.5,
-        "awayImplPts": 18,
-        "lineDiff": 1.5
+        "nflPredictorLine": 8.6,
+        "homeImplPts": 26.6,
+        "awayImplPts": 17.9,
+        "lineDiff": 1.6
       },
       "result": {
         "homePoints": 44,
@@ -8824,12 +8744,12 @@
         "side": "SEA",
         "type": "spread",
         "odds": -105,
-        "ev": 0.056,
-        "stake": 5,
+        "ev": 0.051,
+        "stake": 10,
         "units": 1,
-        "toWin": 5,
+        "toWin": 10,
         "result": "win",
-        "pnl": 5
+        "pnl": 10
       }
     },
     {
@@ -8848,11 +8768,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.925,
-        "nflPredictorLine": 14.4,
+        "predWinPct": 0.924,
+        "nflPredictorLine": 14.5,
         "homeImplPts": 28.5,
         "awayImplPts": 14,
-        "lineDiff": 1.9
+        "lineDiff": 2
       },
       "result": {
         "homePoints": 26,
@@ -8863,17 +8783,7 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
-      "bet": {
-        "side": "SEA",
-        "type": "spread",
-        "odds": -110,
-        "ev": 0.055,
-        "stake": 5,
-        "units": 1,
-        "toWin": 5,
-        "result": "win",
-        "pnl": 5
-      }
+      "bet": null
     },
     {
       "gameId": "2025_15_IND_SEA",
@@ -8891,11 +8801,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.925,
-        "nflPredictorLine": 14.4,
+        "predWinPct": 0.924,
+        "nflPredictorLine": 14.5,
         "homeImplPts": 28,
         "awayImplPts": 13.5,
-        "lineDiff": 0.9
+        "lineDiff": 1
       },
       "result": {
         "homePoints": 18,
@@ -8924,11 +8834,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.566,
-        "nflPredictorLine": 2.2,
+        "predWinPct": 0.56,
+        "nflPredictorLine": 2,
         "homeImplPts": 22.3,
         "awayImplPts": 20.2,
-        "lineDiff": 0.7
+        "lineDiff": 0.5
       },
       "result": {
         "homePoints": 38,
@@ -8957,11 +8867,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.786,
-        "nflPredictorLine": 8.1,
-        "homeImplPts": 26.3,
-        "awayImplPts": 18.2,
-        "lineDiff": 1.6
+        "predWinPct": 0.781,
+        "nflPredictorLine": 8,
+        "homeImplPts": 26.2,
+        "awayImplPts": 18.3,
+        "lineDiff": 1.5
       },
       "result": {
         "homePoints": 41,
@@ -8990,11 +8900,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.565,
-        "nflPredictorLine": 2.2,
+        "predWinPct": 0.563,
+        "nflPredictorLine": 2.1,
         "homeImplPts": 23.8,
         "awayImplPts": 21.7,
-        "lineDiff": -0.3
+        "lineDiff": -0.4
       },
       "result": {
         "homePoints": 31,
@@ -9023,7 +8933,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.504,
+        "predWinPct": 0.502,
         "nflPredictorLine": 0.7,
         "homeImplPts": 22.6,
         "awayImplPts": 21.9,
@@ -9056,10 +8966,10 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.617,
+        "predWinPct": 0.616,
         "nflPredictorLine": 3.4,
-        "homeImplPts": 24.5,
-        "awayImplPts": 21,
+        "homeImplPts": 24.4,
+        "awayImplPts": 21.1,
         "lineDiff": -0.1
       },
       "result": {
@@ -9089,10 +8999,10 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.509,
+        "predWinPct": 0.51,
         "nflPredictorLine": 0.4,
-        "homeImplPts": 23.5,
-        "awayImplPts": 23,
+        "homeImplPts": 23.4,
+        "awayImplPts": 23.1,
         "lineDiff": -1.1
       },
       "result": {
@@ -9122,11 +9032,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.744,
-        "nflPredictorLine": -5.5,
-        "homeImplPts": 22,
-        "awayImplPts": 27.5,
-        "lineDiff": -0
+        "predWinPct": 0.745,
+        "nflPredictorLine": -5.6,
+        "homeImplPts": 21.9,
+        "awayImplPts": 27.6,
+        "lineDiff": -0.1
       },
       "result": {
         "homePoints": 26,
@@ -9155,11 +9065,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.72,
-        "nflPredictorLine": 6.1,
+        "predWinPct": 0.716,
+        "nflPredictorLine": 6,
         "homeImplPts": 27.3,
         "awayImplPts": 21.2,
-        "lineDiff": -1.4
+        "lineDiff": -1.5
       },
       "result": {
         "homePoints": 20,
@@ -9189,10 +9099,10 @@
       "prediction": {
         "predWinner": "SF",
         "predWinPct": 0.868,
-        "nflPredictorLine": 11.2,
-        "homeImplPts": 27.8,
-        "awayImplPts": 16.7,
-        "lineDiff": -1.3
+        "nflPredictorLine": 11.3,
+        "homeImplPts": 27.9,
+        "awayImplPts": 16.6,
+        "lineDiff": -1.2
       },
       "result": {
         "homePoints": 37,
@@ -9221,11 +9131,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.649,
-        "nflPredictorLine": 4.2,
-        "homeImplPts": 27.8,
-        "awayImplPts": 23.7,
-        "lineDiff": 0.7
+        "predWinPct": 0.652,
+        "nflPredictorLine": 4.3,
+        "homeImplPts": 27.9,
+        "awayImplPts": 23.6,
+        "lineDiff": 0.8
       },
       "result": {
         "homePoints": 42,
@@ -9254,7 +9164,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.628,
+        "predWinPct": 0.626,
         "nflPredictorLine": -2.4,
         "homeImplPts": 22.5,
         "awayImplPts": 25,
@@ -9287,11 +9197,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "TB",
-        "predWinPct": 0.794,
-        "nflPredictorLine": 8.3,
-        "homeImplPts": 25.9,
-        "awayImplPts": 17.6,
-        "lineDiff": 1.8
+        "predWinPct": 0.783,
+        "nflPredictorLine": 8,
+        "homeImplPts": 25.8,
+        "awayImplPts": 17.7,
+        "lineDiff": 1.5
       },
       "result": {
         "homePoints": 29,
@@ -9320,10 +9230,10 @@
       "divGame": false,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.626,
+        "predWinPct": 0.627,
         "nflPredictorLine": -2.4,
-        "homeImplPts": 21.1,
-        "awayImplPts": 23.4,
+        "homeImplPts": 21,
+        "awayImplPts": 23.5,
         "lineDiff": 1.1
       },
       "result": {
@@ -9353,7 +9263,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "TB",
-        "predWinPct": 0.651,
+        "predWinPct": 0.65,
         "nflPredictorLine": 4.2,
         "homeImplPts": 25.4,
         "awayImplPts": 21.1,
@@ -9386,11 +9296,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "TB",
-        "predWinPct": 0.541,
-        "nflPredictorLine": 1.6,
-        "homeImplPts": 25,
-        "awayImplPts": 23.5,
-        "lineDiff": -0.9
+        "predWinPct": 0.559,
+        "nflPredictorLine": 2,
+        "homeImplPts": 25.3,
+        "awayImplPts": 23.2,
+        "lineDiff": -0.5
       },
       "result": {
         "homePoints": 23,
@@ -9419,11 +9329,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "TB",
-        "predWinPct": 0.685,
-        "nflPredictorLine": 5.1,
+        "predWinPct": 0.687,
+        "nflPredictorLine": 5.2,
         "homeImplPts": 24.8,
         "awayImplPts": 19.7,
-        "lineDiff": 0.6
+        "lineDiff": 0.7
       },
       "result": {
         "homePoints": 20,
@@ -9453,10 +9363,10 @@
       "prediction": {
         "predWinner": "TB",
         "predWinPct": 0.815,
-        "nflPredictorLine": 9,
+        "nflPredictorLine": 9.1,
         "homeImplPts": 25.3,
         "awayImplPts": 16.2,
-        "lineDiff": 1.5
+        "lineDiff": 1.6
       },
       "result": {
         "homePoints": 20,
@@ -9485,7 +9395,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "TB",
-        "predWinPct": 0.743,
+        "predWinPct": 0.74,
         "nflPredictorLine": 6.7,
         "homeImplPts": 25.1,
         "awayImplPts": 18.4,
@@ -9518,11 +9428,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "TB",
-        "predWinPct": 0.648,
-        "nflPredictorLine": 4.2,
+        "predWinPct": 0.646,
+        "nflPredictorLine": 4.1,
         "homeImplPts": 23.8,
         "awayImplPts": 19.7,
-        "lineDiff": 1.2
+        "lineDiff": 1.1
       },
       "result": {
         "homePoints": 16,
@@ -9533,17 +9443,7 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
-      "bet": {
-        "side": "TB",
-        "type": "ml",
-        "odds": -155,
-        "ev": 0.054,
-        "stake": 10,
-        "units": 2,
-        "toWin": 6,
-        "result": "win",
-        "pnl": 6
-      }
+      "bet": null
     },
     {
       "gameId": "2025_02_LA_TEN",
@@ -9561,11 +9461,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.796,
-        "nflPredictorLine": -7.2,
-        "homeImplPts": 17.2,
-        "awayImplPts": 24.3,
-        "lineDiff": -1.7
+        "predWinPct": 0.801,
+        "nflPredictorLine": -7.4,
+        "homeImplPts": 17,
+        "awayImplPts": 24.5,
+        "lineDiff": -1.9
       },
       "result": {
         "homePoints": 19,
@@ -9580,12 +9480,12 @@
         "side": "LA",
         "type": "ml",
         "odds": -250,
-        "ev": 0.089,
-        "stake": 20,
-        "units": 4,
-        "toWin": 8,
+        "ev": 0.082,
+        "stake": 45,
+        "units": 4.5,
+        "toWin": 18,
         "result": "win",
-        "pnl": 8
+        "pnl": 18
       }
     },
     {
@@ -9604,7 +9504,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "IND",
-        "predWinPct": 0.74,
+        "predWinPct": 0.737,
         "nflPredictorLine": -5.4,
         "homeImplPts": 19.1,
         "awayImplPts": 24.4,
@@ -9637,11 +9537,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "NE",
-        "predWinPct": 0.788,
-        "nflPredictorLine": -6.9,
-        "homeImplPts": 16.8,
-        "awayImplPts": 23.7,
-        "lineDiff": -0.4
+        "predWinPct": 0.775,
+        "nflPredictorLine": -6.6,
+        "homeImplPts": 17,
+        "awayImplPts": 23.5,
+        "lineDiff": -0.1
       },
       "result": {
         "homePoints": 13,
@@ -9670,7 +9570,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "LAC",
-        "predWinPct": 0.869,
+        "predWinPct": 0.868,
         "nflPredictorLine": -10.1,
         "homeImplPts": 17.2,
         "awayImplPts": 27.3,
@@ -9703,11 +9603,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "HOU",
-        "predWinPct": 0.702,
-        "nflPredictorLine": -4.3,
+        "predWinPct": 0.697,
+        "nflPredictorLine": -4.2,
         "homeImplPts": 16.6,
         "awayImplPts": 20.9,
-        "lineDiff": 1.2
+        "lineDiff": 1.3
       },
       "result": {
         "homePoints": 13,
@@ -9736,11 +9636,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.9,
-        "nflPredictorLine": -11.7,
+        "predWinPct": 0.899,
+        "nflPredictorLine": -11.8,
         "homeImplPts": 14.9,
         "awayImplPts": 26.6,
-        "lineDiff": 0.8
+        "lineDiff": 0.7
       },
       "result": {
         "homePoints": 24,
@@ -9769,7 +9669,7 @@
       "divGame": true,
       "prediction": {
         "predWinner": "JAX",
-        "predWinPct": 0.756,
+        "predWinPct": 0.755,
         "nflPredictorLine": -5.9,
         "homeImplPts": 18.3,
         "awayImplPts": 24.2,
@@ -9803,10 +9703,10 @@
       "prediction": {
         "predWinner": "KC",
         "predWinPct": 0.617,
-        "nflPredictorLine": -2.1,
+        "nflPredictorLine": -2.2,
         "homeImplPts": 17.7,
         "awayImplPts": 19.8,
-        "lineDiff": 1.4
+        "lineDiff": 1.3
       },
       "result": {
         "homePoints": 26,
@@ -9835,11 +9735,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "TEN",
-        "predWinPct": 0.513,
-        "nflPredictorLine": 0.3,
-        "homeImplPts": 19.9,
-        "awayImplPts": 19.6,
-        "lineDiff": 1.8
+        "predWinPct": 0.508,
+        "nflPredictorLine": 0.4,
+        "homeImplPts": 20,
+        "awayImplPts": 19.5,
+        "lineDiff": 1.9
       },
       "result": {
         "homePoints": 26,
@@ -9850,17 +9750,7 @@
         "predCorrect": false,
         "vegasCorrect": true
       },
-      "bet": {
-        "side": "TEN",
-        "type": "spread",
-        "odds": -110,
-        "ev": 0.051,
-        "stake": 5,
-        "units": 1,
-        "toWin": 5,
-        "result": "loss",
-        "pnl": -5
-      }
+      "bet": null
     },
     {
       "gameId": "2025_01_NYG_WAS",
@@ -9878,11 +9768,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "WAS",
-        "predWinPct": 0.743,
-        "nflPredictorLine": 6.7,
-        "homeImplPts": 26.1,
-        "awayImplPts": 19.4,
-        "lineDiff": 0.7
+        "predWinPct": 0.749,
+        "nflPredictorLine": 7,
+        "homeImplPts": 26.2,
+        "awayImplPts": 19.3,
+        "lineDiff": 1
       },
       "result": {
         "homePoints": 21,
@@ -9911,11 +9801,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "WAS",
-        "predWinPct": 0.574,
-        "nflPredictorLine": 2.4,
-        "homeImplPts": 22.9,
-        "awayImplPts": 20.6,
-        "lineDiff": -0.1
+        "predWinPct": 0.582,
+        "nflPredictorLine": 2.6,
+        "homeImplPts": 23,
+        "awayImplPts": 20.5,
+        "lineDiff": 0.1
       },
       "result": {
         "homePoints": 41,
@@ -9944,11 +9834,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "WAS",
-        "predWinPct": 0.685,
-        "nflPredictorLine": 5.1,
-        "homeImplPts": 27.3,
-        "awayImplPts": 22.2,
-        "lineDiff": -0.4
+        "predWinPct": 0.696,
+        "nflPredictorLine": 5.4,
+        "homeImplPts": 27.5,
+        "awayImplPts": 22,
+        "lineDiff": -0.1
       },
       "result": {
         "homePoints": 24,
@@ -9977,11 +9867,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.639,
-        "nflPredictorLine": -2.7,
-        "homeImplPts": 22.4,
-        "awayImplPts": 25.1,
-        "lineDiff": -0.2
+        "predWinPct": 0.631,
+        "nflPredictorLine": -2.5,
+        "homeImplPts": 22.5,
+        "awayImplPts": 25,
+        "lineDiff": -0
       },
       "result": {
         "homePoints": 14,
@@ -9992,17 +9882,7 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
-      "bet": {
-        "side": "SEA",
-        "type": "ml",
-        "odds": -148,
-        "ev": 0.058,
-        "stake": 10,
-        "units": 2,
-        "toWin": 7,
-        "result": "win",
-        "pnl": 7
-      }
+      "bet": null
     },
     {
       "gameId": "2025_10_DET_WAS",
@@ -10020,7 +9900,7 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DET",
-        "predWinPct": 0.859,
+        "predWinPct": 0.856,
         "nflPredictorLine": -9.6,
         "homeImplPts": 20,
         "awayImplPts": 29.5,
@@ -10053,11 +9933,11 @@
       "divGame": false,
       "prediction": {
         "predWinner": "DEN",
-        "predWinPct": 0.801,
-        "nflPredictorLine": -7.3,
-        "homeImplPts": 18.1,
-        "awayImplPts": 25.4,
-        "lineDiff": -0.8
+        "predWinPct": 0.793,
+        "nflPredictorLine": -7.2,
+        "homeImplPts": 18.2,
+        "awayImplPts": 25.3,
+        "lineDiff": -0.7
       },
       "result": {
         "homePoints": 26,
@@ -10086,11 +9966,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "PHI",
-        "predWinPct": 0.827,
-        "nflPredictorLine": -8.3,
-        "homeImplPts": 17.6,
-        "awayImplPts": 25.9,
-        "lineDiff": -1.3
+        "predWinPct": 0.819,
+        "nflPredictorLine": -8.1,
+        "homeImplPts": 17.7,
+        "awayImplPts": 25.8,
+        "lineDiff": -1.1
       },
       "result": {
         "homePoints": 18,
@@ -10119,11 +9999,11 @@
       "divGame": true,
       "prediction": {
         "predWinner": "DAL",
-        "predWinPct": 0.886,
-        "nflPredictorLine": -10.9,
-        "homeImplPts": 19.8,
-        "awayImplPts": 30.7,
-        "lineDiff": -2.4
+        "predWinPct": 0.881,
+        "nflPredictorLine": -10.8,
+        "homeImplPts": 19.9,
+        "awayImplPts": 30.6,
+        "lineDiff": -2.3
       },
       "result": {
         "homePoints": 23,

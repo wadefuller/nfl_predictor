@@ -1,32 +1,32 @@
 {
   "season": 2026,
   "week": 1,
-  "n_bets": 13,
+  "n_bets": 6,
   "bets": [
-    {
-      "game": "WAS @ PHI",
-      "bet": "PHI ml",
-      "odds": -205,
-      "ev": 0.149,
-      "kelly": 0.412,
-      "stake": 50,
-      "payout_if_win": 24
-    },
     {
       "game": "WAS @ PHI",
       "bet": "PHI spread",
       "odds": -110,
-      "ev": 0.149,
-      "kelly": 0.22,
+      "ev": 0.077,
+      "kelly": 0.225,
       "stake": 35,
       "payout_if_win": 32
+    },
+    {
+      "game": "WAS @ PHI",
+      "bet": "PHI ml",
+      "odds": -205,
+      "ev": 0.076,
+      "kelly": 0.41,
+      "stake": 50,
+      "payout_if_win": 24
     },
     {
       "game": "CLE @ JAX",
       "bet": "JAX spread",
       "odds": -110,
-      "ev": 0.138,
-      "kelly": 0.203,
+      "ev": 0.074,
+      "kelly": 0.216,
       "stake": 30,
       "payout_if_win": 27
     },
@@ -34,8 +34,8 @@
       "game": "BAL @ IND",
       "bet": "BAL ml",
       "odds": -175,
-      "ev": 0.123,
-      "kelly": 0.286,
+      "ev": 0.066,
+      "kelly": 0.301,
       "stake": 45,
       "payout_if_win": 26
     },
@@ -43,8 +43,8 @@
       "game": "SF @ LA",
       "bet": "LA spread",
       "odds": -112,
-      "ev": 0.115,
-      "kelly": 0.171,
+      "ev": 0.058,
+      "kelly": 0.169,
       "stake": 25,
       "payout_if_win": 22
     },
@@ -52,73 +52,10 @@
       "game": "SF @ LA",
       "bet": "LA ml",
       "odds": -198,
-      "ev": 0.104,
-      "kelly": 0.272,
+      "ev": 0.052,
+      "kelly": 0.266,
       "stake": 40,
       "payout_if_win": 20
-    },
-    {
-      "game": "DAL @ NYG",
-      "bet": "NYG spread",
-      "odds": -105,
-      "ev": 0.096,
-      "kelly": 0.132,
-      "stake": 20,
-      "payout_if_win": 19
-    },
-    {
-      "game": "GB @ MIN",
-      "bet": "GB ml",
-      "odds": -102,
-      "ev": 0.087,
-      "kelly": 0.115,
-      "stake": 15,
-      "payout_if_win": 15
-    },
-    {
-      "game": "TB @ CIN",
-      "bet": "TB spread",
-      "odds": -105,
-      "ev": 0.071,
-      "kelly": 0.095,
-      "stake": 15,
-      "payout_if_win": 14
-    },
-    {
-      "game": "ATL @ PIT",
-      "bet": "PIT ml",
-      "odds": -175,
-      "ev": 0.062,
-      "kelly": 0.136,
-      "stake": 20,
-      "payout_if_win": 11
-    },
-    {
-      "game": "BAL @ IND",
-      "bet": "BAL spread",
-      "odds": -108,
-      "ev": 0.061,
-      "kelly": 0.082,
-      "stake": 10,
-      "payout_if_win": 9
-    },
-    {
-      "game": "NO @ DET",
-      "bet": "DET ml",
-      "odds": -298,
-      "ev": 0.055,
-      "kelly": 0.199,
-      "stake": 30,
-      "payout_if_win": 10
-    },
-    {
-      "game": "MIA @ LV",
-      "bet": "MIA spread",
-      "odds": -110,
-      "ev": 0.054,
-      "kelly": 0.073,
-      "stake": 10,
-      "payout_if_win": 9
     }
   ]
 }

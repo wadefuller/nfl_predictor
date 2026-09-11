@@ -2,11 +2,11 @@
   "availableSeasons": [2024, 2025, 2026],
   "currentSeason": 2026,
   "currentWeek": 0,
-  "lastUpdated": "2026-08-08T09:59:18",
+  "lastUpdated": "2026-09-02T18:55:19",
   "weeksPerSeason": {
     "2024": 22,
     "2025": 22,
-    "2026": 7
+    "2026": 16
   },
   "bankroll": 1000,
   "unitSize": 10

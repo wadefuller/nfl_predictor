@@ -9,6 +9,9 @@ interface GameCardProps {
   kalshi?: any[];
   /** Kalshi's closest currently listed outcome: team wins by 2+ points. */
   kalshiWin?: any[];
+  /** Final score from the live scoreboard, for a game that has finished but whose
+   *  week has not been graded yet. Ignored once `game.result` exists. */
+  liveFinal?: { home: number; away: number; homeTeam: string; awayTeam: string };
 }
 
 // Color encodes SOURCE, not team. Blue is always my model, grey is always the
@@ -31,14 +34,22 @@ function vegasProbs(homeMl: number | null, awayMl: number | null) {
   return { home: h / (h + a), away: a / (h + a) };
 }
 
-/** "CHI -6.5" — spread stated from the favorite's side, which is how it's read. */
-function spreadLabel(line: number, home: string, away: string) {
-  if (line === 0) return 'PK';
-  return line > 0 ? `${home} -${Math.abs(line)}` : `${away} -${Math.abs(line)}`;
-}
-
-export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [] }: GameCardProps) {
-  const { prediction: p, result } = game;
+export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [], liveFinal }: GameCardProps) {
+  const { prediction: p } = game;
+  // The graded result wins when it exists; the live scoreboard only fills the gap
+  // between kickoff and Tuesday's grading. `provisional` is carried through so the
+  // card can say which one it is rather than presenting a scraped score with the
+  // same authority as a reconciled one.
+  const provisional = game.result == null && liveFinal != null;
+  const result = game.result ?? (liveFinal ? {
+    homePoints: liveFinal.home,
+    awayPoints: liveFinal.away,
+    homeResult: liveFinal.home - liveFinal.away,
+    homeWin: liveFinal.home > liveFinal.away,
+    winningTeam: liveFinal.home === liveFinal.away ? null
+      : liveFinal.home > liveFinal.away ? liveFinal.homeTeam : liveFinal.awayTeam,
+    predCorrect: null, vegasCorrect: null,
+  } as any : null);
   const done = result !== null;
 
   const homeWin = p.predWinner === game.homeTeam ? p.predWinPct : 1 - p.predWinPct;
@@ -47,13 +58,108 @@ export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [] }:
   // lineDiff = model margin − market spread, both "+ = home favored". So the sign
   // tells you WHICH SIDE the model is higher on; we render that as a named lean
   // instead of a bare signed number, which nobody can interpret at a glance.
-  const edge = p.lineDiff;
-  const leanTeam = edge > 0 ? game.homeTeam : game.awayTeam;
-  const leanPts = Math.abs(edge);
+  // leanPts still drives the card accent: a card the model disagrees with the
+  // market on earns colour. The named lean itself is gone — the table's delta
+  // column says the same thing in place, next to the number it refers to.
+  const leanPts = Math.abs(p.lineDiff);
   const notable = leanPts >= 1;
 
   const pct = (v: number) => `${Math.round(v * 100)}%`;
   const bet = game.bet ?? null;
+
+  // ---- one comparison frame -------------------------------------------------
+  // Every market is restated from a SINGLE side: the team the model picks. The
+  // card used to quote each line from its own favourite, so a game where the
+  // model liked SEA and the book liked NE read "SEA -4" against "NE -1" — two
+  // numbers that cannot be compared without doing the arithmetic yourself. With
+  // one reference team the column is a direct read, and the delta against the
+  // model is meaningful in every row.
+  const refTeam = p.predWinner;
+  const refIsHome = refTeam === game.homeTeam;
+  const fromRef = (homeMargin: number) => (refIsHome ? homeMargin : -homeMargin);
+  const fmtLine = (m: number | null) =>
+    m == null ? null : Math.abs(m) < 0.05 ? 'PK' : `${m > 0 ? '−' : '+'}${num(Math.abs(m))}`;
+
+  const modelMargin = fromRef(p.nflPredictorLine);
+  const vegasMargin = fromRef(game.spreadLine);
+  const modelWin = p.predWinPct;
+  const vegasWin = vp ? (refIsHome ? vp.home : vp.away) : null;
+
+  // Kalshi lists a spread RUNG ("team by more than N"), not a book line, and its
+  // win market is a 2+ margin contract rather than an exact moneyline. Both are
+  // carried here but flagged, because silently equating them with a sportsbook
+  // line would overstate how comparable they are.
+  const kSpreadRow = kalshi.find((m: any) => m.team === refTeam) ?? kalshi[0] ?? null;
+  const kSpreadMargin = kSpreadRow
+    ? (kSpreadRow.team === refTeam ? Number(kSpreadRow.threshold) : -Number(kSpreadRow.threshold))
+    : null;
+  const kWinRow = kalshiWin.find((m: any) => m.team === refTeam) ?? null;
+  const pmRow = polymarket.find((m: any) => m.bet_team === refTeam) ?? null;
+
+  type MarketRow = {
+    label: string; color?: string; isModel?: boolean;
+    margin: number | null; win: number | null; note?: string; href?: string;
+  };
+  const marketRows: MarketRow[] = [
+    { label: 'My model', color: MODEL, isModel: true, margin: modelMargin, win: modelWin },
+    { label: 'Vegas', color: VEGAS, margin: vegasMargin, win: vegasWin },
+  ];
+  if (kSpreadRow || kWinRow) marketRows.push({
+    label: 'Kalshi', color: '#f0b44d',
+    margin: kSpreadMargin,
+    win: kWinRow ? Number(kWinRow.ask) : null,
+    note: kWinRow ? '2+ margin contract, not an exact moneyline' : undefined,
+    href: kSpreadRow ? `https://kalshi.com/markets/${kSpreadRow.event_ticker}` : undefined,
+  });
+  if (pmRow) marketRows.push({
+    label: 'Polymarket', color: '#c9a7ff', margin: null, win: Number(pmRow.ask),
+    note: 'YES ask; the two sides need not sum to 100¢',
+    href: `https://polymarket.com/event/${pmRow.slug}`,
+  });
+  // ---- where to actually place the bet -------------------------------------
+  // The card used to show only the sportsbook position. All three venues price
+  // the same game, so the recommendation now ranks every qualifying option and
+  // names the venue. This is only meaningful because the three EVs were put on
+  // one basis upstream (calibrated expected profit per dollar staked); before
+  // that, Kalshi was quoted per CONTRACT and Polymarket was left uncalibrated,
+  // so a naive max() picked Polymarket on scale alone.
+  type Option = { venue: string; color: string; pick: string; kind: string; ev: number; price: string; href?: string };
+  const options: Option[] = [];
+  if (bet) options.push({
+    venue: 'Sportsbook', color: BET, pick: bet.side,
+    kind: bet.type === 'ml' ? 'moneyline' : 'spread',
+    ev: bet.ev, price: bet.odds > 0 ? `+${bet.odds}` : `${bet.odds}`,
+  });
+  if (kSpreadRow && kSpreadRow.qualifies) options.push({
+    venue: 'Kalshi', color: '#f0b44d', pick: `${kSpreadRow.team} −${Number(kSpreadRow.threshold).toFixed(1)}`,
+    kind: 'spread contract', ev: Number(kSpreadRow.ev),
+    price: `${Math.round(Number(kSpreadRow.ask) * 100)}¢`,
+    href: `https://kalshi.com/markets/${kSpreadRow.event_ticker}`,
+  });
+  polymarket.filter((m: any) => m.qualifies).forEach((m: any) => options.push({
+    venue: 'Polymarket', color: '#c9a7ff', pick: `${m.bet_team} YES`,
+    kind: 'winner contract', ev: Number(m.net_ev),
+    price: `${Math.round(Number(m.ask) * 100)}¢`,
+    href: `https://polymarket.com/event/${m.slug}`,
+  }));
+  options.sort((a, b) => b.ev - a.ev);
+  const bestVenue = options[0] ?? null;
+  const alsoAt = options.slice(1);
+
+  // ---- what actually happened ----------------------------------------------
+  // Once a game is final the same table becomes a scorecard: the actual margin
+  // is quoted from the SAME side as every prediction, so each row's error is a
+  // vertical read. Keeping one layout for both states means the pregame view and
+  // the post-mortem cannot drift apart, and you grade the markets against each
+  // other on exactly the numbers you were shown beforehand.
+  const actualMargin = done ? (refIsHome ? result!.homeResult : -result!.homeResult) : null;
+  const refWon = done ? result!.winningTeam === refTeam : null;
+  const push = done && result!.homeResult === 0;
+
+  const missing = [
+    !kSpreadRow && !kWinRow ? 'Kalshi' : null,
+    !pmRow ? 'Polymarket' : null,
+  ].filter(Boolean) as string[];
 
   // A card with money on it gets a gold edge; a strong lean gets a blue one.
   // Everything else stays quiet, so colour marks what's worth looking at.
@@ -93,24 +199,28 @@ export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [] }:
           </span>
         </div>
 
-        {/* WIN PROBABILITY — one shared axis. The bar splits where MY MODEL splits
-            it; the dashed marker is where VEGAS splits it. The gap between them is
-            the disagreement, readable without comparing two separate numbers. */}
+        {/* WIN PROBABILITY — pregame only. Once the game is final the table below
+            carries both what each source predicted and whether it was right, so
+            the bar would be restating the model's number a third time. */}
+        {!done && (
+        <>
+        {/* The fast scan across 16 cards. The bar splits where
+            the MODEL splits it; the dashed marker is where VEGAS splits it, so the
+            gap between them is the disagreement without reading any number. The
+            per-source figures live in the table below rather than being repeated
+            underneath the bar. */}
         <div>
           <div className="flex items-center justify-between text-[9px] uppercase tracking-wide text-text-muted mb-1">
             <span>Win probability</span>
-            {/* Both encodings named together. Labelling only Vegas left the bar's
-                own numbers reading as "the" probability rather than the model's. */}
             {vp && (
               <span className="normal-case tracking-normal">
-                <span style={{ color: MODEL }}>bar = my model</span>
+                <span style={{ color: MODEL }}>bar = model</span>
                 <span className="mx-1 opacity-50">·</span>
                 <span>dashed = Vegas</span>
               </span>
             )}
           </div>
           <div className="relative h-5 rounded-md bg-bg-card-hover overflow-hidden">
-            {/* the model's pick side gets the saturated fill; the other stays faint */}
             <div className="absolute inset-y-0 left-0"
               style={{ width: `${(1 - homeWin) * 100}%`,
                        background: p.predWinner === game.awayTeam ? `${MODEL}99` : `${MODEL}1f` }} />
@@ -129,137 +239,161 @@ export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [] }:
               </span>
             </div>
           </div>
-          {vp && (
-            <div className="flex justify-between text-[9px] text-text-muted mt-0.5">
-              <span>Vegas {pct(vp.away)}</span>
-              <span>Vegas {pct(vp.home)}</span>
-            </div>
-          )}
-          {kalshiWin.length > 0 && (
-            <div className="mt-1 flex items-center justify-between gap-2 rounded border border-[#f0a00040] bg-[#f0a0000a] px-1.5 py-1 text-[9px] tabular-nums">
-              <span className="shrink-0 text-[#f0b44d]">Kalshi 2+ win</span>
-              <span className="min-w-0 text-right text-text-secondary">
-                {kalshiWin.map((m: any) => `${m.team} ${Math.round(Number(m.ask) * 100)}¢`).join(' · ')}
-                <span className="ml-1 text-text-muted">not exact ML</span>
-              </span>
+        </div>
+        </>
+        )}
+
+        {/* MARKET COMPARISON — one table replacing four stacked blocks (Vegas
+            spread, model spread, model lean, and a bordered box per prediction
+            market). Rows are sources, columns are the two quantities the model
+            emits, and every figure is quoted from the same side, so a vertical
+            read IS the comparison. Sources with nothing listed are named once in
+            a footer instead of each reserving an empty bordered row — Kalshi
+            spreads and Polymarket are intermittent and are usually absent. */}
+        <div className="rounded-lg border border-border-light overflow-hidden">
+          <div className="grid grid-cols-[1fr_3.6rem_3.4rem] gap-x-2 px-2 py-1 bg-bg-card-hover/40 text-[9px] uppercase tracking-wide text-text-muted">
+            <span>Market</span>
+            <span className="text-right">{refTeam} line</span>
+            <span className="text-right">{done ? 'called it' : `${refTeam} win`}</span>
+          </div>
+          <div className="divide-y divide-border-light">
+            {done && (
+              <div className="grid grid-cols-[1fr_3.6rem_3.4rem] items-center gap-x-2 bg-bg-card-hover/40 px-2 py-1 text-[11px]">
+                <span className="flex min-w-0 items-center gap-1.5">
+                  <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-text-primary" />
+                  <span className="font-semibold text-text-primary">Actual</span>
+                </span>
+                <span className="text-right font-semibold tabular-nums text-text-primary">{fmtLine(actualMargin)}</span>
+                <span className="text-right text-[10px] font-semibold"
+                  style={{ color: push ? 'var(--color-text-muted)' : refWon ? WIN : LOSS }}>
+                  {push ? 'tie' : refWon ? `${refTeam} won` : `${refTeam} lost`}
+                </span>
+                {provisional && (
+                  <span className="col-span-3 text-[9px] text-text-muted"
+                    title="Score read from the live scoreboard. The graded result replaces it after the week is scored.">
+                    live score · not yet graded
+                  </span>
+                )}
+              </div>
+            )}
+            {marketRows.map((r, i) => {
+              // Pregame the delta is against the model; once final it is against
+              // the result, because that is the only comparison that still matters.
+              const dM = done
+                ? (r.margin != null && actualMargin != null ? r.margin - actualMargin : null)
+                : (!r.isModel && r.margin != null ? modelMargin - r.margin : null);
+              const dW = done ? null : (!r.isModel && r.win != null ? (modelWin - r.win) * 100 : null);
+              // Did this source have the right side? A row with no win figure
+              // cannot be graded and stays blank rather than guessing.
+              const calledIt = done && r.win != null && !push ? ((r.win >= 0.5) === refWon) : null;
+              const Cell = ({ v, d, unit }: { v: string | null; d: number | null; unit: string }) => (
+                <span className="text-right tabular-nums">
+                  {v == null ? <span className="text-text-muted">—</span> : (
+                    <>
+                      <span className={r.isModel ? 'font-semibold' : ''} style={{ color: r.isModel ? MODEL : 'var(--color-text-secondary)' }}>{v}</span>
+                      {d != null && Math.abs(d) >= 0.05 && (
+                        <span className="ml-1 text-[9px] text-text-muted">{d > 0 ? '+' : '−'}{num(Math.abs(d))}{unit}</span>
+                      )}
+                    </>
+                  )}
+                </span>
+              );
+              const body = (
+                <>
+                  <span className="flex min-w-0 items-center gap-1.5">
+                    <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: r.color }} />
+                    <span className={r.isModel ? 'font-medium text-text-primary' : 'text-text-secondary'}>{r.label}</span>
+                    {r.note && <span className="cursor-help text-text-muted" title={r.note}>*</span>}
+                  </span>
+                  <Cell v={fmtLine(r.margin)} d={dM} unit="" />
+                  {done ? (
+                    <span className="text-right text-[10px] tabular-nums">
+                      {calledIt == null ? <span className="text-text-muted">—</span> : (
+                        <span style={{ color: calledIt ? WIN : LOSS }}>
+                          {calledIt ? '✓' : '✗'}
+                          <span className="ml-1 text-text-muted">{pct(r.win!)}</span>
+                        </span>
+                      )}
+                    </span>
+                  ) : (
+                    <Cell v={r.win == null ? null : pct(r.win)} d={dW} unit="pp" />
+                  )}
+                </>
+              );
+              const cls = `grid grid-cols-[1fr_3.6rem_3.4rem] items-center gap-x-2 px-2 py-1 text-[11px] ${r.isModel ? 'bg-bg-card-hover/20' : ''}`;
+              return r.href
+                ? <a key={i} href={r.href} target="_blank" rel="noreferrer" className={`${cls} hover:bg-bg-card-hover/40`}>{body}</a>
+                : <div key={i} className={cls}>{body}</div>;
+            })}
+          </div>
+          {/* What the asterisks mean is stated ONCE per grid, not once per card —
+              sixteen copies of the same two sentences was more clutter than the
+              blocks this table replaced. The caveat still travels with the row as
+              a hover title. */}
+          {missing.length > 0 && (
+            <div className="border-t border-border-light px-2 py-1 text-[9px] text-text-muted">
+              {missing.join(' · ')} — not listed
             </div>
           )}
         </div>
 
-        {/* POLYMARKET — a separate, prediction-market view. We retain both
-            sides rather than collapsing them into one number: each YES contract
-            is its own tradable price and may not add to exactly 100¢. */}
-        {polymarket.length > 0 ? (
-          <div className="rounded-lg border border-[#a371f759] bg-[#a371f70a] overflow-hidden">
-            <div className="flex items-center justify-between px-2 py-1 border-b border-[#a371f733]">
-              <span className="text-[9px] uppercase tracking-wide text-[#c9a7ff]">Polymarket winner contracts</span>
-              <span className="text-[9px] text-text-muted">YES ask vs model</span>
-            </div>
-            <div className="divide-y divide-[#a371f726]">
-              {polymarket.map((m: any) => {
-                const ask = Math.round(Number(m.ask) * 100);
-                const model = Math.round(Number(m.model_probability) * 100);
-                const gap = model - ask;
-                return (
-                  <a key={m.market_id ?? m.bet_team} href={`https://polymarket.com/event/${m.slug}`}
-                    target="_blank" rel="noreferrer" className="flex items-center justify-between gap-2 px-2 py-1.5 hover:bg-[#a371f712]">
-                    <span className="min-w-0 text-[11px] font-semibold text-text-primary">
-                      {m.bet_team} YES
-                      {m.qualifies && <span className="ml-1 rounded border border-win/40 bg-win/10 px-1 py-px text-[8px] uppercase tracking-wide text-win">EV+</span>}
-                    </span>
-                    <span className="shrink-0 text-right text-[10px] tabular-nums text-text-secondary">
-                      <span className="text-[#c9a7ff]">{ask}¢</span>
-                      <span className="mx-1 text-text-muted">·</span>
-                      model {model}%
-                      <span className={gap >= 0 ? 'ml-1 text-win' : 'ml-1 text-loss'}>{gap >= 0 ? '+' : ''}{gap} pts</span>
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-            <div className="px-2 py-1 text-[9px] text-text-muted">Contract price is the cost of a $1 YES payout. Open to inspect rules and order book.</div>
-          </div>
-        ) : !done && (
-          <div className="flex items-center justify-between rounded-lg border border-border-light bg-bg-card/30 px-2 py-1.5 text-[10px]">
-            <span className="font-medium text-[#c9a7ff]">Polymarket</span>
-            <span className="text-text-muted">Game-winner contract not listed yet</span>
-          </div>
-        )}
-
-        {/* KALSHI — its game-spread ladder provides a market line rather than a
-            single moneyline. Selecting the contract closest to 50¢ creates a
-            readable "fair spread" comparison with the point model. */}
-        {kalshi.length > 0 ? kalshi.map((m: any) => {
-          const ask = Math.round(Number(m.ask) * 100);
-          const modelProbability = Math.round(Number(m.model_probability) * 100);
-          const ev = Number(m.ev) * 100;
-          return (
-            <a key={m.market_ticker} href={`https://kalshi.com/markets/${m.event_ticker}`} target="_blank" rel="noreferrer"
-              className="flex items-center justify-between gap-2 rounded-lg border border-[#f0a00059] bg-[#f0a0000a] px-2 py-1.5 text-[10px] hover:bg-[#f0a00012]">
-              <span className="shrink-0 font-medium text-[#f0b44d]">Kalshi</span>
-              <span className="min-w-0 text-right tabular-nums text-text-secondary">
-                <span className="font-semibold text-text-primary">{m.team} -{Number(m.threshold).toFixed(1)}</span>
-                <span className="mx-1 text-text-muted">·</span>{ask}¢ ask
-                <span className="ml-1.5 text-text-muted">· {modelProbability}% model</span>
-                <span className={ev >= 0 ? 'ml-1.5 font-medium text-win' : 'ml-1.5 font-medium text-loss'}>{ev >= 0 ? '+' : ''}{ev.toFixed(1)}% EV</span>
-              </span>
-            </a>
-          );
-        }) : !done && (
-          <div className="flex items-center justify-between rounded-lg border border-border-light bg-bg-card/30 px-2 py-1.5 text-[10px]">
-            <span className="font-medium text-[#f0b44d]">Kalshi</span><span className="text-text-muted">Game spread not listed yet</span>
-          </div>
-        )}
-
-        {/* SPREAD — both lines stated the same way, stacked so the difference is
-            a vertical read rather than mental arithmetic. */}
-        <div className="rounded-lg border border-border-light divide-y divide-border-light text-[11px]">
-          <div className="flex items-center justify-between px-2 py-1">
-            <span className="text-text-muted">Vegas</span>
-            <span className="tabular-nums" style={{ color: VEGAS }}>{spreadLabel(game.spreadLine, game.homeTeam, game.awayTeam)}</span>
-          </div>
-          <div className="flex items-center justify-between px-2 py-1">
-            <span className="text-text-muted">My model</span>
-            <span className="tabular-nums font-medium" style={{ color: MODEL }}>{spreadLabel(p.nflPredictorLine, game.homeTeam, game.awayTeam)}</span>
-          </div>
-          {/* the edge, in words: who the model is higher on, and by how much */}
-          <div className="flex items-center justify-between px-2 py-1">
-            <span className="text-text-muted">Model lean</span>
-            <span className={notable ? 'font-semibold' : ''} style={{ color: notable ? MODEL : 'var(--color-text-muted)' }}>
-              {leanPts < 0.05 ? 'matches Vegas' : `${leanTeam} by ${num(leanPts)} more`}
-            </span>
-          </div>
-        </div>
-
-        {/* BETTING ENGINE — the actual recommended position and stake. Only shown
-            when a side cleared the EV threshold, so its presence is itself signal. */}
-        {bet && (
+        {/* BETTING ENGINE — the recommended position, and WHERE to place it.
+            Every venue pricing this game is ranked on one comparable figure:
+            calibrated expected profit per dollar staked. Stake sizing is
+            deliberately not shown; it belongs to the bankroll, not the game, and
+            it lives on the bet card. What the card owes you here is which side,
+            at which venue, at what price, and the edge that justifies it. */}
+        {bestVenue && (
           <div className="rounded-lg px-2 py-1.5"
-            style={{ background: `${BET}14`, boxShadow: `inset 2px 0 0 ${BET}` }}>
+            style={{ background: `${bestVenue.color}14`, boxShadow: `inset 2px 0 0 ${bestVenue.color}` }}>
             <div className="flex items-center justify-between">
-              <span className="text-[9px] uppercase tracking-wide" style={{ color: BET }}>
-                {bet.result ? 'Bet placed' : 'Recommended bet'}
+              <span className="text-[9px] uppercase tracking-wide" style={{ color: bestVenue.color }}>
+                {bet?.result ? 'Bet placed' : options.length > 1 ? 'Best price' : 'Recommended bet'}
               </span>
-              <span className="text-[10px] tabular-nums text-text-muted">
-                {(bet.ev * 100).toFixed(1)}% EV · {bet.odds > 0 ? `+${bet.odds}` : bet.odds}
+              <span className="text-[10px] tabular-nums" style={{ color: bestVenue.color }}>
+                {(bestVenue.ev * 100).toFixed(1)}% EV
               </span>
             </div>
-            <div className="flex items-baseline justify-between mt-0.5">
-              <span className="text-xs font-bold text-text-primary">
-                {bet.side} <span className="font-normal text-text-secondary">{bet.type === 'ml' ? 'moneyline' : 'spread'}</span>
+            <div className="mt-0.5 flex items-baseline justify-between gap-2">
+              <span className="min-w-0 text-xs font-bold text-text-primary">
+                {bestVenue.pick}{' '}
+                <span className="font-normal text-text-secondary">{bestVenue.kind}</span>
               </span>
-              {bet.result ? (
-                <span className="text-xs font-bold tabular-nums"
+              {bet?.result ? (
+                <span className="shrink-0 text-xs font-bold tabular-nums"
                   style={{ color: bet.result === 'win' ? WIN : LOSS }}>
                   {(bet.pnl ?? 0) >= 0 ? '+' : '−'}${Math.abs(bet.pnl ?? 0)}
                 </span>
               ) : (
-                <span className="text-xs font-bold tabular-nums" style={{ color: BET }}>
-                  {(() => { const u = bet.units ?? bet.stake / 5; return Number.isInteger(u) ? u : u.toFixed(1); })()}u
-                  <span className="text-[10px] font-normal text-text-muted"> ${bet.stake} → +${bet.toWin}</span>
+                <span className="shrink-0 text-[10px] tabular-nums text-text-muted">
+                  {bestVenue.href ? (
+                    <a href={bestVenue.href} target="_blank" rel="noreferrer" className="hover:underline"
+                      style={{ color: bestVenue.color }}>{bestVenue.venue}</a>
+                  ) : (
+                    <span style={{ color: bestVenue.color }}>{bestVenue.venue}</span>
+                  )}
+                  <span className="mx-1 opacity-50">·</span>{bestVenue.price}
                 </span>
               )}
             </div>
+            {/* Runners-up. Same game, priced elsewhere — useful when the best
+                venue is one you do not hold an account with. */}
+            {!bet?.result && alsoAt.length > 0 && (
+              <div className="mt-1 border-t pt-1 text-[9px] leading-snug"
+                style={{ borderColor: `${bestVenue.color}33` }}>
+                {alsoAt.map((o, i) => (
+                  <div key={i} className="flex items-center justify-between gap-2 text-text-muted">
+                    <span className="min-w-0 truncate">
+                      {o.href ? (
+                        <a href={o.href} target="_blank" rel="noreferrer" className="hover:underline" style={{ color: o.color }}>{o.venue}</a>
+                      ) : <span style={{ color: o.color }}>{o.venue}</span>}
+                      <span className="mx-1 opacity-50">·</span>{o.pick} {o.price}
+                    </span>
+                    <span className="shrink-0 tabular-nums">{(o.ev * 100).toFixed(1)}% EV</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 

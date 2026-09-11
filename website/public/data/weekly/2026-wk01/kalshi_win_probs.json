@@ -1,7 +1,7 @@
 {
   "season": 2026,
   "week": 1,
-  "fetched_at": "2026-09-02 01:52:49",
+  "fetched_at": "2026-09-10 20:30:54",
   "markets": [
     {
       "season": 2026,
@@ -11,10 +11,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13CHICAR-CHI2",
       "team": "CHI",
       "threshold": 1.5,
-      "bid": 0.53,
-      "ask": 0.55,
-      "model_probability": 0.5422,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.57,
+      "ask": 0.58,
+      "model_probability": 0.5429,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -25,9 +25,9 @@
       "team": "CAR",
       "threshold": 1.5,
       "bid": 0.37,
-      "ask": 0.4,
-      "model_probability": 0.3679,
-      "fetched_at": "2026-09-02 01:52:49"
+      "ask": 0.39,
+      "model_probability": 0.3673,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -39,8 +39,8 @@
       "threshold": 1.5,
       "bid": 0.31,
       "ask": 0.33,
-      "model_probability": 0.4059,
-      "fetched_at": "2026-09-02 01:52:49"
+      "model_probability": 0.4055,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -50,10 +50,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13TBCIN-CIN2",
       "team": "CIN",
       "threshold": 1.5,
-      "bid": 0.6,
+      "bid": 0.61,
       "ask": 0.63,
-      "model_probability": 0.5028,
-      "fetched_at": "2026-09-02 01:52:49"
+      "model_probability": 0.5031,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -63,10 +63,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13NODET-NO2",
       "team": "NO",
       "threshold": 1.5,
-      "bid": 0.21,
-      "ask": 0.24,
-      "model_probability": 0.2211,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.22,
+      "ask": 0.23,
+      "model_probability": 0.218,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -78,8 +78,8 @@
       "threshold": 1.5,
       "bid": 0.71,
       "ask": 0.73,
-      "model_probability": 0.7045,
-      "fetched_at": "2026-09-02 01:52:49"
+      "model_probability": 0.708,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -89,10 +89,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13BUFHOU-HOU2",
       "team": "HOU",
       "threshold": 1.5,
-      "bid": 0.45,
-      "ask": 0.47,
-      "model_probability": 0.4371,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.44,
+      "ask": 0.45,
+      "model_probability": 0.4356,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -102,10 +102,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13BUFHOU-BUF2",
       "team": "BUF",
       "threshold": 1.5,
-      "bid": 0.46,
-      "ask": 0.48,
-      "model_probability": 0.471,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.49,
+      "ask": 0.5,
+      "model_probability": 0.4724,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -117,8 +117,8 @@
       "threshold": 1.5,
       "bid": 0.33,
       "ask": 0.35,
-      "model_probability": 0.2972,
-      "fetched_at": "2026-09-02 01:52:49"
+      "model_probability": 0.2924,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -129,9 +129,9 @@
       "team": "BAL",
       "threshold": 1.5,
       "bid": 0.58,
-      "ask": 0.61,
-      "model_probability": 0.6184,
-      "fetched_at": "2026-09-02 01:52:49"
+      "ask": 0.59,
+      "model_probability": 0.6237,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -141,10 +141,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13CLEJAC-JAC2",
       "team": "JAX",
       "threshold": 1.5,
-      "bid": 0.74,
-      "ask": 0.75,
-      "model_probability": 0.7791,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.75,
+      "ask": 0.77,
+      "model_probability": 0.784,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -154,10 +154,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13CLEJAC-CLE2",
       "team": "CLE",
       "threshold": 1.5,
-      "bid": 0.19,
-      "ask": 0.21,
-      "model_probability": 0.1586,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.18,
+      "ask": 0.2,
+      "model_probability": 0.1545,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -168,9 +168,9 @@
       "team": "KC",
       "threshold": 1.5,
       "bid": 0.53,
-      "ask": 0.54,
-      "model_probability": 0.549,
-      "fetched_at": "2026-09-02 01:52:49"
+      "ask": 0.55,
+      "model_probability": 0.5521,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -180,10 +180,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP14DENKC-DEN2",
       "team": "DEN",
       "threshold": 1.5,
-      "bid": 0.38,
-      "ask": 0.39,
-      "model_probability": 0.3616,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.4,
+      "ask": 0.42,
+      "model_probability": 0.3585,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -193,10 +193,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP10SFLAR-SF2",
       "team": "SF",
       "threshold": 1.5,
-      "bid": 0.31,
-      "ask": 0.32,
-      "model_probability": 0.2539,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.32,
+      "ask": 0.33,
+      "model_probability": 0.2548,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -206,10 +206,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP10SFLAR-LAR2",
       "team": "LA",
       "threshold": 1.5,
-      "bid": 0.6,
-      "ask": 0.63,
-      "model_probability": 0.6667,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.61,
+      "ask": 0.62,
+      "model_probability": 0.6657,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -219,10 +219,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13ARILAC-LAC2",
       "team": "LAC",
       "threshold": 1.5,
-      "bid": 0.79,
-      "ask": 0.8,
-      "model_probability": 0.751,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.78,
+      "ask": 0.79,
+      "model_probability": 0.7517,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -232,10 +232,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13ARILAC-ARI2",
       "team": "ARI",
       "threshold": 1.5,
-      "bid": 0.13,
-      "ask": 0.16,
-      "model_probability": 0.1817,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.16,
+      "ask": 0.17,
+      "model_probability": 0.1811,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -245,10 +245,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13MIALV-MIA2",
       "team": "MIA",
       "threshold": 1.5,
-      "bid": 0.33,
-      "ask": 0.36,
-      "model_probability": 0.4058,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.36,
+      "ask": 0.37,
+      "model_probability": 0.4114,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -258,10 +258,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13MIALV-LV2",
       "team": "LV",
       "threshold": 1.5,
-      "bid": 0.58,
-      "ask": 0.6,
-      "model_probability": 0.5029,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.57,
+      "ask": 0.58,
+      "model_probability": 0.497,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -271,10 +271,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13GBMIN-MIN2",
       "team": "MIN",
       "threshold": 1.5,
-      "bid": 0.47,
-      "ask": 0.48,
-      "model_probability": 0.4294,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.51,
+      "ask": 0.52,
+      "model_probability": 0.4254,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -286,8 +286,8 @@
       "threshold": 1.5,
       "bid": 0.43,
       "ask": 0.44,
-      "model_probability": 0.4787,
-      "fetched_at": "2026-09-02 01:52:49"
+      "model_probability": 0.4828,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -297,10 +297,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13DALNYG-NYG2",
       "team": "NYG",
       "threshold": 1.5,
-      "bid": 0.37,
-      "ask": 0.4,
-      "model_probability": 0.454,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.38,
+      "ask": 0.39,
+      "model_probability": 0.4539,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -310,10 +310,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13DALNYG-DAL2",
       "team": "DAL",
       "threshold": 1.5,
-      "bid": 0.55,
-      "ask": 0.56,
+      "bid": 0.56,
+      "ask": 0.57,
       "model_probability": 0.454,
-      "fetched_at": "2026-09-02 01:52:49"
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -323,10 +323,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13WASPHI-WAS2",
       "team": "WAS",
       "threshold": 1.5,
-      "bid": 0.29,
-      "ask": 0.31,
-      "model_probability": 0.2145,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.28,
+      "ask": 0.3,
+      "model_probability": 0.2128,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -336,10 +336,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13WASPHI-PHI2",
       "team": "PHI",
       "threshold": 1.5,
-      "bid": 0.62,
-      "ask": 0.65,
-      "model_probability": 0.7121,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.64,
+      "ask": 0.66,
+      "model_probability": 0.7141,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -349,10 +349,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13ATLPIT-PIT2",
       "team": "PIT",
       "threshold": 1.5,
-      "bid": 0.57,
-      "ask": 0.59,
-      "model_probability": 0.6101,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.63,
+      "ask": 0.64,
+      "model_probability": 0.6099,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -362,36 +362,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13ATLPIT-ATL2",
       "team": "ATL",
       "threshold": 1.5,
-      "bid": 0.34,
-      "ask": 0.36,
-      "model_probability": 0.3047,
-      "fetched_at": "2026-09-02 01:52:49"
-    },
-    {
-      "season": 2026,
-      "week": 1,
-      "game_id": "2026_01_NE_SEA",
-      "event_ticker": "KXNFLSPREAD-26SEP09NESEA",
-      "market_ticker": "KXNFLSPREAD-26SEP09NESEA-SEA2",
-      "team": "SEA",
-      "threshold": 1.5,
-      "bid": 0.58,
-      "ask": 0.59,
-      "model_probability": 0.5509,
-      "fetched_at": "2026-09-02 01:52:49"
-    },
-    {
-      "season": 2026,
-      "week": 1,
-      "game_id": "2026_01_NE_SEA",
-      "event_ticker": "KXNFLSPREAD-26SEP09NESEA",
-      "market_ticker": "KXNFLSPREAD-26SEP09NESEA-NE2",
-      "team": "NE",
-      "threshold": 1.5,
-      "bid": 0.32,
-      "ask": 0.34,
-      "model_probability": 0.3597,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.28,
+      "ask": 0.29,
+      "model_probability": 0.3049,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -401,10 +375,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13NYJTEN-TEN2",
       "team": "TEN",
       "threshold": 1.5,
-      "bid": 0.49,
-      "ask": 0.51,
-      "model_probability": 0.472,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.48,
+      "ask": 0.49,
+      "model_probability": 0.4574,
+      "fetched_at": "2026-09-10 20:30:54"
     },
     {
       "season": 2026,
@@ -414,10 +388,10 @@
       "market_ticker": "KXNFLSPREAD-26SEP13NYJTEN-NYJ2",
       "team": "NYJ",
       "threshold": 1.5,
-      "bid": 0.4,
-      "ask": 0.42,
-      "model_probability": 0.436,
-      "fetched_at": "2026-09-02 01:52:49"
+      "bid": 0.44,
+      "ask": 0.45,
+      "model_probability": 0.4504,
+      "fetched_at": "2026-09-10 20:30:54"
     }
   ]
 }

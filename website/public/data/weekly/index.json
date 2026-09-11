@@ -5,18 +5,8 @@
       "season": 2026,
       "week": 1,
       "phase": "pre",
-      "reports": [
-        "bet_card",
-        "dst_stream",
-        "games_preview",
-        "kalshi_lines",
-        "kalshi_win_probs",
-        "lineups",
-        "polymarket_bets",
-        "projections",
-        "waivers"
-      ],
-      "updated": "2026-09-01T23:43:30-0400"
+      "reports": ["bet_card", "dst_stream", "games_preview", "kalshi_lines", "kalshi_win_probs", "lineups", "polymarket_bets", "projections", "waivers"],
+      "updated": "2026-09-10T13:32:44-0700"
     },
     {
       "tag": "2025-wk18",
@@ -614,5 +604,5 @@
       "updated": "2026-08-14T22:21:24-0700"
     }
   ],
-  "latest": "2026-wk12"
+  "latest": "2026-wk01"
 }

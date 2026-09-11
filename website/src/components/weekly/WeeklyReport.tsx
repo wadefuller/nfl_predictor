@@ -490,15 +490,20 @@ function KalshiLines({ d }: { d: any }) {
   );
 }
 
-function LiveSunday({ d }: { d: any }) {
+/**
+ * One live read for the whole page.
+ *
+ * Live Sunday and the Watching Guide both need the same three things — league
+ * scores, NFL game state, and the lineup actually set on each platform — and
+ * until now they were free to describe DIFFERENT lineups: one the real one, the
+ * other the optimizer's recommendation. Hoisting the fetch to their common
+ * parent makes that divergence impossible, and halves the polling besides.
+ */
+function useLiveData(d: any) {
   const leagues = useMemo(() => arr(d.leagues), [d.leagues]);
-  const watchedTeams = useMemo(() => Array.from(new Set([
-    ...arr(d.lineups).filter((p: any) => p.status === 'START').map((p: any) => p.team),
-    ...arr(d.opponent_lineups).map((p: any) => p.team),
-  ].filter(Boolean))), [d]);
   const [nonce, setNonce] = useState(0);
-  const [live, setLive] = useState<{ loading: boolean; checked?: string; scores: any[]; games: Record<string, any>; error?: string }>({
-    loading: true, scores: [], games: {},
+  const [live, setLive] = useState<{ loading: boolean; checked?: string; scores: any[]; games: Record<string, any>; stats: Record<string, any>; error?: string }>({
+    loading: true, scores: [], games: {}, stats: {},
   });
 
   useEffect(() => {
@@ -515,7 +520,19 @@ function LiveSunday({ d }: { d: any }) {
           const rows = await response.json();
           const mine = arr(rows).find((r: any) => String(r.roster_id) === String(l.franchise_id));
           const opponent = mine ? arr(rows).find((r: any) => r.matchup_id === mine.matchup_id && String(r.roster_id) !== String(mine.roster_id)) : null;
-          return mine ? { league: l.league, source: 'Sleeper', mine: mine.points ?? 0, opponent: opponent?.points ?? 0, opponentName: l.opponent } : null;
+          // players_points is in the LEAGUE's own scoring, which is what the
+          // roster rows should show — a custom format would otherwise be
+          // rendered in half-PPR and quietly disagree with the league total.
+          // `starters` is who is ACTUALLY in the lineup on the platform, which is
+          // not necessarily who the optimizer recommended. The header score comes
+          // from the real lineup, so the rows have to as well — otherwise the card
+          // shows a player who is benched and omits one whose points are already
+          // in the total.
+          return mine ? { league: l.league, source: 'Sleeper', mine: mine.points ?? 0, opponent: opponent?.points ?? 0,
+                          opponentName: l.opponent, playerPoints: mine.players_points ?? {},
+                          opponentPlayerPoints: opponent?.players_points ?? {},
+                          starters: (mine.starters ?? []).filter((x: any) => x && x !== '0'),
+                          opponentStarters: (opponent?.starters ?? []).filter((x: any) => x && x !== '0') } : null;
         } catch { return null; } }));
         const mfl = leagues.filter((l: any) => l.platform === 'mfl' && l.league_id && l.franchise_id);
         const mflScores = await Promise.all(mfl.map(async (l: any) => { try {
@@ -538,23 +555,61 @@ function LiveSunday({ d }: { d: any }) {
         } catch { return null; } }));
         // The public ESPN scoreboard is deliberately used only for NFL game
         // state; it complements (rather than replaces) league-native scoring.
+        // One league-wide stat call serves every roster on the page. Isolated in
+        // its own catch: stat lines are an enhancement, and losing them must not
+        // take the live SCORES down with them. The status check alone is not
+        // enough — a dev server's SPA fallback answers an unknown /api path with
+        // 200 and index.html, so .ok is true and .json() throws on the markup.
+        let stats: Record<string, any> = {};
+        try {
+          const statsResponse = await fetch(`/api/live?source=sleeper_stats&season=${d.season}&week=${d.week}`);
+          const parsed = statsResponse.ok ? await statsResponse.json() : null;
+          if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) stats = parsed;
+        } catch { /* stat lines simply stay empty */ }
         const boardResponse = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=100');
         const board = boardResponse.ok ? await boardResponse.json() : { events: [] };
+        // ESPN's abbreviations are not ours for two clubs: it writes LAR and WSH
+        // where the rest of this stack writes LA and WAS. Keyed raw, every Rams
+        // and Commanders starter matches no game — so they show no clock and,
+        // under the pregame rule below, a permanent dash even while playing.
+        const ESPN_TEAM_FIX: Record<string, string> = { LAR: 'LA', WSH: 'WAS' };
         const games: Record<string, any> = {};
         arr(board.events).forEach((event: any) => {
           const competition = event.competitions?.[0];
           const status = event.status ?? competition?.status;
           const competitors = competition?.competitors ?? [];
           competitors.forEach((c: any) => {
-            const team = c.team?.abbreviation;
+            const raw = c.team?.abbreviation;
+            const team = raw ? (ESPN_TEAM_FIX[raw] ?? raw) : raw;
             if (team) games[team] = {
               event: event.name, score: c.score ?? '0', state: status?.type?.state,
               detail: status?.type?.detail ?? status?.type?.shortDetail ?? 'Scheduled',
+              // Raw clock, so a live win probability can weight how much of the
+              // game is still to come rather than treating a player mid-game as
+              // either finished or unplayed.
+              period: Number(status?.period) || 0,
+              clock: String(status?.displayClock ?? ''),
+              // A compact label for the roster rows. ESPN's own `detail` reads
+              // "Sun, September 13th at 1:00 PM EDT", which is far too long for a
+              // right-hand column repeated once per starter.
+              short: (() => {
+                const st = status?.type?.state;
+                if (st === 'post') return 'Final';
+                if (st === 'in') {
+                  const period = status?.period;
+                  const clock = status?.displayClock;
+                  return period && clock ? `Q${period} ${clock}` : (status?.type?.shortDetail ?? 'Live');
+                }
+                const kick = event.date ? new Date(event.date) : null;
+                return kick
+                  ? kick.toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })
+                  : 'Scheduled';
+              })(),
             };
           });
         });
         if (!cancelled) setLive({ loading: false, checked: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
-          scores: [...sleeperScores, ...mflScores].filter(Boolean), games });
+          scores: [...sleeperScores, ...mflScores].filter(Boolean), games, stats });
       } catch {
         if (!cancelled) setLive(v => ({ ...v, loading: false, error: 'Live sources are temporarily unavailable.' }));
       }
@@ -565,117 +620,516 @@ function LiveSunday({ d }: { d: any }) {
     const timer = window.setInterval(load, 60_000);
     return () => { cancelled = true; window.clearInterval(timer); };
   }, [d.week, leagues, nonce]);
+  return { live, leagues, refresh: () => setNonce((n: number) => n + 1) };
+}
 
-  const activeGames = watchedTeams.map(team => ({ team, ...live.games[team] })).filter((g: any) => g.event);
+/**
+ * League -> the roster rows for the lineup ACTUALLY set on the platform.
+ *
+ * Resolves the platform's `starters` id list against every roster row the export
+ * carries, bench included — the player the optimizer benched may be the one you
+ * started, and he still has to resolve to a name. Leagues whose platform exposes
+ * no starter list (MFL, ESPN) are absent from the map, and callers fall back to
+ * the recommendation and say so rather than passing it off as live.
+ */
+function useActualStarters(d: any, live: any) {
+  return useMemo(() => {
+    const index = new Map<string, Map<string, any>>();
+    arr(d.lineups).forEach((r: any) => {
+      const key = r.sleeper_id || (r.position === 'DEF' ? r.team : null);
+      if (!key) return;
+      const m = index.get(r.league) ?? new Map();
+      m.set(String(key), r); index.set(r.league, m);
+    });
+    const out = new Map<string, any[]>();
+    arr(live?.scores).forEach((score: any) => {
+      const ids: string[] = arr(score?.starters);
+      if (!ids.length) return;
+      const idx = index.get(score.league);
+      const rows = ids.map(id => idx?.get(String(id))).filter(Boolean);
+      // All-or-nothing: a partly resolved lineup would silently drop starters.
+      if (rows.length === ids.length) out.set(score.league, rows);
+    });
+    return out;
+  }, [d.lineups, live?.scores]);
+}
+
+function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; live: any; leagues: any[]; refresh: () => void; actualStarters: Map<string, any[]> }) {
+
+  // Starters, grouped by league, each carrying the live game state of their NFL
+  // team. The panel used to end in a wall of 32 team chips — one per club, most
+  // of them reading "0 · Sun, September 13th at 1:00 PM EDT" — which is a lot of
+  // room for information nobody is watching for. The same game state is more
+  // useful attached to the player it affects.
+  const byLeague = useMemo(() => {
+    const starters = arr(d.lineups).filter((r: any) => r.status === 'START');
+    const groups = new Map<string, any[]>();
+    starters.forEach((r: any) => {
+      const g = groups.get(r.league) ?? [];
+      g.push(r); groups.set(r.league, g);
+    });
+    return groups;
+  }, [d.lineups]);
+
+  // Sleeper keys team defenses by team abbreviation rather than a numeric id, so
+  // DEF rows join on `team`. Everything else joins on the sleeper_id the R export
+  // now carries for every player, whatever platform the league runs on.
+  const statKey = (r: any) => r.sleeper_id || (r.position === 'DEF' ? r.team : null);
+
+  /**
+   * Did the weekly model actually produce a distribution for this player?
+   *
+   * IDP slots (DL/LB/DB) are outside the model entirely: the export carries them
+   * with proj 0 and null floor/ceiling. Counting them as a genuine zero drags the
+   * projected total down and, because the opponent's optimized lineup contains no
+   * IDP, biases the whole matchup — switching No Fun League to its real lineup
+   * dropped the projection 94.6 to 83.1 and the win chance 38% to 16%, none of
+   * which was real. They are excluded from the projection and the win
+   * probability, and their points still count in the live score above, which is
+   * the platform's own number.
+   */
+  // The null check is load-bearing: Number(null) is 0, not NaN, so a bare
+  // Number.isFinite(Number(r.floor)) accepts a player the model never touched and
+  // the whole filter silently does nothing.
+  const isProjectable = (r: any) =>
+    r?.floor != null && r?.ceiling != null &&
+    Number.isFinite(Number(r.floor)) && Number.isFinite(Number(r.ceiling));
+
+  /** Standard normal CDF (Abramowitz & Stegun 7.1.26). No Math.erf in JS. */
+  const normCdf = (z: number) => {
+    const sign = z < 0 ? -1 : 1;
+    const x = Math.abs(z) / Math.SQRT2;
+    const t = 1 / (1 + 0.3275911 * x);
+    const y = 1 - ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
+    return 0.5 * (1 + sign * y);
+  };
+
+  /**
+   * Share of regulation still to play, from the game clock. 0 once final.
+   *
+   * A player mid-game is neither settled nor unplayed, and treating him as
+   * either is what makes a naive live win probability lurch. This weights his
+   * remaining projection by the time left.
+   *
+   * The assumption — that fantasy production accrues evenly across the clock —
+   * is a simplification. It is wrong in the specific ways you would expect (a
+   * trailing team throws more late), but it is far closer than the alternative
+   * of ignoring the clock entirely.
+   */
+  const shareRemaining = (g: any) => {
+    if (!g || g.state === 'post') return 0;
+    if (g.state !== 'in') return 1;
+    const period = Number(g.period) || 1;
+    if (period > 4) return 0;                       // overtime — treat as settled
+    const [mm, ss] = String(g.clock || '0:00').split(':').map(Number);
+    const leftInQuarter = (Number.isFinite(mm) ? mm : 0) + (Number.isFinite(ss) ? ss : 0) / 60;
+    const minutesLeft = (4 - period) * 15 + Math.min(15, Math.max(0, leftInQuarter));
+    return Math.min(1, Math.max(0, minutesLeft / 60));
+  };
+
+  /**
+   * Live win probability, recomputed from what has actually happened.
+   *
+   * Mirrors the R model this card's static number comes from — combine each
+   * side's player spreads in quadrature, then the normal CDF of the margin — but
+   * replaces a projection with a RESULT the moment one exists:
+   *
+   *   finished   mean = actual points,             sd = 0   (settled, no variance left)
+   *   in play    mean = actual + share x proj,     sd = player_sd x sqrt(share)
+   *   not begun  mean = proj,                      sd = player_sd
+   *
+   * Variance scales with the square root of time remaining, not linearly: points
+   * accumulate as a sum of independent contributions, so their variance grows
+   * with elapsed time and the standard deviation with its root.
+   */
+  const liveWinProb = (mine: any[], opp: any[], scoreRow: any) => {
+    const side = (players: any[], pointsMap: any) => {
+      let mean = 0, variance = 0, settled = 0;
+      players.filter(isProjectable).forEach((r: any) => {
+        const g = live.games[r.team];
+        const share = shareRemaining(g);
+        const sd = Math.max(0, ((Number(r.ceiling) - Number(r.floor)) || 0) / 3.29);
+        const k = statKey(r);
+        const nativePts = k != null ? pointsMap?.[k] : undefined;
+        const feedPts = k != null ? live.stats?.[k]?.pts_half_ppr : undefined;
+        const actual = Number(nativePts != null ? nativePts : feedPts);
+        const hasActual = Number.isFinite(actual);
+        if (share === 0 && g) {                       // game over: the result stands
+          mean += hasActual ? actual : Number(r.proj) || 0;
+          settled += 1;
+        } else if (share < 1 && hasActual) {          // in play
+          mean += actual + share * (Number(r.proj) || 0);
+          variance += (sd * Math.sqrt(share)) ** 2;
+        } else {                                      // not started
+          mean += Number(r.proj) || 0;
+          variance += sd * sd;
+        }
+      });
+      return { mean, variance, settled };
+    };
+    const a = side(mine, scoreRow?.playerPoints);
+    const b = side(opp, scoreRow?.opponentPlayerPoints);
+    const marginSd = Math.sqrt(a.variance + b.variance);
+    if (!(marginSd > 0)) return { p: a.mean > b.mean ? 1 : a.mean < b.mean ? 0 : 0.5,
+                                  mine: a.mean, opp: b.mean, settled: a.settled + b.settled };
+    return { p: normCdf((a.mean - b.mean) / marginSd), mine: a.mean, opp: b.mean,
+             settled: a.settled + b.settled };
+  };
+
+  /** "62 pass yd · 1 TD" — only the categories the player actually has. */
+  const statBlurb = (st: any) => {
+    if (!st) return null;
+    const parts: string[] = [];
+    const n = (v: any) => Math.round(Number(v) || 0);
+    if (n(st.pass_yd) || n(st.pass_td)) parts.push(`${n(st.pass_yd)} pass yd${n(st.pass_td) ? ` · ${n(st.pass_td)} TD` : ''}`);
+    if (n(st.rush_yd) || n(st.rush_td)) parts.push(`${n(st.rush_yd)} rush yd${n(st.rush_td) ? ` · ${n(st.rush_td)} TD` : ''}`);
+    if (n(st.rec) || n(st.rec_yd) || n(st.rec_td)) parts.push(`${n(st.rec)} rec, ${n(st.rec_yd)} yd${n(st.rec_td) ? ` · ${n(st.rec_td)} TD` : ''}`);
+    if (n(st.pass_int)) parts.push(`${n(st.pass_int)} INT`);
+    if (n(st.fum_lost)) parts.push(`${n(st.fum_lost)} FUM`);
+    return parts.length ? parts.join('  ·  ') : null;
+  };
+
   return (
     <Section id="live_sunday" title="Live Sunday" accent={SECTION_ACCENT.lineups}
-      subtitle="league-native live scores · NFL game state from ESPN"
-      right={<button type="button" onClick={() => setNonce(n => n + 1)} disabled={live.loading}
+      subtitle="your starters, live — league scoring with NFL game state from ESPN"
+      right={<button type="button" onClick={refresh} disabled={live.loading}
         className="rounded border border-border-light bg-bg-card-hover px-1.5 py-0.5 text-[9px] font-medium text-text-secondary hover:text-text-primary disabled:opacity-50">
         {live.loading ? 'Refreshing…' : 'Refresh'}
       </button>}>
       {live.error && <p className="text-xs text-loss">{live.error}</p>}
       {!live.error && <>
-        <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-4">
-          {live.scores.map((s: any) => (
-            <div key={s.league} className="rounded-lg border border-border-light bg-bg-card/30 px-2.5 py-2">
-              <div className="truncate text-[10px] font-medium text-text-secondary">{s.league}</div>
-              <div className="mt-1 flex items-baseline justify-between gap-2 tabular-nums">
-                <span className="text-base font-bold text-text-primary">{num(s.mine)}</span>
-                <span className="text-[10px] text-text-muted">vs {s.opponentName}</span>
-                <span className="text-base font-semibold text-text-secondary">{num(s.opponent)}</span>
+        <div className="grid gap-2 lg:grid-cols-2">
+          {Array.from(byLeague.entries()).map(([league, recommended]) => {
+            const score = live.scores.find((x: any) => x.league === league);
+            // Prefer the lineup that is actually set. MFL and ESPN expose no
+            // starter list here, so those fall back to the recommendation and are
+            // labelled as such rather than being passed off as live.
+            const resolved = actualStarters.get(league);
+            const usingActual = Boolean(resolved?.length);
+            const players = usingActual ? resolved! : recommended;
+            const recIds = new Set(recommended.map((r: any) => String(r.sleeper_id || r.team)));
+            const deviations = usingActual
+              ? players.filter((r: any) => !recIds.has(String(r.sleeper_id || r.team))).length
+              : 0;
+            // Whoever is playing right now goes to the top; then the not-yet-started;
+            // finished last. Within a bucket, the biggest score leads.
+            const rank = (r: any) => {
+              const st = live.games[r.team]?.state;
+              return st === 'in' ? 0 : st === 'post' ? 2 : 1;
+            };
+            const pts = (r: any) => {
+              const k = statKey(r);
+              const native = score?.playerPoints?.[k as string];
+              // League-native where the platform reports it; otherwise Sleeper's
+              // half-PPR, which is exactly right for the MFL league (it really is
+              // half-PPR) and an approximation for any custom format.
+              return native != null ? Number(native) : Number(live.stats?.[k as string]?.pts_half_ppr ?? NaN);
+            };
+            const sorted = [...players].sort((a, b) => rank(a) - rank(b) || (pts(b) || 0) - (pts(a) || 0));
+            const anyLive = players.some((r: any) => live.games[r.team]?.state === 'in');
+            // Projected totals and model win chance, matching the My Lineups card:
+            // my side is the sum of the optimized starters, the opponent's comes
+            // precomputed from their own optimized lineup. Shown alongside the LIVE
+            // score so the two are read together — the live number alone says
+            // nothing about whether you are ahead of where you should be.
+            const meta = leagues.find((x: any) => x.league === league);
+            const modelled = players.filter(isProjectable);
+            const unprojected = players.length - modelled.length;
+            const projMine = modelled.reduce((acc: number, r: any) => acc + (r.proj || 0), 0);
+            const projOpp = Number(meta?.opponent_proj);
+            const pregamePct = Number(meta?.win_probability);
+            const oppPlayers = arr(d.opponent_lineups).filter((r: any) => r.league === league);
+            // Recompute from results where they exist. Falls back to the R figure
+            // when the opponent's lineup is missing, so a league without one is
+            // not silently dropped to a coin flip.
+            // Uses `players` — the actual lineup where the platform reports one.
+            // The opponent stays on their optimized lineup, which is the best
+            // available: their bench is not in this export, so their real starters
+            // cannot all be resolved. Their FINISHED players are still scored from
+            // live points, so the asymmetry only affects who is yet to play.
+            const lw = oppPlayers.length ? liveWinProb(players, oppPlayers, score) : null;
+            const winPct = lw ? lw.p : pregamePct;
+            const projMineLive = lw ? lw.mine : projMine;
+            const projOppLive = lw ? lw.opp : projOpp;
+            const moved = lw && Number.isFinite(pregamePct) && Math.abs(lw.p - pregamePct) >= 0.01;
+            const hasProj = Number.isFinite(projOppLive) && projMineLive > 0;
+            return (
+              <div key={league} className="overflow-hidden rounded-lg border border-border-light bg-bg-card/30">
+                <div className="flex items-baseline justify-between gap-2 border-b border-border-light px-2.5 py-1.5">
+                  <span className="min-w-0 truncate text-[11px] font-medium text-text-primary">
+                    {league}
+                    {anyLive && <span className="ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-win align-middle" />}
+                  </span>
+                  {score ? (
+                    <span className="shrink-0 tabular-nums text-[11px]">
+                      <span className="font-bold text-text-primary">{num(score.mine)}</span>
+                      <span className="mx-1 text-[9px] text-text-muted">vs {score.opponentName}</span>
+                      <span className="font-semibold text-text-secondary">{num(score.opponent)}</span>
+                    </span>
+                  ) : <span className="shrink-0 text-[9px] text-text-muted">score unavailable</span>}
+                </div>
+                {(hasProj || Number.isFinite(winPct)) && (
+                  <div className="flex items-center gap-2 border-b border-border-light bg-bg-card-hover/20 px-2.5 py-1">
+                    {hasProj && (
+                      <span className="shrink-0 text-[9.5px] tabular-nums text-text-muted">
+                        {lw && lw.settled > 0 ? 'projected final' : 'projected'}{' '}
+                        <span className="text-text-secondary">{num(projMineLive)}</span>
+                        <span className="mx-0.5">–</span>
+                        <span className="text-text-secondary">{num(projOppLive)}</span>
+                      </span>
+                    )}
+                    {/* Which lineup these rows describe. Silence here would let a
+                        fallback to the optimizer's picks read as the live lineup. */}
+                    {!usingActual && (
+                      <span className="shrink-0 text-[9px] text-text-muted"
+                        title="This platform does not expose its starting lineup here, so the optimizer's recommendation is shown. The score above is the real one.">
+                        recommended lineup
+                      </span>
+                    )}
+                    {unprojected > 0 && (
+                      <span className="shrink-0 text-[9px] text-text-muted"
+                        title={`${unprojected} starter(s) sit outside the weekly model (IDP slots), so they are left out of the projection and win chance. Their points still count in the live score.`}>
+                        excl. {unprojected} unmodelled
+                      </span>
+                    )}
+                    {usingActual && deviations > 0 && (
+                      <span className="shrink-0 text-[9px]" style={{ color: 'var(--color-text-muted)' }}
+                        title={`${deviations} of your starters differ from what the optimizer recommended.`}>
+                        {deviations} off-model
+                      </span>
+                    )}
+                    {Number.isFinite(winPct) && (
+                      <>
+                        {/* One bar, split at the model's win chance. Reading a
+                            position on a shared axis is faster than comparing two
+                            numbers, and it is the same encoding the game cards use
+                            for market vs model. */}
+                        <span className="relative h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-bg-card-hover"
+                          title={lw
+                            ? `Live model win chance. ${lw.settled} of ${players.length + oppPlayers.length} starters have finished; their results are fixed, everyone else is still their projection weighted by time remaining. Not a betting-market probability.`
+                            : 'Model win chance from both optimized lineups and their player ranges. Not a betting-market probability.'}>
+                          <span className="absolute inset-y-0 left-0 rounded-full"
+                            style={{ width: `${clamp(winPct * 100)}%`,
+                                     background: winPct >= 0.5 ? 'var(--color-win)' : 'var(--color-loss)' }} />
+                        </span>
+                        <span className="shrink-0 text-[9.5px] font-semibold tabular-nums"
+                          style={{ color: winPct >= 0.5 ? 'var(--color-win)' : 'var(--color-loss)' }}>
+                          {Math.round(winPct * 100)}% win
+                        </span>
+                        {/* Where it started, so a swing is visible as a swing. */}
+                        {moved && (
+                          <span className="shrink-0 text-[9px] tabular-nums text-text-muted">
+                            from {Math.round(pregamePct * 100)}%
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </div>
+                )}
+                <div className="divide-y divide-border-light/60">
+                  {sorted.map((r: any, i: number) => {
+                    const g = live.games[r.team];
+                    const st = live.stats?.[statKey(r) as string];
+                    const blurb = statBlurb(st);
+                    const p = pts(r);
+                    const isLive = g?.state === 'in';
+                    const isDone = g?.state === 'post';
+                    // A player whose game has not kicked off has not scored zero —
+                    // he has not played. Sleeper reports 0 for both, so the state
+                    // has to come from the game, not the feed. Once the ball is in
+                    // the air a 0.0 is real information and is shown as such.
+                    const played = isLive || isDone;
+                    return (
+                      <div key={i} className="grid grid-cols-[1.9rem_minmax(0,1fr)_auto] items-center gap-2 px-2.5 py-1">
+                        <span className="rounded bg-bg-card-hover py-0.5 text-center text-[8.5px] font-bold text-text-muted">{r.position}</span>
+                        <div className="min-w-0">
+                          <div className="truncate text-[11.5px] text-text-primary">
+                            {r.player}
+                            <span className="ml-1 text-[9px] text-text-muted">{r.team}</span>
+                          </div>
+                          <div className="truncate text-[9.5px]">
+                            {blurb
+                              ? <span className="text-text-secondary">{blurb}</span>
+                              : <span className="text-text-muted">{isLive ? 'no stats yet' : isDone ? 'did not record' : `vs ${r.opponent ?? '—'}`}</span>}
+                          </div>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <div className="text-[11.5px] font-semibold tabular-nums"
+                            style={{ color: played && Number.isFinite(p) ? 'var(--color-text-primary)' : 'var(--color-text-muted)' }}>
+                            {played && Number.isFinite(p) ? num(p) : '–'}
+                            <span className="ml-1 text-[9px] font-normal text-text-muted">/ {num(r.proj)}</span>
+                          </div>
+                          <div className={`text-[8.5px] tabular-nums ${isLive ? 'text-win' : 'text-text-muted'}`}>
+                            {g ? (isDone ? `Final ${g.score}` : g.short) : '—'}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-              <div className="mt-0.5 text-[9px] text-text-muted">live league score · {s.source}</div>
-            </div>
-          ))}
-          {leagues.some((l: any) => l.platform === 'mfl') && !live.scores.some((s: any) => s.source === 'MFL') && (
-            <div className="rounded-lg border border-border-light bg-bg-card/30 px-2.5 py-2">
-              <div className="text-[10px] font-medium text-text-secondary">UNH SuperFlex Dynasty</div>
-              <div className="mt-1 text-[11px] text-text-muted">MFL live score is not available yet.</div>
-            </div>
-          )}
+            );
+          })}
         </div>
-        {activeGames.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 border-t border-border-light pt-2">
-            {activeGames.map((g: any) => <span key={g.team} className={`rounded-full border px-2 py-0.5 text-[10px] tabular-nums ${g.state === 'in' ? 'border-win/40 bg-win/10 text-win' : 'border-border-light text-text-muted'}`}>
-              {g.team} {g.score} · {g.detail}
-            </span>)}
-          </div>
-        )}
         <p className="text-[9px] text-text-muted">Refreshes every 60 seconds{live.checked ? ` · checked ${live.checked}` : ''}. Sleeper totals use each league’s actual scoring; ESPN supplies game clock and score.</p>
       </>}
     </Section>
   );
 }
 
-function WatchingGuide({ d }: { d: any }) {
-  // Count only projected starters. A player on a bench is useful context for
-  // lineup decisions, but should not make a live game feel like an active
-  // rooting conflict.
-  const exposures = useMemo(() => {
-    const grouped = new Map<string, any>();
-    const add = (p: any, side: 'mine' | 'against') => {
-      if (!p?.player || !p?.team) return;
-      const key = `${p.team}::${p.player}`;
-      const current = grouped.get(key) ?? {
-        key, player: p.player, team: p.team, position: p.position,
-        opponent: p.opponent, mine: [] as any[], against: [] as any[],
-      };
-      current[side].push(p);
-      grouped.set(key, current);
+function WatchingGuide({ d, actualStarters }: { d: any; actualStarters: Map<string, any[]> }) {
+  // Organised by GAME, not by player.
+  //
+  // The previous shape was two flat columns — everyone you are rooting for, then
+  // everyone you are rooting against — which is the wrong unit for the job. You
+  // do not watch a player, you watch a game, and the question in front of a game
+  // is "what is my stake in this one". A player-ranked list split the two sides
+  // of a single broadcast across two columns and forty rows.
+  //
+  // Only STARTED players count. A benched player is context for a lineup
+  // decision, not a reason to care about a game in progress.
+  const games = useMemo(() => {
+    const byGame = new Map<string, any>();
+
+    // Who each team plays, learned from every row that knows. IDP starters come
+    // through with a null opponent — the weekly model does not cover DL/LB/DB, so
+    // it never resolves one for them — and requiring the field outright silently
+    // dropped them from the guide even though they are in the lineup. Any other
+    // row from the same game supplies the answer.
+    const opponentOf = new Map<string, string>();
+    [...arr(d.lineups), ...arr(d.opponent_lineups)].forEach((r: any) => {
+      if (r?.team && r?.opponent) {
+        opponentOf.set(r.team, r.opponent);
+        if (!opponentOf.has(r.opponent)) opponentOf.set(r.opponent, r.team);
+      }
+    });
+
+    const touch = (row: any, side: 'mine' | 'against') => {
+      if (!row?.player || !row?.team) return;
+      const opponent = row.opponent || opponentOf.get(row.team);
+      if (!opponent) return;
+      row = { ...row, opponent };
+      // One key per broadcast, whichever side a player is on.
+      const key = [row.team, row.opponent].sort().join('@');
+      const g = byGame.get(key) ?? { key, teams: [row.team, row.opponent].sort(), mine: [], against: [] };
+      g[side].push(row);
+      byGame.set(key, g);
     };
-    arr(d.lineups).filter((p: any) => p.status === 'START').forEach((p: any) => add(p, 'mine'));
-    arr(d.opponent_lineups).forEach((p: any) => add(p, 'against'));
-    return Array.from(grouped.values()).map(p => ({ ...p, net: p.mine.length - p.against.length }))
-      .sort((a, b) => Math.abs(b.net) - Math.abs(a.net) || (b.mine.length + b.against.length) - (a.mine.length + a.against.length));
-  }, [d]);
-  const forPlayers = exposures.filter(p => p.net > 0);
-  const againstPlayers = exposures.filter(p => p.net < 0);
-  const neutralPlayers = exposures.filter(p => p.net === 0);
-  const Row = ({ p, direction }: { p: any; direction: 'for' | 'against' }) => {
-    const net = Math.abs(p.net);
+    // The lineup actually set, where the platform reports one; the optimizer's
+    // recommendation otherwise. Same resolution Live Sunday uses, so the two
+    // panels cannot name different starters for the same league.
+    const recommended = arr(d.lineups).filter((r: any) => r.status === 'START');
+    const byLeague = new Map<string, any[]>();
+    recommended.forEach((r: any) => {
+      byLeague.set(r.league, [...(byLeague.get(r.league) ?? []), r]);
+    });
+    Array.from(byLeague.keys()).forEach(lg => {
+      const live = actualStarters.get(lg);
+      if (live?.length) byLeague.set(lg, live);
+    });
+    Array.from(byLeague.values()).flat().forEach((r: any) => touch(r, 'mine'));
+    arr(d.opponent_lineups).forEach((r: any) => touch(r, 'against'));
+
+    return Array.from(byGame.values()).map((g: any) => {
+      // Net projected points at stake: what your rosters stand to gain from this
+      // game minus what your opponents' do. A game with equal representation is
+      // a genuine wash, and the card says so rather than implying a side.
+      const sum = (rows: any[]) => rows.reduce((a, r) => a + (Number(r.proj) || 0), 0);
+      const forPts = sum(g.mine), againstPts = sum(g.against);
+      // A player can legitimately appear on BOTH sides: yours in one league,
+      // your opponent's in another. He nets to nothing, and the card marks him
+      // rather than leaving the same name printed twice with no explanation.
+      const ids = (rows: any[]) => new Set(rows.map((r: any) => `${r.team}::${r.player}`));
+      const mineIds = ids(g.mine), againstIds = ids(g.against);
+      const conflicted = new Set([...mineIds].filter(k => againstIds.has(k)));
+      return { ...g, forPts, againstPts, net: forPts - againstPts, conflicted,
+               involved: g.mine.length + g.against.length };
+    }).sort((a: any, b: any) => Math.abs(b.net) - Math.abs(a.net) || b.involved - a.involved);
+  }, [d, actualStarters]);
+
+  // One person rostered in three leagues is one row with a x3, not three rows.
+  const collapse = (rows: any[]) => {
+    const m = new Map<string, any>();
+    rows.forEach(r => {
+      const k = `${r.team}::${r.player}`;
+      const cur = m.get(k) ?? { ...r, count: 0, leagues: [] as string[] };
+      cur.count += 1; cur.leagues.push(r.league);
+      m.set(k, cur);
+    });
+    return Array.from(m.values())
+      .sort((a, b) => b.count - a.count || (Number(b.proj) || 0) - (Number(a.proj) || 0));
+  };
+
+  const Side = ({ rows, tone, conflicted }: { rows: any[]; tone: 'for' | 'against'; conflicted: Set<string> }) => {
+    const list = collapse(rows);
+    if (!list.length) return <div className="px-2 py-1.5 text-[9.5px] text-text-muted">none</div>;
     return (
-      <div className="grid grid-cols-[2.1rem_minmax(0,1fr)_auto] items-center gap-2 border-b border-border-light/60 px-2.5 py-1.5 last:border-b-0 hover:bg-bg-card-hover">
-        <span className="rounded bg-bg-card-hover py-0.5 text-center text-[9px] font-bold text-text-muted">{p.position}</span>
-        <div className="min-w-0">
-          <div className="truncate text-[11.5px] font-medium text-text-primary">
-            <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full align-middle" style={{ backgroundColor: readableTeamColor(p.team) }} />
-            {p.player}
+      <div className="divide-y divide-border-light/40">
+        {list.map((r, i) => {
+        const split = conflicted.has(`${r.team}::${r.player}`);
+        return (
+          <div key={i} className={`flex items-center gap-1.5 px-2 py-1 ${split ? 'opacity-55' : ''}`}
+            title={split
+              ? `Also started against you — ${r.leagues.join(' · ')}. His points cancel out.`
+              : r.leagues.join(' · ')}>
+            <span className="w-7 shrink-0 rounded bg-bg-card-hover py-0.5 text-center text-[8.5px] font-bold text-text-muted">{r.position}</span>
+            <span className="min-w-0 flex-1 truncate text-[11px] text-text-primary">
+              {r.player}
+              <span className="ml-1 text-[9px] text-text-muted">{r.team}</span>
+              {split && <span className="ml-1 text-[9px] text-text-muted">⇄</span>}
+            </span>
+            {r.count > 1 && (
+              <span className="shrink-0 text-[9px] font-semibold tabular-nums"
+                style={{ color: tone === 'for' ? 'var(--color-win)' : 'var(--color-loss)' }}>×{r.count}</span>
+            )}
+            <span className="w-8 shrink-0 text-right text-[10px] tabular-nums text-text-secondary">{num(r.proj)}</span>
           </div>
-          <div className="truncate text-[9.5px] text-text-muted">{p.team} vs {p.opponent} · {p.mine.length} yours / {p.against.length} against</div>
-        </div>
-        <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold tabular-nums ${
-          direction === 'for' ? 'bg-win/10 text-win' : 'bg-loss/10 text-loss'
-        }`}>{direction === 'for' ? 'Root for' : 'Root against'} ×{net}</span>
+        );
+        })}
       </div>
     );
   };
+
   return (
     <Section id="watching_guide" title="Watching Guide" accent={SECTION_ACCENT.lineups}
-      subtitle="projected starters across your leagues · exposure is active lineup count">
-      {exposures.length === 0 ? <p className="text-xs text-text-muted">Opponent lineups are not available yet.</p> : (
-        <>
-          <div className="grid grid-cols-3 gap-2">
-            <StatTile label="Root for" value={forPlayers.length} accent="#3fb950" sub="net positive exposure" />
-            <StatTile label="Root against" value={againstPlayers.length} accent="#f85149" sub="net opponent exposure" />
-            <StatTile label="Conflicts" value={neutralPlayers.length} sub="even on both sides" />
-          </div>
-          <div className="grid gap-3 lg:grid-cols-2">
-            <div className="overflow-hidden rounded-xl border border-win/30 bg-bg-card/30">
-              <div className="border-b border-border-light px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-win">Root for</div>
-              <div className="max-h-[27rem] overflow-y-auto overscroll-contain">
-                {forPlayers.map(p => <Row key={p.key} p={p} direction="for" />)}
+      subtitle="your stake in each game · started players across every league">
+      {games.length === 0 ? <p className="text-xs text-text-muted">Opponent lineups are not available yet.</p> : (
+        <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
+          {games.map((g: any) => {
+            const lean = g.net > 0.5 ? 'for' : g.net < -0.5 ? 'against' : 'wash';
+            const color = lean === 'for' ? 'var(--color-win)'
+                        : lean === 'against' ? 'var(--color-loss)' : 'var(--color-text-muted)';
+            return (
+              <div key={g.key} className="overflow-hidden rounded-lg border border-border-light bg-bg-card/30">
+                <div className="flex items-baseline justify-between gap-2 border-b border-border-light px-2.5 py-1.5"
+                  style={{ boxShadow: `inset 2px 0 0 ${color}` }}>
+                  <span className="min-w-0 truncate text-[11.5px] font-semibold text-text-primary">
+                    {g.teams[0]} <span className="font-normal text-text-muted">v</span> {g.teams[1]}
+                  </span>
+                  <span className="shrink-0 text-[10px] font-semibold tabular-nums" style={{ color }}>
+                    {lean === 'wash' ? 'even' : `${g.net > 0 ? '+' : '−'}${num(Math.abs(g.net))} net`}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 divide-x divide-border-light">
+                  <div className="min-w-0">
+                    <div className="flex items-baseline justify-between px-2 py-0.5">
+                      <span className="text-[8.5px] font-semibold uppercase tracking-wider text-win">Yours</span>
+                      {g.mine.length > 0 && <span className="text-[9px] tabular-nums text-text-muted">{num(g.forPts)}</span>}
+                    </div>
+                    <Side rows={g.mine} tone="for" conflicted={g.conflicted} />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-baseline justify-between px-2 py-0.5">
+                      <span className="text-[8.5px] font-semibold uppercase tracking-wider text-loss">Against</span>
+                      {g.against.length > 0 && <span className="text-[9px] tabular-nums text-text-muted">{num(g.againstPts)}</span>}
+                    </div>
+                    <Side rows={g.against} tone="against" conflicted={g.conflicted} />
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="overflow-hidden rounded-xl border border-loss/30 bg-bg-card/30">
-              <div className="border-b border-border-light px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-loss">Root against</div>
-              <div className="max-h-[27rem] overflow-y-auto overscroll-contain">
-                {againstPlayers.map(p => <Row key={p.key} p={p} direction="against" />)}
-              </div>
-            </div>
-          </div>
-          {neutralPlayers.length > 0 && <p className="text-[10px] text-text-muted">Even exposure: {neutralPlayers.map(p => `${p.player} (${p.mine.length}–${p.against.length})`).join(' · ')}</p>}
-        </>
+            );
+          })}
+        </div>
       )}
     </Section>
   );
@@ -806,7 +1260,14 @@ function Lineups({ d }: { d: any }) {
 }
 
 function MyLineups({ d }: { d: any }) {
-  return <><LiveSunday d={d} /><WatchingGuide d={d} /><Lineups d={d} /></>;
+  // One fetch, shared. Both panels describe the same lineup by construction.
+  const { live, leagues, refresh } = useLiveData(d);
+  const actualStarters = useActualStarters(d, live);
+  return <>
+    <LiveSunday d={d} live={live} leagues={leagues} refresh={refresh} actualStarters={actualStarters} />
+    <WatchingGuide d={d} actualStarters={actualStarters} />
+    <Lineups d={d} />
+  </>;
 }
 
 function Waivers({ d }: { d: any }) {

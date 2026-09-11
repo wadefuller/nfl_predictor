@@ -114,7 +114,8 @@ cat(sprintf("  wrote %d bets -> %s\n", nrow(card), card_path))
 # This is a separate source from sportsbook recommendations. It compares the
 # model to the executable YES ask plus a 1-cent execution allowance, and does
 # not place orders or imply that a contract can be filled at the displayed price.
-poly <- fetch_polymarket_moneylines(out, target_season, target_week)
+poly <- fetch_polymarket_moneylines(out, target_season, target_week,
+                                    ev_cal = ev_calibration_from_bundle(bundle))
 poly_path <- file.path(DATA_DIR, "polymarket_nfl_moneyline.csv")
 readr::write_csv(poly, poly_path)
 cat(sprintf("  wrote %d mapped Polymarket moneyline contracts (%d EV+) -> %s\n",

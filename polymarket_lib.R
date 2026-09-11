@@ -22,7 +22,7 @@
 .poly_empty <- function() tibble::tibble(
   season = integer(), week = integer(), game_id = character(), bet_team = character(),
   opponent = character(), question = character(), slug = character(), market_id = character(),
-  model_probability = numeric(), ask = numeric(), execution_price = numeric(), raw_edge = numeric(),
+  model_probability = numeric(), model_probability_raw = numeric(), market_p = numeric(), ask = numeric(), execution_price = numeric(), raw_edge = numeric(),
   net_ev = numeric(), qualifies = logical(), liquidity = numeric(), volume = numeric(), fetched_at = character()
 )
 
@@ -36,64 +36,173 @@
 # A contract's expected return per dollar paid is p / effective_price - 1.
 # `execution_price` adds a 1-cent buffer for the displayed ask, fee uncertainty,
 # and modest slippage; it is not a claim that a user can execute at that exact price.
+# Optional shrinkage of the model toward the market before scoring EV.
+# DEFAULT 1.0 = OFF: the model's own probability is used as-is.
+#
+# Why it exists, and why it is off. The 2026 week-1 slate flagged 13 EV+ of 16
+# games — no week in 160 historical ones ever had more than a handful — which
+# looked like the model being overconfident. Two later measurements undercut
+# that reading:
+#
+#   1. A full walk-forward eval against the REAL ensemble found the probability
+#      chain is not miscalibrated: replacing pnorm+Platt with a single logistic
+#      moved Brier by +0.00002 (p = 0.52). There is no transformation defect for
+#      shrinkage to correct.
+#   2. Shrinking toward the market improves Brier only from 0.20986 to 0.20955
+#      — p = 0.396, not significant at any lambda tested.
+#
+# The one piece of evidence that still favours shrinking: regressing outcomes on
+# market log-odds with the model's deviation free gives lambda = 0.552, 95% CI
+# [0.177, 0.928] — an interval that EXCLUDES 1.0. So the deviation probably does
+# deserve some discount; the effect is just too small to prove on 2,638 games.
+#
+# Left as a knob rather than deleted. Set POLY_MODEL_WEIGHT (or the env var) to
+# ~0.55 to re-enable, and re-estimate it as walk-forward data accumulates.
+POLY_MODEL_WEIGHT <- suppressWarnings(as.numeric(Sys.getenv("POLY_MODEL_WEIGHT", "1.0")))
+if (!is.finite(POLY_MODEL_WEIGHT)) POLY_MODEL_WEIGHT <- 1.0
+
+.poly_logit <- function(p) { p <- pmax(1e-6, pmin(1 - 1e-6, p)); log(p / (1 - p)) }
+.poly_inv_logit <- function(x) 1 / (1 + exp(-x))
+
 fetch_polymarket_moneylines <- function(predictions, season, week,
-                                        min_liquidity = 1000, execution_buffer = 0.01) {
+                                        min_liquidity = 1000, execution_buffer = 0.01,
+                                        model_weight = POLY_MODEL_WEIGHT,
+                                        ev_cal = EV_CALIBRATION_DEFAULT) {
   fetched_at <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z")
   empty <- .poly_empty()
   if (nrow(predictions) == 0) return(empty)
-  markets <- tryCatch(
-    jsonlite::fromJSON("https://gamma-api.polymarket.com/markets?limit=1000&active=true&closed=false&tag_id=450"),
-    error = function(e) NULL
-  )
-  if (!is.data.frame(markets) || nrow(markets) == 0) return(empty)
-  # Gamma omits all-null optional fields from a response. Without a gameId and
-  # sports market type there is no safe way to distinguish a game winner from a
-  # team future, so return no recommendation rather than guessing from wording.
-  required <- c("question", "gameId", "sportsMarketType", "liquidity", "volume", "bestAsk")
-  if (!all(required %in% names(markets))) return(empty)
-  markets <- tibble::as_tibble(markets) %>%
-    mutate(
-      question_lc = tolower(question %||% ""),
-      liquidity_num = suppressWarnings(as.numeric(liquidity)),
-      volume_num = suppressWarnings(as.numeric(volume)),
-      ask_num = suppressWarnings(as.numeric(bestAsk)),
-      # Game markets have a canonical game id and a moneyline market type.
-      is_game_moneyline = !is.na(gameId) & gameId != "" &
-        (tolower(sportsMarketType %||% "") %in% c("moneyline", "winner", "game winner"))
+
+  # WHY THIS IS ADDRESSED BY SLUG AND NOT BY TAG
+  # -------------------------------------------
+  # The previous implementation queried `tag_id=450`, which is NFL FUTURES and
+  # PROPS ("Tush Push banned for 2026?", "Chiefs Week 1 starting QB?"). Those
+  # records carry neither `gameId` nor `sportsMarketType`, so the required-column
+  # check bailed and this feed wrote an empty CSV on every run for months. Two
+  # further faults sat behind it: `limit=1000` silently returns at most 100 rows
+  # (Gamma caps page size and needs `offset` to paginate), and the outcome check
+  # required outcomes[1] == "yes" — but a game moneyline's outcomes are the two
+  # TEAM NAMES, so every real market would have been rejected anyway.
+  #
+  # Game markets are addressable directly: the slug is
+  #   nfl-<away>-<home>-<YYYY-MM-DD>
+  # and those abbreviations are nflverse's, lowercased. Gamma accepts repeated
+  # `slug=` parameters, so the whole slate is one request rather than a paginated
+  # sweep of every active market on the platform.
+  sched <- NULL
+  for (attempt in 1:3) {
+    d <- try(nflreadr::load_schedules(season), silent = TRUE)
+    if (!inherits(d, "try-error") && NROW(d) > 0 && all(c("game_id", "gameday") %in% names(d))) { sched <- d; break }
+    Sys.sleep(2 * attempt)
+  }
+  if (is.null(sched)) {
+    message("  ! polymarket: schedules unavailable — cannot build game slugs")
+    return(empty)
+  }
+
+  slate <- predictions %>%
+    dplyr::left_join(
+      tibble::as_tibble(sched) %>% dplyr::select(game_id, gameday),
+      by = "game_id"
     ) %>%
-    filter(is_game_moneyline, liquidity_num >= min_liquidity, is.finite(ask_num), ask_num > 0, ask_num < 1)
+    dplyr::filter(!is.na(gameday)) %>%
+    dplyr::mutate(matchup = sprintf("nfl-%s-%s",
+                                    tolower(as.character(away_team)),
+                                    tolower(as.character(home_team))))
+  if (nrow(slate) == 0) return(empty)
+
+  # Polymarket stamps the slug with the UTC date of kickoff, while `gameday` is
+  # the local date. Any game starting after 8pm ET is already the next day in
+  # UTC, so a Thursday/Sunday-night slug lands a day ahead — that alone lost 4 of
+  # 16 week-1 games. Ask for both dates; only one will exist.
+  slate <- dplyr::bind_rows(
+    dplyr::mutate(slate, slug = sprintf("%s-%s", matchup, as.character(gameday))),
+    dplyr::mutate(slate, slug = sprintf("%s-%s", matchup,
+                                        as.character(as.Date(gameday) + 1)))
+  )
+
+  url <- paste0("https://gamma-api.polymarket.com/markets?",
+                paste0("slug=", slate$slug, collapse = "&"))
+  markets <- tryCatch(jsonlite::fromJSON(url), error = function(e) NULL)
+  if (!is.data.frame(markets) || nrow(markets) == 0) {
+    message(sprintf("  ! polymarket: no markets returned for %d slugs", nrow(slate)))
+    return(empty)
+  }
+
+  markets <- tibble::as_tibble(markets) %>%
+    dplyr::mutate(liquidity_num = suppressWarnings(as.numeric(liquidity)),
+                  volume_num    = suppressWarnings(as.numeric(volume))) %>%
+    dplyr::filter(liquidity_num >= min_liquidity)
   if (nrow(markets) == 0) return(empty)
 
-  candidates <- purrr::map_dfr(seq_len(nrow(predictions)), function(i) {
-    game <- predictions[i, ]
-    teams <- c(as.character(game$home_team), as.character(game$away_team))
-    probs <- c(as.numeric(game$pred_win_home), 1 - as.numeric(game$pred_win_home))
-    purrr::map_dfr(seq_along(teams), function(j) {
-      team_name <- tolower(.poly_team_names[[teams[j]]] %||% "")
-      if (!nzchar(team_name)) return(.poly_empty()[0, ])
-      # For standard game markets, the first YES contract asks whether this
-      # specific team wins. Ignore non-game player props/futures above.
-      hits <- markets %>% filter(stringr::str_detect(question_lc, stringr::fixed(team_name)))
-      if (nrow(hits) == 0) return(.poly_empty()[0, ])
-      purrr::map_dfr(seq_len(nrow(hits)), function(k) {
-        market <- hits[k, ]
-        outcomes <- .poly_json(market$outcomes)
-        if (length(outcomes) < 2 || tolower(outcomes[1]) != "yes") return(.poly_empty()[0, ])
-        execution_price <- min(0.99, market$ask_num + execution_buffer)
-        tibble::tibble(
-          season = as.integer(season), week = as.integer(week), game_id = as.character(game$game_id),
-          bet_team = teams[j], opponent = teams[3 - j], question = market$question,
-          slug = market$slug, market_id = as.character(market$id), model_probability = probs[j],
-          ask = market$ask_num, execution_price = execution_price,
-          raw_edge = probs[j] - market$ask_num, net_ev = probs[j] / execution_price - 1,
-          liquidity = market$liquidity_num, volume = market$volume_num, fetched_at = fetched_at
-        )
-      })
+  rows <- purrr::map_dfr(seq_len(nrow(markets)), function(k) {
+    market   <- markets[k, ]
+    outcomes <- .poly_json(market$outcomes)
+    prices   <- suppressWarnings(as.numeric(.poly_json(market$outcomePrices)))
+    if (length(outcomes) != 2 || length(prices) != 2 || any(!is.finite(prices))) return(empty[0, ])
+    # `outcomePrices` is the normalised MID — the two sides sum to exactly 1.000,
+    # i.e. the spread has been removed. Pricing against it manufactures edge out
+    # of nothing (it made 11 of 12 week-1 contracts look EV+). Use the real
+    # book: for a two-outcome market the quotes are published for the FIRST
+    # token, so outcome 1 pays `bestAsk` and outcome 2 pays `1 - bestBid`.
+    best_ask <- suppressWarnings(as.numeric(market$bestAsk))
+    best_bid <- suppressWarnings(as.numeric(market$bestBid))
+    asks <- if (is.finite(best_ask) && is.finite(best_bid)) c(best_ask, 1 - best_bid) else prices
+    game <- slate[slate$slug == market$slug, ]
+    if (nrow(game) != 1) return(empty[0, ])
+
+    purrr::map_dfr(seq_along(outcomes), function(j) {
+      # Outcomes are team NICKNAMES ("49ers", "Rams"); .poly_team_names holds the
+      # full names, of which the nickname is the tail. Resolve by containment
+      # against the two teams actually in this game rather than trusting outcome
+      # order, so a reordered response cannot silently invert a price.
+      cands <- c(as.character(game$home_team), as.character(game$away_team))
+      hit <- cands[vapply(cands, function(tm)
+        grepl(outcomes[j], .poly_team_names[[tm]] %||% "", fixed = TRUE), logical(1))]
+      if (length(hit) != 1) return(empty[0, ])
+
+      p_model <- if (hit == as.character(game$home_team)) as.numeric(game$pred_win_home)
+                 else 1 - as.numeric(game$pred_win_home)
+      price <- asks[j]
+      if (!is.finite(price) || price <= 0 || price >= 1) return(empty[0, ])
+      execution_price <- min(0.99, price + execution_buffer)
+
+      tibble::tibble(
+        season = as.integer(season), week = as.integer(week),
+        game_id = as.character(game$game_id),
+        bet_team = hit, opponent = setdiff(cands, hit)[1],
+        question = as.character(market$question), slug = as.character(market$slug),
+        market_id = as.character(market$id), model_probability = p_model,
+        ask = price, execution_price = execution_price,
+        raw_edge = p_model - price,
+        # net_ev is already profit per dollar staked, but it was reported RAW
+        # while the sportsbook card reports a calibrated figure. Left uncalibrated
+        # it reads about 1.5x higher for identical edge, which is enough to make
+        # Polymarket win every cross-platform comparison on scale alone.
+        net_ev = calibrate_ev(p_model / execution_price - 1, ev_cal),
+        liquidity = market$liquidity_num, volume = market$volume_num, fetched_at = fetched_at
+      )
     })
   })
-  candidates %>%
-    filter(is.finite(net_ev)) %>%
-    mutate(qualifies = net_ev >= 0.05) %>%
-    arrange(desc(qualifies), desc(net_ev), desc(liquidity)) %>%
-    distinct(game_id, bet_team, .keep_all = TRUE)
+
+  if (nrow(rows) == 0) return(empty)
+  # Shrink toward the market BEFORE scoring. `ask` carries the vig, so the two
+  # sides of a game sum above 1; de-vig first or the shrinkage target is biased
+  # high and every contract looks worse than it is.
+  rows <- rows %>%
+    dplyr::group_by(game_id) %>%
+    dplyr::mutate(market_p = ask / sum(ask)) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(
+      model_probability_raw = model_probability,
+      model_probability = .poly_inv_logit(
+        .poly_logit(market_p) +
+          model_weight * (.poly_logit(model_probability_raw) - .poly_logit(market_p))),
+      raw_edge = model_probability - ask,
+      net_ev   = calibrate_ev(model_probability / execution_price - 1, ev_cal)
+    )
+  rows %>%
+    dplyr::filter(is.finite(net_ev)) %>%
+    dplyr::mutate(qualifies = net_ev >= 0.05) %>%
+    dplyr::arrange(dplyr::desc(qualifies), dplyr::desc(net_ev), dplyr::desc(liquidity)) %>%
+    dplyr::distinct(game_id, bet_team, .keep_all = TRUE)
 }

@@ -16,6 +16,20 @@ export async function onRequestGet(context: { request: Request }): Promise<Respo
   const validLeague = /^\d{4,20}$/.test(league);
   const validWeek = /^(?:[1-9]|1\d|2[0-2])$/.test(week);
   const validSeason = /^20\d{2}$/.test(season);
+
+  // Sleeper's league-wide stat feed is not scoped to a league, so it is the one
+  // source here that takes no league id. It is keyed by sleeper player id and
+  // covers the whole NFL in ~10KB, which is what lets a single fetch supply a
+  // live stat line for every roster on the page — including the MFL league,
+  // whose own feed carries scores but no box-score detail.
+  if (source === 'sleeper_stats') {
+    if (!validSeason || !validWeek)
+      return new Response(JSON.stringify({ error: 'Invalid stats request.' }), { status: 400, headers });
+    const statsResponse = await fetch(`https://api.sleeper.app/v1/stats/nfl/regular/${season}/${week}`,
+      { headers: { Accept: 'application/json' } });
+    return new Response(await statsResponse.text(), { status: statsResponse.status, headers });
+  }
+
   if (!validLeague || !validWeek || (source === 'mfl' && !validSeason))
     return new Response(JSON.stringify({ error: 'Invalid live-score request.' }), { status: 400, headers });
 

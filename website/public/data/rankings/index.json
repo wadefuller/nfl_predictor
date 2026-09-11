@@ -267,7 +267,7 @@
       "scoring": "ppr"
     }
   ],
-  "latest": "2026-wk00",
-  "scoring": "ppr",
+  "latest": "2026-wk00_half",
+  "scoring": "half",
   "formats": ["half", "ppr"]
 }
