@@ -29,9 +29,13 @@ export function Header({
 
   return (
     <header className="sticky top-0 z-10 border-b border-border bg-bg-page/95 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <h1 className="shrink-0 text-lg font-bold text-text-primary tracking-tight">NFL Predictor</h1>
+      {/* Wraps rather than overlapping. The two halves need roughly 240px and
+          250px, so on a 375px phone they cannot share a row: without wrapping,
+          justify-between simply let them overlap and the product toggle ended up
+          underneath the week controls. */}
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+          <h1 className="shrink-0 text-base font-bold tracking-tight text-text-primary sm:text-lg">NFL Predictor</h1>
           <div className="flex rounded-lg border border-border-light bg-bg-card/70 p-0.5" aria-label="Product area">
             {([['predictor', 'Predictor'], ['fantasy', 'Fantasy HQ']] as const).map(([key, label]) => (
               <button key={key} type="button" onClick={() => onProductChange(key)}
@@ -43,7 +47,12 @@ export function Header({
           {product === 'predictor' && <span className="hidden lg:inline text-xs text-text-muted font-medium bg-bg-card px-2 py-0.5 rounded-full border border-border">Ensemble Model</span>}
         </div>
 
-        <div className={`items-center gap-2 ${showControls ? 'flex' : 'hidden'}`}>
+        {/* w-full below `sm`, so the controls take their own row rather than
+            competing for the first one. A <select> carries an intrinsic minimum
+            width from its widest option ("Conf. Championships"), which min-w-0
+            does not fully defeat — left on the same row it overflowed the
+            viewport by 70px instead of wrapping. */}
+        <div className={`w-full min-w-0 items-center justify-end gap-2 sm:w-auto ${showControls ? 'flex' : 'hidden'}`}>
           {/* Season selector */}
           <select
             value={selectedSeason}
@@ -58,7 +67,7 @@ export function Header({
           </select>
 
           {/* Week navigation */}
-          <div className="flex items-center gap-1">
+          <div className="flex min-w-0 flex-1 items-center gap-1 sm:flex-none">
             <button
               onClick={() => onWeekChange(Math.max(1, selectedWeek - 1))}
               disabled={selectedWeek <= 1}
@@ -70,7 +79,7 @@ export function Header({
             <select
               value={selectedWeek}
               onChange={e => onWeekChange(Number(e.target.value))}
-              className="rounded-md border border-border bg-bg-card px-2 py-1.5 text-sm text-text-primary focus:border-accent focus:outline-none min-w-[140px]"
+              className="min-w-0 flex-1 rounded-md border border-border bg-bg-card px-2 py-1.5 text-sm text-text-primary focus:border-accent focus:outline-none sm:min-w-[140px] sm:flex-none"
             >
               {weeks.map(w => (
                 <option key={w} value={w}>

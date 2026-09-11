@@ -869,7 +869,7 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
                   ) : <span className="shrink-0 text-[9px] text-text-muted">score unavailable</span>}
                 </div>
                 {(hasProj || Number.isFinite(winPct)) && (
-                  <div className="flex items-center gap-2 border-b border-border-light bg-bg-card-hover/20 px-2.5 py-1">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-border-light bg-bg-card-hover/20 px-2.5 py-1">
                     {hasProj && (
                       <span className="shrink-0 text-[9.5px] tabular-nums text-text-muted">
                         {lw && lw.settled > 0 ? 'projected final' : 'projected'}{' '}
@@ -904,7 +904,7 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
                             position on a shared axis is faster than comparing two
                             numbers, and it is the same encoding the game cards use
                             for market vs model. */}
-                        <span className="relative h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-bg-card-hover"
+                        <span className="relative h-1.5 min-w-[3rem] flex-1 overflow-hidden rounded-full bg-bg-card-hover"
                           title={lw
                             ? `Live model win chance. ${lw.settled} of ${players.length + oppPlayers.length} starters have finished; their results are fixed, everyone else is still their projection weighted by time remaining. Not a betting-market probability.`
                             : 'Model win chance from both optimized lineups and their player ranges. Not a betting-market probability.'}>
@@ -1110,7 +1110,12 @@ function WatchingGuide({ d, actualStarters }: { d: any; actualStarters: Map<stri
                     {lean === 'wash' ? 'even' : `${g.net > 0 ? '+' : '−'}${num(Math.abs(g.net))} net`}
                   </span>
                 </div>
-                <div className="grid grid-cols-2 divide-x divide-border-light">
+                {/* minmax(0,1fr), not grid-cols-2. A `1fr` track is
+                    minmax(auto, 1fr), and that auto floor stops a column
+                    shrinking below its longest player name — on a phone the name
+                    pushed the column past the card and printed over the other
+                    side's total. */}
+                <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] divide-x divide-border-light">
                   <div className="min-w-0">
                     <div className="flex items-baseline justify-between px-2 py-0.5">
                       <span className="text-[8.5px] font-semibold uppercase tracking-wider text-win">Yours</span>
