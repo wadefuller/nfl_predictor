@@ -99,8 +99,12 @@ cal_ens_pred <- apply_stacking(stack, cal_xgb, cal_glm, cal_rf)
 sigma        <- sd(cal_actual - cal_ens_pred, na.rm = TRUE) * 1.05
 cal_raw_wp   <- pnorm(cal_ens_pred / sigma)
 platt        <- fit_platt(cal_raw_wp, as.integer(cal_actual > 0))
+winprob      <- fit_winprob(cal_ens_pred, as.integer(cal_actual > 0), sigma)
 cat(sprintf("  σ=%.2f, Platt: int=%.3f, slope=%.3f\n",
             sigma, platt$intercept, platt$slope))
+cat(sprintf("  winprob method: %s%s\n", winprob$method,
+            if (identical(winprob$method, "logistic"))
+              sprintf(" (int=%.3f, slope=%.4f per pt)", winprob$intercept, winprob$slope) else ""))
 
 # ---- Cal-set OOS metrics (proxy for production model error) ----
 # cal predictions are OOS for the pre-cal models (the final model trained on
@@ -136,7 +140,12 @@ bundle <- list(
   stack            = stack,
   sigma            = sigma,
   platt            = platt,
-  leakage_vars     = ENSEMBLE_LEAKAGE_VARS,
+  winprob          = winprob,
+  # EFFECTIVE drop list: leakage vars plus any PRUNE_BLOCKS expanded against
+  # the real column names. Storing the expanded form means the bundle predicts
+  # identically whether or not PRUNE_BLOCKS is set in the serving environment.
+  leakage_vars     = unique(c(ENSEMBLE_LEAKAGE_VARS,
+                              expand_prune_blocks(names(train_raw)))),
   metadata = list(
     trained_date     = Sys.Date(),
     training_seasons = c(MIN_TRAIN_SEASON, max(cal_seasons)),

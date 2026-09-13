@@ -1,6 +1,11 @@
 {
   "season": 2026,
   "week": 0,
+  "baseline": {
+    "type": "season_opening",
+    "locked": true,
+    "source_tag": "2026-wk00"
+  },
   "has_actuals": false,
   "scoring": "ppr",
   "updated": "2026-09-06T19:24:22-0700",

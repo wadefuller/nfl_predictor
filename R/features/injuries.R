@@ -21,7 +21,10 @@ extract_injury_features <- function(seasons, player_cap, team_cap_agg) {
     )
   }
 
-  inj <- nflreadr::load_injuries(inj_seasons) %>%
+  inj <- expect_frame(nflreadr::load_injuries(inj_seasons),
+                      cols = c("game_type", "team", "week", "gsis_id",
+                              "report_status", "position", "season"),
+                      label = sprintf("load_injuries(%d-%d)", min(inj_seasons), max(inj_seasons))) %>%
     filter(game_type == "REG", !is.na(team), !is.na(week)) %>%
     normalize_team_names() %>%
     left_join(player_cap,   by = c("season", "gsis_id")) %>%

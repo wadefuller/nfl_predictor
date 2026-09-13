@@ -10,6 +10,8 @@ interface HeaderProps {
   // Fantasy views aren't scoped to an NFL week, so they hide these controls
   // rather than showing selectors that change nothing.
   showControls?: boolean;
+  /** Season reports need a year selector but not a redundant week picker. */
+  showWeekPicker?: boolean;
   product: 'predictor' | 'fantasy';
   onProductChange: (product: 'predictor' | 'fantasy') => void;
 }
@@ -22,13 +24,14 @@ export function Header({
   onSeasonChange,
   onWeekChange,
   showControls = true,
+  showWeekPicker = true,
   product,
   onProductChange,
 }: HeaderProps) {
   const weeks = getWeeksForSeason(maxWeek);
 
   return (
-    <header className="sticky top-0 z-10 border-b border-border bg-bg-page/95 backdrop-blur-sm">
+    <header className="app-header sticky top-0 z-10 border-b border-border bg-bg-page/95 backdrop-blur-sm">
       {/* Wraps rather than overlapping. The two halves need roughly 240px and
           250px, so on a 375px phone they cannot share a row: without wrapping,
           justify-between simply let them overlap and the product toggle ended up
@@ -44,7 +47,6 @@ export function Header({
                 }`}>{label}</button>
             ))}
           </div>
-          {product === 'predictor' && <span className="hidden lg:inline text-xs text-text-muted font-medium bg-bg-card px-2 py-0.5 rounded-full border border-border">Ensemble Model</span>}
         </div>
 
         {/* w-full below `sm`, so the controls take their own row rather than
@@ -57,7 +59,7 @@ export function Header({
           <select
             value={selectedSeason}
             onChange={e => onSeasonChange(Number(e.target.value))}
-            className="rounded-md border border-border bg-bg-card px-2 py-1.5 text-sm text-text-primary focus:border-accent focus:outline-none"
+            className="header-control rounded-md border border-border bg-bg-card px-2 py-1.5 text-sm text-text-primary focus:border-accent focus:outline-none"
           >
             {availableSeasons.map(s => (
               <option key={s} value={s}>
@@ -66,12 +68,13 @@ export function Header({
             ))}
           </select>
 
-          {/* Week navigation */}
-          <div className="flex min-w-0 flex-1 items-center gap-1 sm:flex-none">
+          {/* A season report still needs the year selector above, but displaying
+              a week control there implies that it changes the report. */}
+          {showWeekPicker && <div className="flex min-w-0 flex-1 items-center gap-1 sm:flex-none">
             <button
               onClick={() => onWeekChange(Math.max(1, selectedWeek - 1))}
               disabled={selectedWeek <= 1}
-              className="rounded-md border border-border bg-bg-card px-2 py-1.5 text-sm text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed"
+              className="header-control rounded-md border border-border bg-bg-card px-2 py-1.5 text-sm text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed"
             >
               &larr;
             </button>
@@ -79,7 +82,7 @@ export function Header({
             <select
               value={selectedWeek}
               onChange={e => onWeekChange(Number(e.target.value))}
-              className="min-w-0 flex-1 rounded-md border border-border bg-bg-card px-2 py-1.5 text-sm text-text-primary focus:border-accent focus:outline-none sm:min-w-[140px] sm:flex-none"
+              className="header-control min-w-0 flex-1 rounded-md border border-border bg-bg-card px-2 py-1.5 text-sm text-text-primary focus:border-accent focus:outline-none sm:min-w-[140px] sm:flex-none"
             >
               {weeks.map(w => (
                 <option key={w} value={w}>
@@ -91,11 +94,11 @@ export function Header({
             <button
               onClick={() => onWeekChange(Math.min(maxWeek, selectedWeek + 1))}
               disabled={selectedWeek >= maxWeek}
-              className="rounded-md border border-border bg-bg-card px-2 py-1.5 text-sm text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed"
+              className="header-control rounded-md border border-border bg-bg-card px-2 py-1.5 text-sm text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed"
             >
               &rarr;
             </button>
-          </div>
+          </div>}
         </div>
       </div>
     </header>

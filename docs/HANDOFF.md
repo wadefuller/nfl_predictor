@@ -4,11 +4,13 @@ Last updated: 2026-06-07
 
 ## Where things stand right now
 
-- **Walk-forward 2016-2025:** MAE **9.7783** (BEATS Vegas 9.7868 by 0.0085), Brier 0.21033 (beats Vegas by 0.00085), LogLoss 0.60871 (beats Vegas by 0.00112), Cover 53.36%. **Model beats Vegas in 4 of 10 seasons** (2016, 2018, 2020, 2024).
-- **Cal-set OOS (2024–2025):** MAE 9.57, Cover 0.549.
+- **Walk-forward 2016-2025:** MAE **9.7738** (BEATS Vegas 9.7868 by 0.0130), Brier **0.20986** (beats Vegas by 0.00132), LogLoss **0.60749** (beats Vegas by 0.00235), Cover **53.60%**. **Model beats Vegas in 5 of 10 seasons.** Frozen in `docs/BASELINE_SNAPSHOT.md`.
+- **Cal-set OOS (2024–2025):** MAE 9.583, Brier 0.2015, LogLoss 0.5872, cover 0.697.
+- **Dead-column pruning (2026-09-02, default ON):** drops 29 raw columns / 117 matrix columns (30% of the design matrix) that the feature census found carry zero GLM coefficients and 1.6% combined XGB gain — team-identity dummies, schedule dummies, the rest module, officials, weather. Improved all 4 metrics (Brier and LogLoss by real margins) and took seasons-beating-Vegas from 4 to 5. `PRUNE_DEAD=0` disables. See `ensemble_lib::PRUNED_VARS_REG` — note the comment there records that the *stated mechanism was wrong* (lambda went up, not down); the gain is real but unexplained.
 - **Architecture change (2026-06-07):** **GLM-only stack** is now the default. The cv.glmnet learner is the only one carrying real signal; XGB and RF were getting stacking weight 0 in every recent bundle. The multi-stacker was also AMPLIFYING GLM by ~1.23× which over-fit cal-set residuals — disastrous on walk-forward, especially close games. Switching to pure unamplified GLM dropped MAE 9.832 → 9.778, Brier 0.21075 → 0.21033, LogLoss 0.60967 → 0.60871, Cover 52.91% → 53.36% — **the largest single improvement in project history**. The structural close-game overshoot (+0.225 MAE) that survived 7 feature experiments is now **−0.036 MAE BETTER than Vegas** in that bucket. Set `STACK_FULL=1` to fall back.
 - **Production bundle defaults (post-2026-06-07):** `R/features/pace_total.R` (kept 2026-06-01), GLM-only stack, no carryover, no Elo, no NGS. XGB and RF still train per-fold but their predictions are discarded by the stacker (~3-4 min of wasted compute per eval; left in for STACK_FULL fallback).
-- **Pipeline:** `./run_pipeline.sh {full|eval|train|features|predict|test|diagnose|learners}` is the entry point. Don't run the four `Rscript` commands manually. `learners` explains *why* the stack is GLM-dominated (see EXPERIMENTS_RULED_OUT.md).
+- **Pipeline:** `./run_pipeline.sh {full|eval|train|features|predict|test|diagnose|learners|census}` is the entry point. Don't run the four `Rscript` commands manually. `learners` explains *why* the stack is GLM-dominated; `census` shows feature provenance + per-learner usage (see EXPERIMENTS_RULED_OUT.md).
+- **`tune_hyperparams.R` was rewritten 2026-06-07.** The old version silently shipped params that lost to the market by 0.445 MAE (wrong objective, no monotone constraint, no colsample sweep, grid missed the depth-2 corner). It now tunes the direct-xgboost path with nested early stopping and a market gate that refuses to bless params which lose to the closing line — `load_xgb_direct_params()` ignores any file tagged `gate="fail"`. Output moved to `data/tune_best_xgb_direct.rds`; the tidymodels path in `train_xgb_model()` is legacy (it cannot express a monotone constraint).
 - **Features:** modular under `R/features/`. Add one = new file + one line in `_registry.R`. See `docs/HOW_TO_ADD_A_FEATURE.md`.
 - **Tuning:** XGB, GLM alpha, RF mtry/min_n, stacking λ all have their own scripts. Auto-loaded by `ensemble_lib::load_tuned_*`.
 - **Live model serving:** `predict_week.rmd` for weekly bet card, `export_json.R` for website. Both use bundle-baked EV calibration.
@@ -24,6 +26,17 @@ Rscript -e 'b <- readRDS("models/ensemble_latest.rds"); str(b$metadata)' | head 
 ./run_pipeline.sh test                # validate features still pass schema/NA/leakage
 ./run_pipeline.sh eval                # walk_forward + retrain + auto-bake EV cal (~15 min)
 ```
+
+## Recent wins (both from diagnostics, not from adding features)
+
+1. **GLM-only stack** (2026-06-07) — removing the multi-stacker's 1.23x GLM
+   amplification. MAE 9.832 -> 9.778. Largest single improvement in project history.
+2. **Dead-column pruning** (2026-09-02) — MAE 9.7783 -> 9.7738, Brier -0.00047,
+   LogLoss -0.00122, 4 -> 5 seasons beating Vegas, model 30% smaller.
+
+Both came out of *measuring what the model actually uses* rather than feeding it
+more. Every additive-feature experiment this project has run has been reverted;
+`./run_pipeline.sh census` and `learners` are the tools that found the wins.
 
 ## What's queued for next session
 
@@ -91,7 +104,10 @@ See `docs/EXPERIMENTS_RULED_OUT.md` for details. Quick list:
 - ESPN QBR ON TOP of `starter_qb_epa_*` — substitution at 0.79 cor; 0 of 4 metrics improved. Verified the pre-flight correlation discipline: anything > 0.7 cor with an existing feature should be tried as REPLACEMENT first, not addition.
 - Travel distance/tz_shift ON TOP of existing features — even a spatially-orthogonal signal displaces `starter_qb_epa_r8_home` because travel partly explains QB performance variance. **Saturation pattern**: the additive-feature path is exhausted at this ensemble architecture. Future work needs REPLACEMENT or ARCHITECTURE CHANGE, not addition.
 - REPLACEMENT pattern (drop the displaced feature, add the new one) — confirmed to be WORSE than ADDITION. The "displacement" was XGB combinatorial use, not duplicate signal. Future work needs ARCHITECTURE CHANGE only.
-- Reviving XGB/RF via residual targeting, edge shrinkage, or mixed-regime stacking — all measured, none beat pure GLM. Run `./run_pipeline.sh learners` for the full diagnostic. Decisive number: handed the market for free, GLM-on-residual (9.618) still beats XGB-on-residual (9.669). **There is no non-linear structure in the residual.**
+- Reviving XGB/RF via residual targeting, edge shrinkage, or mixed-regime stacking — all measured, none beat pure GLM. Run `./run_pipeline.sh learners` for the full diagnostic.
+- **XGB-only, even properly tuned** — full 10-season walk-forward: GLM 9.7783 / XGB 9.8228 / stack 9.8393. GLM wins all four metrics; tuned XGB doesn't even beat Vegas. With honest nested early stopping, **0 of 32 tuned configs beat the market** on 2015-2020. See EXPERIMENTS_RULED_OUT.md.
+- **Trusting any number out of `xgb_challenge.R`** — it early-stops on the fold it scores (~0.069 MAE optimistic). Its "XGB beats GLM by 0.088 on 2020-23" was a leak artifact. `tune_hyperparams.R::eval_config` has the correct nested pattern; copy from there.
+- **NNLS stacking on the 544-game cal set** — now three documented failures (1.23x amplification, mixed-regime picking the wrong learner, full stack worse than both its components). Treat learned stacking weights at this cal size as unreliable.
 
 ## Loose ends
 

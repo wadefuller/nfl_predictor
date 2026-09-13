@@ -25,7 +25,7 @@ export class SectionBoundary extends Component<Props, State> {
   render() {
     if (!this.state.err) return this.props.children;
     return (
-      <section className="rounded-2xl border border-loss/30 bg-loss/5 px-4 py-3">
+      <section className="report-section rounded-2xl border border-loss/30 bg-loss/5 px-4 py-3">
         <div className="text-[10px] uppercase tracking-wider text-loss font-semibold">
           {this.props.name ?? 'Section'} unavailable
         </div>

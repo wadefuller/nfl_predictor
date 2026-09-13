@@ -51,7 +51,7 @@ export const readableTeamColor = (team: string, target = 0.42) =>
 export function StatTile({ label, value, sub, accent, hint }:
   { label: string; value: React.ReactNode; sub?: React.ReactNode; accent?: string; hint?: string }) {
   return (
-    <div className="flex flex-col rounded-xl border border-border bg-gradient-to-b from-bg-card to-bg-card/30 px-3 py-2.5">
+    <div className="stat-tile flex flex-col rounded-xl border border-border bg-gradient-to-b from-bg-card to-bg-card/30 px-3 py-2.5">
       <div className="text-[10px] uppercase tracking-wider text-text-muted">{label}</div>
       <div className="text-xl font-bold tabular-nums leading-tight mt-0.5" style={accent ? { color: accent } : undefined}>{value}</div>
       {sub && <div className="text-[11px] text-text-secondary mt-0.5">{sub}</div>}
@@ -139,7 +139,7 @@ export function Skeleton({ h = 120, className = '' }: { h?: number; className?: 
 export function PageHero({ kicker, title, badge, right, children }:
   { kicker: string; title: React.ReactNode; badge?: React.ReactNode; right?: React.ReactNode; children?: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-border bg-gradient-to-br from-bg-card to-bg-page/60 p-4 space-y-3">
+    <div className="page-hero relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-bg-card to-bg-page/60 p-4 space-y-3">
       <div className="flex items-center justify-between flex-wrap gap-2">
         <div>
           <div className="text-[10px] uppercase tracking-[0.14em] text-text-muted">{kicker}</div>
@@ -160,11 +160,11 @@ export function PageHero({ kicker, title, badge, right, children }:
 export function SubNav<T extends string>({ items, value, onChange }:
   { items: { key: T; label: string; accent?: string; count?: number }[]; value: T; onChange: (k: T) => void }) {
   return (
-    <div className="flex flex-wrap gap-1 rounded-xl border border-border-light bg-bg-card/40 p-1">
+    <div className="report-subnav flex flex-wrap gap-1 rounded-xl border border-border-light bg-bg-card/40 p-1">
       {items.map(it => {
         const on = it.key === value;
         return (
-          <button key={it.key} onClick={() => onChange(it.key)}
+          <button key={it.key} onClick={() => onChange(it.key)} aria-pressed={on}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
               on ? 'bg-bg-card text-text-primary shadow-sm' : 'text-text-muted hover:text-text-secondary'}`}
             style={on && it.accent ? { boxShadow: `inset 2px 0 0 ${it.accent}` } : undefined}>

@@ -46,7 +46,9 @@
       "ev": 0.058,
       "kelly": 0.169,
       "stake": 25,
-      "payout_if_win": 22
+      "payout_if_win": 22,
+      "result": "loss",
+      "pnl": -25
     },
     {
       "game": "SF @ LA",

@@ -4,6 +4,92 @@ Sorted newest first. Each entry: **what was tried**, **measured outcome**, **why
 
 ---
 
+## XGB-only challenge: properly tuned XGB vs the GLM
+
+**Tried (2026-06-07):** Direct challenge to the GLM-only architecture. The
+earlier "trees have nothing to contribute" conclusion was measured with the
+*production* XGB hyperparameters, which turn out to be badly wrong for this
+task — so it was not a fair test. This gave XGB everything it was missing:
+`base_margin` offsets, monotone constraints, `colsample_bytree` (never swept
+before), the heavy-regularization corner, and gain-based feature selection.
+Harness: `xgb_challenge.R`, `xgb_holdout_check.R`.
+
+**What genuinely improved (KEEP THIS):** the production XGB params score
+**9.8667** on rolling-origin folds 2020-23 — *worse than simply quoting Vegas*
+(9.8134). A monotone constraint on `spread_line` plus depth-2 stumps at
+eta 0.0078, `lambda` 13, `colsample` 0.36, ~440 rounds scores **9.7745**.
+That is a ~0.09 MAE improvement from configuration alone, and it moves XGB
+from worse-than-market to better-than-market. Preserved as
+`ensemble_lib::train_xgb_direct()`, enabled with `XGB_DIRECT=1` (default off).
+
+Why monotone beats residual targeting: with `base_margin = spread_line` XGB
+early-stops at 12-70 rounds — it finds almost nothing in the deviation and
+quits. Constraining `spread_line` monotone on the *standard* target lets it
+run 343+ rounds building a real additive model while still representing the
+linear anchor cleanly.
+
+**Why it still failed — the full 10-season walk-forward (n=2638):**
+
+| Arm | MAE | Brier | LogLoss | Cover | seasons beat Vegas |
+|---|---|---|---|---|---|
+| **GLM-only (production)** | **9.7783** | **0.21033** | **0.60871** | **0.5336** | **4** |
+| XGB-only (tuned+monotone) | 9.8228 | 0.21138 | 0.61107 | 0.5197 | 3 |
+| Full stack (NNLS, tuned XGB) | 9.8393 | 0.21120 | 0.61071 | 0.5284 | 3 |
+| Vegas | 9.7868 | 0.21118 | 0.60983 | 0.4841 | — |
+
+GLM-only wins on **all four** metrics. The tuned XGB-only arm does not even
+beat Vegas on the full window, while GLM-only does.
+
+**The window-selection trap (worth internalising).** On rolling-origin folds
+2020-2023 the tuned XGB appeared to *beat* the GLM by 0.088 MAE (9.7495 vs
+9.8373), with 25 of 30 sweep configs clearing it. That looked decisive. On the
+untouched 2024-25 holdout it **flipped** — GLM 9.5885 vs XGB 9.6638, a 0.075
+loss. Adjacent windows gave opposite answers. **Never conclude an architecture
+comparison from a sub-window; only the full 10-season walk-forward decides.**
+
+**CORRECTION (same day): that 2020-23 "win" was mostly a leak, not a window
+effect.** `xgb_challenge.R::eval_config` early-stops on the same fold it then
+scores, so the stopping round is chosen using validation data. Quantified in
+`tune_hyperparams.R` by running the identical grid with and without nesting on
+2015-2020 folds:
+
+| eval method | best MAE | configs beating market (of 32) |
+|---|---|---|
+| leaky (early-stop on scored fold) | 9.8738 | 1 |
+| **nested (honest)** | **9.9425** | **0** |
+
+The leak is worth **~0.069 MAE**. Applying it to the challenge sweep's 9.7745
+gives ~9.84 — *worse* than the GLM's 9.8373 on that same window. So the fold
+result never actually favoured XGB. Two independent confirmations that it
+doesn't: the full walk-forward (no leak, XGB-only 9.8228 vs GLM 9.7783), and
+the honest nested tune where **zero of 32 configs beat the market**.
+
+The monotone-constraint finding still holds — Stage 1 of the challenge compares
+regimes that all share the same bias, so the *relative* ranking is sound even
+though the absolute numbers are inflated.
+
+**Third strike for NNLS on a 544-game cal set.** The full stack came out
+*worse than either component alone*. Previous instances: the 1.23x GLM
+amplification that wrecked walk-forward magnitude, and the mixed-regime test
+where it picked 100% XGB when 100% GLM was 0.065 better. The stacker is
+actively destructive at this cal-set size — this is now a well-evidenced
+property, not a one-off.
+
+**Revisit if:**
+- `tune_hyperparams.R` is fixed. It is currently producing params that lose to
+  the market (CV-RMSE objective on a 2008-2020 window, no monotone constraint,
+  no `colsample_bytree`, grid does not reach the depth-2 / high-lambda corner).
+  Any future XGB work should start from `train_xgb_direct()`, not from it.
+- Training data grows substantially. XGB won 3 of 10 seasons (2020, 2021,
+  2025) — there may be a regime where it helps, but 3 of 10 is not separable
+  from noise at this n.
+- You want a fixed-weight (NOT NNLS-learned) GLM/XGB blend. Untested on the
+  full walk-forward. Prior evidence is discouraging — a 0.25/0.75 blend lost
+  to pure GLM on 544 games (9.6086 vs 9.6046) — but a fixed weight avoids the
+  cal-set overfitting that sank the learned stack.
+
+---
+
 ## Making XGB / RF competitive with the GLM (residual targeting, shrinkage, mixed-regime stacking)
 
 **Tried (2026-06-07):** Full diagnostic investigation into why the stack is
@@ -521,3 +607,184 @@ When an experiment fails, document it here BEFORE the next session forgets:
 
 **Revisit if:** [conditions under which the experiment becomes worth retrying]
 ```
+
+---
+
+## KEPT (not ruled out) — dead-column pruning
+
+Recorded here for the mechanism note, since this file is where the feature-set
+reasoning lives. **This one was kept.**
+
+**Tried (2026-09-02):** dropped 29 raw columns (117 matrix columns, 30% of the
+design matrix) that `./run_pipeline.sh census` showed carry zero GLM
+coefficients and 1.6% combined XGB gain: team-identity dummies (66), schedule
+dummies (30), rest module (15), officials (4), weather (2).
+
+**Result — all four metrics improved:**
+
+| Metric | Before | After | delta |
+|---|---|---|---|
+| MAE | 9.7783 | 9.7738 | -0.0045 |
+| Brier | 0.21033 | 0.20986 | **-0.00047** |
+| LogLoss | 0.60871 | 0.60749 | **-0.00122** |
+| Cover | 0.5336 | 0.5360 | +0.24pp |
+| seasons beating Vegas | 4 | 5 | +1 |
+
+Brier and LogLoss clear the real-improvement threshold; MAE is inside the noise
+band but the right sign. Six of ten seasons improved and the five most recent
+all did.
+
+**The mechanism I predicted was wrong.** The hypothesis was that fewer candidate
+columns would let cv.glmnet select a *smaller* lambda and retain more signal —
+the reverse of the PFR experiment where adding 42 columns pushed lambda
+1.58 -> 1.91 and knocked out 8 useful coefficients. In fact lambda went **up**
+(1.58 -> 2.06) with the coefficient count unchanged at 19. Best remaining guess
+is reduced variance in the CV lambda selection itself (fewer columns, more
+stable fold-to-fold choice), but that is **unconfirmed**. The win is real and
+reproducible; the explanation is not established. Do not cite the
+lambda-shrinkage story as if it were verified.
+
+**Follow-up worth doing:** the census also flagged higher-XGB-gain but
+zero-GLM blocks — def_epa (58 cols, 15.1% gain), injuries (46, 3.5%),
+snap_counts (21, 2.9%), pythag (6, 4.8%). Those were deliberately NOT pruned
+because L1 can zero a whole block of mutually-correlated weak features, so
+zero coefficients there is weaker evidence of uselessness. Testing them is one
+eval cycle each.
+
+---
+
+## Stage-2 block pruning (injuries / snap_counts / def_epa / pythag)
+
+**Tried (2026-09-02):** after stage-1 pruning shipped, tested the remaining
+zero-GLM-coefficient blocks. Riskier than stage-1 because these carry real XGB
+gain, so "0 coefficients" is weaker evidence — L1 can zero an entire block of
+mutually-correlated weak features.
+
+**Holdout screen looked strong.** Removing them lowers the lambda cv.glmnet
+selects and admits more coefficients — the exact mechanism stage-1 pruning did
+NOT show:
+
+| variant | preds | lambda | coefs | holdout MAE |
+|---|---|---|---|---|
+| baseline | 308 | 2.065 | 19 | 9.5833 |
+| -injuries | 236 | 1.423 | 25 | 9.5683 |
+| -injuries,snap | 212 | 1.297 | 25 | 9.5637 |
+| -injuries,snap,def_epa | 154 | 0.981 | 29 | 9.5514 |
+| all four | 148 | 0.894 | 29 | 9.5482 |
+
+def_epa, snap_counts and pythag are individually **bit-identical** to baseline;
+only the combined column count moves the CV path (threshold ~70+ columns).
+
+**Full walk-forward killed it:**
+
+| arm | predicted MAE | actual MAE | Cover | seasons beating Vegas |
+|---|---|---|---|---|
+| -injuries | -0.0149 | **-0.0018** | -0.43pp | 5 -> 4 |
+| all four | -0.0351 | **-0.0002** | +0.20pp | 5 -> 4 |
+
+Predictions off by 8x and 175x. Arm A regresses Cover past threshold; Arm B is
+inside noise on every metric and worse in **6 of 10 seasons**, with the flat
+average carried entirely by 2016 (-0.040) and 2024 (-0.077).
+
+**Why the mechanism misleads:** the lambda drop is real, but a single
+2008-2023 fit is one draw of the CV path. The walk-forward retrains per fold
+with different data sizes, so the lambda selection differs per fold and the
+effect washes out. **A mechanism being real is not evidence the intervention
+works.**
+
+**Kept as opt-in** (`PRUNE_BLOCKS=...`, default off). Arm B is an accuracy wash
+with 52% fewer predictors (308 -> 148), so it is defensible purely for fit
+speed. Not default because it costs a season of beating Vegas and strips every
+defensive and injury feature — fine on average, plausibly brittle in specific
+matchups.
+
+**Process note — this experiment was run twice.** The first run returned
+bit-identical results across all three arms. That was a bug, not a finding:
+`walk_forward_eval.R` carried its own `prep_reg()`, a byte-for-byte copy of
+`prep_for_train` that read `LEAKAGE_VARS_REG` directly and so picked up
+stage-1 pruning but silently skipped stage-2's pattern expansion. `prep_reg`
+is now a one-line delegate. **Third-decimal-identical results across arms that
+should differ are a bug signature, not a null result.**
+
+---
+
+## GLM alpha re-tune under the GLM-only architecture
+
+**Tried (2026-09-02):** the GLM is now 100% of production, and its alpha was
+picked on 2026-05-24 by a *single 544-game split*, under the old multi-stacker
+that amplified GLM output by 1.23x. Rewrote `tune_glm.R` with rolling-origin
+folds (2015-2020, matching `tune_hyperparams.R`), a 10-value grid, and a
+per-fold winner table.
+
+**Result — alpha is not determined by the data:**
+
+| | |
+|---|---|
+| Brier spread across 10 alphas | 0.00074 |
+| Winner (0.95) over runner-up (0.80) | **0.00007** |
+| Per-fold best | 2015:0.10  2016:0.02  2017:0.95  2018:0.95  2019:0.95  2020:0.95 |
+| Distinct winners across 6 folds | 3 |
+
+Selecting on Brier picks 0.95; selecting on MAE picks 0.10. **When the choice
+of objective determines the parameter, you are ranking noise.**
+
+**Walk-forward confirms it does not matter:**
+
+| arm | MAE | Brier | LogLoss | Cover | beat Vegas |
+|---|---|---|---|---|---|
+| alpha=0.25 (incumbent) | 9.7738 | 0.20986 | 0.60749 | 0.5360 | 5 |
+| alpha=0.95 (sweep winner) | 9.7741 | 0.20982 | 0.60730 | 0.5349 | 4 |
+
+Every delta inside noise; 0.95 also costs a Vegas-beating season. Incumbent
+retained.
+
+**The real finding was a safety hazard, now fixed.** The tuner overwrote
+production's alpha 0.25 -> 0.95 *while printing "prefer the incumbent"* — a
+script that computes the correct warning and then does the wrong thing anyway,
+the same shape as the old `tune_hyperparams.R` shipping params 0.445 MAE worse
+than the market. `tune_glm.R` now **keeps the incumbent alpha when the sweep is
+undetermined** and saves the sweep for inspection only. A 0.00007 Brier margin
+is how an arbitrary choice acquires the appearance of having been tuned.
+
+**Do not re-run this hoping for a different answer.** Alpha is flat across
+0.10-0.95 on this data; the only thing that moves is the coefficient count
+(89 at alpha 0.02, down to 17 at 0.95). If you want a leaner model for its own
+sake, alpha 0.95 gives 17 coefficients at no measurable accuracy cost — but it
+is not an accuracy improvement.
+
+---
+
+## BUG FIXED — prep_for_predict re-derived the drop list from the environment
+
+**Found (2026-09-02)** while smoke-testing the production serving path after a
+session of prep/stacking changes. Not an experiment; a live correctness bug
+introduced earlier the same session.
+
+`prep_for_predict()` computed its drop list as
+`c(leakage_vars, expand_prune_blocks(names(data)))`. The `expand_prune_blocks`
+call was added as "belt and braces" for callers passing the bare global. It was
+actively harmful: with `PRUNE_BLOCKS` set in the serving environment,
+predicting from a bundle trained WITHOUT it stripped columns the baked recipe
+required and threw inside `hardhat::validate_column_names`.
+
+```
+PRUNE_BLOCKS=injuries,def_epa Rscript -e 'predict_with_ensemble(bundle, data)'
+  -> Error in hardhat::validate_column_names(...)
+```
+
+**Fix:** prediction-time selection is driven ONLY by `leakage_vars`, which for
+the production path is `bundle$leakage_vars` — the effective list
+`train_and_save_ensemble.R` stores at train time. A trained artifact must
+predict identically regardless of ambient environment.
+
+**Verified:** identical checksums (63.854064, 0 NAs) across `<env unset>`,
+`PRUNE_DEAD=0`, `PRUNE_BLOCKS=injuries,def_epa`, and both set together.
+
+**Principle:** the trained bundle is the source of truth for its own feature
+contract. Any code path that re-derives that contract from config at serve time
+is a bug waiting for a mismatched environment.
+
+**Serving path now smoke-tested end-to-end** — `predict_with_ensemble` on both
+completed and unplayed games (0 NAs, sane ranges), plus a full `export_json.R`
+run producing 112/285/285 games with valid win probs (0.501-0.927), lines
+(-11.8 to 14.7) and implied scores (14.4-31.1).

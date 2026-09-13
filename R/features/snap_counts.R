@@ -12,7 +12,10 @@ extract_snap_features <- function(seasons) {
   ol_pos  <- c("T","G","C","OL","LT","RT","LG","RG","OT","OG")
   sec_pos <- c("CB","S","FS","SS","DB")
 
-  sc <- nflreadr::load_snap_counts(sc_seasons) %>%
+  sc <- expect_frame(nflreadr::load_snap_counts(sc_seasons),
+                     cols = c("game_type", "team", "week", "season", "position",
+                             "offense_pct", "defense_pct"),
+                     label = sprintf("load_snap_counts(%d-%d)", min(sc_seasons), max(sc_seasons))) %>%
     filter(game_type == "REG", !is.na(team), !is.na(week)) %>%
     normalize_team_names() %>%
     transmute(season, week, team, position,

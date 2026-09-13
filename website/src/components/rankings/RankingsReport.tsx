@@ -32,15 +32,15 @@ function FreshnessTag({ updated }: { updated?: string | null }) {
 function Section({ title, subtitle, accent, right, children }:
   { title: string; subtitle?: string; accent: string; right?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border border-border bg-bg-card/60 overflow-hidden">
-      <div className="flex items-center justify-between border-b border-border-light px-4 py-3" style={{ boxShadow: `inset 3px 0 0 ${accent}` }}>
+    <section className="report-section rounded-2xl border border-border bg-bg-card/60 overflow-hidden">
+      <div className="report-section__header flex items-center justify-between border-b border-border-light px-4 py-3" style={{ boxShadow: `inset 3px 0 0 ${accent}` }}>
         <div>
           <h3 className="text-sm font-semibold text-text-primary tracking-tight">{title}</h3>
           {subtitle && <p className="text-[11px] text-text-muted mt-0.5">{subtitle}</p>}
         </div>
         {right}
       </div>
-      <div className="p-4 space-y-3">{children}</div>
+      <div className="report-section__body p-4 space-y-3">{children}</div>
     </section>
   );
 }
@@ -232,6 +232,8 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
     });
   }, [snap, pos, sort]);
   const viewingWk = snap?.week;
+  const openingBaselineLocked = snap?.baseline?.type === 'season_opening' && snap?.baseline?.locked === true;
+  const baselineTag = snap?.baseline?.source_tag ?? `${season}-wk00`;
 
   const sortBy = (key: string, defDir: 1 | -1 = 1) =>
     setSort(s => (s.key === key ? { key, dir: (s.dir * -1) as 1 | -1 } : { key, dir: defDir }));
@@ -294,6 +296,7 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
           <div className="flex items-center justify-between">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-[11px] text-text-muted">{FMT_LABEL[activeFmt] ?? activeFmt} · {hasActuals ? `final performance through ${getWeekLabel(viewingWk)}` : 'preseason rankings'}</span>
+              {openingBaselineLocked && <span title={`Model projections and ECR ranks are fixed from ${baselineTag}. Weekly results are scored against this opening board.`} className="rounded-full border border-[#d29922]/35 bg-[#d29922]/10 px-1.5 py-0.5 text-[9px] font-semibold text-[#d29922]">Locked opening baseline</span>}
               <FreshnessTag updated={snap?.updated} />
             </div>
             {formats.length > 1 && (
@@ -314,6 +317,7 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
         <PageHero kicker="Rankings vs ECR"
           title={`${season}${viewingWk != null && viewingWk >= 1 ? ` · through ${getWeekLabel(viewingWk)}` : ' · Preseason'}`}
           right={<div className="flex items-center gap-2">
+            {openingBaselineLocked && <span title={`Model projections and ECR ranks are fixed from ${baselineTag}. Weekly results are scored against this opening board.`} className="rounded-full border border-[#d29922]/35 bg-[#d29922]/10 px-1.5 py-0.5 text-[9px] font-semibold text-[#d29922]">Locked opening baseline</span>}
             <FreshnessTag updated={snap?.updated} />
             {formats.length > 1 && (
               <div className="flex gap-1">
@@ -344,7 +348,7 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
       </Section>
 
       {/* full comparison */}
-      <Section title="Full board" accent={ECR_ORANGE} subtitle="my season model rank vs FantasyPros ECR"
+      <Section title="Full board" accent={ECR_ORANGE} subtitle={openingBaselineLocked ? 'opening model projection and ECR rank baseline · fixed for year-end grading' : 'per-game projection first; season-total rank and VOR shown as context'}
         right={
           <div className="flex items-center gap-2">
             <span className="hidden text-[10px] text-text-muted sm:inline">{players.length} players · scroll to explore</span>
@@ -359,11 +363,13 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
           <table className="min-w-[76rem] w-full text-xs tabular-nums">
             <thead className="sticky top-0 z-10 bg-bg-card shadow-[0_1px_0_var(--color-border-light)]"><tr className="text-text-muted">
               {([
-                ['Pos#', 'my_pos_rank', 'left'], ['Player', 'player', 'left'], ['Tm', 'team', 'left'],
-                ['My Rank', 'my_pos_rank', 'right'], ['ECR', 'ecr_pos_rank', 'right'], ['Δ', 'delta', 'left'], ['Proj', 'proj', 'right'], ['VOR', 'vor', 'right'],
+                ['Pos#', 'my_ppg_rank', 'left'], ['Player', 'player', 'left'], ['Tm', 'team', 'left'],
+                ['PPG', 'proj', 'right'], ['PPG#', 'my_ppg_rank', 'right'],
+                ['ECR', 'ecr_pos_rank', 'right'], ['Δ', 'delta', 'left'],
+                ['Season#', 'my_pos_rank', 'right'], ['Pts', 'season_total', 'right'], ['VOR', 'vor', 'right'],
                 ...(hasActuals ? [['Pts Finish', 'actual_finish', 'right'], ['PPG Finish', 'actual_ppg_finish', 'right'], ['My Err', 'my_err', 'right'], ['ECR Err', 'ecr_err', 'right'], ['PPG (gms)', 'actual_ppg', 'right'], ['Pts', 'actual_pts', 'right']] : []),
               ] as [string, string, string][]).map(([label, key, align]) => (
-                <th key={label} onClick={() => sortBy(key, key === 'proj' || key === 'vor' || key === 'actual_ppg' || key === 'actual_pts' || key === 'delta' ? -1 : 1)}
+                <th key={label} onClick={() => sortBy(key, key === 'proj' || key === 'vor' || key === 'season_total' || key === 'actual_ppg' || key === 'actual_pts' || key === 'delta' ? -1 : 1)}
                   className={`px-2.5 py-2 font-medium cursor-pointer select-none hover:text-text-primary whitespace-nowrap ${align === 'right' ? 'text-right' : 'text-left'}`}>
                   {label}{sort.key === key ? (sort.dir === 1 ? ' ▲' : ' ▼') : ''}
                 </th>
@@ -372,17 +378,27 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
             <tbody>
               {players.map((p: any, i: number) => (
                 <tr key={i} className="border-b border-border-light/50 hover:bg-bg-card-hover">
-                  <td className="px-2.5 py-1.5 text-text-muted">{p.position}{p.my_pos_rank}</td>
+                  <td className="px-2.5 py-1.5 text-text-muted">{p.position}{p.my_ppg_rank}</td>
                   <td className="px-2.5 py-1.5 text-text-primary whitespace-nowrap">{p.player}</td>
                   <td className="px-2.5 py-1.5"><TeamChip team={p.team ?? ''} /></td>
-                  <td className="px-2.5 py-1.5 text-right" style={{ color: MODEL_BLUE }}>{p.my_pos_rank}</td>
+                  {/* LEAD with the per-game rate: it is the better-calibrated
+                      estimate on the startable tier (slope 1.12 vs 0.79). */}
+                  <td className="px-2.5 py-1.5 text-right text-text-primary font-semibold tabular-nums">
+                    {num(p.proj)}
+                  </td>
+                  <td className="px-2.5 py-1.5 text-right tabular-nums" style={{ color: MODEL_BLUE }}>
+                    {p.my_ppg_rank != null ? p.my_ppg_rank : '–'}
+                  </td>
                   <td className="px-2.5 py-1.5 text-right" style={{ color: ECR_ORANGE }}>{p.ecr_pos_rank}</td>
                   <td className="px-2.5 py-1.5 whitespace-nowrap"><DeltaBar v={p.delta} /></td>
-                  <td className="px-2.5 py-1.5 text-right text-text-secondary">{num(p.proj)}</td>
-                  {/* VOR is the cross-position currency: pos ranks say WHO I prefer
-                      within a position, VOR says how much the disagreement is worth. */}
-                  <td className="px-2.5 py-1.5 text-right text-text-primary font-medium">
-                    {p.vor != null ? Math.round(p.vor) : <span className="text-text-muted font-normal">–</span>}
+                  {/* Season-total basis: still what the board RANKS on (it predicts
+                      final standings better), but demoted visually. */}
+                  <td className="px-2.5 py-1.5 text-right text-text-muted tabular-nums">{p.my_pos_rank}</td>
+                  <td className="px-2.5 py-1.5 text-right text-text-muted tabular-nums">
+                    {p.season_total != null ? Math.round(p.season_total) : '–'}
+                  </td>
+                  <td className="px-2.5 py-1.5 text-right text-text-muted tabular-nums">
+                    {p.vor != null ? Math.round(p.vor) : '–'}
                   </td>
                   {hasActuals && (
                     <>

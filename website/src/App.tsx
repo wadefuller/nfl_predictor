@@ -153,20 +153,21 @@ export default function App() {
         onSeasonChange={setSelectedSeason}
         onWeekChange={setSelectedWeek}
         showControls={!isFantasy}
+        showWeekPicker={view === 'weekly'}
         product={product}
         onProductChange={changeProduct}
       />
 
-      <main className="mx-auto max-w-7xl px-4 py-6 space-y-4">
-        <div className="flex flex-wrap items-center gap-1 border-b border-border-light" aria-label={`${product === 'predictor' ? 'Predictor' : 'Fantasy HQ'} navigation`}>
+      <main className="app-main mx-auto max-w-7xl px-4 py-6 space-y-4">
+        <div className="app-view-nav flex flex-wrap items-center gap-1" aria-label={`${product === 'predictor' ? 'Predictor' : 'Fantasy HQ'} navigation`}>
           {(product === 'predictor' ? PREDICTOR_TABS : FANTASY_TABS).map(([k, label]) => (
             <button
               key={k}
               onClick={() => changeView(k, k === 'weekly' && product === 'fantasy' ? 'lineups' : null)}
-              className={`px-3 py-1.5 text-sm font-medium -mb-px border-b-2 ${
+              className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
                 view === k
-                  ? 'border-accent text-text-primary'
-                  : 'border-transparent text-text-muted hover:text-text-secondary'
+                  ? 'bg-bg-card text-text-primary shadow-sm'
+                  : 'text-text-muted hover:bg-bg-card/60 hover:text-text-secondary'
               }`}
             >
               {label}

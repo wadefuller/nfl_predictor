@@ -21,7 +21,7 @@ const WIN = '#3fb950', LOSS = '#f85149', GOLD = '#d29922', PURPLE = '#a371f7';
 function Panel({ title, subtitle, legend, children }:
   { title: string; subtitle?: string; legend?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-border-light bg-bg-card/40 p-3 space-y-2">
+    <div className="surface-panel rounded-xl border border-border-light bg-bg-card/40 p-3 space-y-2">
       <div className="flex items-start justify-between gap-2">
         <div>
           <div className="text-xs font-semibold text-text-primary">{title}</div>
@@ -37,15 +37,15 @@ function Panel({ title, subtitle, legend, children }:
 function Section({ title, subtitle, accent, children, right }:
   { title: string; subtitle?: string; accent: string; right?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border border-border bg-bg-card/60 overflow-hidden">
-      <div className="flex items-center justify-between border-b border-border-light px-4 py-3" style={{ boxShadow: `inset 3px 0 0 ${accent}` }}>
+    <section className="report-section rounded-2xl border border-border bg-bg-card/60 overflow-hidden">
+      <div className="report-section__header flex items-center justify-between border-b border-border-light px-4 py-3" style={{ boxShadow: `inset 3px 0 0 ${accent}` }}>
         <div>
           <h3 className="text-sm font-semibold text-text-primary tracking-tight">{title}</h3>
           {subtitle && <p className="text-[11px] text-text-muted mt-0.5">{subtitle}</p>}
         </div>
         {right}
       </div>
-      <div className="p-4 space-y-4">{children}</div>
+      <div className="report-section__body p-4 space-y-4">{children}</div>
     </section>
   );
 }
@@ -247,6 +247,26 @@ const SEASON_GROUPS: { key: SeasonGroup; label: string; accent: string }[] = [
 /** Sub-tab keys this view accepts in a permalink. */
 export const SEASON_GROUP_KEYS: string[] = SEASON_GROUPS.map(g => g.key);
 
+function SeasonEmptyState({ season, onNavigate }: { season: number; onNavigate?: (season: number, week: number) => void }) {
+  const priorSeason = season - 1;
+  return (
+    <section className="relative overflow-hidden rounded-2xl border border-border bg-bg-card/60 p-6 sm:p-8">
+      <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(440px 220px at 100% 0%, rgba(88,166,255,0.11), transparent 70%)' }} />
+      <div className="relative max-w-lg">
+        <div className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.14em] text-accent">Season tracking</div>
+        <h3 className="mt-3 text-lg font-semibold tracking-tight text-text-primary">Performance history will populate after the first graded slate.</h3>
+        <p className="mt-2 text-sm leading-relaxed text-text-secondary">The weekly board is live now. Model accuracy, calibration, and strategy return appear here once completed games have been reconciled.</p>
+        {onNavigate && (
+          <button type="button" onClick={() => onNavigate(priorSeason, 1)}
+            className="mt-5 rounded-lg border border-border bg-bg-card-hover px-3 py-2 text-xs font-semibold text-text-primary transition-colors hover:border-accent/60 hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent">
+            Review {priorSeason} performance →
+          </button>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export function SeasonReport({ performance, season, week, onNavigate, group: groupProp, onGroupChange }: SeasonReportProps) {
   const group: SeasonGroup =
     SEASON_GROUPS.some(g => g.key === groupProp) ? (groupProp as SeasonGroup) : 'model';
@@ -258,7 +278,7 @@ export function SeasonReport({ performance, season, week, onNavigate, group: gro
       <SubNav items={SEASON_GROUPS} value={group} onChange={setGroup} />
       {group === 'model' && (performance && performance.weeklyStats.length > 0
         ? <ModelSection performance={performance} />
-        : <div className="rounded-2xl border border-border bg-bg-card/60 p-6 text-center text-text-muted text-sm">No model performance data for {season}.</div>)}
+        : <SeasonEmptyState season={season} onNavigate={onNavigate} />)}
       {group === 'betting' && <BettingSection season={season} />}
       {group === 'fantasy' && <FantasySection season={season} />}
       {/* Rankings-vs-ECR is a season-long view, so it lives here rather than as

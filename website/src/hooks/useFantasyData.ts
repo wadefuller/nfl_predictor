@@ -87,3 +87,24 @@ export function useLeague(key: string | null) {
 
   return { data, loading };
 }
+
+// A cross-league workspace needs one coherent feed rather than forcing a user
+// to visit five separate league pages. Keep it alongside the existing per-league
+// hook so both views share the same safe JSON handling.
+export function useAllLeagues() {
+  const { meta, loading: metaLoading } = useFantasyMeta();
+  const [data, setData] = useState<LeagueData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    if (!meta) return;
+    setLoading(true);
+    Promise.all(meta.leagues.map(l => getJson<LeagueData>(dataUrl(`/data/fantasy/leagues/${l.key}.json`))))
+      .then(rows => { if (!cancelled) setData(rows.filter((x): x is LeagueData => x !== null)); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+  }, [meta]);
+
+  return { data, loading: metaLoading || loading };
+}

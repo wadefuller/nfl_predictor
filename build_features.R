@@ -49,6 +49,7 @@ SEASONS <- 2000:2026
 # The full rebuild runs weekly, on Tuesday, after the week completes.
 
 # ---- Load infra (shared helpers) ----
+source("/Users/wadefuller/Projects/R/shared/contracts.R")
 source(file.path(PROJECT_DIR, "R/infra/team_normalize.R"))
 source(file.path(PROJECT_DIR, "R/infra/data_loaders.R"))
 source(file.path(PROJECT_DIR, "R/infra/rolling.R"))

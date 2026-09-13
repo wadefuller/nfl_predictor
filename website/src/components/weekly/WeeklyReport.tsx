@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getTeamColor } from '../../data/teamColors';
 import { teamNames } from '../../data/teamMeta';
 import { WinProbabilityBar } from '../games/WinProbabilityBar';
@@ -6,6 +6,7 @@ import { num, clamp, hexToRgba, obj, StatTile, TeamChip, EdgeBadge, RangeBar, Sk
 import { TopBets, type TopBetRow } from '../games/TopBets';
 import { SectionBoundary } from '../ui/SectionBoundary';
 import { LeagueReportSection } from './LeagueReportSection';
+import { TransactionDesk } from '../fantasy/TransactionDesk';
 import { dataUrl } from '../../lib/dataUrl';
 
 // ---- types -----------------------------------------------------------------
@@ -21,16 +22,12 @@ const SECTION_ACCENT: Record<string, string> = {
   weekly_accuracy: '#d29922', league_report: '#f778ba', dst_stream: '#56b6c2', fantasy_ranks: '#3fb950',
 };
 
-const ReportFreshnessContext = createContext<string | null>(null);
-
-function FreshnessTag() {
-  const updated = useContext(ReportFreshnessContext);
+function formatFreshness(updated: string | null | undefined) {
   if (!updated) return null;
   const parsed = new Date(updated.replace(/([+-]\d{2})(\d{2})$/, '$1:$2'));
-  const label = Number.isNaN(parsed.getTime())
+  return Number.isNaN(parsed.getTime())
     ? updated
     : parsed.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
-  return <span title={`Report generated ${updated}`} className="rounded-full border border-border-light bg-bg-card-hover px-1.5 py-0.5 text-[9px] font-medium tabular-nums text-text-muted">Data as of {label}</span>;
 }
 
 async function getJSON<T>(url: string): Promise<T | null> {
@@ -41,19 +38,16 @@ async function getJSON<T>(url: string): Promise<T | null> {
 function Section({ id, title, subtitle, accent = 'var(--color-accent)', right, children }:
   { id: string; title: string; subtitle?: string; accent?: string; right?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <section id={id} className="scroll-mt-28 rounded-2xl border border-border bg-bg-card/60 overflow-hidden">
-      <div className="flex items-center justify-between border-b border-border-light px-4 py-3"
+    <section id={id} className="report-section scroll-mt-28 rounded-2xl border border-border bg-bg-card/60 overflow-hidden">
+      <div className="report-section__header flex items-center justify-between border-b border-border-light px-4 py-3"
         style={{ boxShadow: `inset 3px 0 0 ${accent}` }}>
         <div>
           <h3 className="text-sm font-semibold text-text-primary tracking-tight">{title}</h3>
           {subtitle && <p className="text-[11px] text-text-muted mt-0.5">{subtitle}</p>}
         </div>
-        <div className="flex items-center gap-2">
-          <FreshnessTag />
-          {right}
-        </div>
+        {right && <div className="flex items-center gap-2">{right}</div>}
       </div>
-      <div className="p-4 space-y-3">{children}</div>
+      <div className="report-section__body p-4 space-y-3">{children}</div>
     </section>
   );
 }
@@ -491,6 +485,64 @@ function KalshiLines({ d }: { d: any }) {
 }
 
 /**
+ * A single venue-neutral market board. It replaces two visually identical
+ * provider reports with one ranked answer to the question users actually ask:
+ * where is the best live price this week?
+ */
+function MarketBoard({ polymarket, kalshi }: { polymarket: any[]; kalshi: any[] }) {
+  const moneyline = polymarket.filter(m => m.qualifies).map(m => ({
+    key: `pm-${m.market_id}-${m.bet_team}`,
+    venue: 'Polymarket', color: '#c9a7ff',
+    pick: `${m.bet_team} YES`, matchup: m.question ?? `${m.bet_team} vs ${m.opponent}`,
+    model: Number(m.model_probability), price: `${Math.round(Number(m.ask) * 100)}¢`,
+    ev: Number(m.net_ev), detail: `$${Math.round(Number(m.liquidity ?? 0)).toLocaleString()} liquidity`,
+    href: `https://polymarket.com/event/${m.slug}`,
+  }));
+  const spreads = kalshi.filter(m => m.qualifies).map(m => ({
+    key: `kalshi-${m.market_ticker}`,
+    venue: 'Kalshi', color: '#f0b44d',
+    pick: `${m.team} by ${Number(m.threshold).toFixed(1)}+`,
+    matchup: String(m.game_id ?? '').replace(/^\d{4}_\d{2}_/, '').replace('_', ' @ '),
+    model: Number(m.model_probability), price: `${Math.round(Number(m.ask) * 100)}¢`,
+    ev: Number(m.ev), detail: `${(Number(m.fee_estimate ?? 0) * 100).toFixed(1)}¢ fee estimate`,
+    href: `https://kalshi.com/markets/${m.event_ticker}`,
+  }));
+  const opportunities = [...moneyline, ...spreads].sort((a, b) => b.ev - a.ev);
+  if (opportunities.length === 0) return null;
+  return (
+    <Section id="market_board" title="Market board" accent="#c9a7ff"
+      subtitle="Venue-neutral opportunities, ranked by estimated return after execution costs"
+      right={<span className="text-[10px] tabular-nums text-text-muted">{opportunities.length} live opportunities</span>}>
+      <div className="overflow-hidden rounded-xl border border-border-light">
+        <div className="hidden grid-cols-[5.8rem_minmax(0,1fr)_4.5rem_4rem_4.5rem] items-center gap-3 border-b border-border-light bg-bg-card-hover/50 px-3 py-1.5 text-[8px] font-medium uppercase tracking-wider text-text-muted sm:grid">
+          <span>Venue</span><span>Position</span><span className="text-right">Model</span><span className="text-right">Price</span><span className="text-right">Net EV</span>
+        </div>
+        <div className="divide-y divide-border-light">
+          {opportunities.map(item => (
+            <a key={item.key} href={item.href} target="_blank" rel="noreferrer"
+              className="group grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 px-3 py-2.5 transition-colors hover:bg-bg-card-hover sm:grid-cols-[5.8rem_minmax(0,1fr)_4.5rem_4rem_4.5rem] sm:items-center">
+              <span className="hidden w-fit rounded-full border px-2 py-0.5 text-[9px] font-semibold sm:inline-flex" style={{ borderColor: `${item.color}66`, background: `${item.color}14`, color: item.color }}>{item.venue}</span>
+              <div className="min-w-0">
+                <div className="flex min-w-0 items-center gap-1.5">
+                  <span className="inline-flex rounded-full border px-1.5 py-px text-[8px] font-semibold sm:hidden" style={{ borderColor: `${item.color}66`, color: item.color }}>{item.venue}</span>
+                  <span className="truncate text-xs font-semibold text-text-primary group-hover:text-white">{item.pick}</span>
+                </div>
+                <div className="mt-0.5 truncate text-[10px] text-text-muted">{item.matchup} · {item.detail}</div>
+              </div>
+              <div className="text-right text-xs font-semibold tabular-nums text-text-primary">{Math.round(item.model * 100)}%<span className="block text-[9px] font-normal text-text-muted sm:hidden">model</span></div>
+              <div className="hidden text-right text-xs tabular-nums text-text-secondary sm:block">{item.price}</div>
+              <div className="hidden text-right text-xs font-semibold tabular-nums text-win sm:block">+{num(item.ev * 100, 1)}%</div>
+              <div className="col-span-2 mt-1 flex gap-2 text-[10px] tabular-nums sm:hidden"><span>{item.price} ask</span><span className="font-semibold text-win">+{num(item.ev * 100, 1)}% net EV</span></div>
+            </a>
+          ))}
+        </div>
+      </div>
+      <p className="text-[10px] leading-relaxed text-text-muted">Prices are read-only market snapshots. Polymarket EV includes the displayed YES ask and execution allowance; Kalshi EV includes estimated contract fees. Open a venue to review its current order book and rules.</p>
+    </Section>
+  );
+}
+
+/**
  * One live read for the whole page.
  *
  * Live Sunday and the Watching Guide both need the same three things — league
@@ -578,12 +630,16 @@ function useLiveData(d: any) {
           const competition = event.competitions?.[0];
           const status = event.status ?? competition?.status;
           const competitors = competition?.competitors ?? [];
+          const kickoff = event.date
+            ? new Date(event.date).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })
+            : 'Time TBD';
           competitors.forEach((c: any) => {
             const raw = c.team?.abbreviation;
             const team = raw ? (ESPN_TEAM_FIX[raw] ?? raw) : raw;
             if (team) games[team] = {
               event: event.name, score: c.score ?? '0', state: status?.type?.state,
               detail: status?.type?.detail ?? status?.type?.shortDetail ?? 'Scheduled',
+              kickoff,
               // Raw clock, so a live win probability can weight how much of the
               // game is still to come rather than treating a player mid-game as
               // either finished or unplayed.
@@ -600,10 +656,7 @@ function useLiveData(d: any) {
                   const clock = status?.displayClock;
                   return period && clock ? `Q${period} ${clock}` : (status?.type?.shortDetail ?? 'Live');
                 }
-                const kick = event.date ? new Date(event.date) : null;
-                return kick
-                  ? kick.toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })
-                  : 'Scheduled';
+                return kickoff;
               })(),
             };
           });
@@ -977,7 +1030,7 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
   );
 }
 
-function WatchingGuide({ d, actualStarters }: { d: any; actualStarters: Map<string, any[]> }) {
+function WatchingGuide({ d, live, actualStarters }: { d: any; live: any; actualStarters: Map<string, any[]> }) {
   // Organised by GAME, not by player.
   //
   // The previous shape was two flat columns — everyone you are rooting for, then
@@ -1030,7 +1083,12 @@ function WatchingGuide({ d, actualStarters }: { d: any; actualStarters: Map<stri
     Array.from(byLeague.values()).flat().forEach((r: any) => touch(r, 'mine'));
     arr(d.opponent_lineups).forEach((r: any) => touch(r, 'against'));
 
-    return Array.from(byGame.values()).map((g: any) => {
+    return Array.from(byGame.values()).filter((g: any) =>
+      // A guide is for the remainder of the slate. ESPN attaches the same NFL
+      // status to both teams, but checking either side makes this robust when a
+      // provider has only populated one team entry.
+      !g.teams.some((team: string) => live?.games?.[team]?.state === 'post')
+    ).map((g: any) => {
       // Net projected points at stake: what your rosters stand to gain from this
       // game minus what your opponents' do. A game with equal representation is
       // a genuine wash, and the card says so rather than implying a side.
@@ -1042,10 +1100,12 @@ function WatchingGuide({ d, actualStarters }: { d: any; actualStarters: Map<stri
       const ids = (rows: any[]) => new Set(rows.map((r: any) => `${r.team}::${r.player}`));
       const mineIds = ids(g.mine), againstIds = ids(g.against);
       const conflicted = new Set([...mineIds].filter(k => againstIds.has(k)));
+      const game = g.teams.map((team: string) => live?.games?.[team]).find(Boolean);
       return { ...g, forPts, againstPts, net: forPts - againstPts, conflicted,
+               kickoff: game?.kickoff ?? 'Time TBD',
                involved: g.mine.length + g.against.length };
     }).sort((a: any, b: any) => Math.abs(b.net) - Math.abs(a.net) || b.involved - a.involved);
-  }, [d, actualStarters]);
+  }, [d, live?.games, actualStarters]);
 
   // One person rostered in three leagues is one row with a x3, not three rows.
   const collapse = (rows: any[]) => {
@@ -1092,8 +1152,8 @@ function WatchingGuide({ d, actualStarters }: { d: any; actualStarters: Map<stri
 
   return (
     <Section id="watching_guide" title="Watching Guide" accent={SECTION_ACCENT.lineups}
-      subtitle="your stake in each game · started players across every league">
-      {games.length === 0 ? <p className="text-xs text-text-muted">Opponent lineups are not available yet.</p> : (
+      subtitle="your stake in remaining games · started players across every league">
+      {games.length === 0 ? <p className="text-xs text-text-muted">No remaining games to watch.</p> : (
         <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
           {games.map((g: any) => {
             const lean = g.net > 0.5 ? 'for' : g.net < -0.5 ? 'against' : 'wash';
@@ -1101,11 +1161,14 @@ function WatchingGuide({ d, actualStarters }: { d: any; actualStarters: Map<stri
                         : lean === 'against' ? 'var(--color-loss)' : 'var(--color-text-muted)';
             return (
               <div key={g.key} className="overflow-hidden rounded-lg border border-border-light bg-bg-card/30">
-                <div className="flex items-baseline justify-between gap-2 border-b border-border-light px-2.5 py-1.5"
+                <div className="flex items-center justify-between gap-2 border-b border-border-light px-2.5 py-1.5"
                   style={{ boxShadow: `inset 2px 0 0 ${color}` }}>
-                  <span className="min-w-0 truncate text-[11.5px] font-semibold text-text-primary">
-                    {g.teams[0]} <span className="font-normal text-text-muted">v</span> {g.teams[1]}
-                  </span>
+                  <div className="min-w-0">
+                    <div className="truncate text-[11.5px] font-semibold text-text-primary">
+                      {g.teams[0]} <span className="font-normal text-text-muted">v</span> {g.teams[1]}
+                    </div>
+                    <div className="mt-0.5 text-[9px] font-medium text-text-muted">{g.kickoff}</div>
+                  </div>
                   <span className="shrink-0 text-[10px] font-semibold tabular-nums" style={{ color }}>
                     {lean === 'wash' ? 'even' : `${g.net > 0 ? '+' : '−'}${num(Math.abs(g.net))} net`}
                   </span>
@@ -1270,9 +1333,68 @@ function MyLineups({ d }: { d: any }) {
   const actualStarters = useActualStarters(d, live);
   return <>
     <LiveSunday d={d} live={live} leagues={leagues} refresh={refresh} actualStarters={actualStarters} />
-    <WatchingGuide d={d} actualStarters={actualStarters} />
+    <WatchingGuide d={d} live={live} actualStarters={actualStarters} />
     <Lineups d={d} />
   </>;
+}
+
+/** A short, cross-league priority list ahead of the detailed roster reports. */
+function RosterActionQueue({ lineups, waivers, dst, onOpenLineups }: {
+  lineups: any; waivers: any; dst: any; onOpenLineups: () => void;
+}) {
+  const starters = arr(lineups?.lineups).filter((row: any) => row.status === 'START');
+  const leagues = new Set(starters.map((row: any) => row.league));
+  const waiverMoves = arr(waivers?.waivers)
+    .filter((row: any) => row.suggested_add && row.suggested_drop)
+    .sort((a: any, b: any) => (Number(b.net_gain) || 0) - (Number(a.net_gain) || 0))
+    .slice(0, 2);
+  const stream = arr(dst?.board)[0];
+  const priorities = [
+    ...waiverMoves.map((move: any) => ({
+      kind: 'Wire', tone: 'text-win', title: `Add ${move.suggested_add}`,
+      detail: `Drop ${move.suggested_drop} · ${move.league ?? 'League'}`,
+      value: Number(move.net_gain) ? `+${num(move.net_gain)} this week` : 'Review upgrade', href: '#waivers',
+    })),
+    ...(stream ? [{
+      kind: 'Stream', tone: 'text-[#56b6c2]', title: `${stream.team} DST`,
+      detail: `${stream.is_home ? 'vs' : '@'} ${stream.opp} · lowest opponent total`,
+      value: `${num(stream.opp_implied)} implied pts`, href: '#dst_stream',
+    }] : []),
+  ].slice(0, 3);
+
+  if (!starters.length && !priorities.length) return null;
+  return (
+    <section className="report-section overflow-hidden rounded-2xl border border-border bg-bg-card/60">
+      <div className="report-section__header flex flex-wrap items-center justify-between gap-3 border-b border-border-light px-4 py-3" style={{ boxShadow: 'inset 3px 0 0 #3fb950' }}>
+        <div>
+          <h3 className="text-sm font-semibold tracking-tight text-text-primary">Roster action queue</h3>
+          <p className="mt-0.5 text-[11px] text-text-muted">The highest-impact work across your leagues, ranked before the full boards.</p>
+        </div>
+        <button type="button" onClick={onOpenLineups}
+          className="rounded-lg border border-border-light bg-bg-card/60 px-2.5 py-1.5 text-[11px] font-medium text-text-secondary transition-colors hover:border-accent/60 hover:bg-accent/10 hover:text-text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent">
+          Review lineups →
+        </button>
+      </div>
+      <div className="report-section__body grid gap-2.5 p-4 md:grid-cols-[minmax(11rem,0.72fr)_minmax(0,1.55fr)]">
+        <div className="rounded-xl border border-border-light bg-bg-page/20 px-3 py-2.5">
+          <div className="text-[9px] font-semibold uppercase tracking-wider text-text-muted">Lineup coverage</div>
+          <div className="mt-1 text-lg font-bold tabular-nums text-text-primary">{starters.length}<span className="ml-1 text-xs font-medium text-text-muted">starts</span></div>
+          <p className="mt-1 text-[10px] leading-relaxed text-text-muted">Recommended starters across {leagues.size} connected league{leagues.size === 1 ? '' : 's'}, using each league&rsquo;s scoring.</p>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+          {priorities.map((item, index) => (
+            <a key={`${item.kind}-${index}`} href={item.href}
+              className="group rounded-xl border border-border-light bg-bg-card/25 px-3 py-2.5 transition-colors hover:border-border hover:bg-bg-card-hover focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent">
+              <div className="flex items-center justify-between gap-2"><span className={`text-[9px] font-semibold uppercase tracking-wider ${item.tone}`}>{item.kind}</span><span className={`text-[10px] font-semibold tabular-nums ${item.tone}`}>{item.value}</span></div>
+              <div className="mt-1 truncate text-xs font-semibold text-text-primary group-hover:text-white">{item.title}</div>
+              <div className="mt-0.5 truncate text-[10px] text-text-muted">{item.detail}</div>
+            </a>
+          ))}
+          {!priorities.length && <div className="rounded-xl border border-border-light bg-bg-card/25 px-3 py-2.5 text-[11px] text-text-muted">No wire or stream recommendation is available yet.</div>}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function Waivers({ d }: { d: any }) {
@@ -1640,21 +1762,20 @@ function LeagueReport({ d, onNav }: { d: any; onNav?: (s: number, w: number) => 
   );
 }
 
-// One week inside a multi-week DST run. Colour is graded against the same
-// threshold the exporter used to count `n_good`, so the strip and the badge can
-// never disagree. A bye is drawn as its own state rather than as a bad matchup —
-// it is a zero-point week, which is a different thing from a hard one.
+// One week inside a multi-week DST run. Each cell has the same width, so a
+// schedule reads as a calm left-to-right strip instead of a different-sized set
+// of chips for every defense.
 function RunWeek({ w, thr }: { w: any; thr?: number | null }) {
-  const base = 'inline-flex min-w-[2.6rem] flex-col items-center rounded px-1 py-0.5 text-[9px] leading-tight border';
+  const base = 'dst-run-cell flex min-w-0 flex-col rounded-lg border px-1.5 py-1 text-left text-[10px] leading-tight';
   if (w.bye)
     return <span className={`${base} border-dashed border-border-light bg-transparent text-text-muted`}
                  title={`Week ${w.week} — bye`}>
-             <span className="font-semibold">BYE</span><span className="opacity-60">w{w.week}</span>
+             <span className="text-[8px] uppercase tracking-wide opacity-60">W{w.week}</span><span className="mt-0.5 font-semibold">Bye</span>
            </span>;
   if (w.opp_implied == null)
     return <span className={`${base} border-border-light bg-bg-card-hover text-text-muted`}
                  title={`Week ${w.week} — no line posted`}>
-             <span className="font-semibold">{w.opp}</span><span className="opacity-60">—</span>
+             <span className="text-[8px] uppercase tracking-wide opacity-60">W{w.week}</span><span className="mt-0.5 font-semibold">{w.is_home ? 'vs ' : '@ '}{w.opp}</span>
            </span>;
   const good = thr != null && w.opp_implied <= thr;
   const bad = thr != null && w.opp_implied >= thr + 3;
@@ -1663,8 +1784,9 @@ function RunWeek({ w, thr }: { w: any; thr?: number | null }) {
             : 'border-border-light bg-bg-card-hover text-text-secondary';
   return <span className={`${base} ${cls}`}
                title={`Week ${w.week} — ${w.is_home ? 'vs' : '@'} ${w.opp}, ${w.opp_implied} implied opponent points`}>
-           <span className="font-semibold">{w.is_home ? '' : '@'}{w.opp}</span>
-           <span className="tabular-nums opacity-80">{w.opp_implied}</span>
+           <span className="text-[8px] uppercase tracking-wide opacity-60">W{w.week}</span>
+           <span className="mt-0.5 font-semibold">{w.is_home ? 'vs ' : '@ '}{w.opp}</span>
+           <span className="mt-0.5 tabular-nums opacity-80">{w.opp_implied}</span>
          </span>;
 }
 
@@ -1675,95 +1797,96 @@ function DstStream({ d }: { d: any }) {
   const runThr: number | null = runs?.good_threshold ?? null;
   const leagues: any[] = Array.isArray(d.leagues) ? d.leagues : d.leagues ? [d.leagues] : [];
   const dstLeagues = leagues.filter(lg => lg.uses_dst !== false);
-  const best = board[0];
-  // lower opponent implied total = better streaming matchup; scale bar to the board
-  const lo = board.length ? board[0].opp_implied : 0;
-  const hi = board.length ? board[board.length - 1].opp_implied : 1;
-  const frac = (v: number) => clamp(((hi - v) / Math.max(0.1, hi - lo)) * 100);
   return (
     <Section id="dst_stream" title="DST Streaming" accent={SECTION_ACCENT.dst_stream}
-      subtitle="start the available defense facing the lowest implied team total"
-      right={best && <span className="text-[11px] text-text-muted">top pick <span className="font-semibold" style={{ color: readableTeamColor(best.team) }}>{best.team}</span></span>}>
+      subtitle="Start the available defense facing the lowest opponent implied total."
+      right={<span className="text-[10px] text-text-muted">Lower opponent points = better matchup</span>}>
       {!d.has_lines ? (
         <p className="text-xs text-text-muted py-2">No betting lines posted yet for this week — check back closer to kickoff.</p>
       ) : (
         <>
-          {dstLeagues.map((lg, i) => (
-            <div key={i} className="rounded-lg border border-border-light p-2.5">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-medium text-text-primary">{lg.label}</span>
-                <span className="text-[10px] text-text-muted">{lg.n_taken} rostered{lg.my_dst ? ` · your DST: ${lg.my_dst}` : ''}</span>
-              </div>
-              {arr(lg.top_available).length > 0 && (
-                <>
-                  <div className="mb-1.5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 text-[10px]">
-                    <span className="font-medium text-text-secondary">Available waiver-wire streamers <span className="font-normal text-text-muted">· first is the top option</span></span>
-                    <span className="text-text-muted">Opponent implied points · lower is better</span>
+          <div className="space-y-3">
+            {dstLeagues.map((lg, i) => {
+              const options = arr(lg.top_available);
+              const primary = options[0];
+              const runsForLeague = arr(lg.top_runs).slice(0, 3);
+              return (
+                <div key={i} className="dst-league-card rounded-xl border border-border-light bg-bg-card/30 p-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border-light/70 pb-2.5">
+                    <div>
+                      <div className="text-xs font-semibold text-text-primary">{lg.label}</div>
+                      <div className="mt-0.5 text-[10px] text-text-muted">{lg.n_taken} defenses rostered</div>
+                    </div>
+                    {lg.my_dst && <span className="inline-flex items-center gap-1.5 text-[10px] text-text-muted"><span>Your DST</span><TeamChip team={lg.my_dst} /></span>}
                   </div>
-                  <div className="flex flex-wrap gap-1.5">
-                  {lg.top_available.map((a: any, j: number) => (
-                    <span key={j} className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[11px] ${j === 0 ? 'border-win/40 bg-win/10' : 'border-border-light bg-bg-card-hover'}`}>
-                      {j === 0 && <span className="text-[8px] font-bold uppercase tracking-wide text-win">Best</span>}
-                      <span className="font-semibold" style={{ color: readableTeamColor(a.team) }}>{a.team}</span>
-                      <span className="text-text-muted">{a.is_home ? 'vs' : '@'} {a.opp}</span>
-                      <span className="tabular-nums text-text-secondary">{num(a.opp_implied)} pts</span>
-                    </span>
-                  ))}
-                </div>
-                </>
-              )}
-              {arr(lg.top_runs).length > 0 && runWeeks.length > 0 && (
-                <div className="mt-2 border-t border-border-light pt-2">
-                  <div className="mb-1.5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 text-[10px]">
-                    <span className="font-medium text-text-secondary">
-                      Best runs of games
-                      <span className="font-normal text-text-muted"> · worth holding through weeks {runWeeks[0]}–{runWeeks[runWeeks.length - 1]}</span>
-                    </span>
-                    <span className="text-text-muted">avg opponent implied · lower is better</span>
-                  </div>
-                  <div className="space-y-1">
-                    {arr(lg.top_runs).map((t: any, k: number) => (
-                      <div key={k} className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                        <TeamChip team={t.team} />
-                        <span className="w-9 text-right text-xs font-semibold tabular-nums text-text-primary">{num(t.avg_opp_implied)}</span>
-                        <span className="text-[9px] text-text-muted">
-                          {/* n_good is null when too few lines are posted to set a
-                              threshold; show coverage alone rather than "null/2". */}
-                          {t.n_good == null
-                            ? `${t.n_covered} wk${t.n_covered === 1 ? '' : 's'} priced`
-                            : `${t.n_good}/${t.n_covered} good`}
-                          {t.n_bye > 0 ? ` · ${t.n_bye} bye` : ''}
-                          {t.team === lg.my_dst ? ' · yours' : ''}
-                        </span>
-                        <div className="flex flex-wrap gap-1">
-                          {arr(t.weeks).map((w: any, wi: number) => <RunWeek key={wi} w={w} thr={runThr} />)}
+
+                  <div className="grid gap-3 pt-3 lg:grid-cols-[minmax(12rem,0.8fr)_minmax(0,1.2fr)]">
+                    <div className="dst-primary-pick rounded-lg border border-win/30 bg-win/5 px-3 py-2.5">
+                      <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-win">Best available this week</div>
+                      {primary ? (
+                        <div className="mt-2 flex items-end justify-between gap-3">
+                          <div className="flex items-center gap-2"><TeamChip team={primary.team} big /><span className="text-xs text-text-secondary">{primary.is_home ? 'vs' : '@'} {primary.opp}</span></div>
+                          <div className="text-right"><div className="text-lg font-bold tabular-nums text-text-primary">{num(primary.opp_implied)}</div><div className="text-[9px] uppercase tracking-wide text-text-muted">opp pts</div></div>
                         </div>
+                      ) : <div className="mt-2 text-xs text-text-muted">No available DST is currently identified.</div>}
+                    </div>
+
+                    <div className="min-w-0">
+                      <div className="mb-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-text-muted">Other available options</div>
+                      <div className="grid gap-1.5 sm:grid-cols-2">
+                        {options.slice(1, 5).map((a: any, j: number) => (
+                          <div key={j} className="flex items-center justify-between gap-2 rounded-lg border border-border-light bg-bg-page/25 px-2.5 py-2">
+                            <span className="flex min-w-0 items-center gap-2"><TeamChip team={a.team} /><span className="truncate text-[11px] text-text-secondary">{a.is_home ? 'vs' : '@'} {a.opp}</span></span>
+                            <span className="shrink-0 text-[11px] font-semibold tabular-nums text-text-primary">{num(a.opp_implied)}</span>
+                          </div>
+                        ))}
+                        {options.length <= 1 && <div className="rounded-lg border border-dashed border-border-light px-2.5 py-2 text-[11px] text-text-muted">No alternate streamers found.</div>}
                       </div>
-                    ))}
+                    </div>
                   </div>
-                  {runs?.note && <p className="pt-1 text-[9px] text-text-muted">{runs.note}</p>}
+
+                  {runsForLeague.length > 0 && runWeeks.length > 0 && (
+                    <div className="mt-3 border-t border-border-light/70 pt-3">
+                      <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+                        <div><span className="text-[10px] font-semibold text-text-secondary">Best schedules to hold</span><span className="ml-1.5 text-[10px] text-text-muted">Weeks {runWeeks[0]}–{runWeeks[runWeeks.length - 1]}</span></div>
+                        <span className="text-[9px] text-text-muted">Average opponent points</span>
+                      </div>
+                      <div className="grid gap-2 xl:grid-cols-3">
+                        {runsForLeague.map((t: any, k: number) => (
+                          <div key={k} className="rounded-lg border border-border-light/80 bg-bg-page/20 p-2.5">
+                            <div className="flex items-center justify-between gap-2">
+                              <div className="flex items-center gap-2"><TeamChip team={t.team} />{t.team === lg.my_dst && <span className="text-[9px] font-medium text-accent">Yours</span>}</div>
+                              <div className="text-right"><span className="text-sm font-bold tabular-nums text-text-primary">{num(t.avg_opp_implied)}</span><span className="ml-1 text-[9px] text-text-muted">avg</span></div>
+                            </div>
+                            <div className="mt-2 grid grid-cols-4 gap-1">
+                              {arr(t.weeks).map((w: any, wi: number) => <RunWeek key={wi} w={w} thr={runThr} />)}
+                            </div>
+                            <div className="mt-1.5 text-[9px] text-text-muted">{t.n_good == null ? `${t.n_covered} priced` : `${t.n_good}/${t.n_covered} favorable`}{t.n_bye > 0 ? ` · ${t.n_bye} bye` : ''}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
-          <div className="space-y-1 pt-1">
-            {board.slice(0, 12).map((r: any, i: number) => (
-              <div key={i} className="grid grid-cols-[1.5rem_3rem_1fr] items-center gap-2">
-                <span className="text-[11px] tabular-nums text-text-muted text-center">{r.rank}</span>
-                <TeamChip team={r.team} />
-                <div className="min-w-0">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-[11px] text-text-muted">{r.is_home ? 'vs' : '@'} {r.opp} · O/U {num(r.total)}</span>
-                    <span className="text-xs font-semibold tabular-nums text-text-primary">{num(r.opp_implied)} <span className="text-text-muted font-normal">opp pts</span></span>
-                  </div>
-                  <div className="mt-1 h-1.5 rounded-full bg-bg-card-hover overflow-hidden">
-                    <div className="h-full rounded-full" style={{ width: `${frac(r.opp_implied)}%`, background: readableTeamColor(r.team) }} />
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-          <p className="text-[10px] text-text-muted pt-1">{d.rationale}</p>
+
+          <div className="dst-matchup-board rounded-xl border border-border-light bg-bg-page/20 p-3">
+            <div className="mb-2 flex items-baseline justify-between gap-2"><div><span className="text-xs font-semibold text-text-primary">Matchup board</span><span className="ml-2 text-[10px] text-text-muted">Best overall DST environments</span></div><span className="text-[10px] text-text-muted">Top {Math.min(board.length, 12)}</span></div>
+            <div className="grid gap-1.5 sm:grid-cols-2 xl:grid-cols-3">
+              {board.slice(0, 12).map((r: any, i: number) => (
+                <div key={i} className={`grid grid-cols-[1.4rem_auto_1fr_auto] items-center gap-2 rounded-lg border px-2.5 py-2 ${i === 0 ? 'border-accent/35 bg-accent/5' : 'border-border-light/70 bg-bg-card/20'}`}>
+                  <span className="text-center text-[10px] tabular-nums text-text-muted">{r.rank}</span>
+                  <TeamChip team={r.team} />
+                  <span className="min-w-0 truncate text-[11px] text-text-secondary">{r.is_home ? 'vs' : '@'} {r.opp}</span>
+                  <span className="text-right text-[11px] font-semibold tabular-nums text-text-primary">{num(r.opp_implied)}<span className="ml-0.5 text-[9px] font-normal text-text-muted">pts</span></span>
+                </div>
+              ))}
+            </div>
+          </div>
+          {runs?.note && <p className="text-[10px] leading-relaxed text-text-muted">{runs.note}</p>}
+          <p className="text-[10px] leading-relaxed text-text-muted">{d.rationale}</p>
         </>
       )}
     </Section>
@@ -1792,6 +1915,88 @@ const GROUPS: { key: GroupKey; label: string; accent: string; sections: string[]
 
 /** Sub-tab keys this view accepts in a permalink. */
 export const WEEKLY_GROUP_KEYS: string[] = GROUPS.map(g => g.key);
+
+function WeeklyCommandBar({ season, week, updated, betCount, marketCount }: {
+  season: number; week: number; updated?: string | null; betCount: number; marketCount: number;
+}) {
+  const updatedLabel = formatFreshness(updated);
+  return (
+    <section className="relative overflow-hidden rounded-2xl border border-border bg-bg-card/70 px-4 py-4 sm:px-5">
+      <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(650px 240px at 100% 0%, rgba(88,166,255,0.15), transparent 65%), linear-gradient(125deg, rgba(255,255,255,0.025), transparent 40%)' }} />
+      <div className="relative flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <div className="flex flex-wrap items-center gap-2 text-[9px] font-bold uppercase tracking-[0.16em] text-accent">
+            <span>Weekly market brief</span>
+          </div>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-text-primary">Week {week} <span className="font-normal text-text-muted">· {season}</span></h2>
+          <p className="mt-1 max-w-xl text-xs leading-relaxed text-text-secondary">A decision-ready view of the model&rsquo;s strongest positions, with executable prediction-market prices alongside the sportsbook card.</p>
+        </div>
+        <div className="grid grid-cols-3 divide-x divide-border-light rounded-xl border border-border-light bg-bg-page/35 text-center">
+          <div className="min-w-[5.4rem] px-3 py-2">
+            <div className="text-lg font-bold tabular-nums text-text-primary">{betCount || '—'}</div>
+            <div className="text-[8px] uppercase tracking-wider text-text-muted">positions</div>
+          </div>
+          <div className="min-w-[5.4rem] px-3 py-2">
+            <div className="text-lg font-bold tabular-nums text-[#c9a7ff]">{marketCount || '—'}</div>
+            <div className="text-[8px] uppercase tracking-wider text-text-muted">market edges</div>
+          </div>
+          <div className="min-w-[5.4rem] px-3 py-2">
+            <div className="pt-1 text-[10px] font-medium text-text-secondary">{updatedLabel ?? 'Awaiting data'}</div>
+            <div className="mt-1 text-[8px] uppercase tracking-wider text-text-muted">last refresh</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ResultsCommandBar({ season, week, updated, scorecard }: {
+  season: number; week: number; updated?: string | null; scorecard?: any;
+}) {
+  const metrics = obj(scorecard?.metrics);
+  const bets = obj(scorecard?.bet_summary);
+  const pnl = Number(bets.pnl ?? 0);
+  const games = metrics.games ?? '—';
+  const ats = metrics.cover_acc == null ? '—' : `${Math.round(Number(metrics.cover_acc) * 100)}%`;
+  const ml = metrics.ml_acc == null ? '—' : `${Math.round(Number(metrics.ml_acc) * 100)}%`;
+  const record = bets.n_bets == null ? 'No settled positions' : `${bets.n_bets} position${bets.n_bets === 1 ? '' : 's'} · ${bets.wins ?? 0}-${bets.losses ?? 0}${bets.pushes ? `-${bets.pushes}` : ''}`;
+
+  return (
+    <section className="weekly-results-hero relative overflow-hidden rounded-2xl border border-border bg-bg-card/70 px-4 py-4 sm:px-5">
+      <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(650px 240px at 100% 0%, rgba(63,185,80,0.13), transparent 65%), linear-gradient(125deg, rgba(255,255,255,0.025), transparent 40%)' }} />
+      <div className="relative flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <div className="flex flex-wrap items-center gap-2 text-[9px] font-bold uppercase tracking-[0.16em] text-win">
+            <span>Weekly result review</span>
+            <span className="h-1 w-1 rounded-full bg-text-muted" />
+            <span className="text-text-muted">Finalized</span>
+          </div>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-text-primary">Week {week} <span className="font-normal text-text-muted">· {season}</span></h2>
+          <p className="mt-1 max-w-xl text-xs leading-relaxed text-text-secondary">A completed read on model calls, market benchmarks, and the positions that settled this week.</p>
+        </div>
+        <div className="grid grid-cols-2 divide-x divide-y divide-border-light rounded-xl border border-border-light bg-bg-page/35 text-center sm:grid-cols-4 sm:divide-y-0">
+          <div className="min-w-[5.4rem] px-3 py-2">
+            <div className="text-lg font-bold tabular-nums text-text-primary">{games}</div>
+            <div className="text-[8px] uppercase tracking-wider text-text-muted">final games</div>
+          </div>
+          <div className="min-w-[5.4rem] px-3 py-2">
+            <div className="text-lg font-bold tabular-nums text-win">{ats}</div>
+            <div className="text-[8px] uppercase tracking-wider text-text-muted">ATS calls</div>
+          </div>
+          <div className="min-w-[5.4rem] px-3 py-2">
+            <div className="text-lg font-bold tabular-nums text-accent">{ml}</div>
+            <div className="text-[8px] uppercase tracking-wider text-text-muted">moneyline</div>
+          </div>
+          <div className="min-w-[5.4rem] px-3 py-2">
+            <div className={`text-lg font-bold tabular-nums ${pnl > 0 ? 'text-win' : pnl < 0 ? 'text-loss' : 'text-text-primary'}`}>{bets.pnl == null ? '—' : `${pnl >= 0 ? '+' : '−'}$${Math.abs(pnl)}`}</div>
+            <div className="text-[8px] uppercase tracking-wider text-text-muted">{record}</div>
+          </div>
+        </div>
+      </div>
+      {updated && <div className="relative mt-3 text-[10px] text-text-muted">Report finalized {formatFreshness(updated)}</div>}
+    </section>
+  );
+}
 
 // ---- main ------------------------------------------------------------------
 interface WeeklyReportProps {
@@ -1849,7 +2054,9 @@ export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFall
   // games (verified identical predictions), so it is superseded rather than
   // stacked alongside — one design for every week.
   const supersededByCards = !played && !!gamesFallback;
-  const ready = all.filter(r => !(r === 'games_preview' && (played || supersededByCards)));
+  // Polymarket and Kalshi used to render as two long, near-identical reports.
+  // The MarketBoard below combines them into a single ranked comparison.
+  const ready = all.filter(r => !(r === 'games_preview' && (played || supersededByCards)) && r !== 'polymarket_bets' && r !== 'kalshi_lines');
   // bet_card lists EVERY qualifying bet; the season JSON keeps only the
   // highest-EV one per game. Prefer the card, and drop the fallback bets when it
   // exists so the page can't show 10 bets under a header that says 13.
@@ -1863,19 +2070,38 @@ export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFall
     .map(g => ({ ...g, ready: g.sections.filter(s => ready.includes(s)) }))
     .filter(g => g.ready.length > 0 || (g.key === 'games' && gamesFallback));
   const active = groups.find(g => g.key === group) ?? groups[0];
+  const betCount = arr(data.bet_card?.bets).length;
+  const marketCount = arr(data.polymarket_bets?.markets).filter(m => m.qualifies).length
+    + arr(data.kalshi_lines?.lines).filter(m => m.qualifies).length;
 
   return (
-    <ReportFreshnessContext.Provider value={entry?.updated ?? null}>
     <div className="space-y-4">
       {groups.length > 1 && (
         <SubNav items={groups.map(g => ({ key: g.key, label: g.label, accent: g.accent }))}
           value={active?.key ?? 'games'} onChange={setGroup} />
       )}
 
+      {active?.key === 'games' && (
+        <WeeklyCommandBar season={season} week={week} updated={entry?.updated}
+          betCount={betCount} marketCount={marketCount} />
+      )}
+
+      {active?.key === 'results' && (
+        <ResultsCommandBar season={season} week={week} updated={entry?.updated}
+          scorecard={data.model_scorecard} />
+      )}
+
       {loading ? (
         <div className="space-y-4"><Skeleton h={280} /><Skeleton h={200} /></div>
       ) : (
         <div className="space-y-4">
+          {/* Cross-league activity belongs ahead of week-specific roster advice:
+              it answers what changed before asking what to do this week. */}
+          {active?.key === 'fantasy' && <>
+            <RosterActionQueue lineups={data.lineups} waivers={data.waivers} dst={data.dst_stream}
+              onOpenLineups={() => setGroup('lineups')} />
+            <TransactionDesk />
+          </>}
           {active?.key === 'games' && showBetsFallback && betsFallback}
           {active?.ready.map(r => {
             const C = RENDERERS[r];
@@ -1887,11 +2113,13 @@ export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFall
               </SectionBoundary>
             );
           })}
+          {active?.key === 'games' && (
+            <MarketBoard polymarket={arr(data.polymarket_bets?.markets)} kalshi={arr(data.kalshi_lines?.lines)} />
+          )}
           {/* canonical game cards — the standard view for any unplayed week */}
           {active?.key === 'games' && !played && gamesFallback?.({ polymarket: arr(data.polymarket_bets?.markets), kalshi: arr(data.kalshi_lines?.lines), kalshiWin: arr(data.kalshi_win_probs?.markets) })}
         </div>
       )}
     </div>
-    </ReportFreshnessContext.Provider>
   );
 }

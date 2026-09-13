@@ -28,7 +28,9 @@ extract_officials_features <- function(games) {
 
   # load_officials uses the legacy YYYYMMDDXX game_id (matches games$old_game_id).
   # We join on that, then re-key to the modern game_id for downstream use.
-  refs <- nflreadr::load_officials(off_seasons) %>%
+  refs <- expect_frame(nflreadr::load_officials(off_seasons),
+                       cols = c("position", "game_id", "official_name"),
+                       label = sprintf("load_officials(%d-%d)", min(off_seasons), max(off_seasons))) %>%
     filter(position == "Referee") %>%
     group_by(game_id) %>%
     slice(1) %>%

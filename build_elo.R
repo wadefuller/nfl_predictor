@@ -82,8 +82,25 @@ build_elo <- function(cfg = parse_elo_config(),
     cfg$QB_SHARE, cfg$QB_WEIGHT
   ))
 
+  # Same raw-http hazard, same fix as load_game_data() in R/infra/data_loaders.R
+  # (which this file does not source — keep the two in step). A single 60s
+  # timeout here used to abort the whole retrain.
+  fetch_games_rds_elo <- function(attempts = 3,
+                                  need = c("season", "game_id", "home_team", "away_team")) {
+    for (attempt in seq_len(attempts)) {
+      g <- try(readRDS(url("http://www.habitatring.com/games.rds")), silent = TRUE)
+      if (!inherits(g, "try-error") && NROW(g) > 0 && all(need %in% names(g))) return(g)
+      why <- if (inherits(g, "try-error")) trimws(conditionMessage(attr(g, "condition")))
+             else sprintf("%d rows; missing column(s): %s", NROW(g),
+                          paste(setdiff(need, names(g)), collapse = ", "))
+      message(sprintf("  ! games.rds attempt %d/%d unusable (%s); retrying", attempt, attempts, why))
+      Sys.sleep(2 * attempt)
+    }
+    stop(sprintf("games.rds unusable after %d attempts — habitatring.com unreachable, or the schema changed", attempts))
+  }
+
   message("Loading game data from habitatring.com...")
-  games <- readRDS(url("http://www.habitatring.com/games.rds")) %>%
+  games <- fetch_games_rds_elo() %>%
     filter(season >= 2000) %>%
     mutate(across(contains("team"), ~stringr::str_replace_all(., TEAM_REPLACEMENTS))) %>%
     arrange(gameday, gametime, game_id)

@@ -10,8 +10,9 @@ extract_ngs_features <- function(seasons) {
   ngs_seasons <- intersect(seasons, 2016:ngs_max)
   if (length(ngs_seasons) == 0) return(tibble())
 
-  ngs_pass <- nflreadr::load_nextgen_stats(seasons = ngs_seasons,
-                                            stat_type = "passing") %>%
+  ngs_cols <- c("season", "week", "season_type", "team_abbr")
+  ngs_pass <- expect_frame(nflreadr::load_nextgen_stats(seasons = ngs_seasons, stat_type = "passing"),
+                           cols = c(ngs_cols, "attempts"), label = "load_nextgen_stats(passing)") %>%
     filter(season_type == "REG", week > 0, !is.na(team_abbr)) %>%
     mutate(team_abbr = stringr::str_replace_all(team_abbr, TEAM_REPLACEMENTS)) %>%
     group_by(season, week, team_abbr) %>%
@@ -22,8 +23,8 @@ extract_ngs_features <- function(seasons) {
               ngs_qb_aggressiveness = aggressiveness,
               ngs_qb_air_yards     = avg_intended_air_yards)
 
-  ngs_rush <- nflreadr::load_nextgen_stats(seasons = ngs_seasons,
-                                            stat_type = "rushing") %>%
+  ngs_rush <- expect_frame(nflreadr::load_nextgen_stats(seasons = ngs_seasons, stat_type = "rushing"),
+                           cols = c(ngs_cols, "rush_attempts"), label = "load_nextgen_stats(rushing)") %>%
     filter(season_type == "REG", week > 0, !is.na(team_abbr)) %>%
     mutate(team_abbr = stringr::str_replace_all(team_abbr, TEAM_REPLACEMENTS)) %>%
     group_by(season, week, team_abbr) %>%
@@ -32,8 +33,8 @@ extract_ngs_features <- function(seasons) {
               ngs_rb_ryoe_per_att = rush_yards_over_expected_per_att,
               ngs_rb_efficiency   = efficiency)
 
-  ngs_rec <- nflreadr::load_nextgen_stats(seasons = ngs_seasons,
-                                           stat_type = "receiving") %>%
+  ngs_rec <- expect_frame(nflreadr::load_nextgen_stats(seasons = ngs_seasons, stat_type = "receiving"),
+                          cols = c(ngs_cols, "targets"), label = "load_nextgen_stats(receiving)") %>%
     filter(season_type == "REG", week > 0, !is.na(team_abbr)) %>%
     mutate(team_abbr = stringr::str_replace_all(team_abbr, TEAM_REPLACEMENTS)) %>%
     group_by(season, week, team_abbr) %>%

@@ -83,12 +83,15 @@ case "$MODE" in
   learners)
     run_step learner_diagnostic.R     "Base-learner diagnostic (why GLM dominates)"
     ;;
+  census)
+    run_step feature_census.R         "Feature census (provenance + per-learner usage)"
+    ;;
   fantasy)
     run_step export_fantasy.R         "Fantasy market index + league export"
     ;;
   *)
     echo "Unknown mode: $MODE" >&2
-    echo "Usage: $0 [full|eval|train|features|predict|test|diagnose|learners|fantasy]" >&2
+    echo "Usage: $0 [full|eval|train|features|predict|test|diagnose|learners|census|fantasy]" >&2
     exit 2
     ;;
 esac

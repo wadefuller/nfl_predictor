@@ -126,6 +126,7 @@ export interface Transaction {
   player_name: string | null;
   pos: string | null;
   team: string | null;
+  bbid_spent?: number | null;
   trade_partner: string | null;
   comments: string | null;
 }

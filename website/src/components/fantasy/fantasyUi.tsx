@@ -95,7 +95,7 @@ export function TrendPill({ pct, compact }: { pct: number | null; compact?: bool
 export function Segmented<T extends string>({ value, options, onChange }:
   { value: T; options: readonly (readonly [T, string])[]; onChange: (v: T) => void }) {
   return (
-    <div className="inline-flex flex-wrap gap-1 rounded-lg border border-border-light bg-bg-card/60 p-1">
+    <div className="report-subnav inline-flex flex-wrap gap-1 rounded-lg border border-border-light bg-bg-card/60 p-1">
       {options.map(([k, label]) => (
         <button
           key={k}

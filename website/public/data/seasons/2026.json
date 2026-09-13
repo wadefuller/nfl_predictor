@@ -1678,7 +1678,15 @@
         "awayImplPts": 20.7,
         "lineDiff": 3.5
       },
-      "result": null,
+      "result": {
+        "homePoints": 7,
+        "awayPoints": 27,
+        "homeResult": -20,
+        "homeWin": false,
+        "winningTeam": "SF",
+        "predCorrect": false,
+        "vegasCorrect": false
+      },
       "bet": {
         "side": "LA",
         "type": "spread",
@@ -1687,8 +1695,8 @@
         "stake": 25,
         "units": 2.5,
         "toWin": 22,
-        "result": null,
-        "pnl": null
+        "result": "loss",
+        "pnl": -25
       }
     },
     {
@@ -2858,7 +2866,15 @@
         "awayImplPts": 20.2,
         "lineDiff": 0.5
       },
-      "result": null,
+      "result": {
+        "homePoints": 13,
+        "awayPoints": 10,
+        "homeResult": 3,
+        "homeWin": true,
+        "winningTeam": "SEA",
+        "predCorrect": false,
+        "vegasCorrect": false
+      },
       "bet": null
     },
     {

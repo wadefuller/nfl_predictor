@@ -62,6 +62,101 @@ LEAKAGE_VARS_REG <- c(
   "is_dome", "is_grass"
 )
 
+# ---- Dead-weight pruning (ON by default; PRUNE_DEAD=0 to disable) ----------
+# These do NOT leak. They are columns the feature census (./run_pipeline.sh
+# census) found to be dead weight in production: zero nonzero coefficients in
+# the GLM and ~1.6% of XGB gain between all of them. 29 raw columns, but 117
+# matrix columns after one-hot expansion — 30% of the design matrix.
+#
+# Measured effect on walk-forward 2016-2025 (2026-06-07):
+#   MAE     9.7783 -> 9.7738  (-0.0045)
+#   Brier   0.21033 -> 0.20986 (-0.00047, real)
+#   LogLoss 0.60871 -> 0.60749 (-0.00122, real)
+#   Cover   0.5336  -> 0.5360  (+0.24pp)
+#   seasons beating Vegas: 4 -> 5; the five most recent all improved.
+#
+# NOTE the stated mechanism was WRONG. The hypothesis was that fewer candidate
+# columns would let cv.glmnet pick a SMALLER lambda and retain more signal.
+# Lambda actually went UP (1.58 -> 2.06) with the coefficient count unchanged
+# at 19. So the gain is not coming from the regularisation path; the most
+# likely explanation is reduced variance in the CV lambda selection itself
+# (fewer columns -> more stable fold-to-fold choice). Unconfirmed.
+PRUNED_VARS_REG <- c(
+  # -> 66 team-identity dummies (XGB gain 0.2%, GLM coefs 0)
+  "home_team", "away_team",
+  # -> 30 schedule dummies (XGB gain 0.2%, GLM coefs 0)
+  "week", "weekday", "div_game",
+  # rest module: 18 raw -> 15 after nzv (XGB gain 0.3%, GLM coefs 0)
+  "rest_short_week_home", "rest_extra_short_home", "rest_off_bye_home",
+  "rest_advantage_home", "rest_b2b_road_home", "rest_b2b_home_home",
+  "rest_short_week_away", "rest_extra_short_away", "rest_off_bye_away",
+  "rest_advantage_away", "rest_b2b_road_away", "rest_b2b_home_away",
+  "rest_short_week_diff", "rest_extra_short_diff", "rest_off_bye_diff",
+  "rest_advantage_diff", "rest_b2b_road_diff", "rest_b2b_home_diff",
+  # officials: 4 (XGB gain 0.6%, GLM coefs 0)
+  "ref_career_n_games", "ref_career_home_win_pct",
+  "ref_career_avg_total", "ref_career_avg_margin",
+  # weather: 2 surviving after nzv (XGB gain 0.3%, GLM coefs 0)
+  "temp", "wind"
+)
+
+if (Sys.getenv("PRUNE_DEAD", "1") != "0") {
+  LEAKAGE_VARS_REG <- c(LEAKAGE_VARS_REG, PRUNED_VARS_REG)
+}
+
+# ---- Stage-2 block pruning (PRUNE_BLOCKS, default none) --------------------
+# Larger feature blocks that also carry zero GLM coefficients. Unlike the
+# stage-1 set these have real XGB gain, so they are opt-in and pattern-matched
+# rather than pruned by default.
+#
+# TESTED AND NOT ADOPTED (2026-09-02). Left as opt-in infrastructure only.
+#
+# The holdout screen (prune_screen.R, 2024-25) looked strong — removing these
+# lowers the lambda cv.glmnet picks and lets MORE coefficients survive:
+#   baseline                        lambda 2.065  19 coefs  MAE 9.5833
+#   -injuries                       lambda 1.423  25 coefs  MAE 9.5683
+#   -injuries,snap                  lambda 1.297  25 coefs  MAE 9.5637
+#   -injuries,snap,def_epa          lambda 0.981  29 coefs  MAE 9.5514
+#   all four                        lambda 0.894  29 coefs  MAE 9.5482
+# (def_epa / snap_counts / pythag alone are bit-identical to baseline; only
+# the combined column count moves the CV path.)
+#
+# On the full 10-season walk-forward it evaporated:
+#   arm            predicted MAE   actual MAE   Cover      seasons beating Vegas
+#   -injuries         -0.0149       -0.0018    -0.43pp     5 -> 4
+#   all four          -0.0351       -0.0002    +0.20pp     5 -> 4
+# Off by 8x and 175x. The lambda effect is real but does not translate into
+# better out-of-sample predictions: a single 2008-2023 fit is one draw of the
+# CV path, and the walk-forward retrains per fold where it washes out.
+#
+# Arm B is a genuine wash on aggregate accuracy with 52% fewer predictors
+# (308 -> 148), so it is tempting for fit speed. Not made default because it
+# costs a season of beating Vegas, is worse in 6 of 10 seasons (the flat
+# average rides on 2016 and 2024 alone), and strips EVERY defensive and
+# injury feature — cheap on average, plausibly brittle in specific matchups.
+#
+# Usage (opt-in): PRUNE_BLOCKS=injuries,snap_counts,def_epa,pythag
+PRUNE_BLOCK_PATTERNS <- c(
+  def_epa     = "^def_(epa|pass_epa|rush_epa|success_rate|sack_rate|qb_hit_rate|stuff_rate|int_rate|third_dn_rate)",
+  injuries    = "^inj_",
+  snap_counts = "^snap_",
+  pythag      = "^pythag"
+)
+
+expand_prune_blocks <- function(nms) {
+  sel <- Sys.getenv("PRUNE_BLOCKS", "")
+  if (!nzchar(sel)) return(character(0))
+  keys <- trimws(strsplit(sel, ",")[[1]])
+  bad  <- setdiff(keys, names(PRUNE_BLOCK_PATTERNS))
+  if (length(bad)) {
+    stop(sprintf("PRUNE_BLOCKS: unknown block(s) %s. Valid: %s",
+                 paste(bad, collapse = ", "),
+                 paste(names(PRUNE_BLOCK_PATTERNS), collapse = ", ")))
+  }
+  unique(unlist(lapply(keys, function(k)
+    grep(PRUNE_BLOCK_PATTERNS[[k]], nms, value = TRUE))))
+}
+
 # Backward-compat alias — train_and_save_ensemble.R + older sites referenced
 # ENSEMBLE_LEAKAGE_VARS. Both names point to the same vector.
 ENSEMBLE_LEAKAGE_VARS <- LEAKAGE_VARS_REG
@@ -135,13 +230,14 @@ load_tuned_rf_params <- function(path = file.path(DATA_DIR, "tune_best_rf.rds"),
 # outcome-derived columns. home_result is kept (it's the target).
 prep_for_train <- function(data,
                             leakage_vars = ENSEMBLE_LEAKAGE_VARS) {
+  drop <- c(leakage_vars, expand_prune_blocks(names(data)))
   data %>%
     filter(
       !is.na(result), !is.na(home_moneyline),
       (week <= 17 & season <= 2020) | (week <= 18 & season >= 2021)
     ) %>%
     mutate(across(c(season, week, weekday, div_game), as.factor)) %>%
-    select(-any_of(leakage_vars), -any_of("season"))
+    select(-any_of(drop), -any_of("season"))
 }
 
 # Predict-time prep: no outcome filtering (live games have NA result).
@@ -150,18 +246,131 @@ prep_for_train <- function(data,
 # but having the column with NA is safer).
 prep_for_predict <- function(data,
                               leakage_vars = ENSEMBLE_LEAKAGE_VARS) {
+  # Prediction-time column selection is driven ONLY by `leakage_vars`, which
+  # for the production path is bundle$leakage_vars — the EFFECTIVE list
+  # train_and_save stored (leakage + any expanded PRUNE_BLOCKS at train time).
+  #
+  # Deliberately does NOT consult PRUNE_BLOCKS. An earlier version added
+  # expand_prune_blocks() here as "belt and braces" and it was a live bug: with
+  # PRUNE_BLOCKS set in the serving environment, predicting from a bundle
+  # trained WITHOUT it stripped columns the baked recipe required and threw
+  # inside hardhat::validate_column_names. A bundle must predict identically
+  # regardless of ambient env; the trained artifact is the source of truth.
+  drop <- leakage_vars
   data %>%
     mutate(across(c(season, week, weekday, div_game), as.factor)) %>%
-    select(-any_of(leakage_vars), -any_of("season")) %>%
+    select(-any_of(drop), -any_of("season")) %>%
     { if ("home_result" %in% names(.)) . else mutate(., home_result = NA_real_) }
 }
 
 # ---- Base learners --------------------------------------------------------
 
+# Tuned direct-xgboost learner (2026-06-07). The tidymodels wrapper cannot
+# express a monotone constraint, which turns out to matter a lot here: the
+# target is ~linear in spread_line, and unconstrained trees approximate that
+# with a staircase that collapses toward the training mean at the tails.
+# Constraining spread_line to be monotone increasing, with depth-2 stumps and
+# heavy L2, took XGB from WORSE than quoting Vegas (9.867 on 2020-23 folds)
+# to better than it (9.774). Config selected by xgb_challenge.R.
+#
+# Enabled with XGB_DIRECT=1. Returns an object whose predict() method mimics
+# the parsnip workflow interface (a tibble with .pred) so call sites in
+# walk_forward_eval.R / train_and_save_ensemble.R need no changes.
+XGB_DIRECT_DEFAULTS <- list(
+  eta = 0.00778, max_depth = 2L, min_child_weight = 20,
+  subsample = 0.816, colsample_bytree = 0.363,
+  alpha = 0.0207, lambda = 13.079, nrounds = 441L
+)
+
+# Param sources, in priority order:
+#   1. data/tune_best_xgb_direct.rds   — canonical, written by tune_hyperparams.R
+#   2. data/xgb_challenge_results.rds  — the one-off sweep that first found the
+#                                        monotone/depth-2 regime
+#   3. XGB_DIRECT_DEFAULTS             — that sweep's winner, hardcoded
+load_xgb_direct_params <- function() {
+  tuned <- file.path(DATA_DIR, "tune_best_xgb_direct.rds")
+  if (file.exists(tuned)) {
+    p <- tryCatch(readRDS(tuned), error = function(e) NULL)
+    # Refuse params that failed the tuner's market gate. Shipping params that
+    # lose to simply quoting the closing line is the exact bug the rewrite
+    # was meant to eliminate, so don't let them back in silently.
+    if (!is.null(p$gate) && p$gate == "fail") {
+      warning(sprintf(paste0("tune_best_xgb_direct.rds FAILED its market gate ",
+                             "(cv MAE %.4f vs market %.4f); ignoring it and ",
+                             "falling back. Re-tune before using XGB_DIRECT."),
+                      p$cv_mae, p$market_mae), call. = FALSE)
+      p <- NULL
+    }
+    if (!is.null(p$eta)) {
+      cvm <- if (is.null(p$cv_mae)) NA_real_ else p$cv_mae
+      mkm <- if (is.null(p$market_mae)) NA_real_ else p$market_mae
+      message(sprintf("  [loaded tuned direct-XGB params: eta=%.5f depth=%d rounds=%d (cv MAE %.4f vs market %.4f)]",
+                      p$eta, p$max_depth, p$nrounds, cvm, mkm))
+      return(p[c("eta","max_depth","min_child_weight","subsample",
+                 "colsample_bytree","alpha","lambda","nrounds")])
+    }
+  }
+  f <- file.path(DATA_DIR, "xgb_challenge_results.rds")
+  if (file.exists(f)) {
+    b <- tryCatch(readRDS(f)$best, error = function(e) NULL)
+    if (!is.null(b)) {
+      message(sprintf("  [loaded direct-XGB params from challenge sweep: eta=%.5f depth=%d rounds=%d]",
+                      b$eta, as.integer(b$depth), as.integer(b$iters)))
+      return(list(eta = b$eta, max_depth = as.integer(b$depth),
+                  min_child_weight = b$min_child, subsample = b$subsample,
+                  colsample_bytree = b$colsample, alpha = b$alpha,
+                  lambda = b$lambda, nrounds = as.integer(b$iters)))
+    }
+  }
+  XGB_DIRECT_DEFAULTS
+}
+
+train_xgb_direct <- function(train_data, seed = 989,
+                              params = load_xgb_direct_params()) {
+  rec <- recipes::recipe(home_result ~ ., data = train_data) %>%
+    recipes::step_nzv(recipes::all_numeric_predictors()) %>%
+    recipes::step_novel(recipes::all_nominal_predictors()) %>%
+    recipes::step_dummy(recipes::all_nominal_predictors(), one_hot = TRUE)
+  prep_rec <- recipes::prep(rec, training = train_data)
+  baked    <- recipes::bake(prep_rec, new_data = train_data)
+  x <- as.matrix(baked %>% select(-any_of("home_result")))
+  y <- baked$home_result
+
+  mono <- rep(0L, ncol(x))
+  sc   <- which(colnames(x) == "spread_line")
+  if (length(sc) == 1) mono[sc] <- 1L
+
+  xgb_params <- list(
+    objective = "reg:squarederror", eval_metric = "mae",
+    eta = params$eta, max_depth = params$max_depth,
+    min_child_weight = params$min_child_weight, subsample = params$subsample,
+    colsample_bytree = params$colsample_bytree,
+    alpha = params$alpha, lambda = params$lambda, nthread = 4,
+    monotone_constraints = paste0("(", paste(mono, collapse = ","), ")")
+  )
+  set.seed(seed)
+  fit <- xgboost::xgb.train(params = xgb_params,
+                            data = xgboost::xgb.DMatrix(x, label = y),
+                            nrounds = params$nrounds, verbose = 0)
+  structure(list(fit = fit, recipe = prep_rec, cols = colnames(x)),
+            class = "xgb_direct")
+}
+
+# parsnip-compatible predict shim so existing call sites keep working.
+predict.xgb_direct <- function(object, new_data, ...) {
+  baked <- recipes::bake(object$recipe, new_data = new_data)
+  x <- as.matrix(baked %>% select(-any_of("home_result")))
+  x <- x[, object$cols, drop = FALSE]
+  tibble::tibble(.pred = as.numeric(stats::predict(object$fit, x)))
+}
+
 train_xgb_model <- function(train_data,
                              params = get0("REG_PARAMS", inherits = TRUE,
                                             ifnotfound = DEFAULT_REG_PARAMS),
                              seed = 989) {
+  if (Sys.getenv("XGB_DIRECT", "0") == "1") {
+    return(train_xgb_direct(train_data, seed = seed))
+  }
   set.seed(seed)
   n_feats  <- ncol(train_data) - 1
   mtry_val <- if (!is.null(params$mtry)) params$mtry else max(1L, floor(sqrt(n_feats)))
@@ -358,12 +567,22 @@ fit_stacking <- function(xgb_pred, glm_pred, rf_pred, actual,
   # to -0.036 MAE BETTER than Vegas (a 0.26 MAE swing). Big-road-favorites
   # 7.5-10 went from +0.273 to -0.043.
   #
-  # Set STACK_FULL=1 to fall back to multi-objective stacking. XGB and RF
-  # training is left in walk_forward_eval.R / train_and_save_ensemble.R for
-  # that fallback path; predictions are simply ignored under the default.
-  if (Sys.getenv("STACK_FULL", "0") != "1") {
+  # STACK_MODE selects the architecture:
+  #   "glm_only" (default) — pure unamplified GLM
+  #   "xgb_only"           — pure XGB (pair with XGB_DIRECT=1 for the tuned one)
+  #   "full"               — real multi-objective NNLS over all three
+  # STACK_FULL=1 is kept as a legacy alias for STACK_MODE=full.
+  stack_mode <- Sys.getenv("STACK_MODE", "")
+  if (stack_mode == "" ) {
+    stack_mode <- if (Sys.getenv("STACK_FULL", "0") == "1") "full" else "glm_only"
+  }
+  if (stack_mode == "glm_only") {
     return(list(intercept = 0, w_xgb = 0, w_glm = 1, w_rf = 0,
                 method = "glm_only"))
+  }
+  if (stack_mode == "xgb_only") {
+    return(list(intercept = 0, w_xgb = 1, w_glm = 0, w_rf = 0,
+                method = "xgb_only"))
   }
   method <- match.arg(method, choices = c("nnls", "logloss", "multi"))
   if      (method == "nnls")    fit_stacking_nnls(xgb_pred, glm_pred, rf_pred, actual)
@@ -439,6 +658,54 @@ fit_platt_logits <- fit_platt
 apply_platt <- function(raw_wp, platt) {
   p_clamped <- pmin(pmax(raw_wp, 1e-6), 1 - 1e-6)
   plogis(platt$intercept + platt$slope * qlogis(p_clamped))
+}
+
+# ---- Win probability: margin -> P(home win) -------------------------------
+# Two routes, selected by WINPROB_METHOD. Default is the shipped behaviour.
+#
+#   "pnorm_platt" (default)  pnorm(margin / sigma) then a Platt logistic on the
+#                            resulting probability. TWO transformations, and the
+#                            first assumes one global residual SD applies to every
+#                            game regardless of how uncertain that matchup is.
+#
+#   "logistic"    (arm C)    a single logistic fitted directly on predicted
+#                            margin. One transformation, slope learned from data
+#                            rather than inherited from a pooled sigma.
+#
+# WHY THE ALTERNATIVE EXISTS. On a 10-fold walk-forward (2016-2025, 2,638 games)
+# the single logistic scored Brier 0.20909 / logloss 0.60525 against the shipped
+# chain's 0.20982 / 0.60730, beating it in 7 of 10 seasons and beating the market
+# baseline (0.21039) outright. The paired difference is -0.00073, 95% CI
+# [-0.00148, +0.00001], p = 0.052 — suggestive, NOT established, which is exactly
+# why this is a flag and not a replacement. Validate with a full
+# `./run_pipeline.sh eval` before considering a default change.
+#
+# Note this was tested against a DIRECT CLASSIFIER too (xgboost binary:logistic
+# on the same features): that scored 0.21808, worse than everything including the
+# market. The binary label discards margin magnitude, and at this sample size
+# that loss dominates. The transformation is the problem, not the regression.
+WINPROB_METHOD <- Sys.getenv("WINPROB_METHOD", "pnorm_platt")
+
+#' Fit the margin -> win-probability map on a calibration split.
+fit_winprob <- function(cal_pred_margin, cal_actual_win, sigma,
+                        method = WINPROB_METHOD) {
+  if (identical(method, "logistic")) {
+    fit <- stats::glm(cal_actual_win ~ cal_pred_margin, family = stats::binomial())
+    return(list(method = "logistic",
+                intercept = unname(coef(fit)[1]), slope = unname(coef(fit)[2])))
+  }
+  list(method = "pnorm_platt",
+       platt = fit_platt(pnorm(cal_pred_margin / sigma), cal_actual_win))
+}
+
+#' Apply it. Falls back to the legacy sigma+platt path for bundles trained before
+#' `winprob` existed, so an old ensemble_latest.rds keeps scoring identically.
+apply_winprob <- function(pred_margin, winprob, sigma, platt = NULL) {
+  if (is.null(winprob) || is.null(winprob$method))
+    return(apply_platt(pnorm(pred_margin / sigma), platt))
+  if (identical(winprob$method, "logistic"))
+    return(plogis(winprob$intercept + winprob$slope * pred_margin))
+  apply_platt(pnorm(pred_margin / sigma), winprob$platt)
 }
 
 # ---- Portfolio betting helpers --------------------------------------------
@@ -645,8 +912,13 @@ predict_with_ensemble <- function(bundle, raw_data) {
   # apply_margin_iso passes pred through unchanged when bundle$margin_iso is NULL)
   nfl_pred <- apply_margin_iso(nfl_pred_raw, bundle$margin_iso)
 
+  # Routed through apply_winprob so a bundle carrying a `winprob` calibrator uses
+  # it; bundles without one fall through to the identical legacy path.
+  # `raw_wp` is still emitted as pred_win_pct_raw — it is the uncalibrated
+  # pnorm probability, reported for diagnostics regardless of which calibration
+  # route produced pred_win_pct.
   raw_wp  <- pnorm(nfl_pred / bundle$sigma)
-  pred_wp <- apply_platt(raw_wp, bundle$platt)
+  pred_wp <- apply_winprob(nfl_pred, bundle$winprob, bundle$sigma, bundle$platt)
 
   # Cover probability for spread bets: P(home covers) = pnorm((pred - spread)/σ).
   # Note: uses CALIBRATED nfl_pred so the spread comparison is on calibrated margin.

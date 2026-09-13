@@ -34,7 +34,7 @@ export function LeagueArchive({ season, week, onNavigate }:
   const seasons = [...new Set(weeks.map(w => w.season))].sort((a, b) => b - a);
 
   return (
-    <div className="rounded-2xl border border-border bg-bg-card/40 p-3 space-y-3">
+    <div className="data-surface rounded-2xl border border-border bg-bg-card/40 p-3 space-y-3">
       <div className="flex items-baseline justify-between">
         <span className="text-[10px] uppercase tracking-[0.14em] text-text-muted">Archive</span>
         <span className="text-[10px] text-text-muted">{weeks.length} issues</span>

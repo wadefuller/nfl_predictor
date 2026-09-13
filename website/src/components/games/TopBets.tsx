@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Game } from '../../types';
 
 /** One recommended position, normalized away from whichever source produced it. */
@@ -42,7 +43,8 @@ const pct = (p: number) => `${Math.round(p * 100)}%`;
  * same engine (and same numbers) as the per-game cards and the season curve.
  */
 export function TopBets({ games, bets: betRows, bankroll = 1000, unitSize = 10,
-                         limit = 8, subtitle, freshness }: TopBetsProps) {
+                         limit = 8, subtitle }: TopBetsProps) {
+  const [showAll, setShowAll] = useState(false);
   const rows: TopBetRow[] = (betRows ?? (games ?? [])
     .filter(g => g.bet)
     .map(g => ({
@@ -61,30 +63,46 @@ export function TopBets({ games, bets: betRows, bankroll = 1000, unitSize = 10,
   const staked = rows.reduce((s, x) => s + x.stake, 0);
   const pnl = settled.reduce((s, x) => s + (x.pnl ?? 0), 0);
   const totalUnits = rows.reduce((s, x) => s + (x.units ?? x.stake / unitSize), 0);
-  const parsedFreshness = freshness ? new Date(freshness.replace(/([+-]\d{2})(\d{2})$/, '$1:$2')) : null;
-  const freshnessLabel = parsedFreshness && !Number.isNaN(parsedFreshness.getTime())
-    ? parsedFreshness.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
-    : freshness;
+  const lead = rows[0];
+  const leadDecimal = decimalOdds(lead.odds);
+  const leadMarketProbability = 1 / leadDecimal;
+  const leadModelProbability = Math.min(1, Math.max(0, (1 + lead.ev) / leadDecimal));
+  const leadEdge = (leadModelProbability - leadMarketProbability) * 100;
+  const shownRows = showAll ? rows.slice(0, limit) : rows.slice(0, Math.min(3, limit));
+  const hiddenCount = Math.max(0, Math.min(rows.length, limit) - shownRows.length);
 
   return (
-    <section className="rounded-2xl border border-border bg-bg-card/60 overflow-hidden"
+    <section className="data-surface rounded-2xl border border-border bg-bg-card/60 overflow-hidden"
       style={{ boxShadow: `inset 3px 0 0 ${BET}` }}>
-      <div className="flex flex-col gap-2 border-b border-border-light px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
-        <div>
-          <h3 className="text-sm font-semibold text-text-primary tracking-tight">Top bets this week</h3>
-          <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
-            <p className="text-[11px] text-text-muted">{subtitle ?? 'only plays where the model beats the market’s break-even probability'}</p>
-            {freshnessLabel && <span title={`Report generated ${freshness}`} className="rounded-full border border-border-light bg-bg-card-hover px-1.5 py-0.5 text-[9px] font-medium tabular-nums text-text-muted">Data as of {freshnessLabel}</span>}
+      <div className="data-surface__header relative overflow-hidden border-b border-border-light px-3 py-3 sm:px-4">
+        <div className="pointer-events-none absolute inset-0 opacity-70" style={{ background: 'radial-gradient(460px 180px at 90% 0%, rgba(210,153,34,0.13), transparent 72%)' }} />
+        <div className="relative grid gap-3 lg:grid-cols-[minmax(0,1.45fr)_repeat(3,minmax(0,0.7fr))] lg:items-end">
+          <div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full border border-[#d29922]/40 bg-[#d29922]/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#f0b44d]">Highest edge</span>
+            </div>
+            <h3 className="mt-2 text-base font-semibold tracking-tight text-text-primary sm:text-lg">
+              {lead.side} <span className="font-normal text-text-secondary">{lead.type === 'ml' ? 'moneyline' : 'spread'}</span>
+              <span className="ml-1.5 text-sm font-medium tabular-nums text-[#f0b44d]">{fmtOdds(lead.odds)}</span>
+            </h3>
+            <p className="mt-0.5 text-[11px] text-text-secondary">{lead.away} @ {lead.home} · {subtitle ?? 'model-backed positions above the market break-even probability'}</p>
           </div>
-        </div>
-        <div className="text-right">
-          <div className="text-sm font-bold tabular-nums" style={{ color: settled.length ? (pnl >= 0 ? WIN : LOSS) : BET }}>
-            {settled.length
-              ? `${pnl >= 0 ? '+' : '−'}$${Math.abs(pnl)}`
-              : `$${staked} total risk`}
+          <div className="border-l border-border-light/80 pl-3 lg:pl-4">
+            <div className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Expected return</div>
+            <div className="mt-0.5 text-xl font-bold tabular-nums text-[#f0b44d]">+{(lead.ev * 100).toFixed(1)}%</div>
+            <div className="text-[10px] text-text-muted">per dollar risked</div>
           </div>
-          <div className="text-[10px] text-text-muted tabular-nums">
-            {rows.length} bet{rows.length !== 1 ? 's' : ''} · {fmtUnits(Math.round(totalUnits * 10) / 10)} · ${staked} of ${bankroll} bankroll
+          <div className="border-l border-border-light/80 pl-3 lg:pl-4">
+            <div className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Model advantage</div>
+            <div className="mt-0.5 text-xl font-bold tabular-nums text-text-primary">+{leadEdge.toFixed(1)}<span className="ml-0.5 text-xs font-medium text-text-muted">pts</span></div>
+            <div className="text-[10px] text-text-muted">{pct(leadModelProbability)} model · {pct(leadMarketProbability)} implied</div>
+          </div>
+          <div className="border-l border-border-light/80 pl-3 lg:pl-4">
+            <div className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Portfolio risk</div>
+            <div className="mt-0.5 text-xl font-bold tabular-nums" style={{ color: settled.length ? (pnl >= 0 ? WIN : LOSS) : 'var(--color-text-primary)' }}>
+              {settled.length ? `${pnl >= 0 ? '+' : '−'}$${Math.abs(pnl)}` : `$${staked}`}
+            </div>
+            <div className="text-[10px] tabular-nums text-text-muted">{rows.length} positions · {fmtUnits(Math.round(totalUnits * 10) / 10)} of ${bankroll}</div>
           </div>
         </div>
       </div>
@@ -93,7 +111,7 @@ export function TopBets({ games, bets: betRows, bankroll = 1000, unitSize = 10,
         <span>#</span><span>Pick · why it’s EV+</span><span className="text-right">EV return</span><span className="text-right">Stake</span><span className="text-right">Outcome</span>
       </div>
       <div className="divide-y divide-border-light">
-        {rows.slice(0, limit).map((b, i) => {
+        {shownRows.map((b, i) => {
           const u = b.units ?? b.stake / unitSize;
           const decimal = decimalOdds(b.odds);
           const marketProbability = 1 / decimal;
@@ -155,6 +173,14 @@ export function TopBets({ games, bets: betRows, bankroll = 1000, unitSize = 10,
           );
         })}
       </div>
+
+      {hiddenCount > 0 && (
+        <div className="border-t border-border-light bg-bg-card-hover/20 px-3 py-2 text-center sm:px-4">
+          <button type="button" onClick={() => setShowAll(true)} className="rounded-md px-2 py-1 text-[11px] font-medium text-text-secondary transition-colors hover:bg-bg-card-hover hover:text-text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent">
+            Show {hiddenCount} more position{hiddenCount === 1 ? '' : 's'}
+          </button>
+        </div>
+      )}
 
       {/* the explainer — what a unit is and why stakes differ */}
       <div className="border-t border-border-light px-4 py-2 text-[10px] text-text-muted leading-relaxed">

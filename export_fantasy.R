@@ -25,6 +25,7 @@ SNAPSHOT_DIR <- file.path(PROJECT_DIR, "data", "fantasy_snapshots")
 CACHE_DIR    <- file.path(PROJECT_DIR, "data", "fantasy_cache")
 CONFIG_PATH  <- file.path(PROJECT_DIR, "fantasy_leagues.json")
 source("/Users/wadefuller/Projects/R/shared/espn.R")   # espn_auth(), ff_connect_auth()
+source("/Users/wadefuller/Projects/R/shared/contracts.R")  # .contract_fail(); CONTRACTS_WARN=1 downgrades to warnings
 
 dir.create(OUTPUT_DIR, recursive = TRUE, showWarnings = FALSE)
 dir.create(SNAPSHOT_DIR, recursive = TRUE, showWarnings = FALSE)
@@ -185,7 +186,8 @@ my_ranks <- function(scoring) {
               gsis_id = if ("player_id" %in% names(.)) player_id else NA_character_,
               my_pos_rank = as.integer(pos_rank),
               my_overall  = as.integer(overall_rank),
-              my_proj     = round(pred_ppr_total),
+              # rank_target = "ppg": pred_ppr_total holds the per-game rate.
+              my_proj     = round(pred_ppr_total, 1),
               my_pts      = pred_ppr_total,   # kept raw for per-format VOR
               my_games    = suppressWarnings(as.numeric(pred_games)),
               my_tier     = as.integer(tier))
@@ -197,14 +199,39 @@ my_ranks <- function(scoring) {
 # gsis. Matching on ids first means nicknames and spelling drift can't silently
 # drop a player; the cleaned-name join is only the fallback for rows the
 # crosswalk doesn't cover.
+XWALK_FAIL <- NULL   # reason string when the crosswalk could not be built
 XWALK <- local({
-  x <- tryCatch(nflreadr::load_ff_playerids(), error = function(e) NULL)
-  if (is.null(x)) return(NULL)
-  x %>%
-    transmute(gsis_id, sleeper_id = as.character(sleeper_id),
-              mfl_id = as.character(mfl_id), espn_id = as.character(espn_id)) %>%
-    filter(!is.na(gsis_id))
+  need <- c("gsis_id", "sleeper_id", "mfl_id", "espn_id")
+  # The whole build sits inside the handler, not just the fetch. nflreadr does
+  # NOT error on a failed download — it returns a 0-column tibble — so it was the
+  # transmute below that threw ("object 'gsis_id' not found"), one line OUTSIDE
+  # the old tryCatch, and that killed the entire export on 2026-09-04 and 09-05.
+  # Assert the columns first so a truncated feed degrades to NULL like a genuine
+  # network error does, instead of aborting the script.
+  tryCatch({
+    x <- nflreadr::load_ff_playerids()
+    if (!is.data.frame(x) || nrow(x) == 0)
+      stop("load_ff_playerids() returned ",
+           if (is.data.frame(x)) "0 rows" else "no data frame", call. = FALSE)
+    miss <- setdiff(need, names(x))
+    if (length(miss))
+      stop("load_ff_playerids() is missing column(s): ",
+           paste(miss, collapse = ", "), call. = FALSE)
+    x %>%
+      transmute(gsis_id, sleeper_id = as.character(sleeper_id),
+                mfl_id = as.character(mfl_id), espn_id = as.character(espn_id)) %>%
+      filter(!is.na(gsis_id))
+  }, error = function(e) {
+    XWALK_FAIL <<- conditionMessage(e)
+    NULL
+  })
 })
+if (is.null(XWALK))
+  cat(sprintf(paste0(
+    "  !! WARNING: nflverse id crosswalk unavailable (%s)\n",
+    "  !! market joins fall back to cleaned-name matching only, and every ESPN\n",
+    "  !! league joins on nothing (espn_id is derived from this crosswalk).\n"),
+    XWALK_FAIL %||% "unknown"))
 
 attach_my_ranks <- function(idx, spec, boards) {
   b <- boards[[scoring_for(spec)]]
@@ -230,6 +257,15 @@ attach_my_ranks <- function(idx, spec, boards) {
                 by = "gsis_id") %>%
       select(-gsis_id)
   } else {
+    # Every my_* column goes to NA here, which makes pass 2 (cleaned names) the
+    # ONLY matcher — exactly the drift the id join exists to absorb. Silently
+    # this reads as a normal run with a slightly lower match count, so name the
+    # reason: without it a dead crosswalk is indistinguishable from a few
+    # players legitimately missing from the board.
+    cat(sprintf("  !! WARNING %s: id join skipped (%s) — market match is name-only\n",
+                spec$key,
+                if (is.null(XWALK)) paste0("crosswalk unavailable: ", XWALK_FAIL %||% "unknown")
+                else "model board carries no gsis_id"))
     idx %>% mutate(my_pos_rank = NA_integer_, my_overall = NA_integer_, my_games = NA_real_,
                    my_proj = NA_real_, my_pts = NA_real_, my_tier = NA_integer_)
   }
@@ -771,9 +807,44 @@ pull_league <- function(cfg) {
       head(400)
   }
 
+  # Market coverage, checked rather than only printed. Two different numbers,
+  # because they fail for two different reasons:
+  #   rate      share of the roster carrying a market value. Bounded above by the
+  #             index size, so a 299-man keeper roster priced against a 199-row
+  #             redraft board tops out near 66% however healthy the join is.
+  #   covered   share of the ACHIEVABLE ceiling. This is the one that detects id
+  #             drift (mfl_id vs sleeper_id, an id space changing under us),
+  #             which collapses it toward zero. Observed healthy range across the
+  #             live leagues is 75-99% — rosters also hold IDP/K/DST that the
+  #             market never lists — so the floor sits well below that.
+  n_val   <- sum(!is.na(roster$value))
+  rate    <- if (nrow(roster) > 0) n_val / nrow(roster) else 0
+  covered <- n_val / max(min(nrow(roster), nrow(vals)), 1)
   cat(sprintf("  %d players (%d matched to market, %.0f%%), %d franchises\n",
-              nrow(roster), sum(!is.na(roster$value)),
-              100 * mean(!is.na(roster$value)), nrow(franchises)))
+              nrow(roster), n_val, 100 * rate, nrow(franchises)))
+  if (covered < 0.60)
+    .contract_fail(sprintf(
+      "[contract] %s matched %d of the %d players the %s index could possibly cover (%.0f%%). Almost always %s drift between the platform roster and FantasyCalc.",
+      cfg$key, n_val, min(nrow(roster), nrow(vals)), fmt, 100 * covered, join_col))
+  # A low `rate` has two very different causes, and only one is a problem.
+  #
+  #   join degraded    covered is ALSO low — the board could have valued these
+  #                    players and did not. Worth a warning.
+  #   board is smaller covered is high — every player the board could value WAS
+  #                    valued, the roster simply runs deeper than the index.
+  #                    That is what a 299-man keeper league priced against a
+  #                    199-row redraft board looks like, and it is a deliberate
+  #                    configuration (unhffl, confirmed 2026-09-06), not a fault.
+  #
+  # Warning on `rate` alone would cry wolf on that league every single run, which
+  # is how a real alert gets trained into background noise.
+  if (rate < 0.70 && covered < 0.95) {
+    cat(sprintf("  !! WARNING %s: only %.0f%% of the roster carries a market value and the join covered just %.0f%% of what the %s index could reach — check %s in %s.\n",
+                cfg$key, 100 * rate, 100 * covered, fmt, join_col, basename(CONFIG_PATH)))
+  } else if (rate < 0.70) {
+    cat(sprintf("  . %s: %d of %d rostered players unvalued — the %s index lists %d. Join is healthy (%.0f%% of reachable); the board is simply shallower than the roster.\n",
+                cfg$key, nrow(roster) - n_val, nrow(roster), fmt, nrow(vals), 100 * covered))
+  }
 
   list(
     key         = cfg$key,

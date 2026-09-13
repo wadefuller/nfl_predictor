@@ -73,12 +73,13 @@ week_filter <- function(data) {
 
 # Target is home_result (raw home-team margin). Win probability is derived
 # downstream from pnorm(predicted_margin / sigma) + Platt recalibration.
-prep_reg <- function(data) {
-  data %>%
-    week_filter() %>%
-    mutate(across(c(season, week, weekday, div_game), as.factor)) %>%
-    select(-any_of(LEAKAGE_VARS_REG), -season)
-}
+#
+# Delegates to ensemble_lib::prep_for_train. This used to be a local copy that
+# read LEAKAGE_VARS_REG directly — byte-identical logic, but it silently
+# bypassed the pattern-expanded PRUNE_BLOCKS drop, so a whole walk-forward
+# comparison came back bit-identical across arms that should have differed.
+# Keep this a thin delegate; do not re-inline the prep.
+prep_reg <- function(data) prep_for_train(data)
 
 # Model training / stacking / Platt all sourced from ensemble_lib.R.
 # `fit_stacking` honors module-level STACKING_METHOD / STACKING_LAMBDA via
@@ -96,8 +97,14 @@ predict_holdout <- function(ens_fit, holdout_raw) {
   nfl_pred <- apply_stacking(ens_fit$stack, xgb, glm, rf)
   nfl_pred <- if_else(is.na(nfl_pred), xgb, nfl_pred)
 
+  # Routed through apply_winprob so WINPROB_METHOD actually takes effect here.
+  # This local path previously called apply_platt directly, which meant the flag
+  # gated bundle CONSTRUCTION while the evaluation ran the legacy chain either
+  # way — the two settings produced byte-identical output.
   raw_wp <- pnorm(nfl_pred / ens_fit$sigma)
-  pred_wp <- if (!is.null(ens_fit$platt)) apply_platt(raw_wp, ens_fit$platt) else raw_wp
+  pred_wp <- if (!is.null(ens_fit$winprob)) {
+    apply_winprob(nfl_pred, ens_fit$winprob, ens_fit$sigma, ens_fit$platt)
+  } else if (!is.null(ens_fit$platt)) apply_platt(raw_wp, ens_fit$platt) else raw_wp
 
   bind_cols(
     holdout_raw,
@@ -360,9 +367,14 @@ for (hs in HOLDOUT_SEASONS) {
   sigma_ens    <- sd(cal_actual - cal_ens_pred, na.rm = TRUE) * 1.05
   cal_raw_wp   <- pnorm(cal_ens_pred / sigma_ens)
   platt        <- fit_platt_logits(cal_raw_wp, as.integer(cal_actual > 0))
+  # Alternative margin -> win-prob map (WINPROB_METHOD, default = legacy path).
+  winprob      <- fit_winprob(cal_ens_pred, as.integer(cal_actual > 0), sigma_ens)
   cat(sprintf("    σ_ens=%.2f, Platt: int=%.3f, slope=%.3f, glm λ=%.4f (cal n=%d)\n",
               sigma_ens, platt$intercept, platt$slope, pre_cal_glm$lambda,
               length(cal_actual)))
+  if (identical(winprob$method, "logistic"))
+    cat(sprintf("    winprob=logistic: int=%.3f, slope=%.4f per pt\n",
+                winprob$intercept, winprob$slope))
 
   # --- Final: retrain all three on full training data ---
   cat(sprintf("  Final: training XGB + GLM + RF (%d–%d)...\n",
@@ -378,7 +390,8 @@ for (hs in HOLDOUT_SEASONS) {
     rf    = final_rf,
     stack = stack,
     sigma = sigma_ens,
-    platt = platt
+    platt = platt,
+    winprob = winprob
   )
 
   cat("  Generating predictions...\n")
