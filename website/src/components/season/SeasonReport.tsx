@@ -186,7 +186,10 @@ function FantasySection({ season }: { season: number }) {
           </div>
         ) : leagues.map((lg: any, li: number) => {
           const franchises = lg.franchises ?? [];
-          const weeks = lg.weeks ?? [];
+          // Historical exports may contain a scalar when only one week exists;
+          // normalize at the boundary so an early-season report cannot crash.
+          const weeks = (Array.isArray(lg.weeks) ? lg.weeks
+            : lg.weeks == null ? [] : [lg.weeks]).map((w: any) => Number(w));
           const colorFor = (f: any, i: number) => f.is_mine ? MODEL_BLUE : TEAM_PALETTE[i % TEAM_PALETTE.length];
           const series: Series[] = franchises.map((f: any, i: number) => {
             const byWeek = new Map(arr(f.weekly).map((w: any) => [w.week, w[metric]]));

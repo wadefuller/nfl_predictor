@@ -1,0 +1,306 @@
+{
+  "season": 2026,
+  "week": 1,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 448,
+      "mae": 4.76,
+      "spearman": 0.562,
+      "ceiling_cov": 0.922,
+      "floor_cov": 0.779
+    },
+    {
+      "position": "QB",
+      "n": 72,
+      "mae": 8.04,
+      "spearman": 0.674,
+      "ceiling_cov": 0.944,
+      "floor_cov": 0.569
+    },
+    {
+      "position": "RB",
+      "n": 105,
+      "mae": 4.67,
+      "spearman": 0.724,
+      "ceiling_cov": 0.895,
+      "floor_cov": 0.733
+    },
+    {
+      "position": "TE",
+      "n": 104,
+      "mae": 3.15,
+      "spearman": 0.568,
+      "ceiling_cov": 0.913,
+      "floor_cov": 0.913
+    },
+    {
+      "position": "WR",
+      "n": 167,
+      "mae": 4.41,
+      "spearman": 0.654,
+      "ceiling_cov": 0.934,
+      "floor_cov": 0.814
+    }
+  ],
+  "class_counts": [
+    {
+      "boom": 24,
+      "bust": 57,
+      "met": 129
+    }
+  ],
+  "beats": [
+    {
+      "player": "Jalen Coker",
+      "position": "WR",
+      "team": "CAR",
+      "proj": 7.6,
+      "actual": 29.8,
+      "surprise": 22.2,
+      "class": "boom"
+    },
+    {
+      "player": "Derrick Henry",
+      "position": "RB",
+      "team": "BAL",
+      "proj": 13.4,
+      "actual": 34.8,
+      "surprise": 21.4,
+      "class": "boom"
+    },
+    {
+      "player": "Christian Watson",
+      "position": "WR",
+      "team": "GB",
+      "proj": 9.3,
+      "actual": 29.7,
+      "surprise": 20.4,
+      "class": "boom"
+    },
+    {
+      "player": "Kenneth Walker III",
+      "position": "RB",
+      "team": "KC",
+      "proj": 12.9,
+      "actual": 32.6,
+      "surprise": 19.7,
+      "class": "boom"
+    },
+    {
+      "player": "D'Andre Swift",
+      "position": "RB",
+      "team": "CHI",
+      "proj": 12.4,
+      "actual": 31.9,
+      "surprise": 19.5,
+      "class": "boom"
+    },
+    {
+      "player": "Caleb Williams",
+      "position": "QB",
+      "team": "CHI",
+      "proj": 19.5,
+      "actual": 37.3,
+      "surprise": 17.8,
+      "class": "boom"
+    },
+    {
+      "player": "Jahmyr Gibbs",
+      "position": "RB",
+      "team": "DET",
+      "proj": 14,
+      "actual": 31.1,
+      "surprise": 17.1,
+      "class": "boom"
+    },
+    {
+      "player": "Isaiah Likely",
+      "position": "TE",
+      "team": "NYG",
+      "proj": 6.9,
+      "actual": 23.8,
+      "surprise": 16.9,
+      "class": "boom"
+    },
+    {
+      "player": "Ashton Jeanty",
+      "position": "RB",
+      "team": "LV",
+      "proj": 12.9,
+      "actual": 29.7,
+      "surprise": 16.8,
+      "class": "boom"
+    },
+    {
+      "player": "Josh Allen",
+      "position": "QB",
+      "team": "BUF",
+      "proj": 19.2,
+      "actual": 35.7,
+      "surprise": 16.5,
+      "class": "boom"
+    },
+    {
+      "player": "Bryce Young",
+      "position": "QB",
+      "team": "CAR",
+      "proj": 15.7,
+      "actual": 31.4,
+      "surprise": 15.7,
+      "class": "boom"
+    },
+    {
+      "player": "David Montgomery",
+      "position": "RB",
+      "team": "HOU",
+      "proj": 11.8,
+      "actual": 27.4,
+      "surprise": 15.6,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Kyler Murray",
+      "position": "QB",
+      "team": "MIN",
+      "proj": 18.8,
+      "actual": -0.4,
+      "surprise": -19.2,
+      "class": "bust"
+    },
+    {
+      "player": "Sam Darnold",
+      "position": "QB",
+      "team": "SEA",
+      "proj": 17.2,
+      "actual": 0.5,
+      "surprise": -16.7,
+      "class": "bust"
+    },
+    {
+      "player": "Matthew Stafford",
+      "position": "QB",
+      "team": "LA",
+      "proj": 19.9,
+      "actual": 4.1,
+      "surprise": -15.8,
+      "class": "bust"
+    },
+    {
+      "player": "Jameis Winston",
+      "position": "QB",
+      "team": "NYG",
+      "proj": 13.9,
+      "actual": 0,
+      "surprise": -13.9,
+      "class": "bust"
+    },
+    {
+      "player": "Joe Flacco",
+      "position": "QB",
+      "team": "CIN",
+      "proj": 13.8,
+      "actual": 0,
+      "surprise": -13.8,
+      "class": "bust"
+    },
+    {
+      "player": "Marcus Mariota",
+      "position": "QB",
+      "team": "WAS",
+      "proj": 13.4,
+      "actual": 0,
+      "surprise": -13.4,
+      "class": "bust"
+    },
+    {
+      "player": "J.J. McCarthy",
+      "position": "QB",
+      "team": "MIN",
+      "proj": 13.3,
+      "actual": 0,
+      "surprise": -13.3,
+      "class": "bust"
+    },
+    {
+      "player": "Fernando Mendoza",
+      "position": "QB",
+      "team": "LV",
+      "proj": 13.3,
+      "actual": 0,
+      "surprise": -13.3,
+      "class": "bust"
+    },
+    {
+      "player": "Tua Tagovailoa",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 12.1,
+      "actual": 0,
+      "surprise": -12.1,
+      "class": "bust"
+    },
+    {
+      "player": "Carson Beck",
+      "position": "QB",
+      "team": "ARI",
+      "proj": 12.1,
+      "actual": 0,
+      "surprise": -12.1,
+      "class": "bust"
+    },
+    {
+      "player": "Michael Penix Jr.",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 11.8,
+      "actual": 0,
+      "surprise": -11.8,
+      "class": "bust"
+    },
+    {
+      "player": "Bo Nix",
+      "position": "QB",
+      "team": "DEN",
+      "proj": 17.2,
+      "actual": 5.4,
+      "surprise": -11.8,
+      "class": "bust"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 446,
+      "model": 0.569,
+      "ecr": 0.638
+    },
+    {
+      "position": "QB",
+      "n": 71,
+      "model": 0.675,
+      "ecr": 0.713
+    },
+    {
+      "position": "RB",
+      "n": 105,
+      "model": 0.724,
+      "ecr": 0.761
+    },
+    {
+      "position": "TE",
+      "n": 103,
+      "model": 0.595,
+      "ecr": 0.69
+    },
+    {
+      "position": "WR",
+      "n": 167,
+      "model": 0.654,
+      "ecr": 0.706
+    }
+  ],
+  "ecr_kind": "weekly"
+}

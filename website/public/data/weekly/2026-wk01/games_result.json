@@ -1,0 +1,1830 @@
+{
+  "season": 2026,
+  "week": 1,
+  "games": [
+    {
+      "game_id": "2026_01_MIA_LV",
+      "home_team": "LV",
+      "away_team": "MIA",
+      "home_points": 27,
+      "away_points": 13,
+      "winner": "LV",
+      "spread_line": 3,
+      "total_line": 40.5,
+      "model_line": 1.3,
+      "ats_pick": "MIA",
+      "ats_line": 3,
+      "ml_pick": "LV",
+      "model_win_home": 0.529,
+      "vegas_win_home": 0.604,
+      "edge": -0.074,
+      "ml_correct": 1,
+      "cover_correct": 0,
+      "total_actual": 40,
+      "home_players": [
+        {
+          "player": "Ashton Jeanty",
+          "position": "RB",
+          "stat": "23 car, 102 yd · 6/6 rec, 45 yd, 2 TD",
+          "proj": 12.9,
+          "actual": 29.7,
+          "diff": 16.8,
+          "classed": "boom"
+        },
+        {
+          "player": "Kirk Cousins",
+          "position": "QB",
+          "stat": "21/30, 160 yd, 3 TD, 2 INT · 5 car, -6 yd",
+          "proj": 12.4,
+          "actual": 13.8,
+          "diff": 1.4,
+          "classed": "met"
+        },
+        {
+          "player": "Fernando Mendoza",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 13.3,
+          "actual": 0,
+          "diff": -13.3,
+          "classed": "bust"
+        },
+        {
+          "player": "Jack Bech",
+          "position": "WR",
+          "stat": "3/4 rec, 23 yd, 1 TD",
+          "proj": 5.8,
+          "actual": 9.8,
+          "diff": 4,
+          "classed": "met"
+        },
+        {
+          "player": "Brock Bowers",
+          "position": "TE",
+          "stat": "did not play",
+          "proj": 7.6,
+          "actual": 0,
+          "diff": -7.6,
+          "classed": "bust"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Malik Willis",
+          "position": "QB",
+          "stat": "15/27, 220 yd, 1 INT · 6 car, 39 yd, 1 TD",
+          "proj": 12.9,
+          "actual": 16.7,
+          "diff": 3.8,
+          "classed": "met"
+        },
+        {
+          "player": "De'Von Achane",
+          "position": "RB",
+          "stat": "11 car, 36 yd · 4/5 rec, 30 yd",
+          "proj": 12.3,
+          "actual": 8.6,
+          "diff": -3.7,
+          "classed": "met"
+        },
+        {
+          "player": "Caleb Douglas",
+          "position": "WR",
+          "stat": "5/7 rec, 94 yd",
+          "proj": 5.5,
+          "actual": 11.9,
+          "diff": 6.4,
+          "classed": "met"
+        },
+        {
+          "player": "Kyle McCord",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 7.9,
+          "actual": 0,
+          "diff": -7.9,
+          "classed": "bust"
+        },
+        {
+          "player": "Brady Cook",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 7.9,
+          "actual": 0,
+          "diff": -7.9,
+          "classed": "bust"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_BAL_IND",
+      "home_team": "IND",
+      "away_team": "BAL",
+      "home_points": 23,
+      "away_points": 41,
+      "winner": "BAL",
+      "spread_line": -3,
+      "total_line": 48.5,
+      "model_line": -3.3,
+      "ats_pick": "BAL",
+      "ats_line": -3,
+      "ml_pick": "BAL",
+      "model_win_home": 0.336,
+      "vegas_win_home": 0.407,
+      "edge": -0.071,
+      "ml_correct": 1,
+      "cover_correct": 1,
+      "total_actual": 64,
+      "home_players": [
+        {
+          "player": "Jonathan Taylor",
+          "position": "RB",
+          "stat": "19 car, 98 yd, 2 TD · 3/4 rec, 23 yd",
+          "proj": 13.1,
+          "actual": 23.6,
+          "diff": 10.5,
+          "classed": "boom"
+        },
+        {
+          "player": "Daniel Jones",
+          "position": "QB",
+          "stat": "19/31, 166 yd, 1 TD, 1 INT · 1 car, 4 yd",
+          "proj": 17.6,
+          "actual": 9,
+          "diff": -8.6,
+          "classed": "met"
+        },
+        {
+          "player": "Josh Downs",
+          "position": "WR",
+          "stat": "2/4 rec, 37 yd",
+          "proj": 9.9,
+          "actual": 4.7,
+          "diff": -5.2,
+          "classed": "met"
+        },
+        {
+          "player": "Alec Pierce",
+          "position": "WR",
+          "stat": "4/6 rec, 61 yd",
+          "proj": 9.3,
+          "actual": 8.1,
+          "diff": -1.2,
+          "classed": "met"
+        },
+        {
+          "player": "Tyler Warren",
+          "position": "TE",
+          "stat": "3/5 rec, 13 yd, 1 TD",
+          "proj": 7.6,
+          "actual": 8.8,
+          "diff": 1.2,
+          "classed": "met"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Derrick Henry",
+          "position": "RB",
+          "stat": "24 car, 144 yd, 3 TD · 1/1 rec, 19 yd",
+          "proj": 13.4,
+          "actual": 34.8,
+          "diff": 21.4,
+          "classed": "boom"
+        },
+        {
+          "player": "Lamar Jackson",
+          "position": "QB",
+          "stat": "17/25, 324 yd, 1 TD · 7 car, 40 yd, 1 TD",
+          "proj": 19.9,
+          "actual": 25,
+          "diff": 5.1,
+          "classed": "met"
+        },
+        {
+          "player": "Zay Flowers",
+          "position": "WR",
+          "stat": "5/6 rec, 150 yd, 1 TD",
+          "proj": 12.6,
+          "actual": 23.5,
+          "diff": 10.9,
+          "classed": "boom"
+        },
+        {
+          "player": "Mark Andrews",
+          "position": "TE",
+          "stat": "4/6 rec, 49 yd",
+          "proj": 7,
+          "actual": 6.9,
+          "diff": -0.1,
+          "classed": "met"
+        },
+        {
+          "player": "Rashod Bateman",
+          "position": "WR",
+          "stat": "0/1 rec, 0 yd",
+          "proj": 6.3,
+          "actual": 0,
+          "diff": -6.3,
+          "classed": "bust"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_WAS_PHI",
+      "home_team": "PHI",
+      "away_team": "WAS",
+      "home_points": 24,
+      "away_points": 22,
+      "winner": "PHI",
+      "spread_line": 6,
+      "total_line": 43.5,
+      "model_line": 6.7,
+      "ats_pick": "PHI",
+      "ats_line": -6,
+      "ml_pick": "PHI",
+      "model_win_home": 0.742,
+      "vegas_win_home": 0.681,
+      "edge": 0.062,
+      "ml_correct": 1,
+      "cover_correct": 0,
+      "total_actual": 46,
+      "home_players": [
+        {
+          "player": "Jalen Hurts",
+          "position": "QB",
+          "stat": "14/25, 203 yd, 3 TD · 7 car, 46 yd",
+          "proj": 19.8,
+          "actual": 24.7,
+          "diff": 4.9,
+          "classed": "met"
+        },
+        {
+          "player": "Dallas Goedert",
+          "position": "TE",
+          "stat": "4/5 rec, 77 yd, 2 TD",
+          "proj": 7.2,
+          "actual": 21.7,
+          "diff": 14.5,
+          "classed": "boom"
+        },
+        {
+          "player": "Dontayvion Wicks",
+          "position": "WR",
+          "stat": "2/4 rec, 73 yd, 1 TD",
+          "proj": 7.1,
+          "actual": 14.3,
+          "diff": 7.2,
+          "classed": "met"
+        },
+        {
+          "player": "Saquon Barkley",
+          "position": "RB",
+          "stat": "15 car, 83 yd · 1/2 rec, -3 yd",
+          "proj": 13.5,
+          "actual": 8.5,
+          "diff": -5,
+          "classed": "met"
+        },
+        {
+          "player": "DeVonta Smith",
+          "position": "WR",
+          "stat": "3/6 rec, 53 yd",
+          "proj": 12.2,
+          "actual": 6.8,
+          "diff": -5.4,
+          "classed": "met"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Jayden Daniels",
+          "position": "QB",
+          "stat": "18/34, 164 yd, 2 TD · 5 car, 31 yd",
+          "proj": 17.2,
+          "actual": 17.7,
+          "diff": 0.5,
+          "classed": "met"
+        },
+        {
+          "player": "Antonio Williams",
+          "position": "WR",
+          "stat": "4/4 rec, 64 yd, 1 TD",
+          "proj": 6.4,
+          "actual": 14.4,
+          "diff": 8,
+          "classed": "met"
+        },
+        {
+          "player": "Stefon Diggs",
+          "position": "WR",
+          "stat": "4/9 rec, 55 yd, 1 TD",
+          "proj": 5.5,
+          "actual": 13.5,
+          "diff": 8,
+          "classed": "met"
+        },
+        {
+          "player": "Marcus Mariota",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 13.4,
+          "actual": 0,
+          "diff": -13.4,
+          "classed": "bust"
+        },
+        {
+          "player": "Jacory Croskey-Merritt",
+          "position": "RB",
+          "stat": "16 car, 63 yd, 1 TD · 1/1 rec, -7 yd",
+          "proj": 6.6,
+          "actual": 12.1,
+          "diff": 5.5,
+          "classed": "met"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_CLE_JAX",
+      "home_team": "JAX",
+      "away_team": "CLE",
+      "home_points": 34,
+      "away_points": 10,
+      "winner": "JAX",
+      "spread_line": 8.5,
+      "total_line": 40.5,
+      "model_line": 10.3,
+      "ats_pick": "JAX",
+      "ats_line": -8.5,
+      "ml_pick": "JAX",
+      "model_win_home": 0.843,
+      "vegas_win_home": 0.791,
+      "edge": 0.051,
+      "ml_correct": 1,
+      "cover_correct": 1,
+      "total_actual": 44,
+      "home_players": [
+        {
+          "player": "Trevor Lawrence",
+          "position": "QB",
+          "stat": "18/23, 245 yd, 4 TD · 2 car, 3 yd",
+          "proj": 18.6,
+          "actual": 26.1,
+          "diff": 7.5,
+          "classed": "met"
+        },
+        {
+          "player": "Parker Washington",
+          "position": "WR",
+          "stat": "5/6 rec, 83 yd, 1 TD",
+          "proj": 9,
+          "actual": 16.8,
+          "diff": 7.8,
+          "classed": "met"
+        },
+        {
+          "player": "Bhayshul Tuten",
+          "position": "RB",
+          "stat": "15 car, 66 yd · 1/1 rec, 22 yd",
+          "proj": 11.8,
+          "actual": 9.3,
+          "diff": -2.5,
+          "classed": "met"
+        },
+        {
+          "player": "Jakobi Meyers",
+          "position": "WR",
+          "stat": "2/2 rec, 40 yd, 1 TD · 1 car, 2 yd",
+          "proj": 8.8,
+          "actual": 11.2,
+          "diff": 2.4,
+          "classed": "met"
+        },
+        {
+          "player": "Quinn Ewers",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 9.9,
+          "actual": 0,
+          "diff": -9.9,
+          "classed": "bust"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Deshaun Watson",
+          "position": "QB",
+          "stat": "16/22, 205 yd, 1 TD, 1 INT · 6 car, 38 yd",
+          "proj": 11.5,
+          "actual": 14,
+          "diff": 2.5,
+          "classed": "met"
+        },
+        {
+          "player": "Denzel Boston",
+          "position": "WR",
+          "stat": "2/4 rec, 59 yd, 1 TD",
+          "proj": 6.4,
+          "actual": 12.9,
+          "diff": 6.5,
+          "classed": "met"
+        },
+        {
+          "player": "Shedeur Sanders",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 10.9,
+          "actual": 0,
+          "diff": -10.9,
+          "classed": "bust"
+        },
+        {
+          "player": "Quinshon Judkins",
+          "position": "RB",
+          "stat": "12 car, 33 yd · 2/2 rec, 17 yd",
+          "proj": 10.7,
+          "actual": 6,
+          "diff": -4.7,
+          "classed": "met"
+        },
+        {
+          "player": "K.C. Concepcion",
+          "position": "WR",
+          "stat": "4/5 rec, 43 yd · 3 car, 15 yd",
+          "proj": 8,
+          "actual": 5.8,
+          "diff": -2.2,
+          "classed": "met"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_CHI_CAR",
+      "home_team": "CAR",
+      "away_team": "CHI",
+      "home_points": 37,
+      "away_points": 59,
+      "winner": "CHI",
+      "spread_line": -3,
+      "total_line": 47.5,
+      "model_line": -2.9,
+      "ats_pick": "CAR",
+      "ats_line": 3,
+      "ml_pick": "CHI",
+      "model_win_home": 0.353,
+      "vegas_win_home": 0.4,
+      "edge": -0.048,
+      "ml_correct": 1,
+      "cover_correct": 0,
+      "total_actual": 96,
+      "home_players": [
+        {
+          "player": "Bryce Young",
+          "position": "QB",
+          "stat": "23/37, 361 yd, 3 TD, 1 INT · 2 car, 10 yd, 1 TD",
+          "proj": 15.7,
+          "actual": 31.4,
+          "diff": 15.7,
+          "classed": "boom"
+        },
+        {
+          "player": "Jalen Coker",
+          "position": "WR",
+          "stat": "8/9 rec, 138 yd, 2 TD",
+          "proj": 7.6,
+          "actual": 29.8,
+          "diff": 22.2,
+          "classed": "boom"
+        },
+        {
+          "player": "Chuba Hubbard",
+          "position": "RB",
+          "stat": "10 car, 49 yd, 1 TD · 3/3 rec, 38 yd, 1 TD",
+          "proj": 9.7,
+          "actual": 22.2,
+          "diff": 12.5,
+          "classed": "boom"
+        },
+        {
+          "player": "Tetairoa McMillan",
+          "position": "WR",
+          "stat": "5/8 rec, 75 yd",
+          "proj": 10.7,
+          "actual": 8,
+          "diff": -2.7,
+          "classed": "met"
+        },
+        {
+          "player": "Jonathon Brooks",
+          "position": "RB",
+          "stat": "4 car, 14 yd · 1/2 rec, 48 yd",
+          "proj": 8.5,
+          "actual": 6.7,
+          "diff": -1.8,
+          "classed": "met"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Caleb Williams",
+          "position": "QB",
+          "stat": "21/29, 269 yd, 2 TD · 10 car, 65 yd, 2 TD",
+          "proj": 19.5,
+          "actual": 37.3,
+          "diff": 17.8,
+          "classed": "boom"
+        },
+        {
+          "player": "D'Andre Swift",
+          "position": "RB",
+          "stat": "18 car, 124 yd, 3 TD · 1/1 rec, 10 yd",
+          "proj": 12.4,
+          "actual": 31.9,
+          "diff": 19.5,
+          "classed": "boom"
+        },
+        {
+          "player": "Kyle Monangai",
+          "position": "RB",
+          "stat": "10 car, 100 yd, 1 TD · 2/2 rec, 24 yd",
+          "proj": 7,
+          "actual": 19.4,
+          "diff": 12.4,
+          "classed": "boom"
+        },
+        {
+          "player": "Kalif Raymond",
+          "position": "WR",
+          "stat": "8/9 rec, 84 yd",
+          "proj": 3.6,
+          "actual": 12.4,
+          "diff": 8.8,
+          "classed": "boom"
+        },
+        {
+          "player": "Luther Burden III",
+          "position": "WR",
+          "stat": "5/5 rec, 63 yd · 1 car, 2 yd",
+          "proj": 10.7,
+          "actual": 7,
+          "diff": -3.7,
+          "classed": "met"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_SF_LA",
+      "home_team": "LA",
+      "away_team": "SF",
+      "home_points": 7,
+      "away_points": 27,
+      "winner": "SF",
+      "spread_line": 3.5,
+      "total_line": 47.5,
+      "model_line": 5.5,
+      "ats_pick": "LA",
+      "ats_line": -3.5,
+      "ml_pick": "LA",
+      "model_win_home": 0.702,
+      "vegas_win_home": 0.657,
+      "edge": 0.044,
+      "ml_correct": 0,
+      "cover_correct": 0,
+      "total_actual": 34,
+      "home_players": [
+        {
+          "player": "Matthew Stafford",
+          "position": "QB",
+          "stat": "15/25, 155 yd, 1 INT · 2 car, -1 yd",
+          "proj": 19.9,
+          "actual": 4.1,
+          "diff": -15.8,
+          "classed": "bust"
+        },
+        {
+          "player": "Kyren Williams",
+          "position": "RB",
+          "stat": "11 car, 41 yd, 1 TD · 3/3 rec, 24 yd",
+          "proj": 13.5,
+          "actual": 14,
+          "diff": 0.5,
+          "classed": "met"
+        },
+        {
+          "player": "Puka Nacua",
+          "position": "WR",
+          "stat": "5/9 rec, 74 yd",
+          "proj": 12.6,
+          "actual": 9.9,
+          "diff": -2.7,
+          "classed": "met"
+        },
+        {
+          "player": "Davante Adams",
+          "position": "WR",
+          "stat": "3/6 rec, 26 yd",
+          "proj": 10.1,
+          "actual": 4.1,
+          "diff": -6,
+          "classed": "met"
+        },
+        {
+          "player": "Blake Corum",
+          "position": "RB",
+          "stat": "10 car, 54 yd",
+          "proj": 7.4,
+          "actual": 5.4,
+          "diff": -2,
+          "classed": "met"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Brock Purdy",
+          "position": "QB",
+          "stat": "25/34, 205 yd, 3 TD, 1 INT · 5 car, 29 yd",
+          "proj": 17.9,
+          "actual": 21.1,
+          "diff": 3.2,
+          "classed": "met"
+        },
+        {
+          "player": "Deebo Samuel Sr.",
+          "position": "WR",
+          "stat": "6/7 rec, 48 yd, 1 TD · 1 car, 12 yd",
+          "proj": 5.6,
+          "actual": 15,
+          "diff": 9.4,
+          "classed": "boom"
+        },
+        {
+          "player": "Mike Evans",
+          "position": "WR",
+          "stat": "6/7 rec, 49 yd, 1 TD",
+          "proj": 10.4,
+          "actual": 13.9,
+          "diff": 3.5,
+          "classed": "met"
+        },
+        {
+          "player": "Christian McCaffrey",
+          "position": "RB",
+          "stat": "10 car, 68 yd · 5/8 rec, 20 yd",
+          "proj": 12.8,
+          "actual": 11.3,
+          "diff": -1.5,
+          "classed": "met"
+        },
+        {
+          "player": "Demarcus Robinson",
+          "position": "WR",
+          "stat": "2/3 rec, 50 yd, 1 TD",
+          "proj": 2.9,
+          "actual": 12,
+          "diff": 9.1,
+          "classed": "boom"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_GB_MIN",
+      "home_team": "MIN",
+      "away_team": "GB",
+      "home_points": 39,
+      "away_points": 22,
+      "winner": "MIN",
+      "spread_line": 1.5,
+      "total_line": 46.5,
+      "model_line": 0.5,
+      "ats_pick": "GB",
+      "ats_line": 1.5,
+      "ml_pick": "MIN",
+      "model_win_home": 0.494,
+      "vegas_win_home": 0.532,
+      "edge": -0.038,
+      "ml_correct": 1,
+      "cover_correct": 0,
+      "total_actual": 61,
+      "home_players": [
+        {
+          "player": "Justin Jefferson",
+          "position": "WR",
+          "stat": "8/9 rec, 92 yd, 2 TD",
+          "proj": 12.1,
+          "actual": 27.2,
+          "diff": 15.1,
+          "classed": "boom"
+        },
+        {
+          "player": "Carson Wentz",
+          "position": "QB",
+          "stat": "12/19, 133 yd, 3 TD · 5 car, -1 yd",
+          "proj": 8.4,
+          "actual": 19.2,
+          "diff": 10.8,
+          "classed": "boom"
+        },
+        {
+          "player": "Kyler Murray",
+          "position": "QB",
+          "stat": "3/5, 18 yd, 1 INT · 2 car, 9 yd",
+          "proj": 18.8,
+          "actual": -0.4,
+          "diff": -19.2,
+          "classed": "bust"
+        },
+        {
+          "player": "J.J. McCarthy",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 13.3,
+          "actual": 0,
+          "diff": -13.3,
+          "classed": "bust"
+        },
+        {
+          "player": "Jordan Mason",
+          "position": "RB",
+          "stat": "15 car, 59 yd, 1 TD",
+          "proj": 6.9,
+          "actual": 11.9,
+          "diff": 5,
+          "classed": "met"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Christian Watson",
+          "position": "WR",
+          "stat": "6/8 rec, 147 yd, 2 TD",
+          "proj": 9.3,
+          "actual": 29.7,
+          "diff": 20.4,
+          "classed": "boom"
+        },
+        {
+          "player": "Jordan Love",
+          "position": "QB",
+          "stat": "21/42, 387 yd, 2 TD, 1 INT · 1 car, 0 yd",
+          "proj": 18.1,
+          "actual": 19.5,
+          "diff": 1.4,
+          "classed": "met"
+        },
+        {
+          "player": "Matthew Golden",
+          "position": "WR",
+          "stat": "6/12 rec, 95 yd",
+          "proj": 7.8,
+          "actual": 12.5,
+          "diff": 4.7,
+          "classed": "met"
+        },
+        {
+          "player": "Tucker Kraft",
+          "position": "TE",
+          "stat": "3/6 rec, 65 yd",
+          "proj": 7,
+          "actual": 8,
+          "diff": 1,
+          "classed": "met"
+        },
+        {
+          "player": "Tyrod Taylor",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 7.8,
+          "actual": 0,
+          "diff": -7.8,
+          "classed": "bust"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_DEN_KC",
+      "home_team": "KC",
+      "away_team": "DEN",
+      "home_points": 31,
+      "away_points": 10,
+      "winner": "KC",
+      "spread_line": 2.5,
+      "total_line": 42.5,
+      "model_line": 2.3,
+      "ats_pick": "DEN",
+      "ats_line": 2.5,
+      "ml_pick": "KC",
+      "model_win_home": 0.573,
+      "vegas_win_home": 0.543,
+      "edge": 0.031,
+      "ml_correct": 1,
+      "cover_correct": 0,
+      "total_actual": 41,
+      "home_players": [
+        {
+          "player": "Kenneth Walker III",
+          "position": "RB",
+          "stat": "23 car, 173 yd, 1 TD · 3/6 rec, 18 yd, 1 TD",
+          "proj": 12.9,
+          "actual": 32.6,
+          "diff": 19.7,
+          "classed": "boom"
+        },
+        {
+          "player": "Patrick Mahomes",
+          "position": "QB",
+          "stat": "15/27, 184 yd, 2 TD, 1 INT · 7 car, 23 yd, 1 TD",
+          "proj": 18.3,
+          "actual": 21.7,
+          "diff": 3.4,
+          "classed": "met"
+        },
+        {
+          "player": "Rashee Rice",
+          "position": "WR",
+          "stat": "2/2 rec, 19 yd, 1 TD",
+          "proj": 11.7,
+          "actual": 8.9,
+          "diff": -2.8,
+          "classed": "met"
+        },
+        {
+          "player": "Justin Fields",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 11.6,
+          "actual": 0,
+          "diff": -11.6,
+          "classed": "bust"
+        },
+        {
+          "player": "Travis Kelce",
+          "position": "TE",
+          "stat": "3/5 rec, 71 yd",
+          "proj": 7.8,
+          "actual": 8.6,
+          "diff": 0.8,
+          "classed": "met"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Bo Nix",
+          "position": "QB",
+          "stat": "17/28, 131 yd, 1 TD, 1 INT · 3 car, 2 yd",
+          "proj": 17.2,
+          "actual": 5.4,
+          "diff": -11.8,
+          "classed": "bust"
+        },
+        {
+          "player": "Evan Engram",
+          "position": "TE",
+          "stat": "4/5 rec, 43 yd, 1 TD",
+          "proj": 4.8,
+          "actual": 12.3,
+          "diff": 7.5,
+          "classed": "boom"
+        },
+        {
+          "player": "Jaylen Waddle",
+          "position": "WR",
+          "stat": "1/3 rec, 2 yd",
+          "proj": 10.3,
+          "actual": 0.7,
+          "diff": -9.6,
+          "classed": "bust"
+        },
+        {
+          "player": "RJ Harvey",
+          "position": "RB",
+          "stat": "3 car, 18 yd · 4/4 rec, 23 yd",
+          "proj": 9,
+          "actual": 6.1,
+          "diff": -2.9,
+          "classed": "met"
+        },
+        {
+          "player": "Courtland Sutton",
+          "position": "WR",
+          "stat": "2/5 rec, 11 yd",
+          "proj": 8.5,
+          "actual": 2.1,
+          "diff": -6.4,
+          "classed": "bust"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_DAL_NYG",
+      "home_team": "NYG",
+      "away_team": "DAL",
+      "home_points": 28,
+      "away_points": 20,
+      "winner": "NYG",
+      "spread_line": -3,
+      "total_line": 47.5,
+      "model_line": -2.5,
+      "ats_pick": "NYG",
+      "ats_line": 3,
+      "ml_pick": "DAL",
+      "model_win_home": 0.37,
+      "vegas_win_home": 0.4,
+      "edge": -0.03,
+      "ml_correct": 0,
+      "cover_correct": 1,
+      "total_actual": 48,
+      "home_players": [
+        {
+          "player": "Jaxson Dart",
+          "position": "QB",
+          "stat": "23/29, 230 yd, 3 TD · 11 car, 54 yd",
+          "proj": 19.1,
+          "actual": 26.6,
+          "diff": 7.5,
+          "classed": "met"
+        },
+        {
+          "player": "Isaiah Likely",
+          "position": "TE",
+          "stat": "8/8 rec, 78 yd, 2 TD",
+          "proj": 6.9,
+          "actual": 23.8,
+          "diff": 16.9,
+          "classed": "boom"
+        },
+        {
+          "player": "Cam Skattebo",
+          "position": "RB",
+          "stat": "18 car, 81 yd, 1 TD",
+          "proj": 12.6,
+          "actual": 14.1,
+          "diff": 1.5,
+          "classed": "met"
+        },
+        {
+          "player": "Jameis Winston",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 13.9,
+          "actual": 0,
+          "diff": -13.9,
+          "classed": "bust"
+        },
+        {
+          "player": "Devin Singletary",
+          "position": "RB",
+          "stat": "6 car, 16 yd · 4/4 rec, 22 yd, 1 TD",
+          "proj": 3.6,
+          "actual": 11.8,
+          "diff": 8.2,
+          "classed": "boom"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Javonte Williams",
+          "position": "RB",
+          "stat": "12 car, 41 yd, 1 TD · 5/5 rec, 31 yd, 1 TD",
+          "proj": 12.6,
+          "actual": 21.7,
+          "diff": 9.1,
+          "classed": "met"
+        },
+        {
+          "player": "Dak Prescott",
+          "position": "QB",
+          "stat": "22/34, 175 yd, 2 TD, 1 INT · 2 car, 14 yd",
+          "proj": 19.5,
+          "actual": 14.4,
+          "diff": -5.1,
+          "classed": "met"
+        },
+        {
+          "player": "CeeDee Lamb",
+          "position": "WR",
+          "stat": "5/8 rec, 44 yd, 1 TD · 1 car, 0 yd",
+          "proj": 12.7,
+          "actual": 12.9,
+          "diff": 0.2,
+          "classed": "met"
+        },
+        {
+          "player": "George Pickens",
+          "position": "WR",
+          "stat": "3/6 rec, 28 yd",
+          "proj": 12.4,
+          "actual": 4.3,
+          "diff": -8.1,
+          "classed": "met"
+        },
+        {
+          "player": "Jake Ferguson",
+          "position": "TE",
+          "stat": "2/2 rec, 6 yd",
+          "proj": 7.2,
+          "actual": 1.6,
+          "diff": -5.6,
+          "classed": "met"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_BUF_HOU",
+      "home_team": "HOU",
+      "away_team": "BUF",
+      "home_points": 31,
+      "away_points": 36,
+      "winner": "BUF",
+      "spread_line": -1.5,
+      "total_line": 44.5,
+      "model_line": -0.1,
+      "ats_pick": "HOU",
+      "ats_line": 1.5,
+      "ml_pick": "BUF",
+      "model_win_home": 0.468,
+      "vegas_win_home": 0.496,
+      "edge": -0.028,
+      "ml_correct": 1,
+      "cover_correct": 0,
+      "total_actual": 67,
+      "home_players": [
+        {
+          "player": "David Montgomery",
+          "position": "RB",
+          "stat": "20 car, 60 yd, 2 TD · 3/3 rec, 19 yd, 1 TD",
+          "proj": 11.8,
+          "actual": 27.4,
+          "diff": 15.6,
+          "classed": "boom"
+        },
+        {
+          "player": "Nico Collins",
+          "position": "WR",
+          "stat": "7/10 rec, 75 yd, 1 TD · 1 car, 7 yd",
+          "proj": 11.9,
+          "actual": 17.7,
+          "diff": 5.8,
+          "classed": "met"
+        },
+        {
+          "player": "C.J. Stroud",
+          "position": "QB",
+          "stat": "26/38, 274 yd, 2 TD · 2 car, 15 yd",
+          "proj": 16.2,
+          "actual": 16.5,
+          "diff": 0.3,
+          "classed": "met"
+        },
+        {
+          "player": "Davis Mills",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 7.3,
+          "actual": 0,
+          "diff": -7.3,
+          "classed": "bust"
+        },
+        {
+          "player": "Jaylin Noel",
+          "position": "WR",
+          "stat": "2/2 rec, 53 yd",
+          "proj": 6.7,
+          "actual": 6.3,
+          "diff": -0.4,
+          "classed": "met"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Josh Allen",
+          "position": "QB",
+          "stat": "20/29, 334 yd, 2 TD · 6 car, 23 yd, 2 TD",
+          "proj": 19.2,
+          "actual": 35.7,
+          "diff": 16.5,
+          "classed": "boom"
+        },
+        {
+          "player": "DJ Moore",
+          "position": "WR",
+          "stat": "5/8 rec, 100 yd, 1 TD",
+          "proj": 11.7,
+          "actual": 18.5,
+          "diff": 6.8,
+          "classed": "met"
+        },
+        {
+          "player": "Dalton Kincaid",
+          "position": "TE",
+          "stat": "5/6 rec, 130 yd",
+          "proj": 6.8,
+          "actual": 15.5,
+          "diff": 8.7,
+          "classed": "boom"
+        },
+        {
+          "player": "James Cook",
+          "position": "RB",
+          "stat": "13 car, 57 yd · 3/4 rec, 12 yd",
+          "proj": 13,
+          "actual": 8.4,
+          "diff": -4.6,
+          "classed": "met"
+        },
+        {
+          "player": "Josh Palmer",
+          "position": "WR",
+          "stat": "1/2 rec, 34 yd, 1 TD",
+          "proj": 4,
+          "actual": 9.9,
+          "diff": 5.9,
+          "classed": "met"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_NO_DET",
+      "home_team": "DET",
+      "away_team": "NO",
+      "home_points": 31,
+      "away_points": 30,
+      "winner": "DET",
+      "spread_line": 7,
+      "total_line": 49.5,
+      "model_line": 7.3,
+      "ats_pick": "DET",
+      "ats_line": -7,
+      "ml_pick": "DET",
+      "model_win_home": 0.76,
+      "vegas_win_home": 0.734,
+      "edge": 0.027,
+      "ml_correct": 1,
+      "cover_correct": 0,
+      "total_actual": 61,
+      "home_players": [
+        {
+          "player": "Jahmyr Gibbs",
+          "position": "RB",
+          "stat": "29 car, 156 yd, 2 TD · 5/5 rec, 30 yd",
+          "proj": 14,
+          "actual": 31.1,
+          "diff": 17.1,
+          "classed": "boom"
+        },
+        {
+          "player": "Amon-Ra St. Brown",
+          "position": "WR",
+          "stat": "10/14 rec, 67 yd, 2 TD",
+          "proj": 12.8,
+          "actual": 23.7,
+          "diff": 10.9,
+          "classed": "boom"
+        },
+        {
+          "player": "Jared Goff",
+          "position": "QB",
+          "stat": "26/39, 206 yd, 2 TD · 2 car, 2 yd",
+          "proj": 20.1,
+          "actual": 16.4,
+          "diff": -3.7,
+          "classed": "met"
+        },
+        {
+          "player": "Joshua Dobbs",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 11.5,
+          "actual": 0,
+          "diff": -11.5,
+          "classed": "bust"
+        },
+        {
+          "player": "Jameson Williams",
+          "position": "WR",
+          "stat": "4/9 rec, 45 yd",
+          "proj": 11.1,
+          "actual": 6.5,
+          "diff": -4.6,
+          "classed": "met"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Chris Olave",
+          "position": "WR",
+          "stat": "10/13 rec, 182 yd",
+          "proj": 11.4,
+          "actual": 23.2,
+          "diff": 11.8,
+          "classed": "boom"
+        },
+        {
+          "player": "Tyler Shough",
+          "position": "QB",
+          "stat": "35/56, 410 yd, 3 TD, 2 INT · 4 car, 8 yd",
+          "proj": 16,
+          "actual": 23.2,
+          "diff": 7.2,
+          "classed": "met"
+        },
+        {
+          "player": "Devaughn Vele",
+          "position": "WR",
+          "stat": "7/9 rec, 69 yd, 1 TD",
+          "proj": 5.7,
+          "actual": 16.4,
+          "diff": 10.7,
+          "classed": "boom"
+        },
+        {
+          "player": "Juwan Johnson",
+          "position": "TE",
+          "stat": "3/7 rec, 54 yd, 1 TD",
+          "proj": 6.6,
+          "actual": 12.9,
+          "diff": 6.3,
+          "classed": "met"
+        },
+        {
+          "player": "Travis Etienne",
+          "position": "RB",
+          "stat": "9 car, 46 yd · 7/9 rec, 32 yd",
+          "proj": 12.1,
+          "actual": 11.3,
+          "diff": -0.8,
+          "classed": "met"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_NYJ_TEN",
+      "home_team": "TEN",
+      "away_team": "NYJ",
+      "home_points": 10,
+      "away_points": 23,
+      "winner": "NYJ",
+      "spread_line": 1.5,
+      "total_line": 39.5,
+      "model_line": 0.4,
+      "ats_pick": "NYJ",
+      "ats_line": 1.5,
+      "ml_pick": "TEN",
+      "model_win_home": 0.491,
+      "vegas_win_home": 0.517,
+      "edge": -0.026,
+      "ml_correct": 0,
+      "cover_correct": 1,
+      "total_actual": 33,
+      "home_players": [
+        {
+          "player": "Cam Ward",
+          "position": "QB",
+          "stat": "19/32, 140 yd, 1 TD · 4 car, 21 yd",
+          "proj": 16.9,
+          "actual": 11.7,
+          "diff": -5.2,
+          "classed": "met"
+        },
+        {
+          "player": "Tony Pollard",
+          "position": "RB",
+          "stat": "7 car, 35 yd · 1/2 rec, -1 yd",
+          "proj": 11.2,
+          "actual": 3.9,
+          "diff": -7.3,
+          "classed": "met"
+        },
+        {
+          "player": "Carnell Tate",
+          "position": "WR",
+          "stat": "4/6 rec, 38 yd",
+          "proj": 9.9,
+          "actual": 5.8,
+          "diff": -4.1,
+          "classed": "met"
+        },
+        {
+          "player": "Wan'Dale Robinson",
+          "position": "WR",
+          "stat": "5/6 rec, 38 yd",
+          "proj": 9.5,
+          "actual": 6.3,
+          "diff": -3.2,
+          "classed": "met"
+        },
+        {
+          "player": "Mitchell Trubisky",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 8.8,
+          "actual": 0,
+          "diff": -8.8,
+          "classed": "bust"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Breece Hall",
+          "position": "RB",
+          "stat": "22 car, 102 yd, 1 TD · 2/2 rec, 16 yd",
+          "proj": 12.2,
+          "actual": 18.8,
+          "diff": 6.6,
+          "classed": "met"
+        },
+        {
+          "player": "Geno Smith",
+          "position": "QB",
+          "stat": "19/24, 215 yd · 6 car, 7 yd",
+          "proj": 12.6,
+          "actual": 9.3,
+          "diff": -3.3,
+          "classed": "met"
+        },
+        {
+          "player": "Garrett Wilson",
+          "position": "WR",
+          "stat": "6/7 rec, 79 yd",
+          "proj": 11,
+          "actual": 10.9,
+          "diff": -0.1,
+          "classed": "met"
+        },
+        {
+          "player": "Kenyon Sadiq",
+          "position": "TE",
+          "stat": "3/3 rec, 21 yd · 1 car, 3 yd, 1 TD",
+          "proj": 5.6,
+          "actual": 9.9,
+          "diff": 4.3,
+          "classed": "met"
+        },
+        {
+          "player": "Cade Klubnik",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 8.5,
+          "actual": 0,
+          "diff": -8.5,
+          "classed": "bust"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_TB_CIN",
+      "home_team": "CIN",
+      "away_team": "TB",
+      "home_points": 33,
+      "away_points": 27,
+      "winner": "CIN",
+      "spread_line": 3.5,
+      "total_line": 50.5,
+      "model_line": 3.7,
+      "ats_pick": "CIN",
+      "ats_line": -3.5,
+      "ml_pick": "CIN",
+      "model_win_home": 0.629,
+      "vegas_win_home": 0.645,
+      "edge": -0.016,
+      "ml_correct": 1,
+      "cover_correct": 1,
+      "total_actual": 60,
+      "home_players": [
+        {
+          "player": "Joe Burrow",
+          "position": "QB",
+          "stat": "25/35, 254 yd, 1 TD, 1 INT · 5 car, 20 yd",
+          "proj": 19.9,
+          "actual": 14.2,
+          "diff": -5.7,
+          "classed": "met"
+        },
+        {
+          "player": "Mike Gesicki",
+          "position": "TE",
+          "stat": "5/7 rec, 78 yd, 1 TD",
+          "proj": 4.7,
+          "actual": 16.3,
+          "diff": 11.6,
+          "classed": "boom"
+        },
+        {
+          "player": "Chase Brown",
+          "position": "RB",
+          "stat": "16 car, 56 yd, 1 TD · 5/6 rec, 22 yd",
+          "proj": 13.8,
+          "actual": 16.3,
+          "diff": 2.5,
+          "classed": "met"
+        },
+        {
+          "player": "Joe Flacco",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 13.8,
+          "actual": 0,
+          "diff": -13.8,
+          "classed": "bust"
+        },
+        {
+          "player": "Ja'Marr Chase",
+          "position": "WR",
+          "stat": "2/4 rec, 12 yd",
+          "proj": 12.7,
+          "actual": 2.2,
+          "diff": -10.5,
+          "classed": "bust"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Baker Mayfield",
+          "position": "QB",
+          "stat": "23/28, 216 yd · 5 car, 30 yd, 1 TD",
+          "proj": 19.5,
+          "actual": 11.6,
+          "diff": -7.9,
+          "classed": "met"
+        },
+        {
+          "player": "Bucky Irving",
+          "position": "RB",
+          "stat": "8 car, 45 yd, 1 TD · 7/7 rec, 48 yd",
+          "proj": 12.2,
+          "actual": 16.8,
+          "diff": 4.6,
+          "classed": "met"
+        },
+        {
+          "player": "Emeka Egbuka",
+          "position": "WR",
+          "stat": "5/6 rec, 63 yd",
+          "proj": 11.9,
+          "actual": 8.8,
+          "diff": -3.1,
+          "classed": "met"
+        },
+        {
+          "player": "Chris Godwin Jr.",
+          "position": "WR",
+          "stat": "4/4 rec, 40 yd · 1 car, 3 yd",
+          "proj": 9.7,
+          "actual": 6.3,
+          "diff": -3.4,
+          "classed": "met"
+        },
+        {
+          "player": "Kenny Gainwell",
+          "position": "RB",
+          "stat": "5 car, 15 yd · 1/1 rec, 3 yd",
+          "proj": 8.3,
+          "actual": 2.3,
+          "diff": -6,
+          "classed": "met"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_NE_SEA",
+      "home_team": "SEA",
+      "away_team": "NE",
+      "home_points": 13,
+      "away_points": 10,
+      "winner": "SEA",
+      "spread_line": 3,
+      "total_line": 44.5,
+      "model_line": 3.3,
+      "ats_pick": "SEA",
+      "ats_line": -3,
+      "ml_pick": "SEA",
+      "model_win_home": 0.613,
+      "vegas_win_home": 0.6,
+      "edge": 0.014,
+      "ml_correct": 1,
+      "cover_correct": null,
+      "total_actual": 23,
+      "home_players": [
+        {
+          "player": "Jaxon Smith-Njigba",
+          "position": "WR",
+          "stat": "8/11 rec, 122 yd, 1 TD",
+          "proj": 12.3,
+          "actual": 22.2,
+          "diff": 9.9,
+          "classed": "met"
+        },
+        {
+          "player": "Sam Darnold",
+          "position": "QB",
+          "stat": "1/2, 13 yd",
+          "proj": 17.2,
+          "actual": 0.5,
+          "diff": -16.7,
+          "classed": "bust"
+        },
+        {
+          "player": "Drew Lock",
+          "position": "QB",
+          "stat": "16/22, 187 yd, 1 TD · 2 car, 13 yd",
+          "proj": 6,
+          "actual": 12.8,
+          "diff": 6.8,
+          "classed": "met"
+        },
+        {
+          "player": "Jadarian Price",
+          "position": "RB",
+          "stat": "10 car, 52 yd · 2/2 rec, 6 yd",
+          "proj": 11.6,
+          "actual": 6.8,
+          "diff": -4.8,
+          "classed": "met"
+        },
+        {
+          "player": "Rashid Shaheed",
+          "position": "WR",
+          "stat": "1/3 rec, 4 yd",
+          "proj": 8.2,
+          "actual": 0.9,
+          "diff": -7.3,
+          "classed": "bust"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Drake Maye",
+          "position": "QB",
+          "stat": "23/33, 178 yd, 1 TD, 3 INT · 7 car, 47 yd",
+          "proj": 17.1,
+          "actual": 9.8,
+          "diff": -7.3,
+          "classed": "met"
+        },
+        {
+          "player": "Rhamondre Stevenson",
+          "position": "RB",
+          "stat": "18 car, 51 yd · 5/6 rec, 44 yd",
+          "proj": 11.6,
+          "actual": 12,
+          "diff": 0.4,
+          "classed": "met"
+        },
+        {
+          "player": "A.J. Brown",
+          "position": "WR",
+          "stat": "3/4 rec, 26 yd",
+          "proj": 11.8,
+          "actual": 4.1,
+          "diff": -7.7,
+          "classed": "met"
+        },
+        {
+          "player": "Romeo Doubs",
+          "position": "WR",
+          "stat": "0/3 rec, 0 yd",
+          "proj": 7.9,
+          "actual": 0,
+          "diff": -7.9,
+          "classed": "bust"
+        },
+        {
+          "player": "Tommy DeVito",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 7.9,
+          "actual": 0,
+          "diff": -7.9,
+          "classed": "bust"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_ATL_PIT",
+      "home_team": "PIT",
+      "away_team": "ATL",
+      "home_points": 20,
+      "away_points": 13,
+      "winner": "PIT",
+      "spread_line": 6.5,
+      "total_line": 40.5,
+      "model_line": 5.9,
+      "ats_pick": "ATL",
+      "ats_line": 6.5,
+      "ml_pick": "PIT",
+      "model_win_home": 0.714,
+      "vegas_win_home": 0.718,
+      "edge": -0.004,
+      "ml_correct": 1,
+      "cover_correct": 0,
+      "total_actual": 33,
+      "home_players": [
+        {
+          "player": "Aaron Rodgers",
+          "position": "QB",
+          "stat": "24/40, 221 yd, 1 TD · 3 car, -3 yd",
+          "proj": 14,
+          "actual": 12.5,
+          "diff": -1.5,
+          "classed": "met"
+        },
+        {
+          "player": "Pat Freiermuth",
+          "position": "TE",
+          "stat": "5/5 rec, 46 yd, 1 TD",
+          "proj": 4.8,
+          "actual": 13.1,
+          "diff": 8.3,
+          "classed": "boom"
+        },
+        {
+          "player": "Jaylen Warren",
+          "position": "RB",
+          "stat": "10 car, 46 yd · 5/6 rec, 27 yd",
+          "proj": 12.1,
+          "actual": 7.8,
+          "diff": -4.3,
+          "classed": "met"
+        },
+        {
+          "player": "Rico Dowdle",
+          "position": "RB",
+          "stat": "8 car, 15 yd · 2/5 rec, 6 yd",
+          "proj": 9.8,
+          "actual": 3.1,
+          "diff": -6.7,
+          "classed": "met"
+        },
+        {
+          "player": "DK Metcalf",
+          "position": "WR",
+          "stat": "4/10 rec, 40 yd",
+          "proj": 9.1,
+          "actual": 6,
+          "diff": -3.1,
+          "classed": "met"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Bijan Robinson",
+          "position": "RB",
+          "stat": "21 car, 83 yd · 8/10 rec, 90 yd, 1 TD",
+          "proj": 12.8,
+          "actual": 27.3,
+          "diff": 14.5,
+          "classed": "boom"
+        },
+        {
+          "player": "Tua Tagovailoa",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 12.1,
+          "actual": 0,
+          "diff": -12.1,
+          "classed": "bust"
+        },
+        {
+          "player": "Cooper Rush",
+          "position": "QB",
+          "stat": "12/22, 143 yd, 1 TD, 2 INT",
+          "proj": 11.9,
+          "actual": 5.7,
+          "diff": -6.2,
+          "classed": "met"
+        },
+        {
+          "player": "Michael Penix Jr.",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 11.8,
+          "actual": 0,
+          "diff": -11.8,
+          "classed": "bust"
+        },
+        {
+          "player": "Drake London",
+          "position": "WR",
+          "stat": "2/4 rec, 29 yd · 1 car, 6 yd",
+          "proj": 11.3,
+          "actual": 4.5,
+          "diff": -6.8,
+          "classed": "met"
+        }
+      ]
+    },
+    {
+      "game_id": "2026_01_ARI_LAC",
+      "home_team": "LAC",
+      "away_team": "ARI",
+      "home_points": 14,
+      "away_points": 26,
+      "winner": "ARI",
+      "spread_line": 8.5,
+      "total_line": 47.5,
+      "model_line": 8.1,
+      "ats_pick": "ARI",
+      "ats_line": 8.5,
+      "ml_pick": "LAC",
+      "model_win_home": 0.787,
+      "vegas_win_home": 0.787,
+      "edge": 0,
+      "ml_correct": 0,
+      "cover_correct": 1,
+      "total_actual": 40,
+      "home_players": [
+        {
+          "player": "Justin Herbert",
+          "position": "QB",
+          "stat": "17/27, 209 yd, 1 TD, 1 INT · 5 car, 29 yd",
+          "proj": 19.8,
+          "actual": 13.3,
+          "diff": -6.5,
+          "classed": "met"
+        },
+        {
+          "player": "Ladd McConkey",
+          "position": "WR",
+          "stat": "5/7 rec, 82 yd, 1 TD",
+          "proj": 10.9,
+          "actual": 16.7,
+          "diff": 5.8,
+          "classed": "met"
+        },
+        {
+          "player": "Omarion Hampton",
+          "position": "RB",
+          "stat": "12 car, 43 yd, 1 TD",
+          "proj": 13.7,
+          "actual": 8.3,
+          "diff": -5.4,
+          "classed": "met"
+        },
+        {
+          "player": "David Njoku",
+          "position": "TE",
+          "stat": "5/5 rec, 58 yd",
+          "proj": 5.2,
+          "actual": 8.3,
+          "diff": 3.1,
+          "classed": "met"
+        },
+        {
+          "player": "Quentin Johnston",
+          "position": "WR",
+          "stat": "2/6 rec, 17 yd",
+          "proj": 7.9,
+          "actual": 2.7,
+          "diff": -5.2,
+          "classed": "met"
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Trey McBride",
+          "position": "TE",
+          "stat": "9/13 rec, 95 yd, 1 TD",
+          "proj": 7.4,
+          "actual": 20,
+          "diff": 12.6,
+          "classed": "boom"
+        },
+        {
+          "player": "Jacoby Brissett",
+          "position": "QB",
+          "stat": "27/37, 277 yd, 1 TD · 6 car, 14 yd",
+          "proj": 15.5,
+          "actual": 16.5,
+          "diff": 1,
+          "classed": "met"
+        },
+        {
+          "player": "Jeremiyah Love",
+          "position": "RB",
+          "stat": "11 car, 41 yd, 1 TD · 2/4 rec, 9 yd",
+          "proj": 12.1,
+          "actual": 12,
+          "diff": -0.1,
+          "classed": "met"
+        },
+        {
+          "player": "Carson Beck",
+          "position": "QB",
+          "stat": "did not play",
+          "proj": 12.1,
+          "actual": 0,
+          "diff": -12.1,
+          "classed": "bust"
+        },
+        {
+          "player": "Kendrick Bourne",
+          "position": "WR",
+          "stat": "8/8 rec, 75 yd",
+          "proj": 3.9,
+          "actual": 11.5,
+          "diff": 7.6,
+          "classed": "boom"
+        }
+      ]
+    }
+  ]
+}

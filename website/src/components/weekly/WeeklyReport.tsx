@@ -1488,24 +1488,119 @@ function Projections({ d }: { d: any }) {
 
 function ModelScorecard({ d }: { d: any }) {
   const m = obj(d.metrics); const b = obj(d.bet_summary);
+  const games = arr(d.games);
+  const gameResults = arr(d.game_results);
+  const resultByGame = new Map(gameResults.map((g: any) => [
+    `${g.away_team} @ ${g.home_team}`, g,
+  ]));
   // Settled bets, ordered by EV — the same ranking the pre-week Top Bets card
   // uses, so a pick can be followed from recommendation through to result.
   const bets: any[] = (Array.isArray(d.bets) ? d.bets : d.bets ? [d.bets] : [])
     .slice().sort((x: any, y: any) => (y.ev ?? 0) - (x.ev ?? 0));
   const fmtU = (u: number) => `${Number.isInteger(u) ? u : u.toFixed(1)}u`;
   const RES: Record<string, string> = { WIN: '#3fb950', LOSS: '#f85149', PUSH: '#8b949e' };
+  const atsScored = games.filter((g: any) => g.cover_correct != null);
+  const atsWins = atsScored.filter((g: any) => Number(g.cover_correct) === 1).length;
+  const atsPushes = games.length - atsScored.length;
+  const mlScored = games.filter((g: any) => g.ml_correct != null);
+  const mlWins = mlScored.filter((g: any) => Number(g.ml_correct) === 1).length;
+  const withinThree = games.filter((g: any) => Number(g.abs_err) <= 3).length;
+  const withinSeven = games.filter((g: any) => Number(g.abs_err) <= 7).length;
+  const marketBrierRows = games.filter((g: any) => g.vegas_win_pct != null && g.actual_margin != null);
+  const marketBrier = marketBrierRows.length
+    ? marketBrierRows.reduce((sum: number, g: any) => {
+        const homeWin = Number(g.actual_margin) > 0 ? 1 : 0;
+        return sum + Math.pow(Number(g.vegas_win_pct) - homeWin, 2);
+      }, 0) / marketBrierRows.length
+    : null;
+  const brierDelta = marketBrier != null && m.brier != null ? marketBrier - Number(m.brier) : null;
+  const strongEdges = games.filter((g: any) => Math.abs(Number(g.edge_pct ?? 0)) >= 0.05);
+  const strongMl = strongEdges.filter((g: any) => g.ml_correct != null);
+  const strongAts = strongEdges.filter((g: any) => g.cover_correct != null);
+  const closest = [...games].sort((a: any, z: any) => Number(a.abs_err) - Number(z.abs_err)).slice(0, 3);
+  const misses = [...games].sort((a: any, z: any) => Number(z.abs_err) - Number(a.abs_err)).slice(0, 3);
+  const marginCall = (game: string, margin: any) => {
+    const [away, home] = String(game).split(' @ ');
+    const value = Number(margin);
+    if (!Number.isFinite(value)) return '–';
+    if (value === 0) return 'Pick’em';
+    return `${value > 0 ? home : away} by ${num(Math.abs(value), 1)}`;
+  };
+  const finalScore = (game: string) => {
+    const r: any = resultByGame.get(game);
+    return r ? `${r.away_team} ${r.away_points} · ${r.home_team} ${r.home_points}` : null;
+  };
+  const pickLabel = (pick: any, line?: any) => {
+    if (!pick) return '–';
+    if (line == null) return String(pick);
+    const value = Number(line);
+    return `${pick} ${value > 0 ? '+' : ''}${num(value, 1)}`;
+  };
 
   return (
-    <Section id="model_scorecard" title="Model Scorecard" accent={SECTION_ACCENT.model_scorecard} subtitle="game predictions vs actuals + bet P&L">
+    <Section id="model_scorecard" title="Model Scorecard" accent={SECTION_ACCENT.model_scorecard} subtitle="final performance, market benchmark, and every settled call">
       <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-        <StatTile label="Games" value={m.games ?? '–'} />
-        <StatTile label="Margin MAE" value={num(m.mae, 2)} />
-        <StatTile label="ATS" value={`${num((m.cover_acc ?? 0) * 100, 0)}%`} accent={m.cover_acc >= 0.5 ? '#3fb950' : undefined} />
-        <StatTile label="Moneyline" value={`${num((m.ml_acc ?? 0) * 100, 0)}%`} />
-        <StatTile label="Brier" value={num(m.brier, 3)} />
-        <StatTile label="Bet P&L" value={`${(b.pnl ?? 0) >= 0 ? '+' : '−'}$${Math.abs(b.pnl ?? 0)}`}
-          accent={(b.pnl ?? 0) >= 0 ? '#3fb950' : '#f85149'}
-          sub={`${b.n_bets ?? 0} bets · ${b.wins ?? 0}-${b.losses ?? 0}${b.pushes ? `-${b.pushes}` : ''}`} />
+        <StatTile label="Final games" value={m.games ?? '–'} sub="complete slate" />
+        <StatTile label="Margin error" value={`${num(m.mae, 2)} pts`} sub="average absolute miss" />
+        <StatTile label="Against spread" value={`${num((m.cover_acc ?? 0) * 100, 0)}%`}
+          sub={`${atsWins}-${atsScored.length - atsWins}${atsPushes ? `-${atsPushes}` : ''}`} accent={m.cover_acc >= 0.5 ? '#3fb950' : '#f85149'} />
+        <StatTile label="Moneyline" value={`${num((m.ml_acc ?? 0) * 100, 0)}%`}
+          sub={`${mlWins}-${mlScored.length - mlWins}`} accent={m.ml_acc >= 0.6 ? '#3fb950' : undefined} />
+        <StatTile label="Calibration" value={num(m.brier, 3)}
+          sub={marketBrier == null ? 'Brier · lower is better' : `market ${num(marketBrier, 3)} · lower wins`}
+          accent={brierDelta != null && brierDelta > 0 ? '#3fb950' : '#d29922'} />
+        {(b.n_bets ?? 0) > 0 ? (
+          <StatTile label="Settled P&L" value={`${(b.pnl ?? 0) >= 0 ? '+' : '−'}$${Math.abs(b.pnl ?? 0)}`}
+            accent={(b.pnl ?? 0) >= 0 ? '#3fb950' : '#f85149'}
+            sub={`${b.n_bets} bets · ${b.wins ?? 0}-${b.losses ?? 0}${b.pushes ? `-${b.pushes}` : ''}`} />
+        ) : (
+          <StatTile label="Settled bets" value="No bets" sub="none cleared the EV threshold" />
+        )}
+      </div>
+
+      <div className="grid gap-3 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="rounded-xl border border-border-light bg-bg-card/30 p-3">
+          <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">Week in context</div>
+          <div className="mt-2 divide-y divide-border-light/60">
+            <div className="flex items-center justify-between gap-3 py-2 first:pt-0">
+              <div><div className="text-xs font-medium text-text-primary">Margin precision</div><div className="text-[10px] text-text-muted">How often the score gap landed near the call</div></div>
+              <div className="shrink-0 text-right text-xs font-semibold tabular-nums text-text-primary">{withinThree}/{games.length} <span className="font-normal text-text-muted">within 3</span><div className="text-[10px] font-normal text-text-muted">{withinSeven}/{games.length} within 7</div></div>
+            </div>
+            <div className="flex items-center justify-between gap-3 py-2">
+              <div><div className="text-xs font-medium text-text-primary">Strongest probability edges</div><div className="text-[10px] text-text-muted">Games at least five points away from market</div></div>
+              <div className="shrink-0 text-right text-xs font-semibold tabular-nums text-text-primary">{strongEdges.length} games<div className="text-[10px] font-normal text-text-muted">ML {strongMl.filter((g: any) => Number(g.ml_correct) === 1).length}-{strongMl.filter((g: any) => Number(g.ml_correct) === 0).length} · ATS {strongAts.filter((g: any) => Number(g.cover_correct) === 1).length}-{strongAts.filter((g: any) => Number(g.cover_correct) === 0).length}</div></div>
+            </div>
+            <div className="flex items-center justify-between gap-3 py-2 last:pb-0">
+              <div><div className="text-xs font-medium text-text-primary">Probability calibration</div><div className="text-[10px] text-text-muted">Brier score compared with the closing market</div></div>
+              <div className="shrink-0 text-right text-xs font-semibold tabular-nums" style={{ color: brierDelta != null && brierDelta > 0 ? '#3fb950' : '#d29922' }}>{brierDelta == null ? '–' : `${brierDelta > 0 ? 'Model better by ' : 'Market better by '}${num(Math.abs(brierDelta), 3)}`}</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div className="rounded-xl border border-border-light bg-bg-card/30 p-3">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-win">Closest margin calls</div>
+            <div className="mt-2 divide-y divide-border-light/60">
+              {closest.map((r: any) => (
+                <div key={r.game} className="flex items-center justify-between gap-3 py-1.5 first:pt-0 last:pb-0">
+                  <div className="min-w-0"><div className="truncate text-xs font-medium text-text-primary">{r.game}</div><div className="truncate text-[10px] text-text-muted">{marginCall(r.game, r.pred_margin)} → {marginCall(r.game, r.actual_margin)}</div></div>
+                  <span className="shrink-0 text-xs font-semibold tabular-nums text-win">{num(r.abs_err, 1)} pts</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-xl border border-border-light bg-bg-card/30 p-3">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-loss">Biggest margin misses</div>
+            <div className="mt-2 divide-y divide-border-light/60">
+              {misses.map((r: any) => (
+                <div key={r.game} className="flex items-center justify-between gap-3 py-1.5 first:pt-0 last:pb-0">
+                  <div className="min-w-0"><div className="truncate text-xs font-medium text-text-primary">{r.game}</div><div className="truncate text-[10px] text-text-muted">{marginCall(r.game, r.pred_margin)} → {marginCall(r.game, r.actual_margin)}</div></div>
+                  <span className="shrink-0 text-xs font-semibold tabular-nums text-loss">{num(r.abs_err, 1)} pts</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* HOW THE PICKS DID — mirrors the pre-week Top Bets card (same EV ordering,
@@ -1555,47 +1650,48 @@ function ModelScorecard({ d }: { d: any }) {
         <table className="w-full text-xs">
           <thead>
             <tr className="text-text-muted border-b border-border-light">
-              <th className="py-1.5 pr-3 font-medium text-left">Game</th>
-              <th className="py-1.5 pr-3 font-medium text-right">Pred</th>
-              <th className="py-1.5 pr-3 font-medium text-right">Actual</th>
-              <th className="py-1.5 pr-3 font-medium text-right">Err</th>
-              {/* home win probability, model vs de-vigged market, and the gap */}
-              <th className="py-1.5 pr-3 font-medium text-right" style={{ color: '#58a6ff' }}>Model</th>
-              <th className="py-1.5 pr-3 font-medium text-right">Implied</th>
+              <th className="py-1.5 pr-3 font-medium text-left">Game · final</th>
+              <th className="py-1.5 pr-3 font-medium text-left">Model margin</th>
+              <th className="py-1.5 pr-3 font-medium text-left">Final margin</th>
+              <th className="py-1.5 pr-3 font-medium text-right">Miss</th>
+              <th className="py-1.5 pr-3 font-medium text-right" style={{ color: '#58a6ff' }}>Win prob</th>
               <th className="py-1.5 pr-3 font-medium text-right">Edge</th>
               <th className="py-1.5 pr-3 font-medium text-right">ATS</th>
               <th className="py-1.5 pr-3 font-medium text-right">ML</th>
             </tr>
           </thead>
           <tbody>
-            {arr(d.games).map((r: any, i: number) => {
+            {games.map((r: any, i: number) => {
               const e = r.edge_pct;
+              const result: any = resultByGame.get(r.game);
               return (
                 <tr key={i} className="border-b border-border-light/50 hover:bg-bg-card-hover">
-                  <td className="py-1.5 pr-3 text-text-secondary whitespace-nowrap">{r.game}</td>
-                  <td className="py-1.5 pr-3 tabular-nums text-right text-text-secondary">{num(r.pred_margin)}</td>
-                  <td className="py-1.5 pr-3 tabular-nums text-right text-text-primary">{r.actual_margin}</td>
-                  <td className="py-1.5 pr-3 tabular-nums text-right text-text-muted">{num(r.abs_err)}</td>
-                  <td className="py-1.5 pr-3 tabular-nums text-right font-medium" style={{ color: '#58a6ff' }}>
+                  <td className="py-2 pr-3 text-text-secondary whitespace-nowrap"><span className="font-medium text-text-primary">{r.game}</span>{finalScore(r.game) && <span className="block text-[10px] tabular-nums text-text-muted">{finalScore(r.game)}</span>}</td>
+                  <td className="py-2 pr-3 tabular-nums text-text-secondary whitespace-nowrap">{marginCall(r.game, r.pred_margin)}</td>
+                  <td className="py-2 pr-3 tabular-nums font-medium text-text-primary whitespace-nowrap">{marginCall(r.game, r.actual_margin)}</td>
+                  <td className="py-2 pr-3 tabular-nums text-right text-text-muted">{num(r.abs_err, 1)}</td>
+                  <td className="py-2 pr-3 tabular-nums text-right font-medium whitespace-nowrap" style={{ color: '#58a6ff' }}>
                     {r.pred_win_pct != null ? `${Math.round(r.pred_win_pct * 100)}%` : '–'}
+                    <span className="block text-[10px] font-normal text-text-muted">mkt {r.vegas_win_pct != null ? `${Math.round(r.vegas_win_pct * 100)}%` : '–'}</span>
                   </td>
-                  <td className="py-1.5 pr-3 tabular-nums text-right text-text-muted">
-                    {r.vegas_win_pct != null ? `${Math.round(r.vegas_win_pct * 100)}%` : '–'}
-                  </td>
-                  <td className="py-1.5 pr-3 tabular-nums text-right"
+                  <td className="py-2 pr-3 tabular-nums text-right"
                     style={{ color: e == null ? 'var(--color-text-muted)' : Math.abs(e) >= 0.05 ? '#d29922' : 'var(--color-text-muted)' }}>
-                    {e == null ? '–' : `${e > 0 ? '+' : ''}${Math.round(e * 100)}`}
+                    {e == null ? '–' : `${e > 0 ? '+' : ''}${Math.round(e * 100)} pts`}
                   </td>
-                  <td className="py-1.5 pr-3 text-right">{mark(r.cover_correct)}</td>
-                  <td className="py-1.5 pr-3 text-right">{mark(r.ml_correct)}</td>
+                  <td className="py-2 pr-3 text-right whitespace-nowrap">
+                    <span className="mr-1 text-[10px] tabular-nums text-text-muted">{pickLabel(result?.ats_pick, result?.ats_line)}</span>{mark(r.cover_correct)}
+                  </td>
+                  <td className="py-2 pr-3 text-right whitespace-nowrap">
+                    <span className="mr-1 text-[10px] text-text-muted">{pickLabel(result?.ml_pick)}</span>{mark(r.ml_correct)}
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
         <p className="text-[10px] text-text-muted mt-1.5">
-          Win probabilities are for the <span className="text-text-secondary">home</span> team (second listed).
-          Implied is de-vigged from the moneylines; Edge is model − implied, in points of probability.
+          Win probability is for the <span className="text-text-secondary">home</span> team (second listed); “mkt” is the de-vigged closing probability.
+          Edge is model minus market. ATS records exclude pushes.
         </p>
       </div>
     </Section>
@@ -2056,18 +2152,22 @@ export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFall
   const supersededByCards = !played && !!gamesFallback;
   // Polymarket and Kalshi used to render as two long, near-identical reports.
   // The MarketBoard below combines them into a single ranked comparison.
-  const ready = all.filter(r => !(r === 'games_preview' && (played || supersededByCards)) && r !== 'polymarket_bets' && r !== 'kalshi_lines');
+  const ready = all.filter(r =>
+    !(r === 'games_preview' && (played || supersededByCards)) &&
+    r !== 'polymarket_bets' && r !== 'kalshi_lines' &&
+    !(played && r === 'bet_card')
+  );
   // bet_card lists EVERY qualifying bet; the season JSON keeps only the
   // highest-EV one per game. Prefer the card, and drop the fallback bets when it
   // exists so the page can't show 10 bets under a header that says 13.
-  const showBetsFallback = !ready.includes('bet_card') && !!betsFallback;
+  const showBetsFallback = !played && !ready.includes('bet_card') && !!betsFallback;
 
   // Groups that actually have something to show. "Games" always qualifies because
   // the fallback game cards exist for every week.
   const permitted = scope === 'fantasy' ? new Set<GroupKey>(['lineups', 'fantasy']) : new Set<GroupKey>(['games', 'results']);
   const groups = GROUPS
     .filter(g => permitted.has(g.key))
-    .map(g => ({ ...g, ready: g.sections.filter(s => ready.includes(s)) }))
+    .map(g => ({ ...g, label: played && g.key === 'games' ? 'Games' : g.label, ready: g.sections.filter(s => ready.includes(s)) }))
     .filter(g => g.ready.length > 0 || (g.key === 'games' && gamesFallback));
   const active = groups.find(g => g.key === group) ?? groups[0];
   const betCount = arr(data.bet_card?.bets).length;
@@ -2081,7 +2181,7 @@ export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFall
           value={active?.key ?? 'games'} onChange={setGroup} />
       )}
 
-      {active?.key === 'games' && (
+      {active?.key === 'games' && !played && (
         <WeeklyCommandBar season={season} week={week} updated={entry?.updated}
           betCount={betCount} marketCount={marketCount} />
       )}
@@ -2106,14 +2206,17 @@ export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFall
           {active?.ready.map(r => {
             const C = RENDERERS[r];
             if (!C) return null;
+            const reportData = r === 'model_scorecard'
+              ? { ...data[r], game_results: arr(data.games_result?.games) }
+              : data[r];
             // Each report is isolated: a malformed field costs that card, not the page.
             return (
               <SectionBoundary key={r} name={r.replace(/_/g, ' ')}>
-                <C d={{ ...data[r], _freshness: entry?.updated }} onNav={onNavigate} />
+                <C d={{ ...reportData, _freshness: entry?.updated }} onNav={onNavigate} />
               </SectionBoundary>
             );
           })}
-          {active?.key === 'games' && (
+          {active?.key === 'games' && !played && (
             <MarketBoard polymarket={arr(data.polymarket_bets?.markets)} kalshi={arr(data.kalshi_lines?.lines)} />
           )}
           {/* canonical game cards — the standard view for any unplayed week */}

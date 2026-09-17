@@ -117,7 +117,11 @@ build_team_cap_aggregates <- function(seasons, player_cap) {
     }
     if (is.null(r))
       stop(sprintf("load_rosters(%d) returned no usable data after 3 attempts", s))
-    r
+    # nflverse roster schemas vary by season (for example jersey_number is an
+    # integer in some snapshots and character in others). Keep only the stable
+    # keys before bind_rows so an unrelated historical column cannot break the
+    # entire current-week refresh.
+    r %>% select(season, gsis_id, team)
   })) %>%
     distinct(season, gsis_id, team)
   missing <- setdiff(ros_seasons, unique(ros$season))

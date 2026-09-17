@@ -1,0 +1,1262 @@
+{
+  "season": 2026,
+  "week": 1,
+  "leagues": [
+    {
+      "label": "UNH SuperFlex Dynasty",
+      "franchise": "Amon-Ra St. Boomorbust",
+      "record": {
+        "franchise_score": 143.4,
+        "opponent_score": 170.2,
+        "result": "L"
+      },
+      "players": [
+        {
+          "player": "Jackson, Lamar",
+          "position": "QB",
+          "proj": 19.9,
+          "actual": 25,
+          "class": "met"
+        },
+        {
+          "player": "St. Brown, Amon-Ra",
+          "position": "WR",
+          "proj": 12.8,
+          "actual": 23.7,
+          "class": "boom"
+        },
+        {
+          "player": "Flowers, Zay",
+          "position": "WR",
+          "proj": 12.6,
+          "actual": 23.5,
+          "class": "boom"
+        },
+        {
+          "player": "McBride, Trey",
+          "position": "TE",
+          "proj": 7.4,
+          "actual": 20,
+          "class": "boom"
+        },
+        {
+          "player": "Brissett, Jacoby",
+          "position": "QB",
+          "proj": 15.5,
+          "actual": 16.5,
+          "class": "met"
+        },
+        {
+          "player": "Goff, Jared",
+          "position": "QB",
+          "proj": 20.1,
+          "actual": 16.4,
+          "class": "met"
+        },
+        {
+          "player": "Tuten, Bhayshul",
+          "position": "RB",
+          "proj": 11.8,
+          "actual": 9.3,
+          "class": "met"
+        },
+        {
+          "player": "Rice, Rashee",
+          "position": "WR",
+          "proj": 11.7,
+          "actual": 8.9,
+          "class": "met"
+        },
+        {
+          "player": "Egbuka, Emeka",
+          "position": "WR",
+          "proj": 11.9,
+          "actual": 8.8,
+          "class": "met"
+        },
+        {
+          "player": "Warren, Jaylen",
+          "position": "RB",
+          "proj": 12.1,
+          "actual": 7.8,
+          "class": "met"
+        },
+        {
+          "player": "Mitchell, Adonai",
+          "position": "WR",
+          "proj": 6.6,
+          "actual": 7.5,
+          "class": "met"
+        },
+        {
+          "player": "Brooks, Jonathon",
+          "position": "RB",
+          "proj": 8.5,
+          "actual": 6.7,
+          "class": "met"
+        },
+        {
+          "player": "Noel, Jaylin",
+          "position": "WR",
+          "proj": 6.7,
+          "actual": 6.3,
+          "class": "met"
+        },
+        {
+          "player": "Concepcion, KC",
+          "position": "WR",
+          "proj": 8,
+          "actual": 5.8,
+          "class": "met"
+        },
+        {
+          "player": "Lance, Bryce",
+          "position": "WR",
+          "proj": 3.9,
+          "actual": 5.7,
+          "class": "met"
+        },
+        {
+          "player": "Corum, Blake",
+          "position": "RB",
+          "proj": 7.4,
+          "actual": 5.4,
+          "class": "met"
+        },
+        {
+          "player": "Pollard, Tony",
+          "position": "RB",
+          "proj": 11.2,
+          "actual": 3.9,
+          "class": "met"
+        },
+        {
+          "player": "Mooney, Darnell",
+          "position": "WR",
+          "proj": 7.2,
+          "actual": 3.7,
+          "class": "met"
+        },
+        {
+          "player": "Dobbins, J.K.",
+          "position": "RB",
+          "proj": 8.3,
+          "actual": 3.6,
+          "class": "met"
+        },
+        {
+          "player": "Spears, Tyjae",
+          "position": "RB",
+          "proj": 6.9,
+          "actual": 3.4,
+          "class": "met"
+        },
+        {
+          "player": "Flournoy, Ryan",
+          "position": "WR",
+          "proj": 7,
+          "actual": 3.2,
+          "class": "met"
+        },
+        {
+          "player": "Barner, AJ",
+          "position": "TE",
+          "proj": 5.9,
+          "actual": 2.3,
+          "class": "met"
+        },
+        {
+          "player": "Kittle, George",
+          "position": "TE",
+          "proj": 7.5,
+          "actual": 2.2,
+          "class": "met"
+        },
+        {
+          "player": "Kolar, Charlie",
+          "position": "TE",
+          "proj": 3.8,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Flacco, Joe",
+          "position": "QB",
+          "proj": 13.8,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Huntley, Tyler",
+          "position": "QB",
+          "proj": 5.9,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Brooks, Tahj",
+          "position": "RB",
+          "proj": 4.1,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Smith, Brashard",
+          "position": "RB",
+          "proj": 3.7,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "TeSlaa, Isaac",
+          "position": "WR",
+          "proj": 6.9,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Sarratt, Elijah",
+          "position": "WR",
+          "proj": 5.1,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Martinez, Damien",
+          "position": "RB",
+          "proj": null,
+          "actual": null,
+          "class": null
+        }
+      ],
+      "free_agents": [
+        {
+          "player": "Joshua Dobbs",
+          "position": "QB",
+          "team": "DET",
+          "proj": 11.5,
+          "ceiling": 22.3
+        },
+        {
+          "player": "Mitchell Trubisky",
+          "position": "QB",
+          "team": "TEN",
+          "proj": 8.8,
+          "ceiling": 18.9
+        },
+        {
+          "player": "Gardner Minshew",
+          "position": "QB",
+          "team": "ARI",
+          "proj": 8.3,
+          "ceiling": 20.1
+        },
+        {
+          "player": "Riley Leonard",
+          "position": "QB",
+          "team": "IND",
+          "proj": 8,
+          "ceiling": 19
+        },
+        {
+          "player": "Athan Kaliakmanis",
+          "position": "QB",
+          "team": "WAS",
+          "proj": 8,
+          "ceiling": 19.3
+        },
+        {
+          "player": "Zach Wilson",
+          "position": "QB",
+          "team": "NO",
+          "proj": 8,
+          "ceiling": 19.8
+        },
+        {
+          "player": "Tommy DeVito",
+          "position": "QB",
+          "team": "NE",
+          "proj": 7.9,
+          "ceiling": 19
+        },
+        {
+          "player": "Brady Cook",
+          "position": "QB",
+          "team": "MIA",
+          "proj": 7.9,
+          "ceiling": 18.9
+        },
+        {
+          "player": "Tyrod Taylor",
+          "position": "QB",
+          "team": "GB",
+          "proj": 7.8,
+          "ceiling": 18.1
+        },
+        {
+          "player": "Spencer Rattler",
+          "position": "QB",
+          "team": "NO",
+          "proj": 7.7,
+          "ceiling": 19.1
+        }
+      ]
+    },
+    {
+      "label": "No Fun League",
+      "franchise": "wadepfuller",
+      "record": {
+        "franchise_score": 121.7,
+        "opponent_score": 152.8,
+        "result": "L"
+      },
+      "players": [
+        {
+          "player": "Jalen Coker",
+          "position": "WR",
+          "proj": 7.6,
+          "actual": 29.8,
+          "class": "boom"
+        },
+        {
+          "player": "Jonathan Taylor",
+          "position": "RB",
+          "proj": 13.1,
+          "actual": 23.6,
+          "class": "boom"
+        },
+        {
+          "player": "Brock Purdy",
+          "position": "QB",
+          "proj": 17.9,
+          "actual": 21.1,
+          "class": "met"
+        },
+        {
+          "player": "Kyren Williams",
+          "position": "RB",
+          "proj": 13.5,
+          "actual": 14,
+          "class": "met"
+        },
+        {
+          "player": "Caleb Douglas",
+          "position": "WR",
+          "proj": 5.5,
+          "actual": 11.9,
+          "class": "met"
+        },
+        {
+          "player": "Jordan Mason",
+          "position": "RB",
+          "proj": 6.9,
+          "actual": 11.9,
+          "class": "met"
+        },
+        {
+          "player": "Drake Maye",
+          "position": "QB",
+          "proj": 17.1,
+          "actual": 9.8,
+          "class": "met"
+        },
+        {
+          "player": "Tyler Warren",
+          "position": "TE",
+          "proj": 7.6,
+          "actual": 8.8,
+          "class": "met"
+        },
+        {
+          "player": "Michael Mayer",
+          "position": "TE",
+          "proj": 3.4,
+          "actual": 6.2,
+          "class": "met"
+        },
+        {
+          "player": "Pat Bryant",
+          "position": "WR",
+          "proj": 7.1,
+          "actual": 6.2,
+          "class": "met"
+        },
+        {
+          "player": "Brian Thomas",
+          "position": "WR",
+          "proj": 9.6,
+          "actual": 5.5,
+          "class": "met"
+        },
+        {
+          "player": "Ted Hurst",
+          "position": "WR",
+          "proj": 5.8,
+          "actual": 5.1,
+          "class": "met"
+        },
+        {
+          "player": "Josh Downs",
+          "position": "WR",
+          "proj": 9.9,
+          "actual": 4.7,
+          "class": "met"
+        },
+        {
+          "player": "Oronde Gadsden",
+          "position": "TE",
+          "proj": 6.4,
+          "actual": 4.2,
+          "class": "met"
+        },
+        {
+          "player": "Raheim Sanders",
+          "position": "RB",
+          "proj": 3.2,
+          "actual": 4.1,
+          "class": "met"
+        },
+        {
+          "player": "A.J. Brown",
+          "position": "WR",
+          "proj": 11.8,
+          "actual": 4.1,
+          "class": "met"
+        },
+        {
+          "player": "Matthew Stafford",
+          "position": "QB",
+          "proj": 19.9,
+          "actual": 4.1,
+          "class": "bust"
+        },
+        {
+          "player": "Greg Dulcich",
+          "position": "TE",
+          "proj": 5.7,
+          "actual": 2.8,
+          "class": "met"
+        },
+        {
+          "player": "Quentin Johnston",
+          "position": "WR",
+          "proj": 7.9,
+          "actual": 2.7,
+          "class": "met"
+        },
+        {
+          "player": "George Kittle",
+          "position": "TE",
+          "proj": 7.5,
+          "actual": 2.2,
+          "class": "met"
+        },
+        {
+          "player": "Courtland Sutton",
+          "position": "WR",
+          "proj": 8.5,
+          "actual": 2.1,
+          "class": "bust"
+        },
+        {
+          "player": "KaVontae Turpin",
+          "position": "WR",
+          "proj": 4.3,
+          "actual": 1.3,
+          "class": "met"
+        },
+        {
+          "player": "Keaton Mitchell",
+          "position": "RB",
+          "proj": 6.6,
+          "actual": 0.9,
+          "class": "met"
+        },
+        {
+          "player": "Alvin Kamara",
+          "position": "RB",
+          "proj": 5.8,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Jonah Coleman",
+          "position": "RB",
+          "proj": 5.6,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Kyle Williams",
+          "position": "WR",
+          "proj": 4.9,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Cyrus Allen",
+          "position": "WR",
+          "proj": 5.7,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "De'Zhaun Stribling",
+          "position": "WR",
+          "proj": 6.8,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Tahj Brooks",
+          "position": "RB",
+          "proj": 4.1,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Derwin James",
+          "position": "DB",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Ka'imi Fairbairn",
+          "position": "K",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Tory Horton",
+          "position": "WR",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Barion Brown",
+          "position": "WR",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Will Anderson",
+          "position": "DL",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Cedric Gray",
+          "position": "LB",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Roquan Smith",
+          "position": "LB",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Isiah Pacheco",
+          "position": "RB",
+          "proj": null,
+          "actual": null,
+          "class": null
+        }
+      ],
+      "free_agents": [
+        {
+          "player": "Jameis Winston",
+          "position": "QB",
+          "team": "NYG",
+          "proj": 13.9,
+          "ceiling": 25.4
+        },
+        {
+          "player": "Joe Flacco",
+          "position": "QB",
+          "team": "CIN",
+          "proj": 13.8,
+          "ceiling": 25
+        },
+        {
+          "player": "Marcus Mariota",
+          "position": "QB",
+          "team": "WAS",
+          "proj": 13.4,
+          "ceiling": 24.9
+        },
+        {
+          "player": "Kirk Cousins",
+          "position": "QB",
+          "team": "LV",
+          "proj": 12.4,
+          "ceiling": 22.1
+        },
+        {
+          "player": "Cooper Rush",
+          "position": "QB",
+          "team": "ATL",
+          "proj": 11.9,
+          "ceiling": 22.6
+        },
+        {
+          "player": "Justin Fields",
+          "position": "QB",
+          "team": "KC",
+          "proj": 11.6,
+          "ceiling": 21.8
+        },
+        {
+          "player": "Joshua Dobbs",
+          "position": "QB",
+          "team": "DET",
+          "proj": 11.5,
+          "ceiling": 22.3
+        },
+        {
+          "player": "Deshaun Watson",
+          "position": "QB",
+          "team": "CLE",
+          "proj": 11.5,
+          "ceiling": 22.2
+        },
+        {
+          "player": "Shedeur Sanders",
+          "position": "QB",
+          "team": "CLE",
+          "proj": 10.9,
+          "ceiling": 21.5
+        },
+        {
+          "player": "Mitchell Trubisky",
+          "position": "QB",
+          "team": "TEN",
+          "proj": 8.8,
+          "ceiling": 18.9
+        }
+      ]
+    },
+    {
+      "label": "Kansas Keepers League",
+      "franchise": "Bowers Power Hour",
+      "record": {
+        "franchise_score": 107.2,
+        "opponent_score": 120.1,
+        "result": "L"
+      },
+      "players": [
+        {
+          "player": "Josh Allen",
+          "position": "QB",
+          "proj": 19.2,
+          "actual": 35.7,
+          "class": "boom"
+        },
+        {
+          "player": "CeeDee Lamb",
+          "position": "WR",
+          "proj": 12.7,
+          "actual": 12.9,
+          "class": "met"
+        },
+        {
+          "player": "Rhamondre Stevenson",
+          "position": "RB",
+          "proj": 11.6,
+          "actual": 12,
+          "class": "met"
+        },
+        {
+          "player": "Travis Etienne",
+          "position": "RB",
+          "proj": 12.1,
+          "actual": 11.3,
+          "class": "met"
+        },
+        {
+          "player": "Bhayshul Tuten",
+          "position": "RB",
+          "proj": 11.8,
+          "actual": 9.3,
+          "class": "met"
+        },
+        {
+          "player": "Daniel Jones",
+          "position": "QB",
+          "proj": 17.6,
+          "actual": 9,
+          "class": "met"
+        },
+        {
+          "player": "Emeka Egbuka",
+          "position": "WR",
+          "proj": 11.9,
+          "actual": 8.8,
+          "class": "met"
+        },
+        {
+          "player": "Michael Pittman",
+          "position": "WR",
+          "proj": 9.1,
+          "actual": 7.3,
+          "class": "met"
+        },
+        {
+          "player": "Pat Bryant",
+          "position": "WR",
+          "proj": 7.1,
+          "actual": 6.2,
+          "class": "met"
+        },
+        {
+          "player": "Josh Downs",
+          "position": "WR",
+          "proj": 9.9,
+          "actual": 4.7,
+          "class": "met"
+        },
+        {
+          "player": "Chig Okonkwo",
+          "position": "TE",
+          "proj": 6.1,
+          "actual": 2.6,
+          "class": "met"
+        },
+        {
+          "player": "Chris Rodriguez",
+          "position": "RB",
+          "proj": 7.1,
+          "actual": 2.3,
+          "class": "met"
+        },
+        {
+          "player": "George Kittle",
+          "position": "TE",
+          "proj": 7.5,
+          "actual": 2.2,
+          "class": "met"
+        },
+        {
+          "player": "Tank Bigsby",
+          "position": "RB",
+          "proj": 6.2,
+          "actual": 0.3,
+          "class": "bust"
+        },
+        {
+          "player": null,
+          "position": "DEF",
+          "proj": null,
+          "actual": null,
+          "class": null
+        }
+      ],
+      "free_agents": [
+        {
+          "player": "Sam Darnold",
+          "position": "QB",
+          "team": "SEA",
+          "proj": 17.2,
+          "ceiling": 26.9
+        },
+        {
+          "player": "Jacoby Brissett",
+          "position": "QB",
+          "team": "ARI",
+          "proj": 15.5,
+          "ceiling": 26.9
+        },
+        {
+          "player": "Aaron Rodgers",
+          "position": "QB",
+          "team": "PIT",
+          "proj": 14,
+          "ceiling": 22.6
+        },
+        {
+          "player": "Jameis Winston",
+          "position": "QB",
+          "team": "NYG",
+          "proj": 13.9,
+          "ceiling": 25.4
+        },
+        {
+          "player": "Joe Flacco",
+          "position": "QB",
+          "team": "CIN",
+          "proj": 13.8,
+          "ceiling": 25
+        },
+        {
+          "player": "Marcus Mariota",
+          "position": "QB",
+          "team": "WAS",
+          "proj": 13.4,
+          "ceiling": 24.9
+        },
+        {
+          "player": "J.J. McCarthy",
+          "position": "QB",
+          "team": "MIN",
+          "proj": 13.3,
+          "ceiling": 23.1
+        },
+        {
+          "player": "Fernando Mendoza",
+          "position": "QB",
+          "team": "LV",
+          "proj": 13.3,
+          "ceiling": 22.8
+        },
+        {
+          "player": "Geno Smith",
+          "position": "QB",
+          "team": "NYJ",
+          "proj": 12.6,
+          "ceiling": 22.2
+        },
+        {
+          "player": "Kirk Cousins",
+          "position": "QB",
+          "team": "LV",
+          "proj": 12.4,
+          "ceiling": 22.1
+        }
+      ]
+    },
+    {
+      "label": "#SFB16 San Francisco",
+      "franchise": "wadepfuller",
+      "record": {
+        "franchise_score": 299.5,
+        "opponent_score": 268,
+        "result": "W"
+      },
+      "players": [
+        {
+          "player": "D'Andre Swift",
+          "position": "RB",
+          "proj": 12.4,
+          "actual": 31.9,
+          "class": "boom"
+        },
+        {
+          "player": "Christian Watson",
+          "position": "WR",
+          "proj": 9.3,
+          "actual": 29.7,
+          "class": "boom"
+        },
+        {
+          "player": "Jordan Love",
+          "position": "QB",
+          "proj": 18.1,
+          "actual": 19.5,
+          "class": "met"
+        },
+        {
+          "player": "Jared Goff",
+          "position": "QB",
+          "proj": 20.1,
+          "actual": 16.4,
+          "class": "met"
+        },
+        {
+          "player": "Juwan Johnson",
+          "position": "TE",
+          "proj": 6.6,
+          "actual": 12.9,
+          "class": "met"
+        },
+        {
+          "player": "Matthew Golden",
+          "position": "WR",
+          "proj": 7.8,
+          "actual": 12.5,
+          "class": "met"
+        },
+        {
+          "player": "Puka Nacua",
+          "position": "WR",
+          "proj": 12.6,
+          "actual": 9.9,
+          "class": "met"
+        },
+        {
+          "player": "Daniel Jones",
+          "position": "QB",
+          "proj": 17.6,
+          "actual": 9,
+          "class": "met"
+        },
+        {
+          "player": "Emeka Egbuka",
+          "position": "WR",
+          "proj": 11.9,
+          "actual": 8.8,
+          "class": "met"
+        },
+        {
+          "player": "James Cook",
+          "position": "RB",
+          "proj": 13,
+          "actual": 8.4,
+          "class": "met"
+        },
+        {
+          "player": "Dalton Schultz",
+          "position": "TE",
+          "proj": 5.8,
+          "actual": 5.5,
+          "class": "met"
+        },
+        {
+          "player": "Woody Marks",
+          "position": "RB",
+          "proj": 5.7,
+          "actual": 4.5,
+          "class": "met"
+        },
+        {
+          "player": "Drake London",
+          "position": "WR",
+          "proj": 11.3,
+          "actual": 4.5,
+          "class": "met"
+        },
+        {
+          "player": "Jalen Nailor",
+          "position": "WR",
+          "proj": 6.8,
+          "actual": 4.2,
+          "class": "met"
+        },
+        {
+          "player": "Braelon Allen",
+          "position": "RB",
+          "proj": 5.6,
+          "actual": 4,
+          "class": "met"
+        },
+        {
+          "player": "Tony Pollard",
+          "position": "RB",
+          "proj": 11.2,
+          "actual": 3.9,
+          "class": "met"
+        },
+        {
+          "player": "Tyjae Spears",
+          "position": "RB",
+          "proj": 6.9,
+          "actual": 3.4,
+          "class": "met"
+        },
+        {
+          "player": "Germie Bernard",
+          "position": "WR",
+          "proj": 5.6,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Alvin Kamara",
+          "position": "RB",
+          "proj": 5.8,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Rashod Bateman",
+          "position": "WR",
+          "proj": 6.3,
+          "actual": 0,
+          "class": "bust"
+        }
+      ],
+      "free_agents": [
+        {
+          "player": "Jameis Winston",
+          "position": "QB",
+          "team": "NYG",
+          "proj": 13.9,
+          "ceiling": 25.4
+        },
+        {
+          "player": "Joe Flacco",
+          "position": "QB",
+          "team": "CIN",
+          "proj": 13.8,
+          "ceiling": 25
+        },
+        {
+          "player": "Marcus Mariota",
+          "position": "QB",
+          "team": "WAS",
+          "proj": 13.4,
+          "ceiling": 24.9
+        },
+        {
+          "player": "J.J. McCarthy",
+          "position": "QB",
+          "team": "MIN",
+          "proj": 13.3,
+          "ceiling": 23.1
+        },
+        {
+          "player": "Carson Beck",
+          "position": "QB",
+          "team": "ARI",
+          "proj": 12.1,
+          "ceiling": 23.2
+        },
+        {
+          "player": "Justin Fields",
+          "position": "QB",
+          "team": "KC",
+          "proj": 11.6,
+          "ceiling": 21.8
+        },
+        {
+          "player": "Joshua Dobbs",
+          "position": "QB",
+          "team": "DET",
+          "proj": 11.5,
+          "ceiling": 22.3
+        },
+        {
+          "player": "Quinn Ewers",
+          "position": "QB",
+          "team": "JAX",
+          "proj": 9.9,
+          "ceiling": 20.7
+        },
+        {
+          "player": "Mitchell Trubisky",
+          "position": "QB",
+          "team": "TEN",
+          "proj": 8.8,
+          "ceiling": 18.9
+        },
+        {
+          "player": "Cade Klubnik",
+          "position": "QB",
+          "team": "NYJ",
+          "proj": 8.5,
+          "ceiling": 19.2
+        }
+      ]
+    },
+    {
+      "label": "SF Fantasy",
+      "franchise": "Gruden's Grinders",
+      "record": {
+        "franchise_score": 59.6,
+        "opponent_score": 110.4,
+        "result": "L"
+      },
+      "players": [
+        {
+          "player": "Jonathan Taylor",
+          "position": "RB",
+          "proj": 13.1,
+          "actual": 23.6,
+          "class": "boom"
+        },
+        {
+          "player": "Jordan Love",
+          "position": "QB",
+          "proj": 18.1,
+          "actual": 19.5,
+          "class": "met"
+        },
+        {
+          "player": "Jaylen Warren",
+          "position": "RB",
+          "proj": 12.1,
+          "actual": 7.8,
+          "class": "met"
+        },
+        {
+          "player": "Jonathon Brooks",
+          "position": "RB",
+          "proj": 8.5,
+          "actual": 6.7,
+          "class": "met"
+        },
+        {
+          "player": "Wan'Dale Robinson",
+          "position": "WR",
+          "proj": 9.5,
+          "actual": 6.3,
+          "class": "met"
+        },
+        {
+          "player": "Chris Godwin Jr.",
+          "position": "WR",
+          "proj": 9.7,
+          "actual": 6.3,
+          "class": "met"
+        },
+        {
+          "player": "Bo Nix",
+          "position": "QB",
+          "proj": 17.2,
+          "actual": 5.4,
+          "class": "bust"
+        },
+        {
+          "player": "George Pickens",
+          "position": "WR",
+          "proj": 12.4,
+          "actual": 4.3,
+          "class": "met"
+        },
+        {
+          "player": "A.J. Brown",
+          "position": "WR",
+          "proj": 11.8,
+          "actual": 4.1,
+          "class": "met"
+        },
+        {
+          "player": "Terry McLaurin",
+          "position": "WR",
+          "proj": 11.3,
+          "actual": 2.4,
+          "class": "bust"
+        },
+        {
+          "player": "Tank Bigsby",
+          "position": "RB",
+          "proj": 6.2,
+          "actual": 0.3,
+          "class": "bust"
+        },
+        {
+          "player": "Colston Loveland",
+          "position": "TE",
+          "proj": 8,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Jonah Coleman",
+          "position": "RB",
+          "proj": 5.6,
+          "actual": 0,
+          "class": "bust"
+        },
+        {
+          "player": "Zach Charbonnet",
+          "position": "RB",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Cam Little",
+          "position": "K",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Jordyn Tyson",
+          "position": "WR",
+          "proj": null,
+          "actual": null,
+          "class": null
+        },
+        {
+          "player": "Buccaneers D/ST",
+          "position": "DST",
+          "proj": null,
+          "actual": null,
+          "class": null
+        }
+      ],
+      "free_agents": [
+        {
+          "player": "Baker Mayfield",
+          "position": "QB",
+          "team": "TB",
+          "proj": 19.5,
+          "ceiling": 31.2
+        },
+        {
+          "player": "Daniel Jones",
+          "position": "QB",
+          "team": "IND",
+          "proj": 17.6,
+          "ceiling": 27.8
+        },
+        {
+          "player": "Sam Darnold",
+          "position": "QB",
+          "team": "SEA",
+          "proj": 17.2,
+          "ceiling": 26.9
+        },
+        {
+          "player": "Cam Ward",
+          "position": "QB",
+          "team": "TEN",
+          "proj": 16.9,
+          "ceiling": 26.6
+        },
+        {
+          "player": "C.J. Stroud",
+          "position": "QB",
+          "team": "HOU",
+          "proj": 16.2,
+          "ceiling": 26.2
+        },
+        {
+          "player": "Jacoby Brissett",
+          "position": "QB",
+          "team": "ARI",
+          "proj": 15.5,
+          "ceiling": 26.9
+        },
+        {
+          "player": "Aaron Rodgers",
+          "position": "QB",
+          "team": "PIT",
+          "proj": 14,
+          "ceiling": 22.6
+        },
+        {
+          "player": "Jameis Winston",
+          "position": "QB",
+          "team": "NYG",
+          "proj": 13.9,
+          "ceiling": 25.4
+        },
+        {
+          "player": "Joe Flacco",
+          "position": "QB",
+          "team": "CIN",
+          "proj": 13.8,
+          "ceiling": 25
+        },
+        {
+          "player": "Marcus Mariota",
+          "position": "QB",
+          "team": "WAS",
+          "proj": 13.4,
+          "ceiling": 24.9
+        }
+      ]
+    }
+  ],
+  "skipped": []
+}

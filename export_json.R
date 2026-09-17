@@ -42,11 +42,13 @@ cat(sprintf("  Bundle trained %s on %d games (seasons %d-%d)\n",
             bundle$metadata$training_seasons[2]))
 
 # ---- Helper: per-bet PnL ----
-calculate_outcomes <- function(correct, winner, team, odds, wager = WAGER_AMOUNT) {
+calculate_outcomes <- function(correct, odds, wager = WAGER_AMOUNT) {
   case_when(
-    correct == 1 & winner == team & odds > 0 ~ round(odds, 2),
-    correct == 1 & winner == team & odds < 0 ~ round(100 / abs(odds) * 100, 2),
-    TRUE ~ -wager
+    is.na(correct) | is.na(odds) ~ NA_real_,
+    correct == 1 & odds > 0 ~ round(wager * odds / 100, 2),
+    correct == 1 & odds < 0 ~ round(wager * 100 / abs(odds), 2),
+    correct == 0 ~ -wager,
+    TRUE ~ 0
   )
 }
 
@@ -226,12 +228,19 @@ for (szn in EXPORT_SEASONS) {
         # Vegas favorite: spread_line > 0 means home is favored in this dataset
         veg_pred_winner = if_else(spread_line > 0, home_team, away_team),
         veg_correct_pred = if_else(veg_pred_winner == winning_team, 1, 0),
-        wf_correct_pred_spr = if_else(pred_spread_adj_winner == spread_winner, 1, 0),
-        veg_correct_pred_spr = if_else(veg_pred_winner == spread_winner, 1, 0),
-        ml_outcome = calculate_outcomes(wf_correct_pred, pred_winner, home_team, home_moneyline) +
-          calculate_outcomes(wf_correct_pred, pred_winner, away_team, away_moneyline),
-        spr_outcome = calculate_outcomes(wf_correct_pred_spr, pred_spread_adj_winner, home_team, home_spread_odds) +
-          calculate_outcomes(wf_correct_pred_spr, pred_spread_adj_winner, away_team, away_spread_odds),
+        spread_push = (home_result - spread_line == 0),
+        ml_tie = (home_result == 0),
+        wf_correct_pred = if_else(ml_tie, NA_integer_, wf_correct_pred),
+        veg_correct_pred = if_else(ml_tie, NA_integer_, veg_correct_pred),
+        wf_correct_pred_spr = if_else(spread_push, NA_integer_,
+                                      as.integer(pred_spread_adj_winner == spread_winner)),
+        veg_correct_pred_spr = if_else(spread_push, NA_integer_,
+                                       as.integer(veg_pred_winner == spread_winner)),
+        chosen_ml_odds = if_else(pred_winner == home_team, home_moneyline, away_moneyline),
+        chosen_spread_odds = if_else(pred_spread_adj_winner == home_team,
+                                     home_spread_odds, away_spread_odds),
+        ml_outcome = calculate_outcomes(wf_correct_pred, chosen_ml_odds),
+        spr_outcome = calculate_outcomes(wf_correct_pred_spr, chosen_spread_odds),
         margin_mae_model = abs(nfl_predictor_line - home_result),
         margin_mae_vegas = abs(spread_line - home_result),
         home_win_01 = as.integer(home_win == 1),
@@ -245,18 +254,22 @@ for (szn in EXPORT_SEASONS) {
       arrange(season, week) %>%
       summarise(
         gms = n(),
-        wk_wf_correct = sum(wf_correct_pred),
-        wk_veg_correct = sum(veg_correct_pred),
-        wk_wf_accuracy = round(mean(wf_correct_pred), 3),
-        wk_veg_accuracy = round(mean(veg_correct_pred), 3),
-        wk_wf_correct_spr = sum(wf_correct_pred_spr),
-        wk_veg_correct_spr = sum(veg_correct_pred_spr),
-        wk_wf_accuracy_spr = round(mean(wf_correct_pred_spr), 3),
-        wk_veg_accuracy_spr = round(mean(veg_correct_pred_spr), 3),
-        wk_ml_outcome = sum(ml_outcome),
-        wk_spr_outcome = sum(spr_outcome),
-        wk_ml_roi = round(sum(ml_outcome) / (n() * WAGER_AMOUNT), 3),
-        wk_spr_roi = round(sum(spr_outcome) / (n() * WAGER_AMOUNT), 3),
+        ml_gms = sum(!is.na(wf_correct_pred)),
+        spr_gms = sum(!is.na(wf_correct_pred_spr)),
+        ml_bet_gms = sum(!is.na(ml_outcome)),
+        spr_bet_gms = sum(!is.na(spr_outcome)),
+        wk_wf_correct = sum(wf_correct_pred, na.rm = TRUE),
+        wk_veg_correct = sum(veg_correct_pred, na.rm = TRUE),
+        wk_wf_accuracy = round(mean(wf_correct_pred, na.rm = TRUE), 3),
+        wk_veg_accuracy = round(mean(veg_correct_pred, na.rm = TRUE), 3),
+        wk_wf_correct_spr = sum(wf_correct_pred_spr, na.rm = TRUE),
+        wk_veg_correct_spr = sum(veg_correct_pred_spr, na.rm = TRUE),
+        wk_wf_accuracy_spr = round(mean(wf_correct_pred_spr, na.rm = TRUE), 3),
+        wk_veg_accuracy_spr = round(mean(veg_correct_pred_spr, na.rm = TRUE), 3),
+        wk_ml_outcome = sum(ml_outcome, na.rm = TRUE),
+        wk_spr_outcome = sum(spr_outcome, na.rm = TRUE),
+        wk_ml_roi = round(if_else(ml_bet_gms > 0, wk_ml_outcome / (ml_bet_gms * WAGER_AMOUNT), NA_real_), 3),
+        wk_spr_roi = round(if_else(spr_bet_gms > 0, wk_spr_outcome / (spr_bet_gms * WAGER_AMOUNT), NA_real_), 3),
         wk_model_margin_mae = round(mean(margin_mae_model), 3),
         wk_vegas_margin_mae = round(mean(margin_mae_vegas), 3),
         brier_gms = sum(!is.na(brier_vegas)),
@@ -266,16 +279,22 @@ for (szn in EXPORT_SEASONS) {
       ) %>%
       mutate(
         cml_gms = cumsum(gms),
+        cml_ml_gms = cumsum(ml_gms),
+        cml_spr_gms = cumsum(spr_gms),
+        cml_ml_bet_gms = cumsum(ml_bet_gms),
+        cml_spr_bet_gms = cumsum(spr_bet_gms),
         cml_wf_correct = cumsum(wk_wf_correct),
         cml_veg_correct = cumsum(wk_veg_correct),
-        cml_wf_accuracy = round(cml_wf_correct / cml_gms, 3),
-        cml_veg_accuracy = round(cml_veg_correct / cml_gms, 3),
+        cml_wf_accuracy = round(cml_wf_correct / cml_ml_gms, 3),
+        cml_veg_accuracy = round(cml_veg_correct / cml_ml_gms, 3),
         cml_wf_correct_spr = cumsum(wk_wf_correct_spr),
         cml_veg_correct_spr = cumsum(wk_veg_correct_spr),
-        cml_wf_accuracy_spr = round(cml_wf_correct_spr / cml_gms, 3),
-        cml_veg_accuracy_spr = round(cml_veg_correct_spr / cml_gms, 3),
-        cml_ml_roi = round(cumsum(wk_ml_outcome) / (cml_gms * WAGER_AMOUNT), 3),
-        cml_spr_roi = round(cumsum(wk_spr_outcome) / (cml_gms * WAGER_AMOUNT), 3),
+        cml_wf_accuracy_spr = round(cml_wf_correct_spr / cml_spr_gms, 3),
+        cml_veg_accuracy_spr = round(cml_veg_correct_spr / cml_spr_gms, 3),
+        cml_ml_roi = round(if_else(cml_ml_bet_gms > 0,
+                                   cumsum(wk_ml_outcome) / (cml_ml_bet_gms * WAGER_AMOUNT), NA_real_), 3),
+        cml_spr_roi = round(if_else(cml_spr_bet_gms > 0,
+                                    cumsum(wk_spr_outcome) / (cml_spr_bet_gms * WAGER_AMOUNT), NA_real_), 3),
         cml_model_margin_mae = round(cumsum(wk_model_margin_mae * gms) / cml_gms, 3),
         cml_vegas_margin_mae = round(cumsum(wk_vegas_margin_mae * gms) / cml_gms, 3),
         cml_brier_gms = cumsum(brier_gms),

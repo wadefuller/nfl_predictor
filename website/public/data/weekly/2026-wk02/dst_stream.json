@@ -1,0 +1,1945 @@
+{
+  "season": 2026,
+  "week": 2,
+  "has_lines": true,
+  "method": "Start the available defense facing the lowest implied team total ((total − spread) / 2).",
+  "rationale": "This one-line Vegas heuristic beat every ML configuration tested (top-1 yield 10.00 vs 9.67 for the best XGBoost). Matchup outpredicts defense quality ~3:1.",
+  "board": [
+    {
+      "rank": 1,
+      "team": "SF",
+      "opp": "MIA",
+      "is_home": true,
+      "opp_implied": 15.5,
+      "spread": 13.5,
+      "total": 44.5
+    },
+    {
+      "rank": 2,
+      "team": "PHI",
+      "opp": "TEN",
+      "is_home": false,
+      "opp_implied": 16.2,
+      "spread": 7,
+      "total": 39.5
+    },
+    {
+      "rank": 3,
+      "team": "TB",
+      "opp": "CLE",
+      "is_home": true,
+      "opp_implied": 16.5,
+      "spread": 8.5,
+      "total": 41.5
+    },
+    {
+      "rank": 4,
+      "team": "NE",
+      "opp": "PIT",
+      "is_home": true,
+      "opp_implied": 18,
+      "spread": 5.5,
+      "total": 41.5
+    },
+    {
+      "rank": 5,
+      "team": "LAC",
+      "opp": "LV",
+      "is_home": true,
+      "opp_implied": 18.5,
+      "spread": 6.5,
+      "total": 43.5
+    },
+    {
+      "rank": 6,
+      "team": "SEA",
+      "opp": "ARI",
+      "is_home": false,
+      "opp_implied": 18.5,
+      "spread": 3.5,
+      "total": 40.5
+    },
+    {
+      "rank": 7,
+      "team": "BAL",
+      "opp": "NO",
+      "is_home": true,
+      "opp_implied": 19,
+      "spread": 8.5,
+      "total": 46.5
+    },
+    {
+      "rank": 8,
+      "team": "KC",
+      "opp": "IND",
+      "is_home": true,
+      "opp_implied": 20,
+      "spread": 6.5,
+      "total": 46.5
+    },
+    {
+      "rank": 9,
+      "team": "LA",
+      "opp": "NYG",
+      "is_home": true,
+      "opp_implied": 20.2,
+      "spread": 7,
+      "total": 47.5
+    },
+    {
+      "rank": 10,
+      "team": "CAR",
+      "opp": "ATL",
+      "is_home": false,
+      "opp_implied": 20.5,
+      "spread": 2.5,
+      "total": 43.5
+    },
+    {
+      "rank": 11,
+      "team": "GB",
+      "opp": "NYJ",
+      "is_home": false,
+      "opp_implied": 20.5,
+      "spread": 3.5,
+      "total": 44.5
+    },
+    {
+      "rank": 12,
+      "team": "DEN",
+      "opp": "JAX",
+      "is_home": true,
+      "opp_implied": 21.5,
+      "spread": 2.5,
+      "total": 45.5
+    },
+    {
+      "rank": 13,
+      "team": "CHI",
+      "opp": "MIN",
+      "is_home": true,
+      "opp_implied": 22,
+      "spread": 4.5,
+      "total": 48.5
+    },
+    {
+      "rank": 14,
+      "team": "HOU",
+      "opp": "CIN",
+      "is_home": true,
+      "opp_implied": 22,
+      "spread": 2.5,
+      "total": 46.5
+    },
+    {
+      "rank": 15,
+      "team": "ARI",
+      "opp": "SEA",
+      "is_home": true,
+      "opp_implied": 22,
+      "spread": -3.5,
+      "total": 40.5
+    },
+    {
+      "rank": 16,
+      "team": "ATL",
+      "opp": "CAR",
+      "is_home": true,
+      "opp_implied": 23,
+      "spread": -2.5,
+      "total": 43.5
+    },
+    {
+      "rank": 17,
+      "team": "DAL",
+      "opp": "WAS",
+      "is_home": true,
+      "opp_implied": 23,
+      "spread": 4.5,
+      "total": 50.5
+    },
+    {
+      "rank": 18,
+      "team": "TEN",
+      "opp": "PHI",
+      "is_home": true,
+      "opp_implied": 23.2,
+      "spread": -7,
+      "total": 39.5
+    },
+    {
+      "rank": 19,
+      "team": "PIT",
+      "opp": "NE",
+      "is_home": false,
+      "opp_implied": 23.5,
+      "spread": -5.5,
+      "total": 41.5
+    },
+    {
+      "rank": 20,
+      "team": "NYJ",
+      "opp": "GB",
+      "is_home": true,
+      "opp_implied": 24,
+      "spread": -3.5,
+      "total": 44.5
+    },
+    {
+      "rank": 21,
+      "team": "JAX",
+      "opp": "DEN",
+      "is_home": false,
+      "opp_implied": 24,
+      "spread": -2.5,
+      "total": 45.5
+    },
+    {
+      "rank": 22,
+      "team": "CIN",
+      "opp": "HOU",
+      "is_home": false,
+      "opp_implied": 24.5,
+      "spread": -2.5,
+      "total": 46.5
+    },
+    {
+      "rank": 23,
+      "team": "BUF",
+      "opp": "DET",
+      "is_home": true,
+      "opp_implied": 25,
+      "spread": 4.5,
+      "total": 54.5
+    },
+    {
+      "rank": 24,
+      "team": "CLE",
+      "opp": "TB",
+      "is_home": false,
+      "opp_implied": 25,
+      "spread": -8.5,
+      "total": 41.5
+    },
+    {
+      "rank": 25,
+      "team": "LV",
+      "opp": "LAC",
+      "is_home": false,
+      "opp_implied": 25,
+      "spread": -6.5,
+      "total": 43.5
+    },
+    {
+      "rank": 26,
+      "team": "MIN",
+      "opp": "CHI",
+      "is_home": false,
+      "opp_implied": 26.5,
+      "spread": -4.5,
+      "total": 48.5
+    },
+    {
+      "rank": 27,
+      "team": "IND",
+      "opp": "KC",
+      "is_home": false,
+      "opp_implied": 26.5,
+      "spread": -6.5,
+      "total": 46.5
+    },
+    {
+      "rank": 28,
+      "team": "NYG",
+      "opp": "LA",
+      "is_home": false,
+      "opp_implied": 27.2,
+      "spread": -7,
+      "total": 47.5
+    },
+    {
+      "rank": 29,
+      "team": "NO",
+      "opp": "BAL",
+      "is_home": false,
+      "opp_implied": 27.5,
+      "spread": -8.5,
+      "total": 46.5
+    },
+    {
+      "rank": 30,
+      "team": "WAS",
+      "opp": "DAL",
+      "is_home": false,
+      "opp_implied": 27.5,
+      "spread": -4.5,
+      "total": 50.5
+    },
+    {
+      "rank": 31,
+      "team": "MIA",
+      "opp": "SF",
+      "is_home": false,
+      "opp_implied": 29,
+      "spread": -13.5,
+      "total": 44.5
+    },
+    {
+      "rank": 32,
+      "team": "DET",
+      "opp": "BUF",
+      "is_home": false,
+      "opp_implied": 29.5,
+      "spread": -4.5,
+      "total": 54.5
+    }
+  ],
+  "runs": {
+    "horizon": 4,
+    "weeks": [2, 3, 4, 5],
+    "good_threshold": 21.5,
+    "min_covered": 2,
+    "note": "Average opponent implied total over weeks 2-5, using posted lines only. Needs at least 2 of those weeks priced to qualify; a bye inside the window counts against the run.",
+    "teams": [
+      {
+        "team": "SF",
+        "avg_opp_implied": 17.5,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 2,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "MIA",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 15.5
+          },
+          {
+            "week": 3,
+            "opp": "ARI",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 19.5
+          },
+          {
+            "week": 4,
+            "opp": "DEN",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "SEA",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "KC",
+        "avg_opp_implied": 19,
+        "n_covered": 2,
+        "n_bye": 1,
+        "n_good": 2,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "IND",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 20
+          },
+          {
+            "week": 3,
+            "opp": "MIA",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 18
+          },
+          {
+            "week": 4,
+            "opp": "LV",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": null,
+            "is_home": null,
+            "bye": true,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "SEA",
+        "avg_opp_implied": 19,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 2,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "ARI",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 18.5
+          },
+          {
+            "week": 3,
+            "opp": "WAS",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 19.5
+          },
+          {
+            "week": 4,
+            "opp": "LAC",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "SF",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "TB",
+        "avg_opp_implied": 19.2,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "CLE",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 16.5
+          },
+          {
+            "week": 3,
+            "opp": "MIN",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 22
+          },
+          {
+            "week": 4,
+            "opp": "GB",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "DAL",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "CAR",
+        "avg_opp_implied": 19.8,
+        "n_covered": 2,
+        "n_bye": 1,
+        "n_good": 2,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "ATL",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 20.5
+          },
+          {
+            "week": 3,
+            "opp": "CLE",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 19
+          },
+          {
+            "week": 4,
+            "opp": "DET",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": null,
+            "is_home": null,
+            "bye": true,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "GB",
+        "avg_opp_implied": 20.2,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 2,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "NYJ",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 20.5
+          },
+          {
+            "week": 3,
+            "opp": "ATL",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 20
+          },
+          {
+            "week": 4,
+            "opp": "TB",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "CHI",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "PHI",
+        "avg_opp_implied": 20.4,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "TEN",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 16.2
+          },
+          {
+            "week": 3,
+            "opp": "CHI",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 24.5
+          },
+          {
+            "week": 4,
+            "opp": "LA",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "JAX",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "NE",
+        "avg_opp_implied": 21,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "PIT",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 18
+          },
+          {
+            "week": 3,
+            "opp": "JAX",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 24
+          },
+          {
+            "week": 4,
+            "opp": "BUF",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "LV",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "LA",
+        "avg_opp_implied": 21.1,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "NYG",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 20.2
+          },
+          {
+            "week": 3,
+            "opp": "DEN",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 22
+          },
+          {
+            "week": 4,
+            "opp": "PHI",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "BUF",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "HOU",
+        "avg_opp_implied": 21.8,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "CIN",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 22
+          },
+          {
+            "week": 3,
+            "opp": "IND",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 21.5
+          },
+          {
+            "week": 4,
+            "opp": "DAL",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "TEN",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "BAL",
+        "avg_opp_implied": 21.9,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "NO",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 19
+          },
+          {
+            "week": 3,
+            "opp": "DAL",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 24.8
+          },
+          {
+            "week": 4,
+            "opp": "TEN",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "ATL",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "CHI",
+        "avg_opp_implied": 22.5,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "MIN",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 22
+          },
+          {
+            "week": 3,
+            "opp": "PHI",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 23
+          },
+          {
+            "week": 4,
+            "opp": "NYJ",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "GB",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "JAX",
+        "avg_opp_implied": 22.8,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "DEN",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 24
+          },
+          {
+            "week": 3,
+            "opp": "NE",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 21.5
+          },
+          {
+            "week": 4,
+            "opp": "CIN",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "PHI",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "LAC",
+        "avg_opp_implied": 22.8,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "LV",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 18.5
+          },
+          {
+            "week": 3,
+            "opp": "BUF",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 27
+          },
+          {
+            "week": 4,
+            "opp": "SEA",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "DEN",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "CIN",
+        "avg_opp_implied": 23,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "HOU",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 24.5
+          },
+          {
+            "week": 3,
+            "opp": "PIT",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 21.5
+          },
+          {
+            "week": 4,
+            "opp": "JAX",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "MIA",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "DEN",
+        "avg_opp_implied": 23,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "JAX",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 21.5
+          },
+          {
+            "week": 3,
+            "opp": "LA",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 24.5
+          },
+          {
+            "week": 4,
+            "opp": "SF",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "LAC",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "NYG",
+        "avg_opp_implied": 23.1,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "LA",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 27.2
+          },
+          {
+            "week": 3,
+            "opp": "TEN",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 19
+          },
+          {
+            "week": 4,
+            "opp": "ARI",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "WAS",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "CLE",
+        "avg_opp_implied": 23.2,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "TB",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 25
+          },
+          {
+            "week": 3,
+            "opp": "CAR",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 21.5
+          },
+          {
+            "week": 4,
+            "opp": "PIT",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "NYJ",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "BUF",
+        "avg_opp_implied": 23.8,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "DET",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 25
+          },
+          {
+            "week": 3,
+            "opp": "LAC",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 22.5
+          },
+          {
+            "week": 4,
+            "opp": "NE",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "LA",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "PIT",
+        "avg_opp_implied": 23.8,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "NE",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 23.5
+          },
+          {
+            "week": 3,
+            "opp": "CIN",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 24
+          },
+          {
+            "week": 4,
+            "opp": "CLE",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "IND",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "TEN",
+        "avg_opp_implied": 23.9,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "PHI",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 23.2
+          },
+          {
+            "week": 3,
+            "opp": "NYG",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 24.5
+          },
+          {
+            "week": 4,
+            "opp": "BAL",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "HOU",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "NO",
+        "avg_opp_implied": 24.4,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "BAL",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 27.5
+          },
+          {
+            "week": 3,
+            "opp": "LV",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 21.2
+          },
+          {
+            "week": 4,
+            "opp": "ATL",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "MIN",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "LV",
+        "avg_opp_implied": 24.6,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "LAC",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 25
+          },
+          {
+            "week": 3,
+            "opp": "NO",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 24.2
+          },
+          {
+            "week": 4,
+            "opp": "KC",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "NE",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "ATL",
+        "avg_opp_implied": 24.8,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "CAR",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 23
+          },
+          {
+            "week": 3,
+            "opp": "GB",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 26.5
+          },
+          {
+            "week": 4,
+            "opp": "NO",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "BAL",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "WAS",
+        "avg_opp_implied": 24.8,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "DAL",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 27.5
+          },
+          {
+            "week": 3,
+            "opp": "SEA",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 22
+          },
+          {
+            "week": 4,
+            "opp": "IND",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "NYG",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "ARI",
+        "avg_opp_implied": 25,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "SEA",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 22
+          },
+          {
+            "week": 3,
+            "opp": "SF",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 28
+          },
+          {
+            "week": 4,
+            "opp": "NYG",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "DET",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "MIN",
+        "avg_opp_implied": 25,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "CHI",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 26.5
+          },
+          {
+            "week": 3,
+            "opp": "TB",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 23.5
+          },
+          {
+            "week": 4,
+            "opp": "MIA",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "NO",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "DET",
+        "avg_opp_implied": 25.1,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 1,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "BUF",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 29.5
+          },
+          {
+            "week": 3,
+            "opp": "NYJ",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 20.8
+          },
+          {
+            "week": 4,
+            "opp": "CAR",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "ARI",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "IND",
+        "avg_opp_implied": 25.2,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "KC",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 26.5
+          },
+          {
+            "week": 3,
+            "opp": "HOU",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 24
+          },
+          {
+            "week": 4,
+            "opp": "WAS",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "PIT",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "DAL",
+        "avg_opp_implied": 25.4,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "WAS",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 23
+          },
+          {
+            "week": 3,
+            "opp": "BAL",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 27.8
+          },
+          {
+            "week": 4,
+            "opp": "HOU",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "TB",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "NYJ",
+        "avg_opp_implied": 25.9,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 2,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "GB",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 24
+          },
+          {
+            "week": 3,
+            "opp": "DET",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 27.8
+          },
+          {
+            "week": 4,
+            "opp": "CHI",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "CLE",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      },
+      {
+        "team": "MIA",
+        "avg_opp_implied": 27.8,
+        "n_covered": 2,
+        "n_bye": 0,
+        "n_good": 0,
+        "best_week": 3,
+        "weeks": [
+          {
+            "week": 2,
+            "opp": "SF",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": 29
+          },
+          {
+            "week": 3,
+            "opp": "KC",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": 26.5
+          },
+          {
+            "week": 4,
+            "opp": "MIN",
+            "is_home": false,
+            "bye": false,
+            "opp_implied": null
+          },
+          {
+            "week": 5,
+            "opp": "CIN",
+            "is_home": true,
+            "bye": false,
+            "opp_implied": null
+          }
+        ]
+      }
+    ]
+  },
+  "leagues": [
+    {
+      "label": "UNH SuperFlex Dynasty",
+      "uses_dst": false,
+      "my_dst": null,
+      "n_taken": 0,
+      "top_available": [],
+      "taken": []
+    },
+    {
+      "label": "No Fun League",
+      "uses_dst": false,
+      "my_dst": null,
+      "n_taken": 0,
+      "top_available": [],
+      "taken": []
+    },
+    {
+      "label": "Kansas Keepers League",
+      "uses_dst": true,
+      "my_dst": "SF",
+      "n_taken": 15,
+      "top_available": [
+        {
+          "rank": 13,
+          "team": "CHI",
+          "opp": "MIN",
+          "is_home": true,
+          "opp_implied": 22
+        },
+        {
+          "rank": 15,
+          "team": "ARI",
+          "opp": "SEA",
+          "is_home": true,
+          "opp_implied": 22
+        },
+        {
+          "rank": 16,
+          "team": "ATL",
+          "opp": "CAR",
+          "is_home": true,
+          "opp_implied": 23
+        },
+        {
+          "rank": 17,
+          "team": "DAL",
+          "opp": "WAS",
+          "is_home": true,
+          "opp_implied": 23
+        },
+        {
+          "rank": 18,
+          "team": "TEN",
+          "opp": "PHI",
+          "is_home": true,
+          "opp_implied": 23.2
+        }
+      ],
+      "top_runs": [
+        {
+          "team": "SF",
+          "avg_opp_implied": 17.5,
+          "n_covered": 2,
+          "n_bye": 0,
+          "n_good": 2,
+          "best_week": 2,
+          "weeks": [
+            {
+              "week": 2,
+              "opp": "MIA",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": 15.5
+            },
+            {
+              "week": 3,
+              "opp": "ARI",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": 19.5
+            },
+            {
+              "week": 4,
+              "opp": "DEN",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": null
+            },
+            {
+              "week": 5,
+              "opp": "SEA",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": null
+            }
+          ]
+        },
+        {
+          "team": "CHI",
+          "avg_opp_implied": 22.5,
+          "n_covered": 2,
+          "n_bye": 0,
+          "n_good": 0,
+          "best_week": 2,
+          "weeks": [
+            {
+              "week": 2,
+              "opp": "MIN",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": 22
+            },
+            {
+              "week": 3,
+              "opp": "PHI",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": 23
+            },
+            {
+              "week": 4,
+              "opp": "NYJ",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": null
+            },
+            {
+              "week": 5,
+              "opp": "GB",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": null
+            }
+          ]
+        },
+        {
+          "team": "JAX",
+          "avg_opp_implied": 22.8,
+          "n_covered": 2,
+          "n_bye": 0,
+          "n_good": 1,
+          "best_week": 3,
+          "weeks": [
+            {
+              "week": 2,
+              "opp": "DEN",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": 24
+            },
+            {
+              "week": 3,
+              "opp": "NE",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": 21.5
+            },
+            {
+              "week": 4,
+              "opp": "CIN",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": null
+            },
+            {
+              "week": 5,
+              "opp": "PHI",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": null
+            }
+          ]
+        },
+        {
+          "team": "CIN",
+          "avg_opp_implied": 23,
+          "n_covered": 2,
+          "n_bye": 0,
+          "n_good": 1,
+          "best_week": 3,
+          "weeks": [
+            {
+              "week": 2,
+              "opp": "HOU",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": 24.5
+            },
+            {
+              "week": 3,
+              "opp": "PIT",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": 21.5
+            },
+            {
+              "week": 4,
+              "opp": "JAX",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": null
+            },
+            {
+              "week": 5,
+              "opp": "MIA",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": null
+            }
+          ]
+        }
+      ],
+      "taken": ["GB", "LA", "NE", "HOU", "MIN", "PHI", "BAL", "TB", "SEA", "CAR", "DEN", "SF", "LAC", "PIT", "KC"]
+    },
+    {
+      "label": "#SFB16 San Francisco",
+      "uses_dst": false,
+      "my_dst": null,
+      "n_taken": 0,
+      "top_available": [],
+      "taken": []
+    },
+    {
+      "label": "SF Fantasy",
+      "uses_dst": true,
+      "my_dst": "TBB",
+      "n_taken": 13,
+      "top_available": [
+        {
+          "rank": 1,
+          "team": "SF",
+          "opp": "MIA",
+          "is_home": true,
+          "opp_implied": 15.5
+        },
+        {
+          "rank": 3,
+          "team": "TB",
+          "opp": "CLE",
+          "is_home": true,
+          "opp_implied": 16.5
+        },
+        {
+          "rank": 4,
+          "team": "NE",
+          "opp": "PIT",
+          "is_home": true,
+          "opp_implied": 18
+        },
+        {
+          "rank": 5,
+          "team": "LAC",
+          "opp": "LV",
+          "is_home": true,
+          "opp_implied": 18.5
+        },
+        {
+          "rank": 8,
+          "team": "KC",
+          "opp": "IND",
+          "is_home": true,
+          "opp_implied": 20
+        }
+      ],
+      "top_runs": [
+        {
+          "team": "SF",
+          "avg_opp_implied": 17.5,
+          "n_covered": 2,
+          "n_bye": 0,
+          "n_good": 2,
+          "best_week": 2,
+          "weeks": [
+            {
+              "week": 2,
+              "opp": "MIA",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": 15.5
+            },
+            {
+              "week": 3,
+              "opp": "ARI",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": 19.5
+            },
+            {
+              "week": 4,
+              "opp": "DEN",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": null
+            },
+            {
+              "week": 5,
+              "opp": "SEA",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": null
+            }
+          ]
+        },
+        {
+          "team": "KC",
+          "avg_opp_implied": 19,
+          "n_covered": 2,
+          "n_bye": 1,
+          "n_good": 2,
+          "best_week": 3,
+          "weeks": [
+            {
+              "week": 2,
+              "opp": "IND",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": 20
+            },
+            {
+              "week": 3,
+              "opp": "MIA",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": 18
+            },
+            {
+              "week": 4,
+              "opp": "LV",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": null
+            },
+            {
+              "week": 5,
+              "opp": null,
+              "is_home": null,
+              "bye": true,
+              "opp_implied": null
+            }
+          ]
+        },
+        {
+          "team": "TB",
+          "avg_opp_implied": 19.2,
+          "n_covered": 2,
+          "n_bye": 0,
+          "n_good": 1,
+          "best_week": 2,
+          "weeks": [
+            {
+              "week": 2,
+              "opp": "CLE",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": 16.5
+            },
+            {
+              "week": 3,
+              "opp": "MIN",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": 22
+            },
+            {
+              "week": 4,
+              "opp": "GB",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": null
+            },
+            {
+              "week": 5,
+              "opp": "DAL",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": null
+            }
+          ]
+        },
+        {
+          "team": "CAR",
+          "avg_opp_implied": 19.8,
+          "n_covered": 2,
+          "n_bye": 1,
+          "n_good": 2,
+          "best_week": 3,
+          "weeks": [
+            {
+              "week": 2,
+              "opp": "ATL",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": 20.5
+            },
+            {
+              "week": 3,
+              "opp": "CLE",
+              "is_home": false,
+              "bye": false,
+              "opp_implied": 19
+            },
+            {
+              "week": 4,
+              "opp": "DET",
+              "is_home": true,
+              "bye": false,
+              "opp_implied": null
+            },
+            {
+              "week": 5,
+              "opp": null,
+              "is_home": null,
+              "bye": true,
+              "opp_implied": null
+            }
+          ]
+        }
+      ],
+      "taken": ["NEP", "JAX", "BAL", "DET", "CLE", "TBB", "SFO", "PIT", "KCC", "PHI", "SEA", "HOU", "DEN"]
+    }
+  ],
+  "skipped": []
+}

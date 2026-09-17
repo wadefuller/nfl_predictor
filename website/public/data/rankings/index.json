@@ -1,6 +1,34 @@
 {
   "snapshots": [
     {
+      "file": "2026-wk02_half.json",
+      "season": 2026,
+      "week": 2,
+      "tag": "2026-wk02_half",
+      "scoring": "half"
+    },
+    {
+      "file": "2026-wk02.json",
+      "season": 2026,
+      "week": 2,
+      "tag": "2026-wk02",
+      "scoring": "ppr"
+    },
+    {
+      "file": "2026-wk01_half.json",
+      "season": 2026,
+      "week": 1,
+      "tag": "2026-wk01_half",
+      "scoring": "half"
+    },
+    {
+      "file": "2026-wk01.json",
+      "season": 2026,
+      "week": 1,
+      "tag": "2026-wk01",
+      "scoring": "ppr"
+    },
+    {
       "file": "2026-wk00_half.json",
       "season": 2026,
       "week": 0,
@@ -267,7 +295,7 @@
       "scoring": "ppr"
     }
   ],
-  "latest": "2026-wk00_half",
-  "scoring": "half",
+  "latest": "2026-wk02",
+  "scoring": "ppr",
   "formats": ["half", "ppr"]
 }

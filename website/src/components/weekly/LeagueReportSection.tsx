@@ -103,6 +103,11 @@ export function LeagueReportSection({ data, onNavigate }:
   if (!lg) return <p className="text-sm text-text-muted">No league data for this week.</p>;
 
   const prose = lg.prose ?? {};
+  const refreshed = lg.source?.refreshed
+    ? new Date(String(lg.source.refreshed).replace(/([+-]\d{2})(\d{2})$/, '$1:$2')).toLocaleString([], {
+        month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+      })
+    : data?.generated;
   const blurbFor = (m: any) =>
     arr(prose.blurbs).find((b: any) => b.game === `${m.home} vs ${m.away}`)?.text;
 
@@ -120,6 +125,12 @@ export function LeagueReportSection({ data, onNavigate }:
           ))}
         </div>
       )}
+
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-text-muted">
+        <span className="rounded-full border border-border-light bg-bg-card/40 px-2 py-0.5 text-text-secondary">League-native scoring</span>
+        <span>Week {lg.week} submitted lineups and roster snapshot</span>
+        {refreshed && <span>· refreshed {refreshed}</span>}
+      </div>
 
       {/* the column */}
       <div className="rounded-2xl border border-border bg-gradient-to-br from-bg-card to-bg-page/60 p-4">

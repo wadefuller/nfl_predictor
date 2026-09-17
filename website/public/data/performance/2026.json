@@ -1,4 +1,42 @@
 {
   "season": 2026,
-  "weeklyStats": []
+  "weeklyStats": [
+    {
+      "week": 1,
+      "games": 16,
+      "weekly": {
+        "modelCorrect": 12,
+        "vegasCorrect": 12,
+        "modelAccuracy": 0.75,
+        "vegasAccuracy": 0.75,
+        "modelSpreadCorrect": 6,
+        "vegasSpreadCorrect": 9,
+        "modelSpreadAccuracy": 0.4,
+        "vegasSpreadAccuracy": 0.6,
+        "mlROI": 0.164,
+        "spreadROI": -0.239,
+        "modelMarginMAE": 11.533,
+        "vegasMarginMAE": 11.281,
+        "modelBrier": 0.2114,
+        "vegasBrier": 0.2127
+      },
+      "cumulative": {
+        "games": 16,
+        "modelCorrect": 12,
+        "vegasCorrect": 12,
+        "modelAccuracy": 0.75,
+        "vegasAccuracy": 0.75,
+        "modelSpreadCorrect": 6,
+        "vegasSpreadCorrect": 9,
+        "modelSpreadAccuracy": 0.4,
+        "vegasSpreadAccuracy": 0.6,
+        "mlROI": 0.164,
+        "spreadROI": -0.239,
+        "modelMarginMAE": 11.533,
+        "vegasMarginMAE": 11.281,
+        "modelBrier": 0.2114,
+        "vegasBrier": 0.2127
+      }
+    }
+  ]
 }

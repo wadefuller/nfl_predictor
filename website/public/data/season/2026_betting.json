@@ -1,0 +1,29 @@
+{
+  "season": 2026,
+  "start_bankroll": 1000,
+  "updated": "2026-09-16T09:11:05-0700",
+  "grading": "bundle_oos",
+  "weeks": [
+    {
+      "week": 1,
+      "source": "bundle_oos",
+      "n_bets": 0,
+      "staked": 0,
+      "pnl": 0,
+      "cum_staked": 0,
+      "cum_pnl": 0,
+      "roi": null,
+      "bankroll": 1000
+    }
+  ],
+  "totals": {
+    "bets": 0,
+    "staked": 0,
+    "pnl": 0,
+    "roi": null,
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "final_bankroll": 1000
+  }
+}
