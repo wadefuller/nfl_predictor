@@ -944,16 +944,22 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
                     {score?.opponentName ? `vs ${score.opponentName}` : 'opponent unavailable'}
                   </span>
                 </div>
-                <div className="grid grid-cols-[0.8fr_0.75fr_1.2fr_1.2fr] divide-x divide-border border-b border-border-light bg-bg-card-hover/20 text-center text-[8.5px] tabular-nums">
+                <div className="grid grid-cols-[0.8fr_1.2fr_1.1fr_1.1fr] divide-x divide-border border-b border-border-light bg-bg-card-hover/20 text-center text-[8.5px] tabular-nums">
                   <span className="min-w-0 whitespace-nowrap px-1 py-1" title="Current league score">
                     <span className="text-text-muted">Now </span>
                     <span className="font-semibold text-text-primary">{score ? `${num(score.mine)}–${num(score.opponent)}` : '—'}</span>
                   </span>
                   <span className="min-w-0 whitespace-nowrap px-1 py-1"
                     title={lw
-                      ? `Live model win chance. ${lw.settled} starters have finished; their results are fixed and the remaining games are projected.`
-                      : 'Pregame model win chance.'}>
+                      ? `Win probability moved from ${Math.round(pregamePct * 100)}% pregame to ${Math.round(winPct * 100)}% live. ${lw.settled} starters have finished; their results are fixed and the remaining games are projected.`
+                      : 'Original pregame win probability.'}>
                     <span className="text-text-muted">Win </span>
+                    <span className="mr-1 inline-block h-1 w-6 overflow-hidden rounded-full bg-bg-card-hover align-middle">
+                      <span className="block h-full rounded-full"
+                        style={{ width: `${Number.isFinite(winPct) ? clamp(winPct * 100) : 0}%`,
+                                 background: Number.isFinite(winPct) && winPct >= 0.5 ? 'var(--color-win)' : 'var(--color-loss)' }} />
+                    </span>
+                    <span className="text-text-muted">{Number.isFinite(pregamePct) ? Math.round(pregamePct * 100) : '—'}→</span>
                     <span className="font-semibold" style={{ color: Number.isFinite(winPct) && winPct >= 0.5 ? 'var(--color-win)' : 'var(--color-loss)' }}>
                       {Number.isFinite(winPct) ? `${Math.round(winPct * 100)}%` : '—'}
                     </span>
