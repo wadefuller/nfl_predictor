@@ -34,6 +34,14 @@ async function getJSON<T>(url: string): Promise<T | null> {
   try { const r = await fetch(url); return r.ok ? ((await r.json()) as T) : null; } catch { return null; }
 }
 
+// GitHub Pages serves the static app but cannot run Pages Functions. Keep the
+// public Cloudflare deployment as the read-only live-data origin so the same
+// scoring panel works on both hosts. Local and Cloudflare builds stay same-origin.
+const LIVE_API_ORIGIN = typeof window !== 'undefined' && window.location.hostname.endsWith('github.io')
+  ? 'https://nfl-predictor-mf4-cjl.pages.dev'
+  : '';
+const liveApiUrl = (params: URLSearchParams) => `${LIVE_API_ORIGIN}/api/live?${params}`;
+
 // ---- section + report-specific primitives ----------------------------------
 function Section({ id, title, subtitle, accent = 'var(--color-accent)', right, children }:
   { id: string; title: string; subtitle?: string; accent?: string; right?: React.ReactNode; children: React.ReactNode }) {
@@ -567,7 +575,9 @@ function useLiveData(d: any) {
         // custom scoring needs no browser-side reimplementation.
         const sleeper = leagues.filter((l: any) => l.platform === 'sleeper' && l.league_id && l.franchise_id);
         const sleeperScores = await Promise.all(sleeper.map(async (l: any) => { try {
-          const response = await fetch(`/api/live?source=sleeper&league=${l.league_id}&week=${d.week}`);
+          const response = await fetch(liveApiUrl(new URLSearchParams({
+            source: 'sleeper', league: String(l.league_id), week: String(d.week),
+          })));
           if (!response.ok) throw new Error(`Sleeper ${response.status}`);
           const rows = await response.json();
           const mine = arr(rows).find((r: any) => String(r.roster_id) === String(l.franchise_id));
@@ -588,7 +598,9 @@ function useLiveData(d: any) {
         } catch { return null; } }));
         const mfl = leagues.filter((l: any) => l.platform === 'mfl' && l.league_id && l.franchise_id);
         const mflScores = await Promise.all(mfl.map(async (l: any) => { try {
-          const response = await fetch(`/api/live?source=mfl&league=${l.league_id}&week=${d.week}&season=${d.season}`);
+          const response = await fetch(liveApiUrl(new URLSearchParams({
+            source: 'mfl', league: String(l.league_id), week: String(d.week), season: String(d.season),
+          })));
           if (!response.ok) throw new Error(`MFL ${response.status}`);
           const payload = await response.json();
           const matchupsRaw = payload?.liveScoring?.matchup ?? payload?.liveScoring?.matchups;
@@ -614,12 +626,26 @@ function useLiveData(d: any) {
         // 200 and index.html, so .ok is true and .json() throws on the markup.
         let stats: Record<string, any> = {};
         try {
-          const statsResponse = await fetch(`/api/live?source=sleeper_stats&season=${d.season}&week=${d.week}`);
+          const statsResponse = await fetch(liveApiUrl(new URLSearchParams({
+            source: 'sleeper_stats', season: String(d.season), week: String(d.week),
+          })));
           const parsed = statsResponse.ok ? await statsResponse.json() : null;
           if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) stats = parsed;
         } catch { /* stat lines simply stay empty */ }
-        const boardResponse = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?limit=100');
-        const board = boardResponse.ok ? await boardResponse.json() : { events: [] };
+        // Scope game state to the report being viewed. ESPN's unqualified
+        // scoreboard always returns the current NFL week; pairing that with a
+        // week-specific Sleeper stat feed made last week's box scores appear
+        // beside this week's not-yet-started players.
+        const boardParams = new URLSearchParams({
+          limit: '100', dates: String(d.season), seasontype: '2', week: String(d.week),
+        });
+        const boardResponse = await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?${boardParams}`);
+        const boardPayload = boardResponse.ok ? await boardResponse.json() : null;
+        // Fail closed if the provider ever ignores the week filter. Empty game
+        // state is preferable to confidently attaching another week's stats.
+        const board = Number(boardPayload?.week?.number) === Number(d.week)
+          ? boardPayload
+          : { events: [] };
         // ESPN's abbreviations are not ours for two clubs: it writes LAR and WSH
         // where the rest of this stack writes LA and WAS. Keyed raw, every Rams
         // and Commanders starter matches no game — so they show no clock and,
@@ -871,6 +897,12 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
               return st === 'in' ? 0 : st === 'post' ? 2 : 1;
             };
             const pts = (r: any) => {
+              // The points feed is week-scoped, but it is only valid for this
+              // row once the same selected-week game has actually begun. This
+              // prevents cached or mismatched stats from leaking into pregame
+              // rows.
+              const state = live.games[r.team]?.state;
+              if (state !== 'in' && state !== 'post') return NaN;
               const k = statKey(r);
               const native = score?.playerPoints?.[k as string];
               // League-native where the platform reports it; otherwise Sleeper's
@@ -982,9 +1014,6 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
                 <div className="divide-y divide-border-light/60">
                   {sorted.map((r: any, i: number) => {
                     const g = live.games[r.team];
-                    const st = live.stats?.[statKey(r) as string];
-                    const blurb = statBlurb(st);
-                    const p = pts(r);
                     const isLive = g?.state === 'in';
                     const isDone = g?.state === 'post';
                     // A player whose game has not kicked off has not scored zero —
@@ -992,6 +1021,9 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
                     // has to come from the game, not the feed. Once the ball is in
                     // the air a 0.0 is real information and is shown as such.
                     const played = isLive || isDone;
+                    const st = played ? live.stats?.[statKey(r) as string] : null;
+                    const blurb = statBlurb(st);
+                    const p = pts(r);
                     return (
                       <div key={i} className="grid grid-cols-[1.9rem_minmax(0,1fr)_auto] items-center gap-2 px-2.5 py-1">
                         <span className="rounded bg-bg-card-hover py-0.5 text-center text-[8.5px] font-bold text-text-muted">{r.position}</span>
