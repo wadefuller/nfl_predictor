@@ -1769,16 +1769,58 @@ function CoverageBar({ label, value, target }: { label: string; value: number; t
   );
 }
 
+function CalibrationRow({ row, maxPoints }: { row: any; maxPoints: number }) {
+  const projected = Number(row.projected ?? 0);
+  const actual = Number(row.actual ?? 0);
+  const p = clamp((projected / maxPoints) * 100);
+  const a = clamp((actual / maxPoints) * 100);
+  const left = Math.min(p, a);
+  const width = Math.abs(p - a);
+  const bias = Number(row.bias ?? actual - projected);
+  return (
+    <div className="grid grid-cols-[3.3rem_minmax(0,1fr)_4.4rem] items-center gap-3 py-2">
+      <div>
+        <div className="text-[11px] font-semibold tabular-nums text-text-primary">{row.bucket}</div>
+        <div className="text-[9px] tabular-nums text-text-muted">n={row.n}</div>
+      </div>
+      <div className="relative h-6">
+        <div className="absolute inset-x-0 top-[11px] h-px bg-border-light" />
+        <div className="absolute top-[10px] h-[3px] rounded-full bg-text-muted/50" style={{ left: `${left}%`, width: `${Math.max(width, 0.8)}%` }} />
+        <div className="absolute top-[7px] h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-bg-card bg-accent" style={{ left: `${p}%` }} title={`Projected ${num(projected, 1)}`} />
+        <div className="absolute top-[7px] h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-bg-card bg-win" style={{ left: `${a}%` }} title={`Actual ${num(actual, 1)}`} />
+      </div>
+      <div className={`text-right text-[11px] font-semibold tabular-nums ${Math.abs(bias) <= 1 ? 'text-text-secondary' : bias > 0 ? 'text-win' : 'text-loss'}`}>
+        {bias > 0 ? '+' : ''}{num(bias, 1)}<span className="ml-1 text-[9px] font-normal text-text-muted">pts</span>
+      </div>
+    </div>
+  );
+}
+
 function WeeklyAccuracy({ d }: { d: any }) {
   const cc = obj(d.class_counts);
-  const rows = d.metrics ?? [];
+  const rows = arr(d.metrics);
   const all = rows.find((r: any) => r.position === 'ALL') ?? {};
+  const cohort = obj(d.cohort);
+  const calibration = arr(d.calibration).filter((r: any) => Number(r.n ?? 0) > 0);
+  const evaluated = Number(cohort.evaluated ?? all.n ?? 0);
+  const projected = Number(cohort.projected ?? evaluated);
+  const excluded = Number(cohort.no_opportunity ?? Math.max(0, projected - evaluated));
+  const activationMisses = Number(cohort.high_confidence_no_opportunity ?? 0);
+  const bias = Number(all.bias ?? 0);
+  const rmse = Number(all.rmse ?? 0);
   // ECR baseline (season-long consensus scored on this week), keyed by position.
   const ecrRows: any[] = Array.isArray(d.ecr) ? d.ecr : d.ecr ? [d.ecr] : [];
   const ecrBy: Record<string, any> = Object.fromEntries(ecrRows.map((r: any) => [r.position, r]));
   const ecrAll = ecrBy['ALL'];
   const modelWins = ecrAll && ecrAll.model >= ecrAll.ecr;
   const ecrKind = d.ecr_kind === 'weekly' ? 'weekly' : 'season';
+  const ecrDelta = ecrAll ? Number(ecrAll.model) - Number(ecrAll.ecr) : null;
+  const ceilingGap = Number(all.ceiling_cov ?? 0) - 0.9;
+  const floorGap = Number(all.floor_cov ?? 0) - 0.9;
+  const worstPosition = rows.filter((r: any) => r.position !== 'ALL')
+    .sort((a: any, b: any) => Number(b.mae ?? 0) - Number(a.mae ?? 0))[0];
+  const maxPoints = Math.max(25, ...calibration.flatMap((r: any) => [Number(r.projected ?? 0), Number(r.actual ?? 0)])) * 1.08;
+  const intervalHealthy = Math.abs(ceilingGap) <= 0.05 && Math.abs(floorGap) <= 0.05;
   const SurpriseList = ({ title, rows, color }: any) => (
     <div>
       <div className="text-[10px] uppercase tracking-wider mb-1.5" style={{ color }}>{title}</div>
@@ -1794,30 +1836,113 @@ function WeeklyAccuracy({ d }: { d: any }) {
     </div>
   );
   return (
-    <Section id="weekly_accuracy" title="Weekly-Model Accuracy" accent={SECTION_ACCENT.weekly_accuracy} subtitle="projections vs actual half-PPR">
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2">
-        <StatTile label="MAE" value={num(all.mae, 2)} />
-        <StatTile label="Spearman" value={num(all.spearman, 2)} accent="#58a6ff" />
-        {ecrAll && (
-          <StatTile label={`Rank acc vs ${ecrKind} ECR`} value={`${num(ecrAll.model, 2)} / ${num(ecrAll.ecr, 2)}`}
-            sub={`model vs ${ecrKind} ECR${modelWins ? ' · model +' + num(ecrAll.model - ecrAll.ecr, 2) : ''}`}
-            accent={modelWins ? '#3fb950' : '#d29922'} />
-        )}
-        <StatTile label="Booms" value={cc.boom ?? 0} accent="#3fb950" sub={`${cc.met ?? 0} met`} />
-        <StatTile label="Busts" value={cc.bust ?? 0} accent="#f85149" />
+    <Section id="weekly_accuracy" title="Scoring Model Lab" accent={SECTION_ACCENT.weekly_accuracy}
+      subtitle={`Week ${d.week} postmortem · half-PPR · point, rank, and interval calibration`}
+      right={<span className="rounded-full border border-[#d29922]/40 bg-[#d29922]/10 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-[#d29922]">Completed audit</span>}>
+      <div className="rounded-xl border border-border-light bg-bg-page/30 p-3 sm:p-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#d29922]">Evaluation cohort</div>
+            <div className="mt-1 text-xl font-semibold tracking-tight text-text-primary">{evaluated} opportunity-bearing players</div>
+            <p className="mt-1 max-w-2xl text-[11px] leading-relaxed text-text-muted">
+              {excluded} of {projected} projections were separated into the participation audit because the player logged no pass attempt, carry, target, or fantasy point. They no longer distort scoring error.
+            </p>
+          </div>
+          <div className="flex shrink-0 gap-2 text-center">
+            <div className="min-w-[4.8rem] rounded-lg border border-border-light bg-bg-card/60 px-2 py-2">
+              <div className="text-lg font-bold tabular-nums text-text-primary">{evaluated}</div>
+              <div className="text-[8px] uppercase tracking-wider text-text-muted">evaluated</div>
+            </div>
+            <div className="min-w-[4.8rem] rounded-lg border border-border-light bg-bg-card/60 px-2 py-2">
+              <div className="text-lg font-bold tabular-nums text-[#d29922]">{excluded}</div>
+              <div className="text-[8px] uppercase tracking-wider text-text-muted">participation</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="grid sm:grid-cols-2 gap-3">
-        {(all.ceiling_cov != null) && <CoverageBar label="Ceiling coverage" value={all.ceiling_cov} target={0.9} />}
-        {(all.floor_cov != null) && <CoverageBar label="Floor coverage" value={all.floor_cov} target={0.9} />}
+
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+        <StatTile label="MAE" value={num(all.mae, 2)} sub="avg absolute miss" />
+        <StatTile label="RMSE" value={rmse ? num(rmse, 2) : '—'} sub="penalizes big misses" />
+        <StatTile label="Mean bias" value={`${bias > 0 ? '+' : ''}${num(bias, 2)}`} sub={Math.abs(bias) <= 1 ? 'well centered' : bias > 0 ? 'model too low' : 'model too high'} accent={Math.abs(bias) <= 1 ? '#3fb950' : '#d29922'} />
+        <StatTile label="Rank ρ" value={num(all.spearman, 2)} sub="ordering quality" accent="#58a6ff" />
+        <StatTile label="Booms" value={cc.boom ?? 0} accent="#3fb950" sub={`${cc.met ?? 0} within range`} />
+        <StatTile label="Busts" value={cc.bust ?? 0} accent="#f85149" sub="fantasy-relevant" />
       </div>
+
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1.25fr)_minmax(17rem,.75fr)]">
+        <div className="rounded-xl border border-border-light bg-bg-page/20 p-3 sm:p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h4 className="text-xs font-semibold text-text-primary">Point calibration by projection tier</h4>
+              <p className="mt-0.5 text-[10px] text-text-muted">Blue = average projection · green = average result</p>
+            </div>
+            <span className="shrink-0 text-[9px] text-text-muted">bias = actual − projected</span>
+          </div>
+          <div className="mt-2 divide-y divide-border-light/60">
+            {calibration.length ? calibration.map((r: any, i: number) => <CalibrationRow key={i} row={r} maxPoints={maxPoints} />) : (
+              <div className="py-6 text-center text-xs text-text-muted">Calibration buckets will appear after the next grading run.</div>
+            )}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-border-light bg-bg-page/20 p-3 sm:p-4">
+          <h4 className="text-xs font-semibold text-text-primary">Calibration readout</h4>
+          <div className="mt-3 space-y-3">
+            <div className="rounded-lg border border-border-light bg-bg-card/35 p-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted">Point level</span>
+                <span className={`text-[10px] font-semibold ${Math.abs(bias) <= 1 ? 'text-win' : 'text-[#d29922]'}`}>{Math.abs(bias) <= 1 ? 'Centered' : 'Adjust'}</span>
+              </div>
+              <p className="mt-1 text-[11px] leading-relaxed text-text-secondary">The model finished {Math.abs(bias) <= 1 ? 'within one point of neutral bias' : `${num(Math.abs(bias), 1)} points ${bias > 0 ? 'too low' : 'too high'}`} across the scored cohort.</p>
+            </div>
+            <div className="rounded-lg border border-border-light bg-bg-card/35 p-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted">Intervals</span>
+                <span className={`text-[10px] font-semibold ${intervalHealthy ? 'text-win' : 'text-[#d29922]'}`}>{intervalHealthy ? 'On target' : 'Watch'}</span>
+              </div>
+              <p className="mt-1 text-[11px] leading-relaxed text-text-secondary">Ceiling {num(Number(all.ceiling_cov ?? 0) * 100, 0)}% · floor {num(Number(all.floor_cov ?? 0) * 100, 0)}%, against a 90% target on each side.</p>
+            </div>
+            <div className="rounded-lg border border-border-light bg-bg-card/35 p-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted">Ranking benchmark</span>
+                <span className={`text-[10px] font-semibold ${modelWins ? 'text-win' : 'text-[#d29922]'}`}>{ecrAll ? (modelWins ? 'Model leads' : 'ECR leads') : 'Pending'}</span>
+              </div>
+              <p className="mt-1 text-[11px] leading-relaxed text-text-secondary">{ecrAll ? `Model ρ ${num(ecrAll.model, 2)} vs ${ecrKind} ECR ${num(ecrAll.ecr, 2)} (${ecrDelta != null && ecrDelta >= 0 ? '+' : ''}${num(ecrDelta, 2)}).` : 'A common-player ECR comparison was not available.'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid gap-3 rounded-xl border border-border-light bg-bg-page/20 p-3 sm:grid-cols-2 sm:p-4">
+        <div>
+          <div className="mb-3 flex items-center justify-between"><h4 className="text-xs font-semibold text-text-primary">Prediction intervals</h4><span className="text-[9px] text-text-muted">target 90%</span></div>
+          <div className="space-y-3">
+            {(all.ceiling_cov != null) && <CoverageBar label="Below projected ceiling" value={all.ceiling_cov} target={0.9} />}
+            {(all.floor_cov != null) && <CoverageBar label="Above projected floor" value={all.floor_cov} target={0.9} />}
+          </div>
+        </div>
+        <div className="rounded-lg border border-border-light bg-bg-card/35 p-3">
+          <div className="text-[9px] font-bold uppercase tracking-wider text-[#d29922]">Recommended next move</div>
+          <div className="mt-1 text-sm font-semibold text-text-primary">{activationMisses > 0 ? 'Repair participation before tuning points' : worstPosition ? `Focus the next feature test on ${worstPosition.position}` : 'Hold parameters and collect another week'}</div>
+          <p className="mt-1 text-[11px] leading-relaxed text-text-secondary">
+            {activationMisses > 0
+              ? `${activationMisses} players received at least 75% active probability but logged no scoring opportunity. Calibrate the availability/depth-chart stage separately before changing the scoring model.`
+              : worstPosition
+                ? `${worstPosition.position} had the largest MAE at ${num(worstPosition.mae, 2)}. Treat Week ${d.week} as a diagnostic signal, not enough evidence for a production retune on its own.`
+                : 'One completed week is a diagnostic sample, not enough evidence for a production retune on its own.'}
+          </p>
+        </div>
+      </div>
+
       <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3 pt-1">
-        <SurpriseList title="Biggest beats" rows={d.beats} color="#3fb950" />
-        <SurpriseList title="Biggest misses" rows={d.misses} color="#f85149" />
+        <SurpriseList title="Largest under-projections" rows={d.beats} color="#3fb950" />
+        <SurpriseList title="Largest over-projections" rows={d.misses} color="#f85149" />
       </div>
       <div className="overflow-x-auto pt-1">
         <table className="w-full text-xs">
           <thead><tr className="text-text-muted border-b border-border-light">
-            {['Pos', 'N', 'MAE', 'Model ρ', 'ECR ρ', 'Ceil cov', 'Floor cov'].map((h, i) => (
+            {['Pos', 'N', 'MAE', 'RMSE', 'Bias', 'Model ρ', 'ECR ρ', 'Ceil', 'Floor'].map((h, i) => (
               <th key={h} className={`py-1 pr-3 font-medium ${i === 0 ? 'text-left' : 'text-right'}`}>{h}</th>
             ))}
           </tr></thead>
@@ -1830,6 +1955,8 @@ function WeeklyAccuracy({ d }: { d: any }) {
                   <td className="py-1 pr-3 text-text-primary font-medium">{r.position}</td>
                   <td className="py-1 pr-3 tabular-nums text-right text-text-muted">{r.n}</td>
                   <td className="py-1 pr-3 tabular-nums text-right text-text-secondary">{num(r.mae, 2)}</td>
+                  <td className="py-1 pr-3 tabular-nums text-right text-text-secondary">{num(r.rmse, 2)}</td>
+                  <td className={`py-1 pr-3 tabular-nums text-right ${Math.abs(Number(r.bias ?? 0)) > 1 ? 'text-[#d29922]' : 'text-text-secondary'}`}>{Number(r.bias ?? 0) > 0 ? '+' : ''}{num(r.bias, 2)}</td>
                   <td className="py-1 pr-3 tabular-nums text-right font-medium" style={{ color: e ? (win ? '#3fb950' : 'var(--color-text-secondary)') : 'var(--color-text-secondary)' }}>{num(e ? e.model : r.spearman, 2)}</td>
                   <td className="py-1 pr-3 tabular-nums text-right" style={{ color: e && !win ? '#d29922' : 'var(--color-text-muted)' }}>{e ? num(e.ecr, 2) : '–'}</td>
                   <td className="py-1 pr-3 tabular-nums text-right text-text-secondary">{num((r.ceiling_cov ?? 0) * 100, 0)}%</td>
@@ -1839,7 +1966,7 @@ function WeeklyAccuracy({ d }: { d: any }) {
             })}
           </tbody>
         </table>
-        {ecrAll && <div className="text-[10px] text-text-muted mt-1.5">ρ = Spearman rank-accuracy vs actual half-PPR, on players both sources rank. ECR = {ecrKind === 'weekly' ? "FantasyPros WEEKLY consensus captured pre-kickoff." : "season-long FantasyPros consensus (true weekly ECR isn't archived for past weeks, so this proxies with the season board)."}</div>}
+        <div className="mt-2 text-[10px] leading-relaxed text-text-muted">ρ = Spearman rank accuracy vs actual half-PPR. Point metrics use the opportunity-bearing cohort; participation misses remain in the cohort audit instead of being counted as zero-point scoring misses. {ecrAll && `ECR is the ${ecrKind === 'weekly' ? 'pre-kickoff weekly FantasyPros consensus' : 'season-long FantasyPros consensus proxy'}.`}</div>
       </div>
     </Section>
   );
@@ -1996,14 +2123,15 @@ const POST_ORDER = ['games_result', 'fantasy_ranks', 'league_report', 'model_sco
 
 // Sections grouped by the QUESTION being asked, so the page shows one coherent
 // group at a time instead of a ten-section scroll mixing model, fantasy and league.
-type GroupKey = 'games' | 'lineups' | 'fantasy' | 'results';
+type GroupKey = 'games' | 'lineups' | 'fantasy' | 'results' | 'lab';
 const GROUPS: { key: GroupKey; label: string; accent: string; sections: string[] }[] = [
   { key: 'games',   label: 'Games & Bets', accent: '#58a6ff', sections: ['games_result', 'games_preview', 'bet_card', 'polymarket_bets', 'kalshi_lines'] },
   // Lineups get their own tab rather than sitting fifth in the fantasy stack:
   // it's the one section that is about MY teams and gets acted on every week.
   { key: 'lineups', label: 'My Lineups',   accent: '#3fb950', sections: ['lineups'] },
   { key: 'fantasy', label: 'Roster Tools', accent: '#3fb950', sections: ['fantasy_ranks', 'dst_stream', 'waivers', 'projections'] },
-  { key: 'results', label: 'Results',      accent: '#f778ba', sections: ['model_scorecard', 'fantasy_recap', 'weekly_accuracy', 'league_report'] },
+  { key: 'results', label: 'Results',      accent: '#f778ba', sections: ['model_scorecard', 'fantasy_recap', 'league_report'] },
+  { key: 'lab',     label: 'Model Lab',    accent: '#d29922', sections: ['weekly_accuracy'] },
 ];
 
 /** Sub-tab keys this view accepts in a permalink. */
@@ -2161,7 +2289,7 @@ export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFall
 
   // Groups that actually have something to show. "Games" always qualifies because
   // the fallback game cards exist for every week.
-  const permitted = scope === 'fantasy' ? new Set<GroupKey>(['lineups', 'fantasy']) : new Set<GroupKey>(['games', 'results']);
+  const permitted = scope === 'fantasy' ? new Set<GroupKey>(['lineups', 'fantasy']) : new Set<GroupKey>(['games', 'results', 'lab']);
   const groups = GROUPS
     .filter(g => permitted.has(g.key))
     .map(g => ({ ...g, label: played && g.key === 'games' ? 'Games' : g.label, ready: g.sections.filter(s => ready.includes(s)) }))

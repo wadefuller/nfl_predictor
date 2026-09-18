@@ -4,49 +4,108 @@
   "metrics": [
     {
       "position": "ALL",
-      "n": 448,
-      "mae": 4.76,
-      "spearman": 0.562,
-      "ceiling_cov": 0.922,
-      "floor_cov": 0.779
+      "n": 295,
+      "mae": 4.84,
+      "rmse": 6.47,
+      "bias": 0.06,
+      "spearman": 0.594,
+      "ceiling_cov": 0.881,
+      "floor_cov": 0.898
     },
     {
       "position": "QB",
-      "n": 72,
-      "mae": 8.04,
-      "spearman": 0.674,
-      "ceiling_cov": 0.944,
-      "floor_cov": 0.569
+      "n": 35,
+      "mae": 7.04,
+      "rmse": 8.78,
+      "bias": -0.34,
+      "spearman": 0.243,
+      "ceiling_cov": 0.886,
+      "floor_cov": 0.886
     },
     {
       "position": "RB",
-      "n": 105,
-      "mae": 4.67,
-      "spearman": 0.724,
-      "ceiling_cov": 0.895,
-      "floor_cov": 0.733
+      "n": 73,
+      "mae": 5.09,
+      "rmse": 7.1,
+      "bias": 1.11,
+      "spearman": 0.716,
+      "ceiling_cov": 0.849,
+      "floor_cov": 0.945
     },
     {
       "position": "TE",
-      "n": 104,
-      "mae": 3.15,
-      "spearman": 0.568,
-      "ceiling_cov": 0.913,
-      "floor_cov": 0.913
+      "n": 66,
+      "mae": 3.44,
+      "rmse": 4.93,
+      "bias": 0.61,
+      "spearman": 0.459,
+      "ceiling_cov": 0.864,
+      "floor_cov": 0.939
     },
     {
       "position": "WR",
-      "n": 167,
-      "mae": 4.41,
-      "spearman": 0.654,
-      "ceiling_cov": 0.934,
-      "floor_cov": 0.814
+      "n": 121,
+      "mae": 4.81,
+      "rmse": 6.01,
+      "bias": -0.77,
+      "spearman": 0.467,
+      "ceiling_cov": 0.909,
+      "floor_cov": 0.851
+    }
+  ],
+  "cohort": {
+    "projected": 448,
+    "evaluated": 295,
+    "no_opportunity": 153,
+    "high_confidence_no_opportunity": 153,
+    "rule": "At least one pass attempt, carry, target, or non-zero fantasy score"
+  },
+  "calibration": [
+    {
+      "bucket": "0–5",
+      "n": 86,
+      "projected": 3.2,
+      "actual": 3.35,
+      "bias": 0.15,
+      "mae": 2.7
+    },
+    {
+      "bucket": "5–10",
+      "n": 123,
+      "projected": 7.03,
+      "actual": 6.4,
+      "bias": -0.63,
+      "mae": 4.84
+    },
+    {
+      "bucket": "10–15",
+      "n": 60,
+      "projected": 12.15,
+      "actual": 13.87,
+      "bias": 1.72,
+      "mae": 6.57
+    },
+    {
+      "bucket": "15–20",
+      "n": 25,
+      "projected": 18.18,
+      "actual": 17.46,
+      "bias": -0.72,
+      "mae": 8.06
+    },
+    {
+      "bucket": "20+",
+      "n": 1,
+      "projected": 20.06,
+      "actual": 16.44,
+      "bias": -3.62,
+      "mae": 3.62
     }
   ],
   "class_counts": [
     {
       "boom": 24,
-      "bust": 57,
+      "bust": 20,
       "met": 129
     }
   ],
@@ -189,78 +248,6 @@
       "class": "bust"
     },
     {
-      "player": "Jameis Winston",
-      "position": "QB",
-      "team": "NYG",
-      "proj": 13.9,
-      "actual": 0,
-      "surprise": -13.9,
-      "class": "bust"
-    },
-    {
-      "player": "Joe Flacco",
-      "position": "QB",
-      "team": "CIN",
-      "proj": 13.8,
-      "actual": 0,
-      "surprise": -13.8,
-      "class": "bust"
-    },
-    {
-      "player": "Marcus Mariota",
-      "position": "QB",
-      "team": "WAS",
-      "proj": 13.4,
-      "actual": 0,
-      "surprise": -13.4,
-      "class": "bust"
-    },
-    {
-      "player": "J.J. McCarthy",
-      "position": "QB",
-      "team": "MIN",
-      "proj": 13.3,
-      "actual": 0,
-      "surprise": -13.3,
-      "class": "bust"
-    },
-    {
-      "player": "Fernando Mendoza",
-      "position": "QB",
-      "team": "LV",
-      "proj": 13.3,
-      "actual": 0,
-      "surprise": -13.3,
-      "class": "bust"
-    },
-    {
-      "player": "Tua Tagovailoa",
-      "position": "QB",
-      "team": "ATL",
-      "proj": 12.1,
-      "actual": 0,
-      "surprise": -12.1,
-      "class": "bust"
-    },
-    {
-      "player": "Carson Beck",
-      "position": "QB",
-      "team": "ARI",
-      "proj": 12.1,
-      "actual": 0,
-      "surprise": -12.1,
-      "class": "bust"
-    },
-    {
-      "player": "Michael Penix Jr.",
-      "position": "QB",
-      "team": "ATL",
-      "proj": 11.8,
-      "actual": 0,
-      "surprise": -11.8,
-      "class": "bust"
-    },
-    {
       "player": "Bo Nix",
       "position": "QB",
       "team": "DEN",
@@ -268,38 +255,110 @@
       "actual": 5.4,
       "surprise": -11.8,
       "class": "bust"
+    },
+    {
+      "player": "Ja'Marr Chase",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 12.7,
+      "actual": 2.2,
+      "surprise": -10.5,
+      "class": "bust"
+    },
+    {
+      "player": "Jaylen Waddle",
+      "position": "WR",
+      "team": "DEN",
+      "proj": 10.3,
+      "actual": 0.7,
+      "surprise": -9.6,
+      "class": "bust"
+    },
+    {
+      "player": "Terry McLaurin",
+      "position": "WR",
+      "team": "WAS",
+      "proj": 11.3,
+      "actual": 2.4,
+      "surprise": -8.9,
+      "class": "bust"
+    },
+    {
+      "player": "Daniel Jones",
+      "position": "QB",
+      "team": "IND",
+      "proj": 17.6,
+      "actual": 9,
+      "surprise": -8.6,
+      "class": "met"
+    },
+    {
+      "player": "George Pickens",
+      "position": "WR",
+      "team": "DAL",
+      "proj": 12.4,
+      "actual": 4.3,
+      "surprise": -8.1,
+      "class": "met"
+    },
+    {
+      "player": "Baker Mayfield",
+      "position": "QB",
+      "team": "TB",
+      "proj": 19.5,
+      "actual": 11.6,
+      "surprise": -7.9,
+      "class": "met"
+    },
+    {
+      "player": "A.J. Brown",
+      "position": "WR",
+      "team": "NE",
+      "proj": 11.8,
+      "actual": 4.1,
+      "surprise": -7.7,
+      "class": "met"
+    },
+    {
+      "player": "Tony Pollard",
+      "position": "RB",
+      "team": "TEN",
+      "proj": 11.2,
+      "actual": 3.9,
+      "surprise": -7.3,
+      "class": "met"
     }
   ],
   "ecr": [
     {
       "position": "ALL",
-      "n": 446,
-      "model": 0.569,
-      "ecr": 0.638
+      "n": 295,
+      "model": 0.594,
+      "ecr": 0.582
     },
     {
       "position": "QB",
-      "n": 71,
-      "model": 0.675,
-      "ecr": 0.713
+      "n": 35,
+      "model": 0.243,
+      "ecr": 0.401
     },
     {
       "position": "RB",
-      "n": 105,
-      "model": 0.724,
-      "ecr": 0.761
+      "n": 73,
+      "model": 0.716,
+      "ecr": 0.744
     },
     {
       "position": "TE",
-      "n": 103,
-      "model": 0.595,
-      "ecr": 0.69
+      "n": 66,
+      "model": 0.459,
+      "ecr": 0.502
     },
     {
       "position": "WR",
-      "n": 167,
-      "model": 0.654,
-      "ecr": 0.706
+      "n": 121,
+      "model": 0.467,
+      "ecr": 0.545
     }
   ],
   "ecr_kind": "weekly"
