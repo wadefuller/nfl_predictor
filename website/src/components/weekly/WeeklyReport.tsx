@@ -944,34 +944,37 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
                     {score?.opponentName ? `vs ${score.opponentName}` : 'opponent unavailable'}
                   </span>
                 </div>
-                <div className="grid grid-cols-[0.8fr_1.2fr_1.1fr_1.1fr] divide-x divide-border border-b border-border-light bg-bg-card-hover/20 text-center text-[8.5px] tabular-nums">
-                  <span className="min-w-0 whitespace-nowrap px-1 py-1" title="Current league score">
-                    <span className="text-text-muted">Now </span>
-                    <span className="font-semibold text-text-primary">{score ? `${num(score.mine)}–${num(score.opponent)}` : '—'}</span>
-                  </span>
-                  <span className="min-w-0 whitespace-nowrap px-1 py-1"
+                <div className="border-b border-border-light bg-bg-card-hover/20 tabular-nums">
+                  <div className="flex items-center gap-2 px-2.5 py-1.5 text-[9px]"
                     title={lw
                       ? `Win probability moved from ${Math.round(pregamePct * 100)}% pregame to ${Math.round(winPct * 100)}% live. ${lw.settled} starters have finished; their results are fixed and the remaining games are projected.`
                       : 'Original pregame win probability.'}>
-                    <span className="text-text-muted">Win </span>
-                    <span className="mr-1 inline-block h-1 w-6 overflow-hidden rounded-full bg-bg-card-hover align-middle">
+                    <span className="shrink-0 whitespace-nowrap text-text-muted">
+                      Now <span className="font-semibold text-text-primary">{score ? `${num(score.mine)}–${num(score.opponent)}` : '—'}</span>
+                    </span>
+                    <span className="h-1.5 min-w-[2.75rem] max-w-24 flex-1 overflow-hidden rounded-full bg-bg-card-hover">
                       <span className="block h-full rounded-full"
                         style={{ width: `${Number.isFinite(winPct) ? clamp(winPct * 100) : 0}%`,
                                  background: Number.isFinite(winPct) && winPct >= 0.5 ? 'var(--color-win)' : 'var(--color-loss)' }} />
                     </span>
-                    <span className="text-text-muted">{Number.isFinite(pregamePct) ? Math.round(pregamePct * 100) : '—'}→</span>
-                    <span className="font-semibold" style={{ color: Number.isFinite(winPct) && winPct >= 0.5 ? 'var(--color-win)' : 'var(--color-loss)' }}>
-                      {Number.isFinite(winPct) ? `${Math.round(winPct * 100)}%` : '—'}
+                    <span className="shrink-0 whitespace-nowrap font-semibold"
+                      style={{ color: Number.isFinite(winPct) && winPct >= 0.5 ? 'var(--color-win)' : 'var(--color-loss)' }}>
+                      {Number.isFinite(winPct) ? `${Math.round(winPct * 100)}% win` : '—'}
                     </span>
-                  </span>
-                  <span className="min-w-0 whitespace-nowrap px-1 py-1" title="Expected final score using results so far and projections for remaining games">
-                    <span className="text-text-muted">Exp </span>
-                    <span className="font-medium text-text-secondary">{hasProj ? `${num(projMineLive, 0)}–${num(projOppLive, 0)}` : '—'}</span>
-                  </span>
-                  <span className="min-w-0 whitespace-nowrap px-1 py-1" title="Original pregame projected score">
-                    <span className="text-text-muted">Orig </span>
-                    <span className="font-medium text-text-secondary">{hasOriginal ? `${num(projMine, 0)}–${num(projOpp, 0)}` : '—'}</span>
-                  </span>
+                    <span className="shrink-0 whitespace-nowrap text-[8px] text-text-muted">
+                      from {Number.isFinite(pregamePct) ? `${Math.round(pregamePct * 100)}%` : '—'}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 divide-x divide-border border-t border-border-light text-center text-[9px]">
+                    <span className="min-w-0 whitespace-nowrap px-2 py-1" title="Expected final score using results so far and projections for remaining games">
+                      <span className="text-text-muted">Expected </span>
+                      <span className="font-medium text-text-secondary">{hasProj ? `${num(projMineLive, 0)}–${num(projOppLive, 0)}` : '—'}</span>
+                    </span>
+                    <span className="min-w-0 whitespace-nowrap px-2 py-1" title="Original pregame projected score">
+                      <span className="text-text-muted">Original </span>
+                      <span className="font-medium text-text-secondary">{hasOriginal ? `${num(projMine, 0)}–${num(projOpp, 0)}` : '—'}</span>
+                    </span>
+                  </div>
                   </div>
                 <div className="divide-y divide-border-light/60">
                   {sorted.map((r: any, i: number) => {
