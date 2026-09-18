@@ -886,10 +886,6 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
             const resolved = actualStarters.get(league);
             const usingActual = Boolean(resolved?.length);
             const players = usingActual ? resolved! : recommended;
-            const recIds = new Set(recommended.map((r: any) => String(r.sleeper_id || r.team)));
-            const deviations = usingActual
-              ? players.filter((r: any) => !recIds.has(String(r.sleeper_id || r.team))).length
-              : 0;
             // Whoever is playing right now goes to the top; then the not-yet-started;
             // finished last. Within a bucket, the biggest score leads.
             const rank = (r: any) => {
@@ -919,7 +915,6 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
             // nothing about whether you are ahead of where you should be.
             const meta = leagues.find((x: any) => x.league === league);
             const modelled = players.filter(isProjectable);
-            const unprojected = players.length - modelled.length;
             const projMine = modelled.reduce((acc: number, r: any) => acc + (r.proj || 0), 0);
             const projOpp = Number(meta?.opponent_proj);
             const pregamePct = Number(meta?.win_probability);
@@ -936,8 +931,8 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
             const winPct = lw ? lw.p : pregamePct;
             const projMineLive = lw ? lw.mine : projMine;
             const projOppLive = lw ? lw.opp : projOpp;
-            const moved = lw && Number.isFinite(pregamePct) && Math.abs(lw.p - pregamePct) >= 0.01;
             const hasProj = Number.isFinite(projOppLive) && projMineLive > 0;
+            const hasOriginal = Number.isFinite(projOpp) && projMine > 0;
             return (
               <div key={league} className="overflow-hidden rounded-lg border border-border-light bg-bg-card/30">
                 <div className="flex items-baseline justify-between gap-2 border-b border-border-light px-2.5 py-1.5">
@@ -945,72 +940,33 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
                     {league}
                     {anyLive && <span className="ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-win align-middle" />}
                   </span>
-                  {score ? (
-                    <span className="shrink-0 tabular-nums text-[11px]">
-                      <span className="font-bold text-text-primary">{num(score.mine)}</span>
-                      <span className="mx-1 text-[9px] text-text-muted">vs {score.opponentName}</span>
-                      <span className="font-semibold text-text-secondary">{num(score.opponent)}</span>
-                    </span>
-                  ) : <span className="shrink-0 text-[9px] text-text-muted">score unavailable</span>}
+                  <span className="max-w-[45%] truncate text-right text-[9px] text-text-muted">
+                    {score?.opponentName ? `vs ${score.opponentName}` : 'opponent unavailable'}
+                  </span>
                 </div>
-                {(hasProj || Number.isFinite(winPct)) && (
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-border-light bg-bg-card-hover/20 px-2.5 py-1">
-                    {hasProj && (
-                      <span className="shrink-0 text-[9.5px] tabular-nums text-text-muted">
-                        {lw && lw.settled > 0 ? 'projected final' : 'projected'}{' '}
-                        <span className="text-text-secondary">{num(projMineLive)}</span>
-                        <span className="mx-0.5">–</span>
-                        <span className="text-text-secondary">{num(projOppLive)}</span>
-                      </span>
-                    )}
-                    {/* Which lineup these rows describe. Silence here would let a
-                        fallback to the optimizer's picks read as the live lineup. */}
-                    {!usingActual && (
-                      <span className="shrink-0 text-[9px] text-text-muted"
-                        title="This platform does not expose its starting lineup here, so the optimizer's recommendation is shown. The score above is the real one.">
-                        recommended lineup
-                      </span>
-                    )}
-                    {unprojected > 0 && (
-                      <span className="shrink-0 text-[9px] text-text-muted"
-                        title={`${unprojected} starter(s) sit outside the weekly model (IDP slots), so they are left out of the projection and win chance. Their points still count in the live score.`}>
-                        excl. {unprojected} unmodelled
-                      </span>
-                    )}
-                    {usingActual && deviations > 0 && (
-                      <span className="shrink-0 text-[9px]" style={{ color: 'var(--color-text-muted)' }}
-                        title={`${deviations} of your starters differ from what the optimizer recommended.`}>
-                        {deviations} off-model
-                      </span>
-                    )}
-                    {Number.isFinite(winPct) && (
-                      <>
-                        {/* One bar, split at the model's win chance. Reading a
-                            position on a shared axis is faster than comparing two
-                            numbers, and it is the same encoding the game cards use
-                            for market vs model. */}
-                        <span className="relative h-1.5 min-w-[3rem] flex-1 overflow-hidden rounded-full bg-bg-card-hover"
-                          title={lw
-                            ? `Live model win chance. ${lw.settled} of ${players.length + oppPlayers.length} starters have finished; their results are fixed, everyone else is still their projection weighted by time remaining. Not a betting-market probability.`
-                            : 'Model win chance from both optimized lineups and their player ranges. Not a betting-market probability.'}>
-                          <span className="absolute inset-y-0 left-0 rounded-full"
-                            style={{ width: `${clamp(winPct * 100)}%`,
-                                     background: winPct >= 0.5 ? 'var(--color-win)' : 'var(--color-loss)' }} />
-                        </span>
-                        <span className="shrink-0 text-[9.5px] font-semibold tabular-nums"
-                          style={{ color: winPct >= 0.5 ? 'var(--color-win)' : 'var(--color-loss)' }}>
-                          {Math.round(winPct * 100)}% win
-                        </span>
-                        {/* Where it started, so a swing is visible as a swing. */}
-                        {moved && (
-                          <span className="shrink-0 text-[9px] tabular-nums text-text-muted">
-                            from {Math.round(pregamePct * 100)}%
-                          </span>
-                        )}
-                      </>
-                    )}
+                <div className="grid grid-cols-[0.8fr_0.75fr_1.2fr_1.2fr] divide-x divide-border border-b border-border-light bg-bg-card-hover/20 text-center text-[8.5px] tabular-nums">
+                  <span className="min-w-0 whitespace-nowrap px-1 py-1" title="Current league score">
+                    <span className="text-text-muted">Now </span>
+                    <span className="font-semibold text-text-primary">{score ? `${num(score.mine)}–${num(score.opponent)}` : '—'}</span>
+                  </span>
+                  <span className="min-w-0 whitespace-nowrap px-1 py-1"
+                    title={lw
+                      ? `Live model win chance. ${lw.settled} starters have finished; their results are fixed and the remaining games are projected.`
+                      : 'Pregame model win chance.'}>
+                    <span className="text-text-muted">Win </span>
+                    <span className="font-semibold" style={{ color: Number.isFinite(winPct) && winPct >= 0.5 ? 'var(--color-win)' : 'var(--color-loss)' }}>
+                      {Number.isFinite(winPct) ? `${Math.round(winPct * 100)}%` : '—'}
+                    </span>
+                  </span>
+                  <span className="min-w-0 whitespace-nowrap px-1 py-1" title="Expected final score using results so far and projections for remaining games">
+                    <span className="text-text-muted">Exp </span>
+                    <span className="font-medium text-text-secondary">{hasProj ? `${num(projMineLive, 0)}–${num(projOppLive, 0)}` : '—'}</span>
+                  </span>
+                  <span className="min-w-0 whitespace-nowrap px-1 py-1" title="Original pregame projected score">
+                    <span className="text-text-muted">Orig </span>
+                    <span className="font-medium text-text-secondary">{hasOriginal ? `${num(projMine, 0)}–${num(projOpp, 0)}` : '—'}</span>
+                  </span>
                   </div>
-                )}
                 <div className="divide-y divide-border-light/60">
                   {sorted.map((r: any, i: number) => {
                     const g = live.games[r.team];
