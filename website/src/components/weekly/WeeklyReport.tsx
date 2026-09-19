@@ -1801,6 +1801,11 @@ function WeeklyAccuracy({ d }: { d: any }) {
   const rows = arr(d.metrics);
   const all = rows.find((r: any) => r.position === 'ALL') ?? {};
   const cohort = obj(d.cohort);
+  const availability = obj(d.availability);
+  const availabilityBefore = obj(availability.before);
+  const availabilityCalibrated = obj(availability.calibrated);
+  const availabilityNext = obj(availability.next_week);
+  const availabilityReady = availability.n != null && availabilityNext.brier != null;
   const calibration = arr(d.calibration).filter((r: any) => Number(r.n ?? 0) > 0);
   const evaluated = Number(cohort.evaluated ?? all.n ?? 0);
   const projected = Number(cohort.projected ?? evaluated);
@@ -1870,6 +1875,39 @@ function WeeklyAccuracy({ d }: { d: any }) {
         <StatTile label="Busts" value={cc.bust ?? 0} accent="#f85149" sub="fantasy-relevant" />
       </div>
 
+      {availabilityReady && (
+        <div className="rounded-xl border border-accent/25 bg-accent/[0.035] p-3 sm:p-4">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-accent">Availability &amp; depth calibration</div>
+              <h4 className="mt-1 text-sm font-semibold text-text-primary">The saturated opportunity classifier has been replaced</h4>
+              <p className="mt-1 max-w-2xl text-[10px] leading-relaxed text-text-muted">Zero-filled stat rows are now inactive, QB backups get a team-relative depth constraint, and one global Week 1 intercept update carries into Week 2.</p>
+            </div>
+            <span className="w-fit shrink-0 rounded-full border border-win/35 bg-win/10 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-win">Calibrated for Week 2</span>
+          </div>
+          <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:items-stretch">
+            {[
+              { label: 'Locked Week 1 model', data: availabilityBefore, color: '#f85149' },
+              { label: 'Corrected classifier', data: availabilityCalibrated, color: '#58a6ff' },
+              { label: 'Week 2 prior', data: availabilityNext, color: '#3fb950' },
+            ].map((stage: any, i: number) => (
+              <div key={stage.label} className="contents">
+                {i > 0 && <div className="hidden items-center text-text-muted sm:flex">→</div>}
+                <div className="rounded-lg border border-border-light bg-bg-card/45 p-3">
+                  <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: stage.color }}>{stage.label}</div>
+                  <div className="mt-2 grid grid-cols-3 gap-2">
+                    <div><div className="text-base font-bold tabular-nums text-text-primary">{num(stage.data.brier, 3)}</div><div className="text-[8px] uppercase text-text-muted">Brier</div></div>
+                    <div><div className="text-base font-bold tabular-nums text-text-primary">{num(Number(stage.data.predicted_rate ?? 0) * 100, 0)}%</div><div className="text-[8px] uppercase text-text-muted">predicted</div></div>
+                    <div><div className="text-base font-bold tabular-nums text-text-primary">{stage.data.high_confidence_misses ?? '—'}</div><div className="text-[8px] uppercase text-text-muted">conf misses</div></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-2 text-[9px] text-text-muted">Actual opportunity rate: {num(Number(availabilityNext.actual_rate ?? 0) * 100, 0)}% · lower Brier and log loss are better · evaluated on {availability.n} locked Week 1 players.</div>
+        </div>
+      )}
+
       <div className="grid gap-3 lg:grid-cols-[minmax(0,1.25fr)_minmax(17rem,.75fr)]">
         <div className="rounded-xl border border-border-light bg-bg-page/20 p-3 sm:p-4">
           <div className="flex items-start justify-between gap-3">
@@ -1924,9 +1962,11 @@ function WeeklyAccuracy({ d }: { d: any }) {
         </div>
         <div className="rounded-lg border border-border-light bg-bg-card/35 p-3">
           <div className="text-[9px] font-bold uppercase tracking-wider text-[#d29922]">Recommended next move</div>
-          <div className="mt-1 text-sm font-semibold text-text-primary">{activationMisses > 0 ? 'Repair participation before tuning points' : worstPosition ? `Focus the next feature test on ${worstPosition.position}` : 'Hold parameters and collect another week'}</div>
+          <div className="mt-1 text-sm font-semibold text-text-primary">{availabilityReady ? 'Ship the availability fix; monitor Week 2' : activationMisses > 0 ? 'Repair participation before tuning points' : worstPosition ? `Focus the next feature test on ${worstPosition.position}` : 'Hold parameters and collect another week'}</div>
           <p className="mt-1 text-[11px] leading-relaxed text-text-secondary">
-            {activationMisses > 0
+            {availabilityReady
+              ? `Brier error fell from ${num(availabilityBefore.brier, 3)} to ${num(availabilityNext.brier, 3)}, while high-confidence misses fell from ${availabilityBefore.high_confidence_misses} to ${availabilityNext.high_confidence_misses}. Do not add another position-specific correction until Week 2 provides a second holdout.`
+              : activationMisses > 0
               ? `${activationMisses} players received at least 75% active probability but logged no scoring opportunity. Calibrate the availability/depth-chart stage separately before changing the scoring model.`
               : worstPosition
                 ? `${worstPosition.position} had the largest MAE at ${num(worstPosition.mae, 2)}. Treat Week ${d.week} as a diagnostic signal, not enough evidence for a production retune on its own.`

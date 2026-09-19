@@ -102,6 +102,64 @@
       "mae": 3.62
     }
   ],
+  "availability": {
+    "n": 446,
+    "before": {
+      "predicted_rate": 0.997,
+      "actual_rate": 0.6614,
+      "brier": 0.336,
+      "logloss": 1.9406,
+      "high_confidence_misses": 151
+    },
+    "calibrated": {
+      "predicted_rate": 0.7149,
+      "actual_rate": 0.6614,
+      "brier": 0.1487,
+      "logloss": 0.4553,
+      "high_confidence_misses": 31
+    },
+    "next_week": {
+      "predicted_rate": 0.6592,
+      "actual_rate": 0.6614,
+      "brier": 0.1451,
+      "logloss": 0.4433,
+      "high_confidence_misses": 26
+    },
+    "online_intercept": -0.4662,
+    "reliability": [
+      {
+        "bin": "[0,0.2]",
+        "n": 51,
+        "predicted": 0.086,
+        "actual": 0.176
+      },
+      {
+        "bin": "(0.2,0.4]",
+        "n": 68,
+        "predicted": 0.303,
+        "actual": 0.338
+      },
+      {
+        "bin": "(0.4,0.6]",
+        "n": 63,
+        "predicted": 0.487,
+        "actual": 0.571
+      },
+      {
+        "bin": "(0.6,0.8]",
+        "n": 36,
+        "predicted": 0.714,
+        "actual": 0.472
+      },
+      {
+        "bin": "(0.8,1]",
+        "n": 228,
+        "predicted": 0.932,
+        "actual": 0.921
+      }
+    ],
+    "note": "Opportunity means at least one pass attempt, carry, target, or non-zero fantasy score. The next-week update changes one global intercept only."
+  },
   "class_counts": [
     {
       "boom": 24,
