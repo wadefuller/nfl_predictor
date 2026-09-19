@@ -125,6 +125,8 @@
       "logloss": 0.4433,
       "high_confidence_misses": 26
     },
+    "online_enabled": false,
+    "online_status": "lab_only",
     "online_intercept": -0.4662,
     "reliability": [
       {
