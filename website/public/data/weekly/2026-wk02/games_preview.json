@@ -7,73 +7,73 @@
       "home_team": "SF",
       "away_team": "MIA",
       "spread_line": 13.5,
-      "total_line": 45.5,
-      "pred_margin": 10.9,
-      "pred_win_home": 0.857,
-      "home_implied_market": 29.5,
-      "away_implied_market": 16,
-      "home_implied_pred": 28.2,
-      "away_implied_pred": 17.3,
-      "spread_edge_home": -2.6,
-      "edge_abs": 2.6,
+      "total_line": 44.5,
+      "pred_margin": 10.7,
+      "pred_win_home": 0.853,
+      "home_implied_market": 29,
+      "away_implied_market": 15.5,
+      "home_implied_pred": 27.6,
+      "away_implied_pred": 16.9,
+      "spread_edge_home": -2.8,
+      "edge_abs": 2.8,
       "home_players": [
         {
           "player": "Brock Purdy",
           "position": "QB",
-          "proj": 21.9,
-          "floor": 12.4,
-          "ceiling": 31.8
+          "proj": 21.6,
+          "floor": 11.6,
+          "ceiling": 30.7
         },
         {
           "player": "Christian McCaffrey",
           "position": "RB",
-          "proj": 13.6,
-          "floor": 3.2,
-          "ceiling": 25.2
+          "proj": 14,
+          "floor": 3.7,
+          "ceiling": 25
         },
         {
           "player": "Mike Evans",
           "position": "WR",
           "proj": 10.3,
-          "floor": 2.1,
-          "ceiling": 18.7
+          "floor": 2.4,
+          "ceiling": 19.3
         },
         {
           "player": "Kaelon Black",
           "position": "RB",
           "proj": 9.6,
-          "floor": 1.3,
-          "ceiling": 19.4
+          "floor": 1.2,
+          "ceiling": 19.6
         }
       ],
       "away_players": [
         {
           "player": "Malik Willis",
           "position": "QB",
-          "proj": 13.7,
-          "floor": 2.8,
-          "ceiling": 24.2
+          "proj": 12.7,
+          "floor": 2.3,
+          "ceiling": 23.6
         },
         {
           "player": "De'Von Achane",
           "position": "RB",
-          "proj": 10.9,
-          "floor": 3,
-          "ceiling": 20.6
+          "proj": 11,
+          "floor": 2.8,
+          "ceiling": 20.7
         },
         {
           "player": "Caleb Douglas",
           "position": "WR",
-          "proj": 7.2,
+          "proj": 7.4,
           "floor": 1,
-          "ceiling": 15.2
+          "ceiling": 15.6
         },
         {
           "player": "Malik Washington",
           "position": "WR",
-          "proj": 6.3,
-          "floor": 0.8,
-          "ceiling": 13.9
+          "proj": 6.5,
+          "floor": 0.6,
+          "ceiling": 14.5
         }
       ]
     },
@@ -95,60 +95,60 @@
         {
           "player": "Drake Maye",
           "position": "QB",
-          "proj": 18,
-          "floor": 7.7,
-          "ceiling": 28.4
+          "proj": 18.2,
+          "floor": 7.3,
+          "ceiling": 28
         },
         {
           "player": "Rhamondre Stevenson",
           "position": "RB",
-          "proj": 13.1,
-          "floor": 3.6,
-          "ceiling": 22.4
+          "proj": 12.8,
+          "floor": 3.3,
+          "ceiling": 22.7
         },
         {
           "player": "A.J. Brown",
           "position": "WR",
-          "proj": 10.2,
-          "floor": 1.7,
-          "ceiling": 21.1
+          "proj": 11,
+          "floor": 2.4,
+          "ceiling": 22.1
         },
         {
           "player": "Mack Hollins",
           "position": "WR",
-          "proj": 5.4,
-          "floor": 0.2,
-          "ceiling": 12.4
+          "proj": 5.7,
+          "floor": 0.6,
+          "ceiling": 12.8
         }
       ],
       "away_players": [
         {
           "player": "Aaron Rodgers",
           "position": "QB",
-          "proj": 13.5,
-          "floor": 5,
-          "ceiling": 22.9
+          "proj": 13.2,
+          "floor": 4.4,
+          "ceiling": 22.4
         },
         {
           "player": "Jaylen Warren",
           "position": "RB",
-          "proj": 9.8,
-          "floor": 2.2,
-          "ceiling": 19.1
+          "proj": 9.9,
+          "floor": 1.9,
+          "ceiling": 19.4
         },
         {
           "player": "DK Metcalf",
           "position": "WR",
-          "proj": 8,
-          "floor": 1.3,
-          "ceiling": 16.5
+          "proj": 8.1,
+          "floor": 1.4,
+          "ceiling": 17
         },
         {
           "player": "Rico Dowdle",
           "position": "RB",
-          "proj": 7.5,
-          "floor": 0.6,
-          "ceiling": 16
+          "proj": 7.4,
+          "floor": 0.8,
+          "ceiling": 15.9
         }
       ]
     },
@@ -170,135 +170,60 @@
         {
           "player": "Bo Nix",
           "position": "QB",
-          "proj": 16.6,
-          "floor": 0,
+          "proj": 18.1,
+          "floor": 6.9,
           "ceiling": 28.4
         },
         {
           "player": "Jaylen Waddle",
           "position": "WR",
-          "proj": 7.8,
-          "floor": 0,
-          "ceiling": 17.8
+          "proj": 8.9,
+          "floor": 0.8,
+          "ceiling": 18.3
         },
         {
           "player": "J.K. Dobbins",
           "position": "RB",
           "proj": 7.8,
-          "floor": 1.1,
-          "ceiling": 16.9
+          "floor": 0.9,
+          "ceiling": 16.8
         },
         {
           "player": "RJ Harvey",
           "position": "RB",
-          "proj": 7.5,
-          "floor": 1.2,
-          "ceiling": 15.1
+          "proj": 7.6,
+          "floor": 0.9,
+          "ceiling": 15.6
         }
       ],
       "away_players": [
         {
           "player": "Trevor Lawrence",
           "position": "QB",
-          "proj": 17.9,
-          "floor": 8.6,
-          "ceiling": 27.8
+          "proj": 18,
+          "floor": 8.2,
+          "ceiling": 27.4
         },
         {
           "player": "Bhayshul Tuten",
           "position": "RB",
-          "proj": 10,
+          "proj": 9.9,
           "floor": 2.2,
-          "ceiling": 19.3
+          "ceiling": 19.1
         },
         {
           "player": "Parker Washington",
           "position": "WR",
-          "proj": 9.5,
-          "floor": 2,
-          "ceiling": 18.7
+          "proj": 9.7,
+          "floor": 2.2,
+          "ceiling": 19
         },
         {
           "player": "Brian Thomas Jr.",
           "position": "WR",
-          "proj": 8.2,
-          "floor": 0.9,
-          "ceiling": 18.1
-        }
-      ]
-    },
-    {
-      "game_id": "2026_02_NYG_LA",
-      "home_team": "LA",
-      "away_team": "NYG",
-      "spread_line": 7,
-      "total_line": 47.5,
-      "pred_margin": 8.8,
-      "pred_win_home": 0.805,
-      "home_implied_market": 27.2,
-      "away_implied_market": 20.2,
-      "home_implied_pred": 28.1,
-      "away_implied_pred": 19.4,
-      "spread_edge_home": 1.8,
-      "edge_abs": 1.8,
-      "home_players": [
-        {
-          "player": "Matthew Stafford",
-          "position": "QB",
-          "proj": 15.7,
-          "floor": 0,
-          "ceiling": 27.8
-        },
-        {
-          "player": "Puka Nacua",
-          "position": "WR",
-          "proj": 13.3,
-          "floor": 3.4,
-          "ceiling": 24.7
-        },
-        {
-          "player": "Kyren Williams",
-          "position": "RB",
-          "proj": 12.9,
-          "floor": 3.9,
-          "ceiling": 23.8
-        },
-        {
-          "player": "Davante Adams",
-          "position": "WR",
-          "proj": 8.6,
-          "floor": 1.2,
-          "ceiling": 17.9
-        }
-      ],
-      "away_players": [
-        {
-          "player": "Jaxson Dart",
-          "position": "QB",
-          "proj": 16.8,
-          "floor": 0,
-          "ceiling": 31.1
-        },
-        {
-          "player": "Malik Nabers",
-          "position": "WR",
-          "proj": 11.3,
-          "floor": 2.8,
-          "ceiling": 21.3
-        },
-        {
-          "player": "Cam Skattebo",
-          "position": "RB",
-          "proj": 10.5,
-          "floor": 2.6,
-          "ceiling": 20.3
-        },
-        {
-          "player": "Isaiah Likely",
-          "position": "TE",
-          "proj": 6.7,
+          "proj": 8.3,
           "floor": 1,
-          "ceiling": 14.4
+          "ceiling": 17.8
         }
       ]
     },
@@ -307,73 +232,148 @@
       "home_team": "ARI",
       "away_team": "SEA",
       "spread_line": -3.5,
-      "total_line": 40.5,
-      "pred_margin": -5.2,
-      "pred_win_home": 0.269,
-      "home_implied_market": 18.5,
-      "away_implied_market": 22,
-      "home_implied_pred": 17.7,
-      "away_implied_pred": 22.8,
-      "spread_edge_home": -1.7,
-      "edge_abs": 1.7,
+      "total_line": 41.5,
+      "pred_margin": -5.4,
+      "pred_win_home": 0.261,
+      "home_implied_market": 19,
+      "away_implied_market": 22.5,
+      "home_implied_pred": 18.1,
+      "away_implied_pred": 23.4,
+      "spread_edge_home": -1.9,
+      "edge_abs": 1.9,
       "home_players": [
         {
           "player": "Jacoby Brissett",
           "position": "QB",
-          "proj": 14.3,
-          "floor": 4.1,
-          "ceiling": 25.1
+          "proj": 14.1,
+          "floor": 3.6,
+          "ceiling": 24.5
         },
         {
           "player": "Jeremiyah Love",
           "position": "RB",
-          "proj": 10.7,
+          "proj": 11.1,
           "floor": 2.9,
-          "ceiling": 21.2
+          "ceiling": 20.8
         },
         {
           "player": "Tyler Allgeier",
           "position": "RB",
-          "proj": 8.3,
-          "floor": 1.4,
-          "ceiling": 17.2
+          "proj": 8.4,
+          "floor": 1.3,
+          "ceiling": 16.5
         },
         {
-          "player": "Michael Wilson",
-          "position": "WR",
-          "proj": 7.7,
-          "floor": 1.3,
-          "ceiling": 15.9
+          "player": "Trey McBride",
+          "position": "TE",
+          "proj": 8.2,
+          "floor": 1.4,
+          "ceiling": 16.5
         }
       ],
       "away_players": [
         {
           "player": "Jaxon Smith-Njigba",
           "position": "WR",
-          "proj": 12.3,
-          "floor": 3.3,
-          "ceiling": 21
+          "proj": 12.9,
+          "floor": 4.2,
+          "ceiling": 22.7
         },
         {
           "player": "Jadarian Price",
           "position": "RB",
-          "proj": 9.9,
-          "floor": 1.9,
-          "ceiling": 19
+          "proj": 10.1,
+          "floor": 1.8,
+          "ceiling": 19.2
         },
         {
           "player": "Drew Lock",
           "position": "QB",
-          "proj": 9,
+          "proj": 10,
           "floor": 0,
-          "ceiling": 17.1
+          "ceiling": 16.3
         },
         {
-          "player": "George Holani",
+          "player": "Sam Darnold",
+          "position": "QB",
+          "proj": 9.3,
+          "floor": 0,
+          "ceiling": 21.7
+        }
+      ]
+    },
+    {
+      "game_id": "2026_02_NYG_LA",
+      "home_team": "LA",
+      "away_team": "NYG",
+      "spread_line": 7,
+      "total_line": 48.5,
+      "pred_margin": 8.8,
+      "pred_win_home": 0.806,
+      "home_implied_market": 27.8,
+      "away_implied_market": 20.8,
+      "home_implied_pred": 28.7,
+      "away_implied_pred": 19.8,
+      "spread_edge_home": 1.8,
+      "edge_abs": 1.8,
+      "home_players": [
+        {
+          "player": "Matthew Stafford",
+          "position": "QB",
+          "proj": 16.4,
+          "floor": 5.8,
+          "ceiling": 27.3
+        },
+        {
+          "player": "Puka Nacua",
+          "position": "WR",
+          "proj": 13.9,
+          "floor": 4,
+          "ceiling": 25.5
+        },
+        {
+          "player": "Kyren Williams",
           "position": "RB",
-          "proj": 5.9,
-          "floor": 0.2,
-          "ceiling": 14.1
+          "proj": 13.2,
+          "floor": 3.8,
+          "ceiling": 23.9
+        },
+        {
+          "player": "Blake Corum",
+          "position": "RB",
+          "proj": 8.4,
+          "floor": 1.1,
+          "ceiling": 17.8
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Jaxson Dart",
+          "position": "QB",
+          "proj": 18.6,
+          "floor": 6.7,
+          "ceiling": 31.1
+        },
+        {
+          "player": "Malik Nabers",
+          "position": "WR",
+          "proj": 11.9,
+          "floor": 3.4,
+          "ceiling": 22.8
+        },
+        {
+          "player": "Cam Skattebo",
+          "position": "RB",
+          "proj": 10.8,
+          "floor": 2.6,
+          "ceiling": 21.2
+        },
+        {
+          "player": "Devin Singletary",
+          "position": "RB",
+          "proj": 7.1,
+          "floor": 0.8,
+          "ceiling": 15.4
         }
       ]
     },
@@ -383,147 +383,72 @@
       "away_team": "LV",
       "spread_line": 6.5,
       "total_line": 43.5,
-      "pred_margin": 8,
-      "pred_win_home": 0.783,
+      "pred_margin": 8.1,
+      "pred_win_home": 0.786,
       "home_implied_market": 25,
       "away_implied_market": 18.5,
       "home_implied_pred": 25.8,
       "away_implied_pred": 17.7,
-      "spread_edge_home": 1.5,
-      "edge_abs": 1.5,
+      "spread_edge_home": 1.6,
+      "edge_abs": 1.6,
       "home_players": [
         {
           "player": "Justin Herbert",
           "position": "QB",
-          "proj": 20.3,
-          "floor": 11.3,
-          "ceiling": 31
+          "proj": 20.1,
+          "floor": 10.3,
+          "ceiling": 30.5
         },
         {
           "player": "Omarion Hampton",
           "position": "RB",
-          "proj": 10.9,
-          "floor": 2.2,
-          "ceiling": 20.7
+          "proj": 11.6,
+          "floor": 2.4,
+          "ceiling": 21.2
         },
         {
           "player": "Ladd McConkey",
           "position": "WR",
-          "proj": 10.4,
-          "floor": 2.2,
-          "ceiling": 19.4
+          "proj": 10,
+          "floor": 1.6,
+          "ceiling": 19
         },
         {
           "player": "Quentin Johnston",
           "position": "WR",
-          "proj": 6.8,
-          "floor": 0.5,
-          "ceiling": 15.1
+          "proj": 7,
+          "floor": 0.3,
+          "ceiling": 14.9
         }
       ],
       "away_players": [
         {
           "player": "Ashton Jeanty",
           "position": "RB",
-          "proj": 13.7,
-          "floor": 4.6,
-          "ceiling": 26.7
+          "proj": 14.5,
+          "floor": 4.4,
+          "ceiling": 27.2
         },
         {
           "player": "Kirk Cousins",
           "position": "QB",
-          "proj": 12.2,
-          "floor": 2.6,
-          "ceiling": 22.6
+          "proj": 11.7,
+          "floor": 1.6,
+          "ceiling": 22.2
         },
         {
           "player": "Jack Bech",
           "position": "WR",
-          "proj": 5.8,
-          "floor": 0.1,
-          "ceiling": 13
+          "proj": 5.9,
+          "floor": 0.2,
+          "ceiling": 13.4
         },
         {
           "player": "Jalen Nailor",
           "position": "WR",
-          "proj": 5.6,
+          "proj": 5.8,
           "floor": 0.1,
-          "ceiling": 12.9
-        }
-      ]
-    },
-    {
-      "game_id": "2026_02_NO_BAL",
-      "home_team": "BAL",
-      "away_team": "NO",
-      "spread_line": 7.5,
-      "total_line": 47.5,
-      "pred_margin": 8.9,
-      "pred_win_home": 0.81,
-      "home_implied_market": 27.5,
-      "away_implied_market": 20,
-      "home_implied_pred": 28.2,
-      "away_implied_pred": 19.3,
-      "spread_edge_home": 1.4,
-      "edge_abs": 1.4,
-      "home_players": [
-        {
-          "player": "Lamar Jackson",
-          "position": "QB",
-          "proj": 22.9,
-          "floor": 13.9,
-          "ceiling": 32
-        },
-        {
-          "player": "Derrick Henry",
-          "position": "RB",
-          "proj": 16.2,
-          "floor": 4.6,
-          "ceiling": 29.7
-        },
-        {
-          "player": "Zay Flowers",
-          "position": "WR",
-          "proj": 12.2,
-          "floor": 3,
-          "ceiling": 21.5
-        },
-        {
-          "player": "Mark Andrews",
-          "position": "TE",
-          "proj": 6.9,
-          "floor": 1.2,
-          "ceiling": 14.7
-        }
-      ],
-      "away_players": [
-        {
-          "player": "Tyler Shough",
-          "position": "QB",
-          "proj": 15.5,
-          "floor": 5.1,
-          "ceiling": 26.3
-        },
-        {
-          "player": "Chris Olave",
-          "position": "WR",
-          "proj": 10.8,
-          "floor": 3.1,
-          "ceiling": 19.5
-        },
-        {
-          "player": "Travis Etienne",
-          "position": "RB",
-          "proj": 10.7,
-          "floor": 3.1,
-          "ceiling": 20.9
-        },
-        {
-          "player": "Devaughn Vele",
-          "position": "WR",
-          "proj": 7.2,
-          "floor": 0.6,
-          "ceiling": 14.7
+          "ceiling": 13
         }
       ]
     },
@@ -531,74 +456,74 @@
       "game_id": "2026_02_CIN_HOU",
       "home_team": "HOU",
       "away_team": "CIN",
-      "spread_line": 3,
+      "spread_line": 2.5,
       "total_line": 46.5,
-      "pred_margin": 1.6,
-      "pred_win_home": 0.542,
-      "home_implied_market": 24.8,
-      "away_implied_market": 21.8,
-      "home_implied_pred": 24,
-      "away_implied_pred": 22.5,
-      "spread_edge_home": -1.4,
-      "edge_abs": 1.4,
+      "pred_margin": 1.3,
+      "pred_win_home": 0.532,
+      "home_implied_market": 24.5,
+      "away_implied_market": 22,
+      "home_implied_pred": 23.9,
+      "away_implied_pred": 22.6,
+      "spread_edge_home": -1.2,
+      "edge_abs": 1.2,
       "home_players": [
         {
           "player": "C.J. Stroud",
           "position": "QB",
-          "proj": 16.7,
-          "floor": 7.4,
-          "ceiling": 26.3
+          "proj": 16.2,
+          "floor": 6.7,
+          "ceiling": 26.2
         },
         {
           "player": "David Montgomery",
           "position": "RB",
-          "proj": 13.2,
+          "proj": 13.3,
           "floor": 3.9,
-          "ceiling": 24.3
+          "ceiling": 23.6
         },
         {
           "player": "Nico Collins",
           "position": "WR",
-          "proj": 12.1,
-          "floor": 3.1,
-          "ceiling": 21.1
+          "proj": 12.4,
+          "floor": 3.5,
+          "ceiling": 22.2
         },
         {
           "player": "Woody Marks",
           "position": "RB",
-          "proj": 6.1,
-          "floor": 0.4,
-          "ceiling": 14.5
+          "proj": 6,
+          "floor": 0.6,
+          "ceiling": 14.3
         }
       ],
       "away_players": [
         {
           "player": "Joe Burrow",
           "position": "QB",
-          "proj": 18.7,
-          "floor": 8.8,
-          "ceiling": 29.2
+          "proj": 18.5,
+          "floor": 7.5,
+          "ceiling": 30.1
         },
         {
           "player": "Chase Brown",
           "position": "RB",
-          "proj": 13,
-          "floor": 3.7,
-          "ceiling": 24.2
-        },
-        {
-          "player": "Tee Higgins",
-          "position": "WR",
-          "proj": 10.2,
-          "floor": 2,
-          "ceiling": 20.1
+          "proj": 13.2,
+          "floor": 3.9,
+          "ceiling": 24.1
         },
         {
           "player": "Ja'Marr Chase",
           "position": "WR",
-          "proj": 9.6,
-          "floor": 0,
-          "ceiling": 20.9
+          "proj": 11,
+          "floor": 1.7,
+          "ceiling": 21.9
+        },
+        {
+          "player": "Tee Higgins",
+          "position": "WR",
+          "proj": 11,
+          "floor": 2.7,
+          "ceiling": 21.6
         }
       ]
     },
@@ -608,147 +533,72 @@
       "away_team": "DET",
       "spread_line": 5.5,
       "total_line": 54.5,
-      "pred_margin": 4.3,
-      "pred_win_home": 0.655,
+      "pred_margin": 4.4,
+      "pred_win_home": 0.66,
       "home_implied_market": 30,
       "away_implied_market": 24.5,
-      "home_implied_pred": 29.4,
-      "away_implied_pred": 25.1,
-      "spread_edge_home": -1.2,
-      "edge_abs": 1.2,
+      "home_implied_pred": 29.5,
+      "away_implied_pred": 25,
+      "spread_edge_home": -1.1,
+      "edge_abs": 1.1,
       "home_players": [
         {
           "player": "Josh Allen",
           "position": "QB",
-          "proj": 23.9,
-          "floor": 13.6,
-          "ceiling": 34.3
+          "proj": 23.6,
+          "floor": 12.7,
+          "ceiling": 34
         },
         {
           "player": "James Cook",
           "position": "RB",
-          "proj": 13.8,
-          "floor": 3.1,
-          "ceiling": 24.2
+          "proj": 14.1,
+          "floor": 3.3,
+          "ceiling": 24.3
         },
         {
           "player": "DJ Moore",
           "position": "WR",
-          "proj": 12,
-          "floor": 3.2,
-          "ceiling": 21
+          "proj": 12.6,
+          "floor": 4.4,
+          "ceiling": 22.5
         },
         {
-          "player": "Khalil Shakir",
-          "position": "WR",
-          "proj": 8.4,
-          "floor": 1.4,
-          "ceiling": 17.1
+          "player": "Dalton Kincaid",
+          "position": "TE",
+          "proj": 8.8,
+          "floor": 1.1,
+          "ceiling": 18.4
         }
       ],
       "away_players": [
         {
           "player": "Jared Goff",
           "position": "QB",
-          "proj": 19.1,
-          "floor": 8.9,
-          "ceiling": 30.5
+          "proj": 19,
+          "floor": 8.4,
+          "ceiling": 30.2
         },
         {
           "player": "Jahmyr Gibbs",
           "position": "RB",
-          "proj": 15.5,
-          "floor": 5.3,
-          "ceiling": 29.4
+          "proj": 16.3,
+          "floor": 4.4,
+          "ceiling": 29.9
         },
         {
           "player": "Amon-Ra St. Brown",
           "position": "WR",
-          "proj": 13.3,
-          "floor": 3.7,
-          "ceiling": 23.4
+          "proj": 13.8,
+          "floor": 4.7,
+          "ceiling": 23.7
         },
         {
           "player": "Jameson Williams",
           "position": "WR",
-          "proj": 9.9,
-          "floor": 1.7,
-          "ceiling": 19.2
-        }
-      ]
-    },
-    {
-      "game_id": "2026_02_CLE_TB",
-      "home_team": "TB",
-      "away_team": "CLE",
-      "spread_line": 8.5,
-      "total_line": 41.5,
-      "pred_margin": 7.5,
-      "pred_win_home": 0.768,
-      "home_implied_market": 25,
-      "away_implied_market": 16.5,
-      "home_implied_pred": 24.5,
-      "away_implied_pred": 17,
-      "spread_edge_home": -1,
-      "edge_abs": 1,
-      "home_players": [
-        {
-          "player": "Baker Mayfield",
-          "position": "QB",
-          "proj": 19.1,
-          "floor": 8.9,
-          "ceiling": 31.7
-        },
-        {
-          "player": "Bucky Irving",
-          "position": "RB",
-          "proj": 13,
-          "floor": 4.5,
-          "ceiling": 22
-        },
-        {
-          "player": "Emeka Egbuka",
-          "position": "WR",
-          "proj": 11.2,
-          "floor": 2.4,
-          "ceiling": 20.7
-        },
-        {
-          "player": "Chris Godwin Jr.",
-          "position": "WR",
-          "proj": 8.3,
-          "floor": 1.3,
-          "ceiling": 17.4
-        }
-      ],
-      "away_players": [
-        {
-          "player": "Deshaun Watson",
-          "position": "QB",
-          "proj": 13.4,
-          "floor": 3.8,
-          "ceiling": 24
-        },
-        {
-          "player": "Quinshon Judkins",
-          "position": "RB",
-          "proj": 9.1,
-          "floor": 1.5,
-          "ceiling": 17.7
-        },
-        {
-          "player": "KC Concepcion",
-          "position": "WR",
-          "proj": 8,
-          "floor": 1.3,
-          "ceiling": 16.4
-        },
-        {
-          "player": "Denzel Boston",
-          "position": "WR",
-          "proj": 6.8,
-          "floor": 0.6,
-          "ceiling": 14.3
+          "proj": 10.5,
+          "floor": 2.1,
+          "ceiling": 19.4
         }
       ]
     },
@@ -758,72 +608,147 @@
       "away_team": "PHI",
       "spread_line": -7,
       "total_line": 39.5,
-      "pred_margin": -6.2,
-      "pred_win_home": 0.233,
+      "pred_margin": -6.1,
+      "pred_win_home": 0.238,
       "home_implied_market": 16.2,
       "away_implied_market": 23.2,
-      "home_implied_pred": 16.6,
-      "away_implied_pred": 22.9,
-      "spread_edge_home": 0.8,
-      "edge_abs": 0.8,
+      "home_implied_pred": 16.7,
+      "away_implied_pred": 22.8,
+      "spread_edge_home": 0.9,
+      "edge_abs": 0.9,
       "home_players": [
         {
           "player": "Cam Ward",
           "position": "QB",
           "proj": 14.9,
-          "floor": 5.3,
-          "ceiling": 26.9
+          "floor": 4.6,
+          "ceiling": 27.2
         },
         {
           "player": "Tony Pollard",
           "position": "RB",
           "proj": 9.2,
-          "floor": 1.4,
-          "ceiling": 17.8
+          "floor": 1.6,
+          "ceiling": 17.9
         },
         {
           "player": "Carnell Tate",
           "position": "WR",
-          "proj": 8.5,
-          "floor": 1.2,
-          "ceiling": 17.5
+          "proj": 8.6,
+          "floor": 1,
+          "ceiling": 17.3
         },
         {
           "player": "Wan'Dale Robinson",
           "position": "WR",
-          "proj": 8.1,
+          "proj": 8.4,
           "floor": 0.9,
-          "ceiling": 16.4
+          "ceiling": 16.9
         }
       ],
       "away_players": [
         {
           "player": "Jalen Hurts",
           "position": "QB",
-          "proj": 19.4,
-          "floor": 9,
-          "ceiling": 29.7
+          "proj": 19.6,
+          "floor": 8.6,
+          "ceiling": 29.3
         },
         {
           "player": "Saquon Barkley",
           "position": "RB",
-          "proj": 12.2,
-          "floor": 2.5,
-          "ceiling": 22.4
+          "proj": 12.6,
+          "floor": 3,
+          "ceiling": 23.4
         },
         {
           "player": "DeVonta Smith",
           "position": "WR",
-          "proj": 10.8,
-          "floor": 2.7,
-          "ceiling": 20.2
+          "proj": 11.4,
+          "floor": 3.4,
+          "ceiling": 21.3
         },
         {
           "player": "Dontayvion Wicks",
           "position": "WR",
-          "proj": 7.4,
-          "floor": 0.8,
-          "ceiling": 14.1
+          "proj": 7.5,
+          "floor": 1,
+          "ceiling": 14.9
+        }
+      ]
+    },
+    {
+      "game_id": "2026_02_CLE_TB",
+      "home_team": "TB",
+      "away_team": "CLE",
+      "spread_line": 8.5,
+      "total_line": 41.5,
+      "pred_margin": 7.9,
+      "pred_win_home": 0.782,
+      "home_implied_market": 25,
+      "away_implied_market": 16.5,
+      "home_implied_pred": 24.7,
+      "away_implied_pred": 16.8,
+      "spread_edge_home": -0.6,
+      "edge_abs": 0.6,
+      "home_players": [
+        {
+          "player": "Baker Mayfield",
+          "position": "QB",
+          "proj": 20.2,
+          "floor": 9.4,
+          "ceiling": 32.1
+        },
+        {
+          "player": "Bucky Irving",
+          "position": "RB",
+          "proj": 12.7,
+          "floor": 3.8,
+          "ceiling": 22.9
+        },
+        {
+          "player": "Emeka Egbuka",
+          "position": "WR",
+          "proj": 11.9,
+          "floor": 3.3,
+          "ceiling": 21.7
+        },
+        {
+          "player": "Chris Godwin Jr.",
+          "position": "WR",
+          "proj": 8.4,
+          "floor": 1.4,
+          "ceiling": 17.6
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Deshaun Watson",
+          "position": "QB",
+          "proj": 12.9,
+          "floor": 2.9,
+          "ceiling": 24
+        },
+        {
+          "player": "Quinshon Judkins",
+          "position": "RB",
+          "proj": 9.4,
+          "floor": 1.6,
+          "ceiling": 18.2
+        },
+        {
+          "player": "KC Concepcion",
+          "position": "WR",
+          "proj": 8.2,
+          "floor": 1.1,
+          "ceiling": 17
+        },
+        {
+          "player": "Denzel Boston",
+          "position": "WR",
+          "proj": 7,
+          "floor": 0.5,
+          "ceiling": 15.2
         }
       ]
     },
@@ -833,147 +758,147 @@
       "away_team": "IND",
       "spread_line": 6.5,
       "total_line": 46.5,
-      "pred_margin": 5.9,
-      "pred_win_home": 0.715,
+      "pred_margin": 6,
+      "pred_win_home": 0.717,
       "home_implied_market": 26.5,
       "away_implied_market": 20,
       "home_implied_pred": 26.2,
       "away_implied_pred": 20.3,
-      "spread_edge_home": -0.6,
-      "edge_abs": 0.6,
+      "spread_edge_home": -0.5,
+      "edge_abs": 0.5,
       "home_players": [
         {
           "player": "Patrick Mahomes",
           "position": "QB",
-          "proj": 20.6,
-          "floor": 10.3,
+          "proj": 20.7,
+          "floor": 10.1,
           "ceiling": 31.4
         },
         {
           "player": "Kenneth Walker III",
           "position": "RB",
-          "proj": 16.4,
-          "floor": 5,
-          "ceiling": 29.4
+          "proj": 17.4,
+          "floor": 5.3,
+          "ceiling": 30.4
         },
         {
           "player": "Rashee Rice",
           "position": "WR",
-          "proj": 9.1,
-          "floor": 0,
-          "ceiling": 19.4
+          "proj": 10.2,
+          "floor": 2.3,
+          "ceiling": 20
         },
         {
           "player": "Travis Kelce",
           "position": "TE",
-          "proj": 7.8,
+          "proj": 8.1,
           "floor": 1.1,
-          "ceiling": 16.5
+          "ceiling": 17.4
         }
       ],
       "away_players": [
         {
           "player": "Daniel Jones",
           "position": "QB",
-          "proj": 14.5,
-          "floor": 4.8,
-          "ceiling": 25.1
+          "proj": 15.1,
+          "floor": 4.9,
+          "ceiling": 25.2
         },
         {
           "player": "Jonathan Taylor",
           "position": "RB",
-          "proj": 14.1,
-          "floor": 4.8,
-          "ceiling": 26.3
+          "proj": 14.3,
+          "floor": 4.7,
+          "ceiling": 26.1
         },
         {
           "player": "Josh Downs",
           "position": "WR",
-          "proj": 8.5,
-          "floor": 0.8,
-          "ceiling": 17.9
+          "proj": 8.9,
+          "floor": 0.9,
+          "ceiling": 18.3
         },
         {
           "player": "Alec Pierce",
           "position": "WR",
-          "proj": 8.4,
-          "floor": 1.6,
-          "ceiling": 17.3
+          "proj": 7.9,
+          "floor": 0,
+          "ceiling": 18.2
         }
       ]
     },
     {
-      "game_id": "2026_02_GB_NYJ",
-      "home_team": "NYJ",
-      "away_team": "GB",
-      "spread_line": -4.5,
-      "total_line": 44.5,
-      "pred_margin": -4,
-      "pred_win_home": 0.309,
-      "home_implied_market": 20,
-      "away_implied_market": 24.5,
-      "home_implied_pred": 20.2,
-      "away_implied_pred": 24.3,
-      "spread_edge_home": 0.5,
-      "edge_abs": 0.5,
+      "game_id": "2026_02_NO_BAL",
+      "home_team": "BAL",
+      "away_team": "NO",
+      "spread_line": 8.5,
+      "total_line": 46.5,
+      "pred_margin": 8.9,
+      "pred_win_home": 0.808,
+      "home_implied_market": 27.5,
+      "away_implied_market": 19,
+      "home_implied_pred": 27.7,
+      "away_implied_pred": 18.8,
+      "spread_edge_home": 0.4,
+      "edge_abs": 0.4,
       "home_players": [
         {
-          "player": "Geno Smith",
+          "player": "Lamar Jackson",
           "position": "QB",
-          "proj": 13.5,
-          "floor": 2.9,
-          "ceiling": 23.6
+          "proj": 22.6,
+          "floor": 12.7,
+          "ceiling": 31.8
         },
         {
-          "player": "Breece Hall",
+          "player": "Derrick Henry",
           "position": "RB",
-          "proj": 13.4,
-          "floor": 4.7,
-          "ceiling": 24.3
+          "proj": 16.9,
+          "floor": 4.8,
+          "ceiling": 30.2
         },
         {
-          "player": "Garrett Wilson",
+          "player": "Zay Flowers",
           "position": "WR",
-          "proj": 11,
-          "floor": 2.8,
-          "ceiling": 20.7
+          "proj": 11.9,
+          "floor": 3,
+          "ceiling": 22.1
         },
         {
-          "player": "Adonai Mitchell",
-          "position": "WR",
-          "proj": 6.4,
-          "floor": 0.2,
-          "ceiling": 13.8
+          "player": "Mark Andrews",
+          "position": "TE",
+          "proj": 7.2,
+          "floor": 1.4,
+          "ceiling": 15.3
         }
       ],
       "away_players": [
         {
-          "player": "Jordan Love",
+          "player": "Tyler Shough",
           "position": "QB",
-          "proj": 17.1,
-          "floor": 8.8,
-          "ceiling": 26.2
+          "proj": 14.7,
+          "floor": 4,
+          "ceiling": 25.6
         },
         {
-          "player": "Matthew Golden",
+          "player": "Chris Olave",
           "position": "WR",
-          "proj": 9.4,
-          "floor": 1.8,
-          "ceiling": 18.3
+          "proj": 11.1,
+          "floor": 3.7,
+          "ceiling": 20.8
         },
         {
-          "player": "Christian Watson",
-          "position": "WR",
-          "proj": 8.7,
-          "floor": 1.9,
-          "ceiling": 15.6
-        },
-        {
-          "player": "MarShawn Lloyd",
+          "player": "Travis Etienne",
           "position": "RB",
-          "proj": 7.5,
-          "floor": 0.8,
-          "ceiling": 16.2
+          "proj": 11,
+          "floor": 2.8,
+          "ceiling": 21.5
+        },
+        {
+          "player": "Devaughn Vele",
+          "position": "WR",
+          "proj": 7.6,
+          "floor": 0.9,
+          "ceiling": 14.8
         }
       ]
     },
@@ -983,72 +908,72 @@
       "away_team": "CAR",
       "spread_line": -2.5,
       "total_line": 43.5,
-      "pred_margin": -2.2,
-      "pred_win_home": 0.381,
+      "pred_margin": -2.7,
+      "pred_win_home": 0.36,
       "home_implied_market": 20.5,
       "away_implied_market": 23,
-      "home_implied_pred": 20.7,
-      "away_implied_pred": 22.8,
-      "spread_edge_home": 0.3,
-      "edge_abs": 0.3,
+      "home_implied_pred": 20.4,
+      "away_implied_pred": 23.1,
+      "spread_edge_home": -0.2,
+      "edge_abs": 0.2,
       "home_players": [
         {
           "player": "Bijan Robinson",
           "position": "RB",
-          "proj": 15.3,
-          "floor": 5,
-          "ceiling": 28.8
+          "proj": 15.8,
+          "floor": 4.5,
+          "ceiling": 29.1
         },
         {
           "player": "Drake London",
           "position": "WR",
-          "proj": 10.4,
-          "floor": 1.7,
-          "ceiling": 20.3
+          "proj": 10.9,
+          "floor": 2.2,
+          "ceiling": 21.5
         },
         {
           "player": "Cooper Rush",
           "position": "QB",
-          "proj": 10.3,
+          "proj": 10.4,
           "floor": 0,
-          "ceiling": 21.8
+          "ceiling": 21.7
         },
         {
           "player": "Brian Robinson",
           "position": "RB",
-          "proj": 5.9,
-          "floor": 0.3,
-          "ceiling": 14.1
+          "proj": 5.6,
+          "floor": 0.2,
+          "ceiling": 13.8
         }
       ],
       "away_players": [
         {
           "player": "Bryce Young",
           "position": "QB",
-          "proj": 15.8,
+          "proj": 16,
           "floor": 6.9,
-          "ceiling": 24.6
+          "ceiling": 24.1
         },
         {
           "player": "Chuba Hubbard",
           "position": "RB",
-          "proj": 11.1,
-          "floor": 3.3,
-          "ceiling": 21.5
+          "proj": 11.5,
+          "floor": 2.7,
+          "ceiling": 21
         },
         {
           "player": "Tetairoa McMillan",
           "position": "WR",
-          "proj": 10.3,
-          "floor": 2.2,
-          "ceiling": 19.9
+          "proj": 10.6,
+          "floor": 2.5,
+          "ceiling": 20.1
         },
         {
           "player": "Jalen Coker",
           "position": "WR",
-          "proj": 8.6,
-          "floor": 1.7,
-          "ceiling": 15.9
+          "proj": 8.7,
+          "floor": 2.1,
+          "ceiling": 17.1
         }
       ]
     },
@@ -1056,43 +981,43 @@
       "game_id": "2026_02_MIN_CHI",
       "home_team": "CHI",
       "away_team": "MIN",
-      "spread_line": 5.5,
+      "spread_line": 4.5,
       "total_line": 47.5,
-      "pred_margin": 5.2,
-      "pred_win_home": 0.688,
-      "home_implied_market": 26.5,
-      "away_implied_market": 21,
-      "home_implied_pred": 26.3,
-      "away_implied_pred": 21.2,
-      "spread_edge_home": -0.3,
-      "edge_abs": 0.3,
+      "pred_margin": 4.6,
+      "pred_win_home": 0.668,
+      "home_implied_market": 26,
+      "away_implied_market": 21.5,
+      "home_implied_pred": 26.1,
+      "away_implied_pred": 21.4,
+      "spread_edge_home": 0.1,
+      "edge_abs": 0.1,
       "home_players": [
         {
           "player": "Caleb Williams",
           "position": "QB",
-          "proj": 22.6,
-          "floor": 11.7,
-          "ceiling": 34.5
+          "proj": 22.3,
+          "floor": 10.7,
+          "ceiling": 34.2
         },
         {
           "player": "D'Andre Swift",
           "position": "RB",
-          "proj": 13.4,
-          "floor": 3.5,
-          "ceiling": 25.6
+          "proj": 13.5,
+          "floor": 2.8,
+          "ceiling": 25.5
         },
         {
           "player": "Kyle Monangai",
           "position": "RB",
-          "proj": 10.7,
-          "floor": 2.8,
-          "ceiling": 20.7
+          "proj": 10.8,
+          "floor": 2.5,
+          "ceiling": 21.8
         },
         {
           "player": "Luther Burden III",
           "position": "WR",
-          "proj": 10.1,
-          "floor": 2.1,
+          "proj": 10.2,
+          "floor": 2.2,
           "ceiling": 20.3
         }
       ],
@@ -1100,30 +1025,30 @@
         {
           "player": "Carson Wentz",
           "position": "QB",
-          "proj": 13.1,
-          "floor": 2.8,
-          "ceiling": 24.4
+          "proj": 12.9,
+          "floor": 0,
+          "ceiling": 24.3
         },
         {
           "player": "Justin Jefferson",
           "position": "WR",
-          "proj": 11.8,
-          "floor": 3.2,
-          "ceiling": 22
+          "proj": 12.6,
+          "floor": 4.2,
+          "ceiling": 22.3
         },
         {
           "player": "Jordan Mason",
           "position": "RB",
-          "proj": 8.8,
-          "floor": 1.6,
-          "ceiling": 17.9
+          "proj": 9.1,
+          "floor": 1.5,
+          "ceiling": 18.4
         },
         {
           "player": "Aaron Jones",
           "position": "RB",
-          "proj": 7.7,
-          "floor": 1.2,
-          "ceiling": 16.4
+          "proj": 7.9,
+          "floor": 1.4,
+          "ceiling": 16.6
         }
       ]
     },
@@ -1133,72 +1058,147 @@
       "away_team": "WAS",
       "spread_line": 4.5,
       "total_line": 50.5,
-      "pred_margin": 4.7,
-      "pred_win_home": 0.669,
+      "pred_margin": 4.6,
+      "pred_win_home": 0.665,
       "home_implied_market": 27.5,
       "away_implied_market": 23,
-      "home_implied_pred": 27.6,
-      "away_implied_pred": 22.9,
-      "spread_edge_home": 0.2,
-      "edge_abs": 0.2,
+      "home_implied_pred": 27.5,
+      "away_implied_pred": 23,
+      "spread_edge_home": 0.1,
+      "edge_abs": 0.1,
       "home_players": [
         {
           "player": "Dak Prescott",
           "position": "QB",
           "proj": 20.5,
-          "floor": 11.3,
-          "ceiling": 31.4
+          "floor": 10.5,
+          "ceiling": 31.7
         },
         {
           "player": "Javonte Williams",
           "position": "RB",
-          "proj": 16,
-          "floor": 5.5,
-          "ceiling": 27.2
+          "proj": 15.8,
+          "floor": 5.1,
+          "ceiling": 26.1
         },
         {
           "player": "CeeDee Lamb",
           "position": "WR",
-          "proj": 13.1,
-          "floor": 3.2,
-          "ceiling": 23.4
+          "proj": 13.7,
+          "floor": 4,
+          "ceiling": 24.6
         },
         {
           "player": "George Pickens",
           "position": "WR",
-          "proj": 11.3,
-          "floor": 2.1,
-          "ceiling": 22.6
+          "proj": 12.1,
+          "floor": 2.7,
+          "ceiling": 23.4
         }
       ],
       "away_players": [
         {
           "player": "Jayden Daniels",
           "position": "QB",
-          "proj": 19,
-          "floor": 7.8,
-          "ceiling": 31.3
+          "proj": 19.8,
+          "floor": 8.4,
+          "ceiling": 31.8
         },
         {
           "player": "Terry McLaurin",
           "position": "WR",
-          "proj": 9.8,
-          "floor": 1.4,
-          "ceiling": 20.8
+          "proj": 10.4,
+          "floor": 1.6,
+          "ceiling": 20.7
         },
         {
           "player": "Jacory Croskey-Merritt",
           "position": "RB",
-          "proj": 9.4,
-          "floor": 1.8,
-          "ceiling": 19.2
+          "proj": 9.6,
+          "floor": 1.6,
+          "ceiling": 19
         },
         {
           "player": "Stefon Diggs",
           "position": "WR",
-          "proj": 8.3,
-          "floor": 1.1,
-          "ceiling": 16.2
+          "proj": 8.7,
+          "floor": 1.4,
+          "ceiling": 17.1
+        }
+      ]
+    },
+    {
+      "game_id": "2026_02_GB_NYJ",
+      "home_team": "NYJ",
+      "away_team": "GB",
+      "spread_line": -3.5,
+      "total_line": 44.5,
+      "pred_margin": -3.6,
+      "pred_win_home": 0.324,
+      "home_implied_market": 20.5,
+      "away_implied_market": 24,
+      "home_implied_pred": 20.4,
+      "away_implied_pred": 24.1,
+      "spread_edge_home": -0.1,
+      "edge_abs": 0.1,
+      "home_players": [
+        {
+          "player": "Breece Hall",
+          "position": "RB",
+          "proj": 13.4,
+          "floor": 4.3,
+          "ceiling": 24.1
+        },
+        {
+          "player": "Geno Smith",
+          "position": "QB",
+          "proj": 13.2,
+          "floor": 2.5,
+          "ceiling": 23.5
+        },
+        {
+          "player": "Garrett Wilson",
+          "position": "WR",
+          "proj": 11.5,
+          "floor": 3.2,
+          "ceiling": 21.4
+        },
+        {
+          "player": "Adonai Mitchell",
+          "position": "WR",
+          "proj": 6.6,
+          "floor": 0.2,
+          "ceiling": 14.1
+        }
+      ],
+      "away_players": [
+        {
+          "player": "Jordan Love",
+          "position": "QB",
+          "proj": 16.7,
+          "floor": 7.5,
+          "ceiling": 25.7
+        },
+        {
+          "player": "Matthew Golden",
+          "position": "WR",
+          "proj": 9.7,
+          "floor": 2.1,
+          "ceiling": 18.8
+        },
+        {
+          "player": "Christian Watson",
+          "position": "WR",
+          "proj": 9.1,
+          "floor": 2.2,
+          "ceiling": 17.1
+        },
+        {
+          "player": "MarShawn Lloyd",
+          "position": "RB",
+          "proj": 7.7,
+          "floor": 0.7,
+          "ceiling": 16.8
         }
       ]
     }

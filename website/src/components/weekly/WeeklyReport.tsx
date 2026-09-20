@@ -6,6 +6,7 @@ import { num, clamp, hexToRgba, obj, StatTile, TeamChip, EdgeBadge, RangeBar, Sk
 import { TopBets, type TopBetRow } from '../games/TopBets';
 import { SectionBoundary } from '../ui/SectionBoundary';
 import { LeagueReportSection } from './LeagueReportSection';
+import { ExperimentDiagnosticsView, type ExperimentDiagnosticsData } from './ExperimentDiagnostics';
 import { TransactionDesk } from '../fantasy/TransactionDesk';
 import { dataUrl } from '../../lib/dataUrl';
 
@@ -613,9 +614,50 @@ function useLiveData(d: any) {
             if (!mine) continue;
             const opponent = franchises.find((f: any) => Number(f.id ?? f.franchise_id) !== target);
             const points = (f: any) => Number(f?.score ?? f?.points ?? f?.liveScore ?? 0);
-            return { league: l.league, source: 'MFL', mine: points(mine), opponent: points(opponent), opponentName: l.opponent };
+            // DETAILS=1 returns a per-player row carrying `status` ("starter" /
+            // "nonstarter") and that player's LEAGUE-SCORED points. Both were
+            // being discarded: the panel read only the franchise total, so the
+            // MFL league fell back to the optimizer's recommendation and scored
+            // its rows in Sleeper half-PPR. The set lineup is published here —
+            // it just was not being read.
+            const playerRows = (f: any) => {
+              const raw = f?.players?.player ?? f?.players;
+              return Array.isArray(raw) ? raw : raw ? [raw] : [];
+            };
+            const startersOf = (f: any) => playerRows(f)
+              .filter((pl: any) => String(pl?.status ?? '').toLowerCase() === 'starter')
+              .map((pl: any) => String(pl.id));
+            const pointsOf = (f: any) => Object.fromEntries(playerRows(f)
+              .filter((pl: any) => pl?.id != null)
+              .map((pl: any) => [String(pl.id), Number(pl.score ?? 0)]));
+            return { league: l.league, source: 'MFL', mine: points(mine), opponent: points(opponent),
+                     opponentName: l.opponent,
+                     playerPoints: pointsOf(mine), opponentPlayerPoints: opponent ? pointsOf(opponent) : {},
+                     starters: startersOf(mine), opponentStarters: opponent ? startersOf(opponent) : [] };
           }
           return null;
+        } catch { return null; } }));
+        // An ESPN private league cannot be read from the browser at all — an
+        // unauthenticated request is answered with 401 — so this one goes through
+        // the Worker, which signs it with the league owner's session cookies and
+        // returns only normalised fields. When those secrets are not configured
+        // the endpoint answers 503 and this simply yields null, leaving the card
+        // on the set lineup the pipeline exported.
+        const espn = leagues.filter((l: any) => l.platform === 'espn' && l.league_id && l.franchise_id);
+        const espnScores = await Promise.all(espn.map(async (l: any) => { try {
+          const response = await fetch(liveApiUrl(new URLSearchParams({
+            source: 'espn', league: String(l.league_id), week: String(d.week),
+            season: String(d.season), team: String(l.franchise_id),
+          })));
+          if (!response.ok) return null;
+          const row = await response.json();
+          if (!row || typeof row !== 'object' || row.error) return null;
+          return { league: l.league, source: 'ESPN', mine: Number(row.mine ?? 0),
+                   opponent: Number(row.opponent ?? 0),
+                   opponentName: row.opponentName ?? l.opponent,
+                   playerPoints: row.playerPoints ?? {},
+                   opponentPlayerPoints: row.opponentPlayerPoints ?? {},
+                   starters: arr(row.starters), opponentStarters: arr(row.opponentStarters) };
         } catch { return null; } }));
         // The public ESPN scoreboard is deliberately used only for NFL game
         // state; it complements (rather than replaces) league-native scoring.
@@ -688,7 +730,7 @@ function useLiveData(d: any) {
           });
         });
         if (!cancelled) setLive({ loading: false, checked: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
-          scores: [...sleeperScores, ...mflScores].filter(Boolean), games, stats });
+          scores: [...sleeperScores, ...mflScores, ...espnScores].filter(Boolean), games, stats });
       } catch {
         if (!cancelled) setLive(v => ({ ...v, loading: false, error: 'Live sources are temporarily unavailable.' }));
       }
@@ -703,37 +745,69 @@ function useLiveData(d: any) {
 }
 
 /**
- * League -> the roster rows for the lineup ACTUALLY set on the platform.
+ * League -> the lineup that is ACTUALLY set, plus where that knowledge came from.
  *
- * Resolves the platform's `starters` id list against every roster row the export
- * carries, bench included — the player the optimizer benched may be the one you
- * started, and he still has to resolve to a name. Leagues whose platform exposes
- * no starter list (MFL, ESPN) are absent from the map, and callers fall back to
- * the recommendation and say so rather than passing it off as live.
+ * Three sources, best first, because no single one covers every platform:
+ *   live     Sleeper's matchup `starters` and MFL's per-player `status` — both
+ *            re-read on every 60s poll, so a lineup edited mid-morning shows up.
+ *   export   ESPN only. That league is private and answers the browser with a
+ *            401, so its set lineup can only be read server-side; the pipeline
+ *            writes `actual_status` onto each row for us.
+ *   (absent) neither available -> the caller shows the recommendation and says so.
+ *
+ * Rows are indexed by every id a feed might use — the sleeper id, the platform's
+ * own id, and the team abbreviation for defenses, which Sleeper keys by team.
+ * Bench rows are indexed too: the player the optimizer sat may be the one you
+ * started, and he still has to resolve to a name.
  */
 function useActualStarters(d: any, live: any) {
   return useMemo(() => {
     const index = new Map<string, Map<string, any>>();
+    const addKey = (league: string, key: any, row: any) => {
+      if (key == null || key === '') return;
+      const m = index.get(league) ?? new Map();
+      m.set(String(key), row); index.set(league, m);
+    };
     arr(d.lineups).forEach((r: any) => {
-      const key = r.sleeper_id || (r.position === 'DEF' ? r.team : null);
-      if (!key) return;
-      const m = index.get(r.league) ?? new Map();
-      m.set(String(key), r); index.set(r.league, m);
+      addKey(r.league, r.sleeper_id, r);
+      addKey(r.league, r.platform_id, r);
+      if (r.position === 'DEF') addKey(r.league, r.team, r);
     });
-    const out = new Map<string, any[]>();
+
+    const out = new Map<string, { rows: any[]; source: 'live' | 'export'; unresolved: number }>();
+
+    // 1. A live starter list, where the platform publishes one.
     arr(live?.scores).forEach((score: any) => {
       const ids: string[] = arr(score?.starters);
       if (!ids.length) return;
       const idx = index.get(score.league);
       const rows = ids.map(id => idx?.get(String(id))).filter(Boolean);
-      // All-or-nothing: a partly resolved lineup would silently drop starters.
-      if (rows.length === ids.length) out.set(score.league, rows);
+      // Partial is still better than wrong. This used to be all-or-nothing, so a
+      // single id the export had never seen — anyone added since the pre-week
+      // run — silently reverted the WHOLE league to the recommendation, which is
+      // the one state that looks fine and is not. Take what resolves and report
+      // the rest, so the gap is visible instead of disguised.
+      if (rows.length) out.set(score.league, { rows, source: 'live', unresolved: ids.length - rows.length });
     });
+
+    // 2. Otherwise the lineup the pipeline read from the platform directly.
+    const byLeague = new Map<string, any[]>();
+    arr(d.lineups).forEach((r: any) => {
+      if (r.actual_status == null) return;
+      const g = byLeague.get(r.league) ?? [];
+      g.push(r); byLeague.set(r.league, g);
+    });
+    byLeague.forEach((rows, league) => {
+      if (out.has(league)) return;
+      const started = rows.filter((r: any) => r.actual_status === 'START');
+      if (started.length) out.set(league, { rows: started, source: 'export', unresolved: 0 });
+    });
+
     return out;
   }, [d.lineups, live?.scores]);
 }
 
-function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; live: any; leagues: any[]; refresh: () => void; actualStarters: Map<string, any[]> }) {
+function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; live: any; leagues: any[]; refresh: () => void; actualStarters: Map<string, { rows: any[]; source: 'live' | 'export'; unresolved: number }> }) {
 
   // Starters, grouped by league, each carrying the live game state of their NFL
   // team. The panel used to end in a wall of 32 team chips — one per club, most
@@ -880,12 +954,23 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
         <div className="grid gap-2 lg:grid-cols-2">
           {Array.from(byLeague.entries()).map(([league, recommended]) => {
             const score = live.scores.find((x: any) => x.league === league);
-            // Prefer the lineup that is actually set. MFL and ESPN expose no
-            // starter list here, so those fall back to the recommendation and are
-            // labelled as such rather than being passed off as live.
+            // Prefer the lineup that is actually set — Sleeper and MFL publish
+            // it live, ESPN's comes from the pipeline. Only a league that offers
+            // neither falls back to the recommendation, and the header says so
+            // rather than passing advice off as the lineup that will score.
             const resolved = actualStarters.get(league);
-            const usingActual = Boolean(resolved?.length);
-            const players = usingActual ? resolved! : recommended;
+            const usingActual = Boolean(resolved?.rows.length);
+            const players = usingActual ? resolved!.rows : recommended;
+            const lineupTag = !usingActual
+              ? { text: 'recommended', tone: 'warn' as const,
+                  hint: 'This league does not publish its set lineup here, so these are the optimizer\u2019s recommended starters \u2014 not necessarily who you have starting.' }
+              : resolved!.source === 'export'
+                ? { text: 'set lineup', tone: 'muted' as const,
+                    hint: 'The lineup actually set on the platform, read by the pipeline on its last run.' }
+                : resolved!.unresolved > 0
+                  ? { text: `live \u00b7 ${resolved!.unresolved} unmatched`, tone: 'warn' as const,
+                      hint: `${resolved!.unresolved} starter(s) are not in this week\u2019s export \u2014 likely added after it ran \u2014 so they are missing from the rows below.` }
+                  : null;
             // Whoever is playing right now goes to the top; then the not-yet-started;
             // finished last. Within a bucket, the biggest score leads.
             const rank = (r: any) => {
@@ -899,12 +984,19 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
               // rows.
               const state = live.games[r.team]?.state;
               if (state !== 'in' && state !== 'post') return NaN;
-              const k = statKey(r);
-              const native = score?.playerPoints?.[k as string];
+              // Two different key spaces. A league's own points feed is keyed by
+              // that PLATFORM's player id — MFL's numbering is its own — while
+              // Sleeper's NFL-wide stat feed is keyed by sleeper id. They happen
+              // to coincide for a Sleeper league and do not for MFL, so the
+              // league-native lookup tries the platform id first and only the
+              // fallback is restricted to sleeper ids.
+              const native = [r.platform_id, statKey(r)]
+                .filter(k => k != null && k !== '')
+                .map(k => score?.playerPoints?.[String(k)])
+                .find(v => v != null);
               // League-native where the platform reports it; otherwise Sleeper's
-              // half-PPR, which is exactly right for the MFL league (it really is
-              // half-PPR) and an approximation for any custom format.
-              return native != null ? Number(native) : Number(live.stats?.[k as string]?.pts_half_ppr ?? NaN);
+              // half-PPR, which is an approximation for any custom format.
+              return native != null ? Number(native) : Number(live.stats?.[statKey(r) as string]?.pts_half_ppr ?? NaN);
             };
             const sorted = [...players].sort((a, b) => rank(a) - rank(b) || (pts(b) || 0) - (pts(a) || 0));
             const anyLive = players.some((r: any) => live.games[r.team]?.state === 'in');
@@ -936,9 +1028,18 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
             return (
               <div key={league} className="overflow-hidden rounded-lg border border-border-light bg-bg-card/30">
                 <div className="flex items-baseline justify-between gap-2 border-b border-border-light px-2.5 py-1.5">
-                  <span className="min-w-0 truncate text-[11px] font-medium text-text-primary">
-                    {league}
-                    {anyLive && <span className="ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-win align-middle" />}
+                  <span className="flex min-w-0 items-baseline gap-1.5 text-[11px] font-medium text-text-primary">
+                    <span className="min-w-0 truncate">{league}</span>
+                    {anyLive && <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-win align-middle" />}
+                    {lineupTag && (
+                      <span title={lineupTag.hint}
+                        className={`shrink-0 whitespace-nowrap rounded-full border px-1.5 py-px text-[8px] font-medium uppercase tracking-wider ${
+                          lineupTag.tone === 'warn'
+                            ? 'border-[#d29922]/35 bg-[#d29922]/10 text-[#d29922]'
+                            : 'border-border-light bg-bg-card-hover text-text-muted'}`}>
+                        {lineupTag.text}
+                      </span>
+                    )}
                   </span>
                   <span className="max-w-[45%] truncate text-right text-[9px] text-text-muted">
                     {score?.opponentName ? `vs ${score.opponentName}` : 'opponent unavailable'}
@@ -1027,7 +1128,7 @@ function LiveSunday({ d, live, leagues, refresh, actualStarters }: { d: any; liv
   );
 }
 
-function WatchingGuide({ d, live, actualStarters }: { d: any; live: any; actualStarters: Map<string, any[]> }) {
+function WatchingGuide({ d, live, actualStarters }: { d: any; live: any; actualStarters: Map<string, { rows: any[]; source: 'live' | 'export'; unresolved: number }> }) {
   // Organised by GAME, not by player.
   //
   // The previous shape was two flat columns — everyone you are rooting for, then
@@ -1074,8 +1175,8 @@ function WatchingGuide({ d, live, actualStarters }: { d: any; live: any; actualS
       byLeague.set(r.league, [...(byLeague.get(r.league) ?? []), r]);
     });
     Array.from(byLeague.keys()).forEach(lg => {
-      const live = actualStarters.get(lg);
-      if (live?.length) byLeague.set(lg, live);
+      const set = actualStarters.get(lg);
+      if (set?.rows.length) byLeague.set(lg, set.rows);
     });
     Array.from(byLeague.values()).flat().forEach((r: any) => touch(r, 'mine'));
     arr(d.opponent_lineups).forEach((r: any) => touch(r, 'against'));
@@ -2013,6 +2114,15 @@ function WeeklyAccuracy({ d }: { d: any }) {
   );
 }
 
+function ExperimentDiagnostics({ d }: { d: ExperimentDiagnosticsData }) {
+  return (
+    <Section id="experiment_diagnostics" title="Feature Experiment Diagnostics" accent="#3fb950"
+      subtitle="paired incumbent-vs-candidate distributions, error shape, calibration, and fold consistency">
+      <ExperimentDiagnosticsView data={d} />
+    </Section>
+  );
+}
+
 // League-wide weekly recap — every matchup, ranked storylines, next-week watch.
 function LeagueReport({ d, onNav }: { d: any; onNav?: (s: number, w: number) => void }) {
   return (
@@ -2157,10 +2267,11 @@ function DstStream({ d }: { d: any }) {
 const RENDERERS: Record<string, (p: { d: any; onNav?: (s: number, w: number) => void }) => React.ReactNode> = {
   games_preview: GamesPreview, games_result: GamesResult, bet_card: BetCard, polymarket_bets: PolymarketBets, kalshi_lines: KalshiLines, lineups: MyLineups, waivers: Waivers, fantasy_ranks: FantasyRanks,
   projections: Projections, model_scorecard: ModelScorecard, fantasy_recap: FantasyRecap,
-  weekly_accuracy: WeeklyAccuracy, league_report: LeagueReport, dst_stream: DstStream,
+  weekly_accuracy: WeeklyAccuracy, experiment_diagnostics: ExperimentDiagnostics,
+  league_report: LeagueReport, dst_stream: DstStream,
 };
 const PRE_ORDER = ['games_preview', 'bet_card', 'polymarket_bets', 'kalshi_lines', 'lineups', 'waivers', 'dst_stream', 'projections'];
-const POST_ORDER = ['games_result', 'fantasy_ranks', 'league_report', 'model_scorecard', 'fantasy_recap', 'weekly_accuracy'];
+const POST_ORDER = ['games_result', 'fantasy_ranks', 'league_report', 'model_scorecard', 'fantasy_recap', 'weekly_accuracy', 'experiment_diagnostics'];
 
 // Sections grouped by the QUESTION being asked, so the page shows one coherent
 // group at a time instead of a ten-section scroll mixing model, fantasy and league.
@@ -2172,7 +2283,7 @@ const GROUPS: { key: GroupKey; label: string; accent: string; sections: string[]
   { key: 'lineups', label: 'My Lineups',   accent: '#3fb950', sections: ['lineups'] },
   { key: 'fantasy', label: 'Roster Tools', accent: '#3fb950', sections: ['fantasy_ranks', 'dst_stream', 'waivers', 'projections'] },
   { key: 'results', label: 'Results',      accent: '#f778ba', sections: ['model_scorecard', 'fantasy_recap', 'league_report'] },
-  { key: 'lab',     label: 'Model Lab',    accent: '#d29922', sections: ['weekly_accuracy'] },
+  { key: 'lab',     label: 'Model Lab',    accent: '#d29922', sections: ['weekly_accuracy', 'experiment_diagnostics'] },
 ];
 
 /** Sub-tab keys this view accepts in a permalink. */

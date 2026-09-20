@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "updated": "2026-09-16T09:34:34-0700",
+  "updated": "2026-09-17T09:11:27-0700",
   "leagues": [
     {
       "label": "UNH SuperFlex Dynasty",
@@ -345,14 +345,14 @@
           "wins": 0,
           "losses": 1,
           "ties": 0,
-          "points_for": 121.7,
+          "points_for": 121.8,
           "weekly": [
             {
               "week": 1,
-              "points": 121.7,
+              "points": 121.8,
               "result": "L",
               "cum_wins": 0,
-              "cum_pf": 121.7
+              "cum_pf": 121.8
             }
           ]
         },

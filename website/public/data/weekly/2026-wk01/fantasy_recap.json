@@ -306,7 +306,7 @@
       "label": "No Fun League",
       "franchise": "wadepfuller",
       "record": {
-        "franchise_score": 121.7,
+        "franchise_score": 121.8,
         "opponent_score": 152.8,
         "result": "L"
       },
@@ -338,6 +338,13 @@
           "proj": 13.5,
           "actual": 14,
           "class": "met"
+        },
+        {
+          "player": "Demarcus Robinson",
+          "position": "WR",
+          "proj": 2.9,
+          "actual": 12,
+          "class": "boom"
         },
         {
           "player": "Caleb Douglas",

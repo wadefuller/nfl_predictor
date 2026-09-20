@@ -1,0 +1,598 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-09-20T03:40:36Z",
+  "comparison": {
+    "incumbent": {
+      "run_id": "2eba7dca3a0151c8",
+      "id": "incumbent_confirm",
+      "label": "Production baseline"
+    },
+    "candidate": {
+      "run_id": "e521bacb662452d1",
+      "id": "vacated_opportunity_confirm",
+      "label": "Teammate absence",
+      "hypothesis": "Pregame teammate absences weighted by prior role retain their screen gain across every historical outer season and seed."
+    },
+    "seasons": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "seeds": [7, 42, 2024],
+    "n_player_weeks": 89977,
+    "n_lineup_player_weeks": 34521,
+    "lineup_min_p": 0.75,
+    "season_wins": 9,
+    "season_total": 9
+  },
+  "headline": {
+    "pinball_incumbent": 0.9272,
+    "pinball_candidate": 0.9226,
+    "pinball_gain": 0.0046,
+    "mae_incumbent": 2.7028,
+    "mae_candidate": 2.687,
+    "mae_gain": 0.0159,
+    "bias_incumbent": -0.0256,
+    "bias_candidate": -0.0282,
+    "candidate_abs_error_win_share": 0.5256,
+    "incumbent_abs_error_win_share": 0.4744,
+    "tie_share": 0
+  },
+  "distributions": {
+    "score": [
+      {
+        "x": -1,
+        "lower": -2,
+        "upper": 0,
+        "actual": 0.005,
+        "incumbent": 0,
+        "candidate": 0
+      },
+      {
+        "x": 1,
+        "lower": 0,
+        "upper": 2,
+        "actual": 0.2088,
+        "incumbent": 0.0058,
+        "candidate": 0.0012
+      },
+      {
+        "x": 3,
+        "lower": 2,
+        "upper": 4,
+        "actual": 0.1324,
+        "incumbent": 0.1373,
+        "candidate": 0.1398
+      },
+      {
+        "x": 5,
+        "lower": 4,
+        "upper": 6,
+        "actual": 0.111,
+        "incumbent": 0.1984,
+        "candidate": 0.1991
+      },
+      {
+        "x": 7,
+        "lower": 6,
+        "upper": 8,
+        "actual": 0.0984,
+        "incumbent": 0.1836,
+        "candidate": 0.1842
+      },
+      {
+        "x": 9,
+        "lower": 8,
+        "upper": 10,
+        "actual": 0.0822,
+        "incumbent": 0.1512,
+        "candidate": 0.1507
+      },
+      {
+        "x": 11,
+        "lower": 10,
+        "upper": 12,
+        "actual": 0.0701,
+        "incumbent": 0.1195,
+        "candidate": 0.1192
+      },
+      {
+        "x": 13,
+        "lower": 12,
+        "upper": 14,
+        "actual": 0.0612,
+        "incumbent": 0.0745,
+        "candidate": 0.0751
+      },
+      {
+        "x": 15,
+        "lower": 14,
+        "upper": 16,
+        "actual": 0.053,
+        "incumbent": 0.0582,
+        "candidate": 0.0592
+      },
+      {
+        "x": 17,
+        "lower": 16,
+        "upper": 18,
+        "actual": 0.0437,
+        "incumbent": 0.0385,
+        "candidate": 0.0382
+      },
+      {
+        "x": 19,
+        "lower": 18,
+        "upper": 20,
+        "actual": 0.0345,
+        "incumbent": 0.0217,
+        "candidate": 0.0219
+      },
+      {
+        "x": 21,
+        "lower": 20,
+        "upper": 22,
+        "actual": 0.0257,
+        "incumbent": 0.0098,
+        "candidate": 0.0097
+      },
+      {
+        "x": 23,
+        "lower": 22,
+        "upper": 24,
+        "actual": 0.0217,
+        "incumbent": 0.0016,
+        "candidate": 0.0016
+      },
+      {
+        "x": 25,
+        "lower": 24,
+        "upper": 26,
+        "actual": 0.0158,
+        "incumbent": 0,
+        "candidate": 0
+      },
+      {
+        "x": 27,
+        "lower": 26,
+        "upper": 28,
+        "actual": 0.0118,
+        "incumbent": 0,
+        "candidate": 0
+      },
+      {
+        "x": 29,
+        "lower": 28,
+        "upper": 30,
+        "actual": 0.008,
+        "incumbent": 0,
+        "candidate": 0
+      },
+      {
+        "x": 31,
+        "lower": 30,
+        "upper": 32,
+        "actual": 0.0054,
+        "incumbent": 0,
+        "candidate": 0
+      },
+      {
+        "x": 33,
+        "lower": 32,
+        "upper": 34,
+        "actual": 0.0038,
+        "incumbent": 0,
+        "candidate": 0
+      },
+      {
+        "x": 35,
+        "lower": 34,
+        "upper": 36,
+        "actual": 0.0026,
+        "incumbent": 0,
+        "candidate": 0
+      },
+      {
+        "x": 37,
+        "lower": 36,
+        "upper": 38,
+        "actual": 0.0018,
+        "incumbent": 0,
+        "candidate": 0
+      },
+      {
+        "x": 39,
+        "lower": 38,
+        "upper": 40,
+        "actual": 0.0029,
+        "incumbent": 0,
+        "candidate": 0
+      }
+    ],
+    "signed_error": [
+      {
+        "x": -23,
+        "lower": -24,
+        "upper": -22,
+        "incumbent": 0.006,
+        "candidate": 0.0058
+      },
+      {
+        "x": -21,
+        "lower": -22,
+        "upper": -20,
+        "incumbent": 0.0034,
+        "candidate": 0.0034
+      },
+      {
+        "x": -19,
+        "lower": -20,
+        "upper": -18,
+        "incumbent": 0.0055,
+        "candidate": 0.0056
+      },
+      {
+        "x": -17,
+        "lower": -18,
+        "upper": -16,
+        "incumbent": 0.0082,
+        "candidate": 0.0083
+      },
+      {
+        "x": -15,
+        "lower": -16,
+        "upper": -14,
+        "incumbent": 0.0128,
+        "candidate": 0.0122
+      },
+      {
+        "x": -13,
+        "lower": -14,
+        "upper": -12,
+        "incumbent": 0.0198,
+        "candidate": 0.0192
+      },
+      {
+        "x": -11,
+        "lower": -12,
+        "upper": -10,
+        "incumbent": 0.0282,
+        "candidate": 0.0283
+      },
+      {
+        "x": -9,
+        "lower": -10,
+        "upper": -8,
+        "incumbent": 0.0357,
+        "candidate": 0.0362
+      },
+      {
+        "x": -7,
+        "lower": -8,
+        "upper": -6,
+        "incumbent": 0.0487,
+        "candidate": 0.0482
+      },
+      {
+        "x": -5,
+        "lower": -6,
+        "upper": -4,
+        "incumbent": 0.0683,
+        "candidate": 0.067
+      },
+      {
+        "x": -3,
+        "lower": -4,
+        "upper": -2,
+        "incumbent": 0.0815,
+        "candidate": 0.0839
+      },
+      {
+        "x": -1,
+        "lower": -2,
+        "upper": 0,
+        "incumbent": 0.1098,
+        "candidate": 0.1085
+      },
+      {
+        "x": 1,
+        "lower": 0,
+        "upper": 2,
+        "incumbent": 0.146,
+        "candidate": 0.1447
+      },
+      {
+        "x": 3,
+        "lower": 2,
+        "upper": 4,
+        "incumbent": 0.1802,
+        "candidate": 0.1837
+      },
+      {
+        "x": 5,
+        "lower": 4,
+        "upper": 6,
+        "incumbent": 0.1254,
+        "candidate": 0.1239
+      },
+      {
+        "x": 7,
+        "lower": 6,
+        "upper": 8,
+        "incumbent": 0.0657,
+        "candidate": 0.0664
+      },
+      {
+        "x": 9,
+        "lower": 8,
+        "upper": 10,
+        "incumbent": 0.0305,
+        "candidate": 0.0306
+      },
+      {
+        "x": 11,
+        "lower": 10,
+        "upper": 12,
+        "incumbent": 0.0137,
+        "candidate": 0.014
+      },
+      {
+        "x": 13,
+        "lower": 12,
+        "upper": 14,
+        "incumbent": 0.0068,
+        "candidate": 0.0063
+      },
+      {
+        "x": 15,
+        "lower": 14,
+        "upper": 16,
+        "incumbent": 0.0025,
+        "candidate": 0.0024
+      },
+      {
+        "x": 17,
+        "lower": 16,
+        "upper": 18,
+        "incumbent": 0.001,
+        "candidate": 0.001
+      },
+      {
+        "x": 19,
+        "lower": 18,
+        "upper": 20,
+        "incumbent": 0.0004,
+        "candidate": 0.0004
+      },
+      {
+        "x": 21,
+        "lower": 20,
+        "upper": 22,
+        "incumbent": 0,
+        "candidate": 0
+      },
+      {
+        "x": 23,
+        "lower": 22,
+        "upper": 24,
+        "incumbent": 0,
+        "candidate": 0
+      }
+    ],
+    "absolute_error_cdf": [
+      {
+        "threshold": 0,
+        "incumbent": 0,
+        "candidate": 0
+      },
+      {
+        "threshold": 2,
+        "incumbent": 0.2558,
+        "candidate": 0.2532
+      },
+      {
+        "threshold": 4,
+        "incumbent": 0.5174,
+        "candidate": 0.5207
+      },
+      {
+        "threshold": 6,
+        "incumbent": 0.7112,
+        "candidate": 0.7116
+      },
+      {
+        "threshold": 8,
+        "incumbent": 0.8256,
+        "candidate": 0.8262
+      },
+      {
+        "threshold": 10,
+        "incumbent": 0.8918,
+        "candidate": 0.893
+      },
+      {
+        "threshold": 12,
+        "incumbent": 0.9337,
+        "candidate": 0.9353
+      },
+      {
+        "threshold": 14,
+        "incumbent": 0.9603,
+        "candidate": 0.9609
+      },
+      {
+        "threshold": 16,
+        "incumbent": 0.9756,
+        "candidate": 0.9755
+      },
+      {
+        "threshold": 18,
+        "incumbent": 0.9848,
+        "candidate": 0.9848
+      },
+      {
+        "threshold": 20,
+        "incumbent": 0.9906,
+        "candidate": 0.9908
+      },
+      {
+        "threshold": 25,
+        "incumbent": 0.9974,
+        "candidate": 0.9974
+      },
+      {
+        "threshold": 30,
+        "incumbent": 0.9991,
+        "candidate": 0.9991
+      }
+    ]
+  },
+  "interval_coverage": [
+    {
+      "nominal": 0.5,
+      "incumbent": 0.5159,
+      "candidate": 0.5113
+    },
+    {
+      "nominal": 0.9,
+      "incumbent": 0.9061,
+      "candidate": 0.907
+    }
+  ],
+  "by_position": [
+    {
+      "position": "QB",
+      "n": 39786,
+      "pinball_incumbent": 1.1003,
+      "pinball_candidate": 1.0909,
+      "pinball_gain": 0.0094,
+      "mae_incumbent": 3.2764,
+      "mae_candidate": 3.2475,
+      "mae_gain": 0.029
+    },
+    {
+      "position": "RB",
+      "n": 70308,
+      "pinball_incumbent": 0.9712,
+      "pinball_candidate": 0.9655,
+      "pinball_gain": 0.0056,
+      "mae_incumbent": 2.7968,
+      "mae_candidate": 2.7774,
+      "mae_gain": 0.0194
+    },
+    {
+      "position": "TE",
+      "n": 58671,
+      "pinball_incumbent": 0.6667,
+      "pinball_candidate": 0.6645,
+      "pinball_gain": 0.0023,
+      "mae_incumbent": 1.9567,
+      "mae_candidate": 1.9483,
+      "mae_gain": 0.0084
+    },
+    {
+      "position": "WR",
+      "n": 101166,
+      "pinball_incumbent": 0.9797,
+      "pinball_candidate": 0.9763,
+      "pinball_gain": 0.0034,
+      "mae_incumbent": 2.8447,
+      "mae_candidate": 2.8321,
+      "mae_gain": 0.0126
+    }
+  ],
+  "by_season": [
+    {
+      "season": 2017,
+      "n": 29490,
+      "pinball_incumbent": 0.8983,
+      "pinball_candidate": 0.8956,
+      "pinball_gain": 0.0026,
+      "mae_incumbent": 2.5774,
+      "mae_candidate": 2.5485,
+      "mae_gain": 0.0289
+    },
+    {
+      "season": 2018,
+      "n": 28716,
+      "pinball_incumbent": 0.958,
+      "pinball_candidate": 0.9539,
+      "pinball_gain": 0.004,
+      "mae_incumbent": 2.7806,
+      "mae_candidate": 2.7816,
+      "mae_gain": -0.001
+    },
+    {
+      "season": 2019,
+      "n": 29268,
+      "pinball_incumbent": 0.9368,
+      "pinball_candidate": 0.9317,
+      "pinball_gain": 0.0052,
+      "mae_incumbent": 2.717,
+      "mae_candidate": 2.7073,
+      "mae_gain": 0.0097
+    },
+    {
+      "season": 2020,
+      "n": 29664,
+      "pinball_incumbent": 0.9768,
+      "pinball_candidate": 0.9709,
+      "pinball_gain": 0.0059,
+      "mae_incumbent": 2.8366,
+      "mae_candidate": 2.8184,
+      "mae_gain": 0.0182
+    },
+    {
+      "season": 2021,
+      "n": 31665,
+      "pinball_incumbent": 0.949,
+      "pinball_candidate": 0.9448,
+      "pinball_gain": 0.0042,
+      "mae_incumbent": 2.8013,
+      "mae_candidate": 2.7799,
+      "mae_gain": 0.0214
+    },
+    {
+      "season": 2022,
+      "n": 30483,
+      "pinball_incumbent": 0.914,
+      "pinball_candidate": 0.9102,
+      "pinball_gain": 0.0038,
+      "mae_incumbent": 2.674,
+      "mae_candidate": 2.6647,
+      "mae_gain": 0.0093
+    },
+    {
+      "season": 2023,
+      "n": 30138,
+      "pinball_incumbent": 0.8966,
+      "pinball_candidate": 0.8928,
+      "pinball_gain": 0.0038,
+      "mae_incumbent": 2.6048,
+      "mae_candidate": 2.5828,
+      "mae_gain": 0.022
+    },
+    {
+      "season": 2024,
+      "n": 29697,
+      "pinball_incumbent": 0.9256,
+      "pinball_candidate": 0.9203,
+      "pinball_gain": 0.0052,
+      "mae_incumbent": 2.7168,
+      "mae_candidate": 2.6989,
+      "mae_gain": 0.018
+    },
+    {
+      "season": 2025,
+      "n": 30810,
+      "pinball_incumbent": 0.8917,
+      "pinball_candidate": 0.885,
+      "pinball_gain": 0.0067,
+      "mae_incumbent": 2.6179,
+      "mae_candidate": 2.6023,
+      "mae_gain": 0.0156
+    }
+  ],
+  "notes": {
+    "chart_cohort": "Paired player-weeks with candidate active probability at or above 75% in at least one fit; repeated seeds are averaged before plotting.",
+    "metric_cohort": "Headline and segment gains use every paired prediction and preserve repeated seeds for fit-stability evaluation.",
+    "signed_error": "Projection minus actual points; zero is centered, negative means the model projected too low.",
+    "gain": "Positive gain means the candidate reduced loss or error versus the incumbent."
+  }
+}

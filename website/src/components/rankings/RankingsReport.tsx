@@ -58,7 +58,10 @@ function ErrCell({ err, otherErr }: { err: number | null; otherErr: number | nul
   );
 }
 
-function DisagreementList({ title, rows, tone }: { title: string; rows: any[]; tone: string }) {
+// `gmin` mirrors the exporter's week-aware qualification (min(2, week)): at week 1
+// a single game IS the season to date, so requiring 2 here blanked the column for
+// every player on the first scored snapshot of the year.
+function DisagreementList({ title, rows, tone, gmin }: { title: string; rows: any[]; tone: string; gmin: number }) {
   return (
     <div>
       <div className="text-[10px] uppercase tracking-wider mb-1.5" style={{ color: tone }}>{title}</div>
@@ -72,7 +75,7 @@ function DisagreementList({ title, rows, tone }: { title: string; rows: any[]; t
             <span className="text-right text-text-muted">{r.my_pos_rank}</span>
             <span className="text-right text-text-muted">{r.ecr_pos_rank}</span>
             <span className="text-right font-medium" style={{ color: tone }}>{r.delta > 0 ? '+' : ''}{r.delta}</span>
-            <span className="text-right text-text-secondary">{r.games >= 2 && r.actual_ppg != null ? `${num(r.actual_ppg)}pg` : '–'}</span>
+            <span className="text-right text-text-secondary">{r.games >= gmin && r.actual_ppg != null ? `${num(r.actual_ppg)}pg` : '–'}</span>
           </div>
         ))}
       </div>
@@ -232,6 +235,7 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
     });
   }, [snap, pos, sort]);
   const viewingWk = snap?.week;
+  const ppgGmin = Math.min(2, Math.max(1, viewingWk ?? 1));
   const openingBaselineLocked = snap?.baseline?.type === 'season_opening' && snap?.baseline?.locked === true;
   const baselineTag = snap?.baseline?.source_tag ?? `${season}-wk00`;
 
@@ -295,7 +299,7 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
         <div className="rounded-2xl border border-border-light bg-bg-card/40 p-4 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[11px] text-text-muted">{FMT_LABEL[activeFmt] ?? activeFmt} · {hasActuals ? `final performance through ${getWeekLabel(viewingWk)}` : 'preseason rankings'}</span>
+              <span className="text-[11px] text-text-muted">{FMT_LABEL[activeFmt] ?? activeFmt} · {hasActuals ? `${(viewingWk ?? 0) >= 18 ? 'final performance' : 'performance'} through ${getWeekLabel(viewingWk)}` : 'preseason rankings'}</span>
               {openingBaselineLocked && <span title={`Model projections and ECR ranks are fixed from ${baselineTag}. Weekly results are scored against this opening board.`} className="rounded-full border border-[#d29922]/35 bg-[#d29922]/10 px-1.5 py-0.5 text-[9px] font-semibold text-[#d29922]">Locked opening baseline</span>}
               <FreshnessTag updated={snap?.updated} />
             </div>
@@ -342,8 +346,8 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
       <Section title="Biggest disagreements" accent={MODEL_BLUE}
         subtitle="where my model and ECR most diverge (Δ = ECR pos-rank − my pos-rank)">
         <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
-          <DisagreementList title="My model higher (values)" rows={snap?.values} tone={MODEL_BLUE} />
-          <DisagreementList title="My model lower (fades)" rows={snap?.fades} tone={ECR_ORANGE} />
+          <DisagreementList title="My model higher (values)" rows={snap?.values} tone={MODEL_BLUE} gmin={ppgGmin} />
+          <DisagreementList title="My model lower (fades)" rows={snap?.fades} tone={ECR_ORANGE} gmin={ppgGmin} />
         </div>
       </Section>
 
