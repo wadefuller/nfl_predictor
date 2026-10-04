@@ -7,11 +7,14 @@ Lightweight model designed to predict NFL game outcomes using only team performa
 ### Repo construction
 1. `build_features.R`: Loads nflfastR PBP + games data and produces `data/game_w_features.csv` with all engineered features.
 2. `tune_hyperparams.R`: Tunes XGBoost hyperparameters via temporal rolling-origin CV (~1 min). Writes `data/tune_best_params_reg.rds`.
-3. `walk_forward_eval.R`: Honest OOS walk-forward backtest. For each holdout season, trains XGB + cv.glmnet + ranger RF, fits NNLS stacking + Platt calibration on a held-out season, evaluates on holdout. Writes all `data/walk_forward_*.csv` outputs.
+3. `walk_forward_eval.R`: Honest OOS walk-forward backtest and optimized ATS experiment runner. Production GLM-only runs skip zero-weight learners; `probe`, `screen`, and `confirm` profiles use exact fold caches and bounded season parallelism. Writes all `data/walk_forward_*.csv` outputs. See `docs/ATS_EXPERIMENT_PROCESS.md`.
 4. `strategy_sweep.R` / `strategy_holdout_validation.R`: Sweep betting strategy parameters on saved predictions; validate on held-out years.
 5. `calibration_diagnostic.R`: Reliability analysis of pred_win_pct from saved walk-forward predictions.
 6. `train_and_save_ensemble.R`: Trains the production ensemble on the full training window and saves a bundle for live use.
 7. `predict_week.rmd` / `export_json.R`: Load the production ensemble bundle and generate predictions for live games / the website.
+
+Research workflow: `docs/ATS_EXPERIMENT_PROCESS.md` defines the staged evidence
+standard; `docs/ATS_RESEARCH_ROADMAP.md` contains the prioritized backlog.
 
 ### Model Features
 

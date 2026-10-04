@@ -23,7 +23,7 @@
   season = integer(), week = integer(), game_id = character(), bet_team = character(),
   opponent = character(), question = character(), slug = character(), market_id = character(),
   model_probability = numeric(), model_probability_raw = numeric(), market_p = numeric(), ask = numeric(), execution_price = numeric(), raw_edge = numeric(),
-  net_ev = numeric(), qualifies = logical(), liquidity = numeric(), volume = numeric(), fetched_at = character()
+  ev_raw = numeric(), net_ev = numeric(), qualifies = logical(), liquidity = numeric(), volume = numeric(), fetched_at = character()
 )
 
 .poly_json <- function(x) {
@@ -67,10 +67,19 @@ if (!is.finite(POLY_MODEL_WEIGHT)) POLY_MODEL_WEIGHT <- 1.0
 fetch_polymarket_moneylines <- function(predictions, season, week,
                                         min_liquidity = 1000, execution_buffer = 0.01,
                                         model_weight = POLY_MODEL_WEIGHT,
-                                        ev_cal = EV_CALIBRATION_DEFAULT) {
+                                        ev_cal = EV_CALIBRATION_DEFAULT,
+                                        min_ev = PORTFOLIO_DEFAULTS$min_ev) {
   fetched_at <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z")
   empty <- .poly_empty()
   if (nrow(predictions) == 0) return(empty)
+  # `model_probability` below is the PRE-KICKOFF number. Scoring it against a
+  # live or settled book compares two different moments and always favours the
+  # model, so only games that have not started are priced at all.
+  predictions <- tradable_slate(predictions, season)
+  if (nrow(predictions) == 0) {
+    message("  polymarket: no eligible pregame predictions (started or availability unverified)")
+    return(empty)
+  }
 
   # WHY THIS IS ADDRESSED BY SLUG AND NOT BY TAG
   # -------------------------------------------
@@ -188,6 +197,20 @@ fetch_polymarket_moneylines <- function(predictions, season, week,
   # Shrink toward the market BEFORE scoring. `ask` carries the vig, so the two
   # sides of a game sum above 1; de-vig first or the shrinkage target is biased
   # high and every contract looks worse than it is.
+  # `ask / sum(ask)` de-vigs only if BOTH sides of the game are present. When one
+  # is filtered out above (price <= 0 or >= 1, which is what a lopsided book
+  # produces) the survivor's market_p becomes exactly 1.0 by construction — a
+  # fabricated certainty, not a market view. It then drags model_probability up
+  # through the shrinkage below, inflating the very number being scored. The
+  # symptom was a row reading `market_p 1` beside `ask 0.001`, which cannot both
+  # be true. A game with one usable side cannot be de-vigged, so it is dropped.
+  incomplete <- rows %>% dplyr::count(game_id) %>% dplyr::filter(n != 2)
+  if (nrow(incomplete) > 0) {
+    message(sprintf("  polymarket: %d game(s) had only one usable side — cannot de-vig, dropped",
+                    nrow(incomplete)))
+    rows <- dplyr::filter(rows, !game_id %in% incomplete$game_id)
+  }
+  if (nrow(rows) == 0) return(empty)
   rows <- rows %>%
     dplyr::group_by(game_id) %>%
     dplyr::mutate(market_p = ask / sum(ask)) %>%
@@ -198,11 +221,18 @@ fetch_polymarket_moneylines <- function(predictions, season, week,
         .poly_logit(market_p) +
           model_weight * (.poly_logit(model_probability_raw) - .poly_logit(market_p))),
       raw_edge = model_probability - ask,
-      net_ev   = calibrate_ev(model_probability / execution_price - 1, ev_cal)
+      ev_raw   = model_probability / execution_price - 1,
+      net_ev   = calibrate_ev(ev_raw, ev_cal)
     )
   rows %>%
     dplyr::filter(is.finite(net_ev)) %>%
-    dplyr::mutate(qualifies = net_ev >= 0.05) %>%
+    # An EV outside the calibration's domain is a statement about the PRICE, not
+    # about the size of the edge: it takes a near-zero denominator to get there.
+    # Such a row is reported (so it stays visible) but never qualifies.
+    # Was a hardcoded 0.05 while the sportsbook card and kalshi_lib.R both read
+    # PORTFOLIO_DEFAULTS$min_ev — so the three venues silently applied different
+    # bars, and re-sweeping the threshold moved two of them and not this one.
+    dplyr::mutate(qualifies = net_ev >= min_ev & ev_raw_in_domain(ev_raw, ev_cal)) %>%
     dplyr::arrange(dplyr::desc(qualifies), dplyr::desc(net_ev), dplyr::desc(liquidity)) %>%
     dplyr::distinct(game_id, bet_team, .keep_all = TRUE)
 }

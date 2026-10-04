@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { availabilityEligible } from '../../lib/availability';
 import type { Game } from '../../types';
 
 /** One recommended position, normalized away from whichever source produced it. */
@@ -46,7 +47,7 @@ export function TopBets({ games, bets: betRows, bankroll = 1000, unitSize = 10,
                          limit = 8, subtitle }: TopBetsProps) {
   const [showAll, setShowAll] = useState(false);
   const rows: TopBetRow[] = (betRows ?? (games ?? [])
-    .filter(g => g.bet)
+    .filter(g => g.bet && (g.result || availabilityEligible(g.availability)))
     .map(g => ({
       key: g.gameId, away: g.awayTeam, home: g.homeTeam,
       side: g.bet!.side, type: g.bet!.type as 'ml' | 'spread',

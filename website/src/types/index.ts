@@ -12,6 +12,7 @@ export interface Game {
   homeMoneyline: number | null;
   awayMoneyline: number | null;
   divGame: boolean;
+  availability?: { eligible: boolean; reason: string; checkedAt?: string | null };
   prediction: GamePrediction;
   result: GameResult | null;
   /** Recommended position from the canonical betting engine; absent when no side

@@ -4,7 +4,23 @@
 # continuity broke mid-game.
 # Lag-shifted one game per team. Pre-2012 returns empty tibble.
 
-extract_snap_features <- function(seasons) {
+lag_snap_features <- function(per_game, games) {
+  # Join to the schedule *before* shifting. Otherwise an upcoming game has no
+  # snap-count row of its own and can never receive the previous game's snaps.
+  schedule <- dplyr::bind_rows(
+    games %>% transmute(season, week, team = home_team),
+    games %>% transmute(season, week, team = away_team)
+  ) %>% distinct(season, week, team)
+  schedule %>%
+    left_join(per_game, by = c("season", "week", "team")) %>%
+    arrange(season, team, week) %>%
+    group_by(season, team) %>%
+    mutate(across(starts_with("snap_"), ~lag(.))) %>%
+    ungroup() %>%
+    rename_with(~ paste0(.x, "_lastwk"), starts_with("snap_"))
+}
+
+extract_snap_features <- function(seasons, games) {
   sc_max     <- min(max(seasons), nflreadr::most_recent_season())
   sc_seasons <- intersect(seasons, 2012:sc_max)
   if (length(sc_seasons) == 0) return(tibble())
@@ -36,19 +52,14 @@ extract_snap_features <- function(seasons) {
       .groups = "drop"
     )
 
-  per_game %>%
-    arrange(season, team, week) %>%
-    group_by(season, team) %>%
-    mutate(across(starts_with("snap_"), ~lag(.))) %>%
-    ungroup() %>%
-    rename_with(~ paste0(.x, "_lastwk"), starts_with("snap_"))
+  lag_snap_features(per_game, games %>% filter(season %in% sc_seasons))
 }
 
 SNAP_COUNTS_MODULE <- feature_module(
   name        = "snap_counts",
   description = "Prior-game snap-count features: top-11 avg snap%, skill-position workload, OL/secondary depth-chart anchors",
   level       = "team_week_post_pivot",
-  needs       = character(0),
+  needs       = c("games"),
   enabled     = function() TRUE,
-  build       = function(seasons, deps) extract_snap_features(seasons)
+  build       = function(seasons, deps) extract_snap_features(seasons, deps$games)
 )

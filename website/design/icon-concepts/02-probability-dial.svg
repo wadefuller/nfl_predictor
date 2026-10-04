@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Probability Dial icon</title>
+  <rect x="3" y="3" width="58" height="58" rx="15" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#30363d" stroke-width="7"/>
+  <path d="M32 13a19 19 0 1 1-18.1 24.8" fill="none" stroke="#58a6ff" stroke-width="7" stroke-linecap="round"/>
+  <path d="M32 32l11-10" fill="none" stroke="#e6edf3" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="32" cy="32" r="4" fill="#e6edf3"/>
+</svg>

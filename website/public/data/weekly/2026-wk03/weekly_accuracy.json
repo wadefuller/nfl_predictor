@@ -1,0 +1,366 @@
+{
+  "season": 2026,
+  "week": 3,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 314,
+      "mae": 4.36,
+      "rmse": 5.86,
+      "bias": 1.03,
+      "spearman": 0.621,
+      "ceiling_cov": 0.828,
+      "floor_cov": 0.968
+    },
+    {
+      "position": "QB",
+      "n": 36,
+      "mae": 6.52,
+      "rmse": 8.45,
+      "bias": 2.28,
+      "spearman": 0.282,
+      "ceiling_cov": 0.806,
+      "floor_cov": 0.917
+    },
+    {
+      "position": "RB",
+      "n": 81,
+      "mae": 4.16,
+      "rmse": 5.44,
+      "bias": 0.02,
+      "spearman": 0.639,
+      "ceiling_cov": 0.877,
+      "floor_cov": 0.963
+    },
+    {
+      "position": "TE",
+      "n": 71,
+      "mae": 4.05,
+      "rmse": 5.85,
+      "bias": 1.65,
+      "spearman": 0.439,
+      "ceiling_cov": 0.761,
+      "floor_cov": 0.972
+    },
+    {
+      "position": "WR",
+      "n": 126,
+      "mae": 4.05,
+      "rmse": 5.19,
+      "bias": 0.97,
+      "spearman": 0.568,
+      "ceiling_cov": 0.841,
+      "floor_cov": 0.984
+    }
+  ],
+  "cohort": {
+    "projected": 616,
+    "evaluated": 314,
+    "no_opportunity": 302,
+    "high_confidence_no_opportunity": 19,
+    "rule": "At least one pass attempt, carry, target, or non-zero fantasy score"
+  },
+  "calibration": [
+    {
+      "bucket": "0–5",
+      "n": 136,
+      "projected": 2.08,
+      "actual": 4.22,
+      "bias": 2.14,
+      "mae": 3.38
+    },
+    {
+      "bucket": "5–10",
+      "n": 98,
+      "projected": 7.13,
+      "actual": 6.9,
+      "bias": -0.22,
+      "mae": 4.44
+    },
+    {
+      "bucket": "10–15",
+      "n": 51,
+      "projected": 11.87,
+      "actual": 12.95,
+      "bias": 1.08,
+      "mae": 5.94
+    },
+    {
+      "bucket": "15–20",
+      "n": 23,
+      "projected": 16.88,
+      "actual": 17.15,
+      "bias": 0.27,
+      "mae": 6.38
+    },
+    {
+      "bucket": "20+",
+      "n": 6,
+      "projected": 21.68,
+      "actual": 20.49,
+      "bias": -1.19,
+      "mae": 4.22
+    }
+  ],
+  "availability": [],
+  "class_counts": [
+    {
+      "boom": 14,
+      "bust": 5,
+      "met": 133
+    }
+  ],
+  "beats": [
+    {
+      "player": "Bijan Robinson",
+      "position": "RB",
+      "team": "ATL",
+      "proj": 15.6,
+      "actual": 34.3,
+      "surprise": 18.7,
+      "class": "boom"
+    },
+    {
+      "player": "Jahmyr Gibbs",
+      "position": "RB",
+      "team": "DET",
+      "proj": 19.3,
+      "actual": 37.9,
+      "surprise": 18.6,
+      "class": "boom"
+    },
+    {
+      "player": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "team": "SEA",
+      "proj": 14.2,
+      "actual": 30.4,
+      "surprise": 16.2,
+      "class": "boom"
+    },
+    {
+      "player": "George Kittle",
+      "position": "TE",
+      "team": "SF",
+      "proj": 9.2,
+      "actual": 23.2,
+      "surprise": 14,
+      "class": "boom"
+    },
+    {
+      "player": "Harold Fannin Jr.",
+      "position": "TE",
+      "team": "CLE",
+      "proj": 7.6,
+      "actual": 20.6,
+      "surprise": 13,
+      "class": "boom"
+    },
+    {
+      "player": "Drake London",
+      "position": "WR",
+      "team": "ATL",
+      "proj": 11.1,
+      "actual": 23.9,
+      "surprise": 12.8,
+      "class": "boom"
+    },
+    {
+      "player": "Juwan Johnson",
+      "position": "TE",
+      "team": "NO",
+      "proj": 7.1,
+      "actual": 19.3,
+      "surprise": 12.2,
+      "class": "boom"
+    },
+    {
+      "player": "Geno Smith",
+      "position": "QB",
+      "team": "NYJ",
+      "proj": 14.2,
+      "actual": 26,
+      "surprise": 11.8,
+      "class": "boom"
+    },
+    {
+      "player": "Michael Wilson",
+      "position": "WR",
+      "team": "ARI",
+      "proj": 9,
+      "actual": 20.4,
+      "surprise": 11.4,
+      "class": "boom"
+    },
+    {
+      "player": "Aaron Rodgers",
+      "position": "QB",
+      "team": "PIT",
+      "proj": 11.7,
+      "actual": 22.7,
+      "surprise": 11,
+      "class": "boom"
+    },
+    {
+      "player": "Jacoby Brissett",
+      "position": "QB",
+      "team": "ARI",
+      "proj": 14.7,
+      "actual": 25.6,
+      "surprise": 10.9,
+      "class": "boom"
+    },
+    {
+      "player": "Jordan Addison",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 6.8,
+      "actual": 17.5,
+      "surprise": 10.7,
+      "class": "boom"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Drake Maye",
+      "position": "QB",
+      "team": "NE",
+      "proj": 17.2,
+      "actual": 3.8,
+      "surprise": -13.4,
+      "class": "bust"
+    },
+    {
+      "player": "De'Von Achane",
+      "position": "RB",
+      "team": "MIA",
+      "proj": 13.9,
+      "actual": 1.7,
+      "surprise": -12.2,
+      "class": "bust"
+    },
+    {
+      "player": "Jonathan Taylor",
+      "position": "RB",
+      "team": "IND",
+      "proj": 17,
+      "actual": 8.2,
+      "surprise": -8.8,
+      "class": "met"
+    },
+    {
+      "player": "Justin Jefferson",
+      "position": "WR",
+      "team": "MIN",
+      "proj": 12.9,
+      "actual": 4.2,
+      "surprise": -8.7,
+      "class": "met"
+    },
+    {
+      "player": "Tetairoa McMillan",
+      "position": "WR",
+      "team": "CAR",
+      "proj": 11.3,
+      "actual": 2.7,
+      "surprise": -8.6,
+      "class": "bust"
+    },
+    {
+      "player": "Omarion Hampton",
+      "position": "RB",
+      "team": "LAC",
+      "proj": 13.8,
+      "actual": 5.6,
+      "surprise": -8.2,
+      "class": "met"
+    },
+    {
+      "player": "Dalton Kincaid",
+      "position": "TE",
+      "team": "BUF",
+      "proj": 10.7,
+      "actual": 2.8,
+      "surprise": -7.9,
+      "class": "met"
+    },
+    {
+      "player": "Daniel Jones",
+      "position": "QB",
+      "team": "IND",
+      "proj": 15.4,
+      "actual": 7.9,
+      "surprise": -7.5,
+      "class": "met"
+    },
+    {
+      "player": "TreVeyon Henderson",
+      "position": "RB",
+      "team": "NE",
+      "proj": 10.7,
+      "actual": 3.4,
+      "surprise": -7.3,
+      "class": "met"
+    },
+    {
+      "player": "Jalen Coker",
+      "position": "WR",
+      "team": "CAR",
+      "proj": 10,
+      "actual": 2.8,
+      "surprise": -7.2,
+      "class": "met"
+    },
+    {
+      "player": "Chase Brown",
+      "position": "RB",
+      "team": "CIN",
+      "proj": 14.7,
+      "actual": 7.9,
+      "surprise": -6.8,
+      "class": "met"
+    },
+    {
+      "player": "Jalen Hurts",
+      "position": "QB",
+      "team": "PHI",
+      "proj": 19,
+      "actual": 12.6,
+      "surprise": -6.4,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 311,
+      "model": 0.622,
+      "ecr": 0.576
+    },
+    {
+      "position": "QB",
+      "n": 35,
+      "model": 0.219,
+      "ecr": 0.285
+    },
+    {
+      "position": "RB",
+      "n": 80,
+      "model": 0.639,
+      "ecr": 0.661
+    },
+    {
+      "position": "TE",
+      "n": 70,
+      "model": 0.467,
+      "ecr": 0.453
+    },
+    {
+      "position": "WR",
+      "n": 126,
+      "model": 0.568,
+      "ecr": 0.572
+    }
+  ],
+  "ecr_kind": "weekly"
+}

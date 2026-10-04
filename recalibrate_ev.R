@@ -29,11 +29,18 @@ if (!"cover_prob_home" %in% names(p)) {
 }
 
 # Build ML candidates (one per game: pick side our pred favors)
+# `correct` must describe the side STAKED. The bet goes on the higher win
+# PROBABILITY (that is the probability the EV is priced from), while ml_correct
+# grades the MARGIN's pick. They disagree on coin-flip games, so the calibration
+# was being fitted against outcomes for bets it had not placed — on exactly the
+# thin-edge rows that set the slope.
 ml_bets <- p %>%
   mutate(
     odds = if_else(pred_win_pct > 0.5, home_moneyline, away_moneyline),
     prob = if_else(pred_win_pct > 0.5, pred_win_pct, 1 - pred_win_pct),
-    correct = ml_correct
+    bet_team = if_else(pred_win_pct > 0.5, home_team, away_team),
+    correct  = if_else(home_result == 0, NA_integer_,
+                       as.integer(bet_team == if_else(home_result > 0, home_team, away_team)))
   ) %>%
   filter(!is.na(odds), !is.na(prob), !is.na(correct)) %>%
   mutate(

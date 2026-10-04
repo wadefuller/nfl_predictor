@@ -48,25 +48,38 @@ run_one <- function(cfg,
                      row_extras  = list(),
                      hash_fn     = config_hash) {
   hash <- hash_fn(cfg)
+  profile <- match.arg(Sys.getenv("ATS_PROFILE", "confirm"),
+                       c("probe", "screen", "confirm"))
+  run_key <- paste(hash, profile, sep = "-")
   label <- if (is.null(label)) hash else label
-  cat(sprintf("\n=== [%s] %s (hash=%s) ===\n", phase_label, label, hash))
+  cat(sprintf("\n=== [%s/%s] %s (hash=%s) ===\n",
+              phase_label, profile, label, hash))
 
   existing <- read_results(results_csv)
-  if (!is.null(existing) && hash %in% existing$config_hash) {
+  if (!is.null(existing) &&
+      any(existing$config_hash == hash & existing$profile == profile)) {
     cat("  (cached — skipping rebuild)\n")
-    return(invisible(existing %>% filter(config_hash == hash) %>% slice_tail(n = 1)))
+    return(invisible(existing %>%
+      filter(config_hash == hash, .data$profile == .env$profile) %>% slice_tail(n = 1)))
   }
 
   env_vec  <- env_builder(cfg)
+  eval_dir <- if (profile == "confirm") DATA_DIR else
+    file.path(cache_dir, "outputs", run_key)
+  dir.create(eval_dir, recursive = TRUE, showWarnings = FALSE)
+  env_vec <- c(env_vec, ATS_PROFILE = profile, ATS_OUTPUT_DIR = eval_dir)
   env_args <- paste0(names(env_vec), "=", shQuote(env_vec))
 
   t0 <- Sys.time()
 
-  shell_step("build_features.R",     env_args, cache_dir, hash, "build")
-  shell_step("walk_forward_eval.R",  env_args, cache_dir, hash, "wfe")
+  shell_step("build_features.R",     env_args, cache_dir, run_key, "build")
+  shell_step("walk_forward_eval.R",  env_args, cache_dir, run_key, "wfe")
 
-  port_env_args <- if (refit_ev) {
-    shell_step("recalibrate_ev.R", character(), cache_dir, hash, "recal")
+  # Portfolio calibration is confirmation-only. Probe/screen profiles answer
+  # whether the model changed usefully; policy sweeps rescore saved predictions
+  # later without another fit.
+  port_env_args <- if (refit_ev && profile == "confirm") {
+    shell_step("recalibrate_ev.R", character(), cache_dir, run_key, "recal")
     ev_cal_path <- file.path(DATA_DIR, "ev_calibration.json")
     if (!file.exists(ev_cal_path)) stop("recalibrate_ev.R did not write ev_calibration.json")
     ev_cal <- jsonlite::fromJSON(ev_cal_path)
@@ -77,21 +90,24 @@ run_one <- function(cfg,
   } else {
     env_args
   }
-  shell_step("portfolio_sim.R", port_env_args, cache_dir, hash, "port")
+  if (profile == "confirm")
+    shell_step("portfolio_sim.R", port_env_args, cache_dir, run_key, "port")
 
-  metrics <- collect_metrics()
+  metrics <- collect_metrics(eval_dir = eval_dir,
+                             include_portfolio = profile == "confirm")
   elapsed <- as.numeric(difftime(Sys.time(), t0, units = "mins"))
   cat(sprintf("  done in %.1f min: brier=%.5f cover_acc=%.4f cagr=%.4f sharpe=%.2f maxdd=%.3f n_bets=%d\n",
               elapsed, metrics$brier, metrics$cover_acc, metrics$cagr,
               metrics$sharpe, metrics$max_dd, metrics$n_bets))
 
   # Snapshot the prediction CSV by hash for later paired-fold analysis.
-  file.copy(file.path(DATA_DIR, "walk_forward_predictions.csv"),
-            file.path(cache_dir, sprintf("preds_%s.csv", hash)),
+  file.copy(file.path(eval_dir, "walk_forward_predictions.csv"),
+            file.path(cache_dir, sprintf("preds_%s.csv", run_key)),
             overwrite = TRUE)
 
   row <- tibble(
     phase        = phase_label,
+    profile      = profile,
     config_hash  = hash,
     !!!row_extras,
     elapsed_min  = round(elapsed, 2),
@@ -144,10 +160,13 @@ run_sweep <- function(configs,
 # doesn't fail with character↔datetime mismatches.
 read_results <- function(results_csv) {
   if (!file.exists(results_csv)) return(NULL)
-  read_csv(results_csv, show_col_types = FALSE,
-           col_types = cols(timestamp = col_character(),
-                            config_hash = col_character(),
-                            phase = col_character()))
+  out <- read_csv(results_csv, show_col_types = FALSE,
+                  col_types = cols(timestamp = col_character(),
+                                   config_hash = col_character(),
+                                   phase = col_character()))
+  # Historical rows predate staged evaluation and are all full confirmations.
+  if (!"profile" %in% names(out)) out$profile <- "confirm"
+  out
 }
 
 append_result <- function(row, results_csv) {
@@ -158,14 +177,12 @@ append_result <- function(row, results_csv) {
 
 # ---- Metrics aggregation -------------------------------------------------
 
-collect_metrics <- function() {
-  wp     <- read_csv(file.path(DATA_DIR, "walk_forward_model_winprob.csv"),
+collect_metrics <- function(eval_dir = DATA_DIR, include_portfolio = TRUE) {
+  wp     <- read_csv(file.path(eval_dir, "walk_forward_model_winprob.csv"),
                      show_col_types = FALSE)
-  sp     <- read_csv(file.path(DATA_DIR, "walk_forward_model_spread.csv"),
+  sp     <- read_csv(file.path(eval_dir, "walk_forward_model_spread.csv"),
                      show_col_types = FALSE)
-  preds  <- read_csv(file.path(DATA_DIR, "walk_forward_predictions.csv"),
-                     show_col_types = FALSE)
-  trades <- read_csv(file.path(DATA_DIR, "portfolio_trades.csv"),
+  preds  <- read_csv(file.path(eval_dir, "walk_forward_predictions.csv"),
                      show_col_types = FALSE)
 
   agg_wt <- function(df, n_col, val_col) {
@@ -179,6 +196,14 @@ collect_metrics <- function() {
   cover_acc <- if ("cover_correct" %in% names(preds))
                   mean(preds$cover_correct, na.rm = TRUE) else NA_real_
 
+  if (!include_portfolio) {
+    return(list(n_bets = NA_integer_, brier = brier, logloss = logloss,
+                mae = mae, cover_acc = cover_acc, total_pnl = NA_real_,
+                cagr = NA_real_, sharpe = NA_real_, max_dd = NA_real_))
+  }
+
+  trades <- read_csv(file.path(DATA_DIR, "portfolio_trades.csv"),
+                     show_col_types = FALSE)
   initial_bankroll <- 10000
   n_seasons <- dplyr::n_distinct(trades$season)
   final_bk  <- initial_bankroll + sum(trades$pnl)

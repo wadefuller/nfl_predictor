@@ -1,4 +1,5 @@
 import type { Game } from '../../types';
+import { availabilityEligible, availabilityFresh } from '../../lib/availability';
 import { num } from '../ui/primitives';
 
 export interface LiveGame {
@@ -65,6 +66,7 @@ export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [], l
     predCorrect: null,
   } as any : null);
   const complete = result !== null;
+  const availabilityBlocked = !complete && !availabilityEligible(game.availability);
   // Before the pipeline writes the official grade, call a miss when the model's
   // predicted side fails to cover its own projected margin. This correctly marks
   // SEA (-4, won by 3) and LA (-7, lost by 20) as misses immediately.
@@ -80,7 +82,7 @@ export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [], l
   const homeWin = p.predWinner === game.homeTeam ? p.predWinPct : 1 - p.predWinPct;
   const vegas = vegasProbs(game.homeMoneyline, game.awayMoneyline);
   const pct = (v: number) => `${Math.round(v * 100)}%`;
-  const bet = game.bet ?? null;
+  const bet = availabilityBlocked || isLive ? null : game.bet ?? null;
   const referenceTeam = p.predWinner;
   const referenceIsHome = referenceTeam === game.homeTeam;
   const fromReference = (homeMargin: number) => referenceIsHome ? homeMargin : -homeMargin;
@@ -115,6 +117,7 @@ export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [], l
   if (kalshiSpread?.qualifies) options.push({ venue: 'Kalshi', color: KALSHI, pick: `${kalshiSpread.team} −${Number(kalshiSpread.threshold).toFixed(1)}`, kind: 'spread contract', ev: Number(kalshiSpread.ev), price: `${Math.round(Number(kalshiSpread.ask) * 100)}¢`, href: `https://kalshi.com/markets/${kalshiSpread.event_ticker}` });
   polymarket.filter((market: any) => market.qualifies).forEach((market: any) => options.push({ venue: 'Polymarket', color: POLYMARKET, pick: `${market.bet_team} YES`, kind: 'winner contract', ev: Number(market.net_ev), price: `${Math.round(Number(market.ask) * 100)}¢`, href: `https://polymarket.com/event/${market.slug}` }));
   options.sort((a, b) => b.ev - a.ev);
+  if (availabilityBlocked || isLive) options.length = 0;
   const bestVenue = options[0] ?? null;
   const alternatives = options.slice(1);
   const actualMargin = complete ? (referenceIsHome ? result!.homeResult : -result!.homeResult) : null;
@@ -158,7 +161,12 @@ export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [], l
         )}
         {isLive && <div className="flex items-center justify-between rounded-lg border border-loss/25 bg-loss/5 px-2 py-1.5 text-[10px]"><span className="font-medium text-[#ff8b86]">Live score</span><span className="text-text-secondary">Pregame model: {referenceTeam} {pct(modelWin)} win chance</span></div>}
 
-        {bestVenue ? (
+        {availabilityBlocked && !isLive ? (
+          <div role="status" className="rounded-lg border border-amber-400/30 bg-amber-400/5 px-2.5 py-2 text-[10px] text-text-secondary">
+            <div className="font-semibold text-amber-300">{availabilityFresh(game.availability) ? 'Recommendations withheld · QB availability' : 'Forecast needs refresh'}</div>
+            <div className="mt-1">{availabilityFresh(game.availability) ? game.availability?.reason || 'Expected starter could not be verified.' : 'The availability check is older than six hours or unavailable.'} Model probabilities below are unverified, not actionable edges.</div>
+          </div>
+        ) : bestVenue ? (
           <div className="rounded-lg px-2.5 py-2" style={{ background: `${bestVenue.color}14`, boxShadow: `inset 2px 0 0 ${bestVenue.color}` }}>
             <div className="flex items-center justify-between gap-2"><span className="text-[9px] font-medium uppercase tracking-wide" style={{ color: bestVenue.color }}>{options.length > 1 ? 'Best available price' : 'Recommended position'}</span><span className="text-[10px] font-semibold tabular-nums" style={{ color: bestVenue.color }}>+{(bestVenue.ev * 100).toFixed(1)}% EV</span></div>
             <div className="mt-0.5 flex items-baseline justify-between gap-2"><span className="min-w-0 truncate text-xs font-bold text-text-primary">{bestVenue.pick} <span className="font-normal text-text-secondary">{bestVenue.kind}</span></span><span className="shrink-0 text-[10px] tabular-nums text-text-secondary"><span style={{ color: bestVenue.color }}>{bestVenue.venue}</span><span className="mx-1 opacity-50">·</span>{bestVenue.price}</span></div>

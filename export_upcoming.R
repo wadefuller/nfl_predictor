@@ -64,7 +64,24 @@ if (nrow(games) == 0)
                target_season, target_week))
 
 # ---- predict ----------------------------------------------------------------
+# Read-only status refresh; failed or stale feeds remain explicitly unverified.
+status_rc <- system2(file.path(R.home("bin"),"Rscript"),
+  c(shQuote(file.path(PROJECT_DIR,"capture_qb_availability.R")), target_season, target_week))
+if (status_rc != 0) warning("QB availability refresh failed; recommendations fail closed")
+history_rc <- system2(file.path(R.home("bin"),"Rscript"),
+  c(shQuote(file.path(PROJECT_DIR,"refresh_qb_history.R")),target_season))
+if (history_rc != 0) warning("QB history refresh failed; coverage checks will withhold incomplete forecasts")
+live_rc <- system2(file.path(R.home("bin"),"Rscript"),
+  c(shQuote(file.path(PROJECT_DIR,"refresh_live_features.R")),target_season,target_week))
+if (live_rc != 0) stop("Current injury/snap feature refresh failed; refusing to export a stale slate")
+game_w_features <- read.csv(file.path(DATA_DIR, "game_w_features.csv"))
+games <- game_w_features %>% filter(season == target_season, week == target_week)
 bundle <- readRDS(file.path(MODELS_DIR, "ensemble_latest.rds"))
+# Persist player identity and exact input values alongside each daily export.
+qb_audit <- refresh_qb_features(games,DATA_DIR) %>%
+  select(game_id,season,week,starts_with("expected_qb_"),starts_with("qb_features_"),
+         matches("^(starter_|new_starter_)"))
+readr::write_csv(qb_audit,file.path(DATA_DIR,"upcoming_qb_features.csv"))
 preds  <- predict_with_ensemble(bundle, games)
 
 # Implied team totals. spread_line is +ve when the HOME team is favored, so the
@@ -85,7 +102,9 @@ out <- preds %>%
          spread_line, total_line, pred_margin, pred_win_home,
          home_implied_market, away_implied_market,
          home_implied_pred, away_implied_pred, spread_edge_home,
-         cover_prob_home, home_moneyline, away_moneyline)
+         cover_prob_home, home_moneyline, away_moneyline,
+         availability_ok, availability_reason, availability_checked_at,
+         qb_features_ready, qb_features_reason, starts_with("expected_qb_"))
 
 up_path <- file.path(DATA_DIR, "upcoming_predictions.csv")
 readr::write_csv(out, up_path)
@@ -100,7 +119,13 @@ BANKROLL <- as.numeric(Sys.getenv("BANKROLL", "1000"))  # 1 unit = 1% = $10
 PARAMS   <- PORTFOLIO_DEFAULTS
 
 card <- tryCatch({
-  preds_for_card <- preds %>%
+  # Same rule as the prediction-market libs: a game that has kicked off cannot be
+  # bet, and scoring a pre-kickoff model against a settled result reports the
+  # model's staleness as edge. This was missed when the market boards were fixed
+  # because the stale EV calibration left the card empty, so the bug had nothing
+  # to show. With the calibration corrected it immediately recommended four bets
+  # on games that had already finished.
+  preds_for_card <- tradable_slate(preds, target_season) %>%
     left_join(games %>% select(game_id, home_spread_odds, away_spread_odds),
               by = "game_id")
   generate_bet_card(preds_for_card, BANKROLL, PARAMS, bundle = bundle)

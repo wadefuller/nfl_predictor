@@ -47,36 +47,33 @@ load_game_data <- function(seasons = SEASONS) {
     normalize_team_names()
 }
 
+# Play-by-play comes from the stack's store, fantasy_db/pbp.db (shared/pbp.R),
+# not from nflverse directly. The Wednesday retrain used to download all of
+# 2000-present at 03:00 on a laptop in dark wake, and R's default 60 s timeout
+# killed it on a different season every night (2002, 2001, 2006, 2000, 2000) —
+# no scheduled retrain ever succeeded. fantasy_db/build_pbp_db.R now owns the
+# download; read_pbp() fails loudly on a missing season, a row-count mismatch,
+# or a current season that has not been refreshed recently.
+if (!exists("read_pbp", mode = "function"))
+  source(file.path(Sys.getenv("NFL_STACK_ROOT", "/Users/wadefuller/Projects/R"), "shared", "pbp.R"))
+
 load_pbp_data <- function(seasons = SEASONS) {
   pbp_max     <- min(max(seasons), nflreadr::most_recent_season())
   pbp_seasons <- min(seasons):pbp_max
-  message(sprintf("Loading PBP for seasons %d-%d (this can take a few minutes)...",
-                  min(pbp_seasons), max(pbp_seasons)))
-  # ONE SEASON AT A TIME, with retries and a coverage assert. A bulk
-  # nflreadr::load_pbp(seasons=...) request has silently returned a subset of
-  # seasons elsewhere in this stack while every season loads fine individually
-  # (load_ff_opportunity(2011:2025) -> 2012-2023 only) — and a timed-out read
-  # returns an EMPTY frame rather than erroring, which then surfaces many steps
-  # downstream as a nonsense "column not found" instead of naming the load that
-  # actually failed. This feeds every EPA-based feature the model has.
-  pbp <- dplyr::bind_rows(lapply(pbp_seasons, function(s) {
-    p <- NULL
-    for (attempt in 1:3) {
-      p <- try(nflreadr::load_pbp(seasons = s), silent = TRUE)
-      if (!inherits(p, "try-error") && NROW(p) > 0) break
-      message(sprintf("  ! pbp %d attempt %d unusable; retrying", s, attempt))
-      p <- NULL; Sys.sleep(2 * attempt)
-    }
-    if (is.null(p))
-      stop(sprintf("load_pbp(%d) returned no usable data after 3 attempts (network, or a timed-out read)", s))
-    p
-  }))
+  message(sprintf("Loading PBP for seasons %d-%d from %s...",
+                  min(pbp_seasons), max(pbp_seasons), p_pbp_db()))
+  pbp <- read_pbp(pbp_seasons)
   got <- sort(unique(as.integer(pbp$season)))
   missing <- setdiff(pbp_seasons, got)
   if (length(missing))
-    stop(sprintf("pbp missing season(s) after per-season fetch: %s", paste(missing, collapse = ", ")))
+    stop(sprintf("pbp missing season(s): %s", paste(missing, collapse = ", ")))
   message(sprintf("  Loaded %s plays.", format(nrow(pbp), big.mark = ",")))
 
+  filter_model_pbp(pbp)
+}
+
+# Shared by the full matrix and the lightweight serving QB-history refresh.
+filter_model_pbp <- function(pbp) {
   pbp %>%
     filter(
       !is.na(epa), !is.na(ep), !is.na(posteam), !is.na(down),

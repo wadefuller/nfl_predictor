@@ -17,8 +17,15 @@ MAX_ABS_ODDS     <- 300
 ROUND_TO         <- 5
 MIN_STAKE        <- 5
 
-# ---- Sweep grid (CALIBRATED EV thresholds; raw≈calibrated/0.36) ----
-MIN_EV_GRID    <- c(0.02, 0.04, 0.06, 0.08, 0.10, 0.12)
+# ---- Sweep grid (CALIBRATED EV thresholds) ----
+# The old note said "raw ~ calibrated/0.36", which was the stale default slope
+# that had leaked into production. Against the fitted slope (0.6302) these map
+# to raw edges of 0.024 / 0.040 / 0.055 / 0.071 / 0.087 / 0.119 / 0.150 / 0.182.
+# 0.03 and 0.05 are new: realized ROI on the 2016-2025 walk-forward peaks around
+# raw 0.05-0.06 (calibrated ~0.037-0.043) and the old grid stepped straight over
+# it, while 0.05 is the value currently in PORTFOLIO_DEFAULTS and belongs in the
+# comparison.
+MIN_EV_GRID    <- c(0.02, 0.03, 0.04, 0.05, 0.06, 0.08, 0.10, 0.12)
 KELLY_MULT_GRID <- c(0.05, 0.10, 0.15, 0.25, 0.50)
 
 # Canonical engine: default to the deployed bundle's baked EV calibration.
@@ -46,21 +53,29 @@ build_candidates <- function(row) {
       !is.na(row$cover_prob_home)) {
     if (row$line_diff > 0) {
       side <- "home_spread"; odds <- row$home_spread_odds; prob <- row$cover_prob_home
+      team <- row$home_team
     } else {
       side <- "away_spread"; odds <- row$away_spread_odds; prob <- 1 - row$cover_prob_home
+      team <- row$away_team
     }
-    out[[length(out) + 1]] <- tibble(bet_type = side, odds = odds,
-                                       our_prob = prob, correct = row$cover_correct)
+    out[[length(out) + 1]] <- tibble(bet_type = side, odds = odds, our_prob = prob,
+      correct = .bet_won_spread(team, row$home_team, row$away_team,
+                                row$home_result, row$spread_line))
   }
   if (!is.na(row$home_moneyline) && !is.na(row$away_moneyline) &&
       !is.na(row$pred_win_pct)) {
+    # Grade the side staked, not the margin's pick — see .bet_won_ml in
+    # ensemble_lib.R. Using row$ml_correct here scored the coin-flip moneylines
+    # against a team the sweep had not bet.
     if (row$pred_win_pct > 0.5) {
       side <- "home_ml"; odds <- row$home_moneyline; prob <- row$pred_win_pct
+      team <- row$home_team
     } else {
       side <- "away_ml"; odds <- row$away_moneyline; prob <- 1 - row$pred_win_pct
+      team <- row$away_team
     }
-    out[[length(out) + 1]] <- tibble(bet_type = side, odds = odds,
-                                       our_prob = prob, correct = row$ml_correct)
+    out[[length(out) + 1]] <- tibble(bet_type = side, odds = odds, our_prob = prob,
+      correct = .bet_won_ml(team, row$home_team, row$away_team, row$home_result))
   }
   if (length(out) == 0) tibble() else bind_rows(out)
 }

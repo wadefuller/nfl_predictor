@@ -1,0 +1,1273 @@
+<title>NFL Model Atlas</title>
+<style>
+  /* ---- tokens: complete light palette on bare :root ---- */
+  :root {
+    --ground:      #f5f7fa;
+    --surface:     #ffffff;
+    --surface-2:   #eef1f6;
+    --ink:         #0f141c;
+    --ink-2:       #3d4757;
+    --ink-3:       #6b7688;
+    --rule:        #d8dee8;
+    --rule-2:      #e8ecf3;
+
+    --game:        #2f6fd0;   /* nfl_predictor — game model */
+    --game-bg:     #e8f0fc;
+    --weekly:      #17784a;   /* weekly_fantasy */
+    --weekly-bg:   #e3f4ea;
+    --season:      #a3246d;   /* fantasy_db season-long */
+    --season-bg:   #fbe8f2;
+    --ext:         #8d5a00;   /* third-party / external */
+    --ext-bg:      #fbf0dd;
+
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:    #0e1218;
+      --surface:   #161c25;
+      --surface-2: #1d2531;
+      --ink:       #e7ecf4;
+      --ink-2:     #b3becd;
+      --ink-3:     #7d8899;
+      --rule:      #2a3441;
+      --rule-2:    #222b37;
+
+      --game:      #6fb2ff;  --game-bg:   #14243a;
+      --weekly:    #4fcd7e;  --weekly-bg: #102a1d;
+      --season:    #f887c4;  --season-bg: #2e1425;
+      --ext:       #e0a949;  --ext-bg:    #2c2213;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:    #0e1218;
+    --surface:   #161c25;
+    --surface-2: #1d2531;
+    --ink:       #e7ecf4;
+    --ink-2:     #b3becd;
+    --ink-3:     #7d8899;
+    --rule:      #2a3441;
+    --rule-2:    #222b37;
+
+    --game:      #6fb2ff;  --game-bg:   #14243a;
+    --weekly:    #4fcd7e;  --weekly-bg: #102a1d;
+    --season:    #f887c4;  --season-bg: #2e1425;
+    --ext:       #e0a949;  --ext-bg:    #2c2213;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 24px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  .prose { max-width: 72ch; }
+
+  /* ---- masthead ---- */
+  .mast {
+    display: flex; flex-direction: column; gap: 18px;
+    padding: 56px 0 28px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  h1 {
+    font-size: clamp(30px, 4.4vw, 50px);
+    line-height: 1.04; letter-spacing: -.028em; font-weight: 800;
+    margin: 0; text-wrap: balance;
+  }
+  .standfirst { font-size: 17px; color: var(--ink-2); margin: 0; max-width: 68ch; }
+
+  .keyfacts {
+    display: grid; gap: 1px; background: var(--rule);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    border: 1px solid var(--rule); margin-top: 6px;
+  }
+  .keyfact { background: var(--surface); padding: 12px 14px; }
+  .keyfact dt {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .13em;
+    text-transform: uppercase; color: var(--ink-3); margin: 0 0 4px;
+  }
+  .keyfact dd {
+    margin: 0; font-size: 22px; font-weight: 700;
+    font-variant-numeric: tabular-nums; letter-spacing: -.02em;
+  }
+  .keyfact dd small { display:block; font-size: 11px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
+
+  /* ---- sections ---- */
+  section { padding-top: 52px; scroll-margin-top: 16px; }
+  h2 {
+    font-size: 13px; font-family: var(--mono); font-weight: 700;
+    letter-spacing: .15em; text-transform: uppercase;
+    margin: 0 0 6px; color: var(--ink);
+    padding-bottom: 8px; border-bottom: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 20px; letter-spacing: -.015em; font-weight: 700;
+    margin: 32px 0 8px; text-wrap: balance;
+  }
+  h4 {
+    font-size: 12px; font-family: var(--mono); letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-3);
+    margin: 24px 0 8px; font-weight: 700;
+  }
+  p { margin: 0 0 14px; }
+
+  code, .m { font-family: var(--mono); font-size: .88em; }
+  code {
+    background: var(--surface-2); padding: .1em .38em;
+    border-radius: 3px; color: var(--ink-2);
+  }
+
+  /* ---- system identity ---- */
+  .sys { border-left: 3px solid var(--rule); padding-left: 14px; }
+  .sys-game   { border-color: var(--game); }
+  .sys-weekly { border-color: var(--weekly); }
+  .sys-season { border-color: var(--season); }
+
+  .tag {
+    display: inline-block; font-family: var(--mono); font-size: 10px;
+    letter-spacing: .1em; text-transform: uppercase; font-weight: 700;
+    padding: 2px 7px; border-radius: 3px; border: 1px solid;
+    white-space: nowrap;
+  }
+  .t-game   { color: var(--game);   background: var(--game-bg);   border-color: color-mix(in srgb, var(--game) 40%, transparent); }
+  .t-weekly { color: var(--weekly); background: var(--weekly-bg); border-color: color-mix(in srgb, var(--weekly) 40%, transparent); }
+  .t-season { color: var(--season); background: var(--season-bg); border-color: color-mix(in srgb, var(--season) 40%, transparent); }
+  .t-ext    { color: var(--ext);    background: var(--ext-bg);    border-color: color-mix(in srgb, var(--ext) 40%, transparent); }
+  /* status, reusing the system hues rather than introducing a new palette */
+  .t-fixed  { color: var(--weekly); background: var(--weekly-bg); border-color: color-mix(in srgb, var(--weekly) 40%, transparent); }
+  .t-open   { color: var(--ext);    background: var(--ext-bg);    border-color: color-mix(in srgb, var(--ext) 40%, transparent); }
+  .t-pending { color: var(--game); background: var(--game-bg); border-color: color-mix(in srgb, var(--game) 40%, transparent); }
+  .t-no     { color: var(--ink-3); background: var(--surface-2); border-color: var(--rule); }
+  .cadence td.when { white-space: nowrap; font-family: var(--mono); font-size: 12px; }
+
+  /* ---- tables ---- */
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 640px; }
+  th {
+    text-align: left; font-family: var(--mono); font-size: 10px;
+    letter-spacing: .11em; text-transform: uppercase; color: var(--ink-3);
+    padding: 10px 12px; border-bottom: 1px solid var(--rule);
+    background: var(--surface-2); white-space: nowrap; font-weight: 700;
+  }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--rule-2); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.mono, th.mono { font-family: var(--mono); font-size: 12px; }
+  .num { font-variant-numeric: tabular-nums; text-align: right; }
+
+  /* ---- figures ---- */
+  figure { margin: 24px 0 0; }
+  figure svg { display: block; width: 100%; height: auto; max-width: 100%; }
+  .figbox { border: 1px solid var(--rule); background: var(--surface); padding: 20px 16px; overflow-x: auto; }
+  figcaption {
+    font-size: 13px; color: var(--ink-3); margin-top: 10px;
+    max-width: 74ch; line-height: 1.5;
+  }
+
+  /* ---- callout ---- */
+  .note {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-left: 3px solid var(--ext); padding: 14px 16px; margin: 20px 0;
+  }
+  .note p:last-child { margin-bottom: 0; }
+  .note strong { color: var(--ink); }
+
+  ul.tight { margin: 0 0 14px; padding-left: 20px; }
+  ul.tight li { margin-bottom: 5px; }
+
+  .cols { display: grid; gap: 26px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+
+  footer {
+    margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--rule);
+    font-size: 12.5px; color: var(--ink-3); font-family: var(--mono);
+  }
+  a { color: var(--game); }
+  a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--game); outline-offset: 2px; }
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <span class="eyebrow">Codebase audit · 14 Aug 2026 · revised 27 Sep</span>
+    <h1>NFL Model Atlas</h1>
+    <p class="standfirst">
+      Every data source, trained model, and feature family across the three systems —
+      the game model (<span class="m">nfl_predictor</span>), the weekly fantasy
+      distribution model (<span class="m">weekly_fantasy</span>), and the season-long
+      projection model (<span class="m">fantasy_db</span>). They are not three parallel
+      projects; they are a dependency chain, and two of them feed the third.
+    </p>
+    <dl class="keyfacts">
+      <div class="keyfact"><dt>Trained models</dt><dd>16<small>across 3 systems</small></dd></div>
+      <div class="keyfact"><dt>Game features</dt><dd>374<small>columns, 15 modules</small></dd></div>
+      <div class="keyfact"><dt>Weekly features</dt><dd>88<small>of 129 candidates</small></dd></div>
+      <div class="keyfact"><dt>Season features</dt><dd>55<small>+ 4 feeder models</small></dd></div>
+      <div class="keyfact"><dt>Upstream feeds</dt><dd>19<small>loaders and feeds</small></dd></div>
+      <div class="keyfact"><dt>Refresh</dt><dd>hourly<small>gated — runs only when stale</small></dd></div>
+    </dl>
+  </header>
+
+  <!-- ================= SYSTEM MAP ================= -->
+  <section id="map">
+    <h2>The system map</h2>
+    <div class="prose">
+      <p>
+        The single most important structural fact: <strong>the weekly model is downstream of
+        the other two.</strong> It does not compute its own game environment or its own talent
+        prior — it imports the game model's per-game predictions and the season model's
+        per-player projection, then adds its own recency and usage layer on top.
+        A stale rebuild anywhere upstream silently degrades it.
+      </p>
+    </div>
+
+    <figure>
+      <div class="figbox">
+        <svg viewBox="0 0 1180 880" role="img"
+             aria-label="Dependency map: shared nflverse sources feed the game model and the season-long model, both of which feed the weekly fantasy model, which produces weekly projections.">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+            </marker>
+            <marker id="ah-game" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--game)"/>
+            </marker>
+            <marker id="ah-season" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--season)"/>
+            </marker>
+          </defs>
+
+          <!-- ===== upstream band ===== -->
+          <rect x="20" y="24" width="1140" height="76" fill="var(--surface-2)" stroke="var(--rule)"/>
+          <text x="36" y="48" font-family="var(--mono)" font-size="11" font-weight="700"
+                letter-spacing="1.6" fill="var(--ink-3)">SHARED UPSTREAM</text>
+          <text x="36" y="72" font-family="var(--mono)" font-size="12.5" fill="var(--ink-2)">
+            nflverse: load_pbp · load_schedules · load_rosters · load_injuries · load_snap_counts · load_nextgen_stats · load_contracts · load_officials · load_player_stats
+          </text>
+          <text x="36" y="90" font-family="var(--mono)" font-size="12.5" fill="var(--ext)">
+            external: habitatring lines · Polymarket · Kalshi · FantasyPros ECR · DraftScout · FantasyCalc · Sleeper / MFL / ESPN
+          </text>
+
+          <!-- feeds down -->
+          <line x1="270" y1="100" x2="270" y2="140" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/>
+          <line x1="910" y1="100" x2="910" y2="140" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/>
+
+          <!-- ===== LANE A: game model ===== -->
+          <rect x="20" y="140" width="500" height="330" fill="var(--game-bg)" stroke="var(--game)" stroke-width="1.5"/>
+          <text x="40" y="166" font-family="var(--mono)" font-size="11" font-weight="700"
+                letter-spacing="1.4" fill="var(--game)">NFL_PREDICTOR — GAME MODEL</text>
+
+          <rect x="40" y="180" width="460" height="52" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="54" y="201" font-size="13" font-weight="700" fill="var(--ink)">15 feature modules</text>
+          <text x="54" y="220" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">→ game_w_features.csv · 374 cols</text>
+
+          <line x1="270" y1="232" x2="270" y2="256" stroke="var(--game)" stroke-width="1.5" marker-end="url(#ah-game)"/>
+
+          <rect x="40" y="256" width="460" height="70" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="54" y="277" font-size="13" font-weight="700" fill="var(--ink)">3 base learners → NNLS stack</text>
+          <text x="54" y="296" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">XGBoost · elastic-net GLM · random forest</text>
+          <text x="54" y="315" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--ext)">production weight: GLM 1.0 / XGB 0 / RF 0</text>
+
+          <line x1="270" y1="326" x2="270" y2="350" stroke="var(--game)" stroke-width="1.5" marker-end="url(#ah-game)"/>
+
+          <rect x="40" y="350" width="460" height="52" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="54" y="371" font-size="13" font-weight="700" fill="var(--ink)">Platt + EV calibration</text>
+          <text x="54" y="390" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">σ 13.05 · EV slope 0.394 · retrained 27 Sep</text>
+
+          <line x1="270" y1="402" x2="270" y2="424" stroke="var(--game)" stroke-width="1.5" marker-end="url(#ah-game)"/>
+
+          <rect x="40" y="424" width="460" height="34" fill="var(--game)" opacity="0.14" stroke="var(--game)"/>
+          <text x="54" y="446" font-family="var(--mono)" font-size="12" font-weight="700" fill="var(--game)">margin · win prob · Kelly bet card</text>
+
+          <!-- ===== LANE C: season model ===== -->
+          <rect x="660" y="140" width="500" height="330" fill="var(--season-bg)" stroke="var(--season)" stroke-width="1.5"/>
+          <text x="680" y="166" font-family="var(--mono)" font-size="11" font-weight="700"
+                letter-spacing="1.4" fill="var(--season)">FANTASY_DB — SEASON-LONG MODEL</text>
+
+          <rect x="680" y="180" width="460" height="52" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="694" y="201" font-size="13" font-weight="700" fill="var(--ink)">55 features · SQLite warehouse</text>
+          <text x="694" y="220" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">+ ECR · ADP · DraftScout rookie priors</text>
+
+          <line x1="910" y1="232" x2="910" y2="256" stroke="var(--season)" stroke-width="1.5" marker-end="url(#ah-season)"/>
+
+          <rect x="680" y="256" width="460" height="70" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="694" y="277" font-size="13" font-weight="700" fill="var(--ink)">4 feeder share models → main XGB</text>
+          <text x="694" y="296" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">target / rush / RB-rec share · team volume</text>
+          <text x="694" y="315" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">then 1 XGBoost per position</text>
+
+          <line x1="910" y1="326" x2="910" y2="350" stroke="var(--season)" stroke-width="1.5" marker-end="url(#ah-season)"/>
+
+          <rect x="680" y="350" width="460" height="52" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="694" y="371" font-size="13" font-weight="700" fill="var(--ink)">ECR blend + gap tiering</text>
+          <text x="694" y="390" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">QB 1.0 · WR 1.0 · TE 0.4 · RB 0.25</text>
+
+          <line x1="910" y1="402" x2="910" y2="424" stroke="var(--season)" stroke-width="1.5" marker-end="url(#ah-season)"/>
+
+          <rect x="680" y="424" width="460" height="34" fill="var(--season)" opacity="0.14" stroke="var(--season)"/>
+          <text x="694" y="446" font-family="var(--mono)" font-size="12" font-weight="700" fill="var(--season)">season rankings · tiers · VOR</text>
+
+          <!-- ===== cross-feed arrows into weekly ===== -->
+          <path d="M 270 470 L 270 520 L 400 520 L 400 566" fill="none"
+                stroke="var(--game)" stroke-width="2" marker-end="url(#ah-game)"/>
+          <text x="284" y="512" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--game)">
+            game_w_features + OOS win prob
+          </text>
+
+          <path d="M 910 470 L 910 520 L 780 520 L 780 566" fill="none"
+                stroke="var(--season)" stroke-width="2" marker-end="url(#ah-season)"/>
+          <text x="612" y="512" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--season)">
+            season_proj_ppg (talent prior)
+          </text>
+
+          <!-- ===== LANE B: weekly ===== -->
+          <rect x="300" y="566" width="580" height="286" fill="var(--weekly-bg)" stroke="var(--weekly)" stroke-width="1.5"/>
+          <text x="320" y="592" font-family="var(--mono)" font-size="11" font-weight="700"
+                letter-spacing="1.4" fill="var(--weekly)">WEEKLY_FANTASY — DISTRIBUTION MODEL</text>
+
+          <rect x="320" y="606" width="540" height="52" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="334" y="627" font-size="13" font-weight="700" fill="var(--ink)">88 production features</text>
+          <text x="334" y="646" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">recency · usage · vacated opportunity · offense/QB state · injury · game env</text>
+
+          <line x1="590" y1="658" x2="590" y2="682" stroke="var(--weekly)" stroke-width="1.5" marker-end="url(#ah)" color="var(--weekly)"/>
+
+          <rect x="320" y="682" width="258" height="70" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="334" y="703" font-size="13" font-weight="700" fill="var(--ink)">7 quantile LightGBM</text>
+          <text x="334" y="722" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">per position</text>
+          <text x="334" y="740" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">conditional on active</text>
+
+          <rect x="602" y="682" width="258" height="70" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="616" y="703" font-size="13" font-weight="700" fill="var(--ink)">active classifier</text>
+          <text x="616" y="722" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">binary:logistic</text>
+          <text x="616" y="740" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">→ the zero spike</text>
+
+          <path d="M 449 752 L 449 776 L 590 776" fill="none" stroke="var(--weekly)" stroke-width="1.5"/>
+          <path d="M 731 752 L 731 776 L 590 776" fill="none" stroke="var(--weekly)" stroke-width="1.5"/>
+          <line x1="590" y1="776" x2="590" y2="798" stroke="var(--weekly)" stroke-width="1.5" marker-end="url(#ah)" color="var(--weekly)"/>
+
+          <rect x="320" y="798" width="540" height="38" fill="var(--weekly)" opacity="0.14" stroke="var(--weekly)"/>
+          <text x="334" y="822" font-family="var(--mono)" font-size="12" font-weight="700" fill="var(--weekly)">
+            zero-inflated mixture → floor (p10) · median · ceiling (p90)
+          </text>
+        </svg>
+      </div>
+      <figcaption>
+        Both upper systems train independently on shared nflverse data, then hand their
+        outputs down to the weekly model as inputs. The two coloured arrows are the
+        couplings that make this a chain rather than three projects: the game model supplies
+        every player's scoring environment, and the season model supplies the talent prior.
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ================= DATA SOURCES ================= -->
+  <section id="sources">
+    <h2>Data sources</h2>
+    <div class="prose">
+      <p>
+        Everything originates from nflverse loaders plus a handful of third-party feeds.
+        Four stores sit between the feeds and the models: <span class="m">game_w_features.csv</span>,
+        the SQLite warehouse, an append-only market store that keeps every line and price
+        the daily job sees (since 7 Sep), and a play-by-play store (since 27 Sep).
+      </p>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Source</th><th>Loader / endpoint</th><th>Supplies</th><th>Consumed by</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Play-by-play</td><td class="mono">load_pbp → pbp.db</td><td>EPA, success rate, pace, weather, QB splits, red-zone usage, expected points</td><td><span class="tag t-game">game</span> <span class="tag t-season">season</span> <span class="tag t-weekly">weekly</span> xfp</td></tr>
+          <tr><td>Schedules + lines</td><td class="mono">habitatring games.rds</td><td>spread, total, moneylines, rest, venue</td><td><span class="tag t-game">game</span> <span class="tag t-season">season</span></td></tr>
+          <tr><td>Weekly box scores</td><td class="mono">load_player_stats</td><td>half-PPR points, targets, carries, TDs</td><td><span class="tag t-weekly">weekly</span> <span class="tag t-season">season</span></td></tr>
+          <tr><td>Rosters</td><td class="mono">load_rosters</td><td>position, age, birth date, team</td><td><span class="tag t-game">game</span> <span class="tag t-weekly">weekly</span> <span class="tag t-season">season</span></td></tr>
+          <tr><td>Injury report</td><td class="mono">load_injuries</td><td>status, practice participation, cap-weighted absence</td><td><span class="tag t-game">game</span> <span class="tag t-weekly">weekly</span></td></tr>
+          <tr><td>Snap counts</td><td class="mono">load_snap_counts</td><td>snap %, starter continuity, role trend</td><td><span class="tag t-game">game</span> <span class="tag t-weekly">weekly</span> <span class="tag t-season">season</span></td></tr>
+          <tr><td>Next Gen Stats</td><td class="mono">load_nextgen_stats</td><td>advanced passing / rushing / receiving</td><td><span class="tag t-game">game</span></td></tr>
+          <tr><td>Contracts</td><td class="mono">load_contracts</td><td>cap value — weights injuries by player importance</td><td><span class="tag t-game">game</span></td></tr>
+          <tr><td>Officials</td><td class="mono">load_officials</td><td>referee crew tendencies</td><td><span class="tag t-game">game</span></td></tr>
+          <tr><td>Weekly rosters</td><td class="mono">load_rosters_weekly</td><td>who is on which roster, each week — defines the weekly model&rsquo;s population</td><td><span class="tag t-weekly">weekly</span></td></tr>
+          <tr><td>Depth charts</td><td class="mono">load_depth_charts</td><td>depth rank, starter flag</td><td><span class="tag t-weekly">weekly</span> <span class="tag t-season">season</span></td></tr>
+          <tr><td>Draft picks</td><td class="mono">load_draft_picks</td><td>draft capital</td><td><span class="tag t-season">season</span></td></tr>
+          <tr><td>Polymarket <span class="tag t-ext">ext</span></td><td class="mono">public API</td><td>moneyline contract prices</td><td><span class="tag t-game">game</span> bet card · market store</td></tr>
+          <tr><td>Kalshi <span class="tag t-ext">ext</span></td><td class="mono">public API</td><td>game spread and win-probability contracts</td><td><span class="tag t-game">game</span> bet card · market store</td></tr>
+          <tr><td>FantasyPros ECR <span class="tag t-ext">ext</span></td><td class="mono">load_ff_rankings</td><td>consensus rank, ADP — filtered to <span class="m">redraft-overall</span></td><td><span class="tag t-season">season</span></td></tr>
+          <tr><td>DraftScout <span class="tag t-ext">ext</span></td><td class="mono">CSV, local</td><td>rookie expected PPG + hit probability</td><td><span class="tag t-season">season</span></td></tr>
+          <tr><td>FantasyCalc <span class="tag t-ext">ext</span></td><td class="mono">api.fantasycalc.com</td><td>dynasty / redraft market values</td><td>site — market tab</td></tr>
+          <tr><td>Sleeper + MFL + ESPN <span class="tag t-ext">ext</span></td><td class="mono">ffscrapr</td><td>live league rosters, matchups, transactions</td><td>site — my league</td></tr>
+          <tr><td>ID crosswalk <span class="tag t-ext">ext</span></td><td class="mono">load_ff_playerids</td><td>gsis ↔ sleeper ↔ mfl ↔ fantasypros</td><td>all three</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <p>
+        <strong>Known fragility.</strong> <span class="m">load_ff_playerids</span> lags on
+        rookies, so a rookie class can arrive with a null FantasyPros id and drop out of the
+        ECR join entirely. This previously sank the whole 2026 rookie class to ~0 projected
+        PPG; a name + position fallback in <span class="m">fantasy_db/R/forward.R</span>
+        now backstops it.
+      </p>
+    </div>
+
+    <div class="note">
+      <p>
+        <strong>The market store.</strong> <span class="m">fantasy_db/market_observations.db</span>
+        appends every Vegas, Polymarket and Kalshi snapshot in long format and never
+        overwrites. Before it existed, each daily run deleted the previous scrape, so no
+        line-movement feature could ever be built. It holds 6,186 rows from 158 snapshots
+        (7–27 Sep). It lives outside the warehouse on purpose: the Tuesday rebuild deletes
+        <span class="m">fantasy_football.db</span> and recreates it.
+      </p>
+    </div>
+
+    <div class="note">
+      <p>
+        <strong>One play-by-play store.</strong> Eight scripts across four projects used to
+        download nflverse play-by-play for themselves, and every download was a chance to
+        time out. <span class="m">fantasy_db/pbp.db</span> now holds 1999&ndash;2026
+        (1.29M plays, 147 columns, 909 MB) and <span class="m">build_pbp_db.R</span> is the
+        only script that downloads it. Everything else calls <span class="m">read_pbp()</span>,
+        which refuses a missing season, a row-count mismatch, a column outside the pinned
+        list, or a current season more than 8 days old.
+      </p>
+      <p>
+        Seasons are replaced whole rather than appended by week, because nflverse revises
+        published plays. It republished 2001, 2002 and 2024 on 13 Aug and 2020 on 26 Aug;
+        appending would have frozen the pre-revision values. Each season records when it
+        was pulled, so a result can name the vintage it used. Like the market store, it is a
+        separate file so the Tuesday warehouse rebuild cannot discard it.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= MODELS ================= -->
+  <section id="models">
+    <h2>Trained models</h2>
+    <div class="prose">
+      <p>
+        Sixteen trained estimators. Every one is gradient-boosted trees or a penalised
+        linear model — there are no neural nets in the production path
+        (<span class="m">dnn_poc.R</span> exists but nothing consumes it). The weekly
+        quantile boosters, their active classifier <em>and</em> the imputation medians
+        are cached together, keyed on the warehouse state and the feature code — so a
+        refresh loads a fitted model and scores, without refitting and without
+        rebuilding the training panel.
+      </p>
+      <p>
+        The game ensemble was retrained on 27 Sep on 2008–2026 (4,930 games), with
+        calibration fit on 570 out-of-sample games from 2024–25. It is still GLM-only.
+        The recalibrated EV slope dropped from 0.704 to 0.394, so the bet card now
+        discounts the model&rsquo;s raw edge by about 60% instead of 30%.
+      </p>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>System</th><th>Model</th><th>Algorithm</th><th>Target</th><th>Output</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="tag t-game">game</span></td><td class="mono">train_xgb_model</td><td>XGBoost (tidymodels)</td><td class="mono">home_result</td><td>margin — <em>weight 0</em></td></tr>
+          <tr><td><span class="tag t-game">game</span></td><td class="mono">train_glm_model</td><td>elastic-net <span class="m">cv.glmnet</span></td><td class="mono">home_result</td><td>margin — <strong>the production model</strong></td></tr>
+          <tr><td><span class="tag t-game">game</span></td><td class="mono">train_rf_model</td><td>random forest (ranger)</td><td class="mono">home_result</td><td>margin — <em>weight 0</em></td></tr>
+          <tr><td><span class="tag t-game">game</span></td><td class="mono">fit_stacking_*</td><td>NNLS / logloss / constrOptim</td><td>blend weights</td><td>currently bypassed</td></tr>
+          <tr><td><span class="tag t-game">game</span></td><td class="mono">fit_platt</td><td>logistic calibration</td><td>win indicator</td><td>calibrated win probability</td></tr>
+          <tr><td><span class="tag t-game">game</span></td><td class="mono">calibrate_ev</td><td>linear</td><td>realised EV</td><td>de-inflated EV for Kelly</td></tr>
+          <tr><td><span class="tag t-game">game</span></td><td class="mono">build_elo</td><td>QB-adjusted Elo (iterative)</td><td>rating</td><td>team + QB Elo, Elo win prob</td></tr>
+          <tr><td><span class="tag t-weekly">weekly</span></td><td class="mono">fit_quantile_models</td><td>LightGBM native quantile ×7 ×4 pos</td><td>half-PPR points</td><td>conditional distribution</td></tr>
+          <tr><td><span class="tag t-weekly">weekly</span></td><td class="mono">fit_active_models</td><td>XGBoost <span class="m">binary:logistic</span></td><td>recorded an opportunity</td><td><span class="m">p_active</span> — the zero spike</td></tr>
+          <tr><td><span class="tag t-weekly">weekly</span></td><td class="mono">fit_quantile_recalibrator</td><td>per-position distributional</td><td>quantile coverage</td><td>fixes tail overconfidence</td></tr>
+          <tr><td><span class="tag t-season">season</span></td><td class="mono">season_model</td><td>XGBoost per position</td><td>season PPR total</td><td>projection + rank + tier</td></tr>
+          <tr><td><span class="tag t-season">season</span></td><td class="mono">target_share_model</td><td>XGBoost <span class="m">reg:squarederror</span></td><td>target share</td><td>feeds main model</td></tr>
+          <tr><td><span class="tag t-season">season</span></td><td class="mono">rush_share_model</td><td>XGBoost <span class="m">reg:squarederror</span></td><td>rush share</td><td>feeds main model</td></tr>
+          <tr><td><span class="tag t-season">season</span></td><td class="mono">rb_rec_share_model</td><td>XGBoost <span class="m">reg:squarederror</span></td><td>RB receiving share</td><td>feeds main model</td></tr>
+          <tr><td><span class="tag t-season">season</span></td><td class="mono">team_volume_model</td><td>XGBoost <span class="m">reg:squarederror</span></td><td>plays + pass rate</td><td>feeds main model</td></tr>
+          <tr><td><span class="tag t-season">season</span></td><td class="mono">dst_model / dst_weekly_model</td><td>XGBoost <span class="m">reg:squarederror</span></td><td class="mono">dst_pts</td><td>DST ranks + streamer</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>How a weekly change earns its way into production</h3>
+    <div class="prose">
+      <p>
+        Since mid-September every candidate change to the weekly model goes through a
+        declared protocol in <span class="m">run_research.R</span>. Each trial states its
+        hypothesis and which stage it refits before it runs, then passes a staged
+        funnel: a data gate, a one-season probe, a four-season screen (2019–22), and a
+        confirm run across 2017–25 with three seeds. Only a confirm run can promote.
+        Screens stop early when the paired gain cannot clear the practical threshold of
+        +0.002 pinball.
+      </p>
+      <p>
+        The population changed too. The model now scores every rostered player for every
+        scheduled team-week (<span class="m">roster_weekly_v1</span>), not only players
+        who later recorded a stat. That makes absolute scores from before 13 Sep
+        incomparable with anything after.
+      </p>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Feature family</th><th>Stage reached</th><th>Paired result</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">vacated_opportunity</td><td>confirm</td><td>every season, seed and position improved</td><td><span class="tag t-fixed">in production</span></td></tr>
+          <tr><td class="mono">offense_qb_state</td><td>confirm</td><td class="mono">+0.00522 [+0.00427, +0.00622] · QB +0.0361</td><td><span class="tag t-fixed">in production · 27 Sep</span></td></tr>
+          <tr><td class="mono">role_multiscale</td><td>screen</td><td class="mono">+0.00123 — below the +0.002 bar</td><td><span class="tag t-no">stopped</span></td></tr>
+          <tr><td class="mono">lineup_continuity</td><td>data gate</td><td>0% coverage in the live feed</td><td><span class="tag t-open">blocked</span></td></tr>
+          <tr><td class="mono">xfp</td><td>screen</td><td class="mono">−0.0006</td><td><span class="tag t-no">stopped</span></td></tr>
+          <tr><td class="mono">xfp_components</td><td>screen</td><td class="mono">−0.0003</td><td><span class="tag t-no">stopped</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="prose" style="margin-top:14px;color:var(--ink-3);font-size:14px">
+      Pinball gain is incumbent minus candidate, so positive favours the candidate.
+      Architecture smoke tests ran on the same protocol: a three-state hurdle trailed badly,
+      a shared-position model tied at a quarter of the runtime, and a direct/component blend
+      gained too little to justify 4.5× the runtime.
+    </p>
+
+    <h3>The scoring layer between the model and a lineup</h3>
+    <div class="prose">
+      <p>
+        The weekly model projects <strong>half-PPR only</strong> and emits no
+        component stats, which is fine for three of four connected leagues and
+        wrong for the fourth. Scott Fish Bowl pays 6 per passing TD, 0.5 per first
+        down, +1 per TE reception <em>and</em> +1 per TE first down, and a flat 10
+        for every 20-plus-yard catch. Ranking that lineup on half-PPR quietly
+        starts the wrong players.
+      </p>
+      <p>
+        Rather than re-project, each player&rsquo;s recent component line is scored
+        twice — once under half-PPR, once under the league&rsquo;s real rules — and
+        the ratio rescales the model&rsquo;s projection. The projected total stays
+        the anchor; the components only decide how it is re-weighted.
+      </p>
+      <p>
+        All four leagues&rsquo; rules are now read from their platform rather than
+        assumed — Sleeper exposes them directly, MFL through
+        <span class="m">ff_scoring()</span>. UNH turns out to be exactly half-PPR,
+        so its multiplier of 1.00 is a measured fact rather than a default.
+      </p>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>League</th><th>Departs from half-PPR by</th><th class="num">QB</th><th class="num">RB</th><th class="num">WR</th><th class="num">TE</th></tr></thead>
+        <tbody>
+          <tr><td>No Fun League</td><td class="mono">interceptions −1 not −2</td><td class="num mono">1.05</td><td class="num mono">1.00</td><td class="num mono">1.00</td><td class="num mono">1.00</td></tr>
+          <tr><td>Kansas Keepers</td><td class="mono">passing TD 6 not 4</td><td class="num mono">1.18</td><td class="num mono">1.00</td><td class="num mono">1.00</td><td class="num mono">1.00</td></tr>
+          <tr><td>#SFB16</td><td class="mono">first downs, TE premium, 20+ yd bonuses</td><td class="num mono">1.60</td><td class="num mono">1.41</td><td class="num mono">1.99</td><td class="num mono">2.43</td></tr>
+          <tr><td>UNH SuperFlex</td><td class="mono">nothing — read from MFL and confirmed half-PPR</td><td class="num mono">1.00</td><td class="num mono">1.00</td><td class="num mono">1.00</td><td class="num mono">1.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <p>
+        The multipliers reproduce SFB&rsquo;s design intent without being told it:
+        tight ends rescale hardest and running backs least. Players with no recent
+        usage inherit their position&rsquo;s median rather than 1.0 — defaulting them
+        to &ldquo;unchanged&rdquo; in a league whose median is 1.9 would bench every
+        rookie.
+      </p>
+    </div>
+
+    <h3>Starting slots are read, not configured</h3>
+    <p class="prose">
+      Slot rules come from each platform&rsquo;s own starter definition, and the
+      count of superflex slots is derived from the league&rsquo;s QB headroom
+      (<span class="m">max &minus; min</span>) rather than assumed to be one. SFB
+      allows two quarterbacks and sets every positional minimum to zero, so ten
+      starters can legitimately be ten tight ends.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>League</th><th>Fixed slots</th><th class="num">Superflex</th><th class="num">Flex</th><th class="num">Starters</th></tr></thead>
+        <tbody>
+          <tr><td>#SFB16</td><td class="mono">none — every minimum is 0</td><td class="num mono">2</td><td class="num mono">8</td><td class="num mono">10</td></tr>
+          <tr><td>UNH SuperFlex</td><td class="mono">QB 1 · RB 2 · WR 2 · TE 1</td><td class="num mono">1</td><td class="num mono">2</td><td class="num mono">9</td></tr>
+          <tr><td>No Fun League</td><td class="mono">QB 1 · RB 1 · WR 2 · TE 1</td><td class="num mono">—</td><td class="num mono">3</td><td class="num mono">8</td></tr>
+          <tr><td>Kansas Keepers</td><td class="mono">QB 1 · RB 2 · WR 2 · TE 1</td><td class="num mono">—</td><td class="num mono">1</td><td class="num mono">7</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <p>
+        Hardcoding a single superflex slot capped SFB at one quarterback and cost a
+        real start: Jordan Love, the third-highest projected player on that roster,
+        sat on the bench behind a 14-point running back.
+      </p>
+    </div>
+
+    <h3>Two mechanisms worth seeing</h3>
+
+    <div class="cols">
+      <figure>
+        <div class="figbox">
+          <svg viewBox="0 0 520 330" role="img"
+               aria-label="The game model trains three learners but the production stack assigns all weight to the GLM, so XGBoost and random forest predictions are discarded.">
+            <defs>
+              <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+              </marker>
+            </defs>
+            <rect x="14" y="20" width="140" height="46" fill="var(--surface-2)" stroke="var(--rule)"/>
+            <text x="84" y="41" text-anchor="middle" font-size="12.5" fill="var(--ink-3)">XGBoost</text>
+            <text x="84" y="57" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--ink-3)">trained</text>
+
+            <rect x="190" y="20" width="140" height="46" fill="var(--game-bg)" stroke="var(--game)" stroke-width="2"/>
+            <text x="260" y="41" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--game)">elastic-net GLM</text>
+            <text x="260" y="57" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--game)">trained</text>
+
+            <rect x="366" y="20" width="140" height="46" fill="var(--surface-2)" stroke="var(--rule)"/>
+            <text x="436" y="41" text-anchor="middle" font-size="12.5" fill="var(--ink-3)">random forest</text>
+            <text x="436" y="57" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--ink-3)">trained</text>
+
+            <line x1="84" y1="66" x2="84" y2="120" stroke="currentColor" stroke-width="1.5"
+                  stroke-dasharray="4 4" opacity="0.45"/>
+            <text x="96" y="98" font-family="var(--mono)" font-size="11" fill="var(--ink-3)">w = 0</text>
+            <line x1="436" y1="66" x2="436" y2="120" stroke="currentColor" stroke-width="1.5"
+                  stroke-dasharray="4 4" opacity="0.45"/>
+            <text x="380" y="98" font-family="var(--mono)" font-size="11" fill="var(--ink-3)">w = 0</text>
+            <line x1="260" y1="66" x2="260" y2="120" stroke="var(--game)" stroke-width="2.5"/>
+            <text x="272" y="98" font-family="var(--mono)" font-size="11" font-weight="700" fill="var(--game)">w = 1</text>
+
+            <rect x="120" y="120" width="280" height="42" fill="var(--surface)" stroke="var(--rule)"/>
+            <text x="260" y="146" text-anchor="middle" font-size="12.5" fill="var(--ink-2)">stack — discards both flanks</text>
+
+            <line x1="260" y1="162" x2="260" y2="192" stroke="var(--game)" stroke-width="2" marker-end="url(#a2)" color="var(--game)"/>
+
+            <rect x="120" y="192" width="280" height="42" fill="var(--surface)" stroke="var(--rule)"/>
+            <text x="260" y="218" text-anchor="middle" font-size="12.5" fill="var(--ink-2)">Platt → calibrated win prob</text>
+
+            <line x1="260" y1="234" x2="260" y2="264" stroke="var(--game)" stroke-width="2" marker-end="url(#a2)" color="var(--game)"/>
+
+            <rect x="120" y="264" width="280" height="46" fill="var(--game)" opacity="0.14" stroke="var(--game)"/>
+            <text x="260" y="284" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--game)">Kelly bet card</text>
+            <text x="260" y="301" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--game)">min EV 5% · 0.15 Kelly · cap 5%</text>
+          </svg>
+        </div>
+        <figcaption>
+          The ensemble is nominally three learners; since 7 Jun 2026 the production path
+          hard-codes GLM-only. XGBoost and RF still train on every run and their output is
+          thrown away.
+        </figcaption>
+      </figure>
+
+      <figure>
+        <div class="figbox">
+          <svg viewBox="0 0 520 330" role="img"
+               aria-label="The weekly model combines a quantile distribution conditional on playing with an active probability, producing a zero-inflated mixture.">
+            <defs>
+              <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+              </marker>
+            </defs>
+            <rect x="14" y="20" width="220" height="66" fill="var(--surface)" stroke="var(--rule)"/>
+            <text x="124" y="43" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)">7 quantile boosters</text>
+            <text x="124" y="61" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--ink-3)">.05 .10 .25 .50 .75 .90 .95</text>
+            <text x="124" y="77" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--ink-3)">F(x | played)</text>
+
+            <rect x="286" y="20" width="220" height="66" fill="var(--surface)" stroke="var(--rule)"/>
+            <text x="396" y="43" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)">active classifier</text>
+            <text x="396" y="61" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--ink-3)">binary:logistic</text>
+            <text x="396" y="77" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--ink-3)">p_active</text>
+
+            <path d="M 124 86 L 124 118 L 260 118" fill="none" stroke="var(--weekly)" stroke-width="2"/>
+            <path d="M 396 86 L 396 118 L 260 118" fill="none" stroke="var(--weekly)" stroke-width="2"/>
+            <line x1="260" y1="118" x2="260" y2="146" stroke="var(--weekly)" stroke-width="2"
+                  marker-end="url(#a3)" color="var(--weekly)"/>
+
+            <rect x="60" y="146" width="400" height="56" fill="var(--weekly-bg)" stroke="var(--weekly)" stroke-width="1.5"/>
+            <text x="260" y="169" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--weekly)">zero-inflated mixture</text>
+            <text x="260" y="190" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--weekly)">(1−p)·1{x≥0} + p·F(x | played)</text>
+
+            <line x1="260" y1="202" x2="260" y2="230" stroke="var(--weekly)" stroke-width="2"
+                  marker-end="url(#a3)" color="var(--weekly)"/>
+
+            <rect x="30" y="230" width="140" height="44" fill="var(--surface)" stroke="var(--rule)"/>
+            <text x="100" y="250" text-anchor="middle" font-size="12" fill="var(--ink-2)">floor</text>
+            <text x="100" y="266" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--ink-3)">uncond p10</text>
+
+            <rect x="190" y="230" width="140" height="44" fill="var(--surface)" stroke="var(--rule)"/>
+            <text x="260" y="250" text-anchor="middle" font-size="12" fill="var(--ink-2)">projection</text>
+            <text x="260" y="266" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--ink-3)">p × cond mean</text>
+
+            <rect x="350" y="230" width="140" height="44" fill="var(--surface)" stroke="var(--rule)"/>
+            <text x="420" y="250" text-anchor="middle" font-size="12" fill="var(--ink-2)">ceiling</text>
+            <text x="420" y="266" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--ink-3)">uncond p90</text>
+
+            <text x="260" y="306" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--ink-3)">
+              boom = actual ≥ ceiling · bust = actual ≤ floor
+            </text>
+          </svg>
+        </div>
+        <figcaption>
+          The weekly model predicts a distribution, not a number. The classifier owns the
+          spike at zero (injury, benching); the boosters own the shape given the player
+          actually plays. Floor and ceiling on the site come straight off this mixture.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= FEATURES ================= -->
+  <section id="features">
+    <h2>Features</h2>
+
+    <h3 class="sys sys-game">Game model — 15 modules, 374 columns</h3>
+    <p class="prose">
+      A registry-driven build. Each module declares its own columns and leakage vars;
+      <span class="m">build_features.R</span> picks them up automatically. Per-team features
+      are pivoted to <span class="m">home_ / away_ / _diff</span> triplets, which is why the
+      column count is roughly 4× the family count.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Module</th><th>Stage</th><th>Source</th><th>Representative features</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">trending</td><td>pre-pivot</td><td class="mono">game_split</td><td>season avg + 4-game trend for win, margin, cover, implied prob</td></tr>
+          <tr><td class="mono">pythag</td><td>pre-pivot</td><td class="mono">game_split</td><td>Pythagorean win %, expected wins</td></tr>
+          <tr><td class="mono">off_epa</td><td>pre-pivot</td><td class="mono">pbp</td><td>offensive EPA / pass / rush / success rate, r4 + r16 windows</td></tr>
+          <tr><td class="mono">def_epa</td><td>pre-pivot</td><td class="mono">pbp</td><td>defensive EPA, sack / QB-hit / stuff / INT / 3rd-down rates</td></tr>
+          <tr><td class="mono">qb_starter</td><td>pre-pivot</td><td class="mono">pbp</td><td>starter QB EPA r4/r8, career games, new-starter flag</td></tr>
+          <tr><td class="mono">pace_total</td><td>pre-pivot</td><td class="mono">pbp + games</td><td>plays per game, points against, total environment</td></tr>
+          <tr><td class="mono">injuries</td><td>post-pivot</td><td class="mono">load_injuries + contracts</td><td>per-unit outs, star outs, cap % out (QB, OL, front7, sec, WR/TE, RB, ST)</td></tr>
+          <tr><td class="mono">snap_counts</td><td>post-pivot</td><td class="mono">load_snap_counts</td><td>QB/RB1/WR1/TE1 snap %, OL + secondary starter continuity</td></tr>
+          <tr><td class="mono">coaching</td><td>post-pivot</td><td class="mono">games</td><td>new HC, interim flag, tenure in games / seasons</td></tr>
+          <tr><td class="mono">rest</td><td>post-pivot</td><td class="mono">games</td><td>rest advantage, off bye, short week, back-to-back road</td></tr>
+          <tr><td class="mono">ngs</td><td>post-pivot</td><td class="mono">load_nextgen_stats</td><td>advanced passing / rushing / receiving aggregates</td></tr>
+          <tr><td class="mono">weather_venue</td><td>game-keyed</td><td class="mono">pbp</td><td>temperature, wind, dome, surface</td></tr>
+          <tr><td class="mono">officials</td><td>game-keyed</td><td class="mono">load_officials</td><td>referee crew tendencies</td></tr>
+          <tr><td class="mono">elo</td><td>game-keyed</td><td class="mono">elo_per_game.csv</td><td>team + QB Elo pre-game, Elo diff, Elo win prob</td></tr>
+          <tr><td class="mono">market</td><td>base</td><td class="mono">games.rds</td><td>spread, total, moneylines, implied probabilities, div game, rest</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sys sys-weekly">Weekly model — 88 of 129 candidates</h3>
+    <p class="prose">
+      Organised into ablation groups so any family can be switched off and re-scored.
+      Eight groups are switched <em>off</em> in production: four because walk-forward CRPS
+      got worse with them in, and four that failed the research protocol or have no live
+      data to serve from.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Group</th><th>Status</th><th>Features</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">recency</td><td>on</td><td>rolling half-PPR mean (3/5/season), volatility, boom + floor rate, trend slope</td></tr>
+          <tr><td class="mono">usage_share</td><td>on</td><td>target share, rush share (short + season + trend)</td></tr>
+          <tr><td class="mono">efficiency</td><td>on</td><td>yards per target / carry / touch, catch rate</td></tr>
+          <tr><td class="mono">td</td><td>on</td><td>TD rate, share of points from TDs</td></tr>
+          <tr><td class="mono">airyards</td><td>on</td><td>WOPR, air-yards share, aDOT</td></tr>
+          <tr><td class="mono">snap</td><td>on</td><td>snap % short + season</td></tr>
+          <tr><td class="mono">role_trend</td><td>on</td><td>snap-share slope — ascending vs declining role</td></tr>
+          <tr><td class="mono">qb_role</td><td>on</td><td>share of team QB pass attempts — separates starter from backup</td></tr>
+          <tr><td class="mono">vacated_opportunity</td><td>on</td><td>targets, carries and snaps left open by teammates ruled out this week, and each player&rsquo;s likely share of them</td></tr>
+          <tr><td class="mono">offense_qb_state</td><td>on</td><td>team offensive EPA (pass / rush, 4 and 16 games), starting QB EPA and experience, QB and OL injuries <span class="tag t-game">from game model</span> — deployed 27 Sep</td></tr>
+          <tr><td class="mono">injury</td><td>on</td><td>report status, practice participation <em>— biggest single win</em></td></tr>
+          <tr><td class="mono">matchup_dvp</td><td>on</td><td>opponent points allowed to the position, season + recent</td></tr>
+          <tr><td class="mono">talent</td><td>on</td><td class="mono">season_proj_ppg · season_proj_total <span class="tag t-season">from season model</span></td></tr>
+          <tr><td class="mono">gameenv</td><td>on</td><td class="mono">total_line · team_implied · spread · pred_win_pct · temp · wind <span class="tag t-game">from game model</span></td></tr>
+          <tr><td class="mono">context</td><td>on</td><td>week, dome, grass, div game, off bye, short week</td></tr>
+          <tr><td class="mono">static</td><td>on</td><td>age</td></tr>
+          <tr><td class="mono">matchup_epa</td><td><strong>off</strong></td><td>opponent defensive EPA — redundant with the game total, adds noise</td></tr>
+          <tr><td class="mono">redzone</td><td><strong>off</strong></td><td>RZ / EZ targets + carries — redundant with volume + TD rate</td></tr>
+          <tr><td class="mono">depth</td><td><strong>off</strong></td><td>depth chart rank — ablation-confirmed dead</td></tr>
+          <tr><td class="mono">team_tendency</td><td><strong>off</strong></td><td>team pass rate, PROE — ablation-confirmed dead</td></tr>
+          <tr><td class="mono">lineup_continuity</td><td><strong>off</strong></td><td>prior-game offensive snap continuity — no live coverage</td></tr>
+          <tr><td class="mono">role_multiscale</td><td><strong>off</strong></td><td>1-game, 6-game and weighted role signals plus peer shocks — gain below threshold</td></tr>
+          <tr><td class="mono">xfp</td><td><strong>off</strong></td><td>rolled expected fantasy points, volume, value per opportunity, luck</td></tr>
+          <tr><td class="mono">xfp_components</td><td><strong>off</strong></td><td>receiving / rushing / passing expected points, expected receptions and TDs</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sys sys-season">Season model — 55 features</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Family</th><th>Features</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">prior production</td><td>career PPR PPG, 3-yr weighted PPG + games, prior games, late-season PPG, volatility, boom-week rate, active-week rate</td></tr>
+          <tr><td class="mono">prior usage</td><td>team target share, carry share, yards per target / carry, pass attempts, passing yards / TDs / INTs</td></tr>
+          <tr><td class="mono">team context</td><td>prior team games, pass + rush attempts, targets, pass rate, PPR points by position group</td></tr>
+          <tr><td class="mono">vegas</td><td>win total, implied points, over/under</td></tr>
+          <tr><td class="mono">projected (feeder models)</td><td class="mono">proj_target_share · projected_plays · projected_pass_rate · vacated target % · vacated carry %</td></tr>
+          <tr><td class="mono">role</td><td>prior offensive snap %, depth team + starter rank, changed team</td></tr>
+          <tr><td class="mono">consensus <span class="tag t-ext">ext</span></td><td class="mono">ecr_rank · ecr_percentile · adp · adp_std · adp_best · value_gap</td></tr>
+          <tr><td class="mono">rookie <span class="tag t-ext">ext</span></td><td class="mono">draftscout_exp_ppg · draftscout_p_made_it</td></tr>
+          <tr><td class="mono">static</td><td>age, height, weight</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <p>
+        <strong>Two mutually exclusive model variants.</strong> The consensus and rookie
+        families never appear together. The default model uses ECR and drops DraftScout
+        (ECR already prices rookies); <span class="m">EXCLUDE_ECR=1</span> inverts it, which
+        more than doubles rookie rank correlation (0.16 → 0.40) by filling the blind spot
+        ECR was covering. The ECR-free variant is the one that trains on fundamentals rather
+        than reprinting consensus.
+      </p>
+    </div>
+
+    <h3>Built, measured, and kept off the site: expected fantasy points</h3>
+    <div class="prose">
+      <p>
+        <span class="m">xfp/</span> values every target, carry and pass attempt from
+        play-by-play and sums them into expected half-PPR points per player-week, fit
+        walk-forward so no season is scored by a model that saw it. It ties nflverse&rsquo;s
+        own <span class="m">ffopportunity</span> on prediction (split-half .767 vs .768)
+        and beats it on calibration (mean ratio 1.006 vs 1.018; QB top-decile bias −1.62
+        vs −3.35).
+      </p>
+      <p>
+        Against a player&rsquo;s actual points, xFP is a small-sample tool. After one game
+        it predicts rest-of-season scoring far better (r .576 vs .473); by six games the
+        two tie, and year over year actual points are as good or better, especially at RB.
+        Actual points carry real finishing skill that xFP deliberately removes.
+      </p>
+      <p>
+        Inside the weekly model it adds nothing. The model already has volume, share and
+        snap features plus the season prior, which do the same denoising. A 9-season A/B
+        measured CRPS +0.0008 (interval spans zero), and both xFP families stopped at screen.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= REFRESH ================= -->
+  <section id="refresh">
+    <h2>How it stays current</h2>
+    <div class="prose">
+      <p>
+        The host is a laptop, and a laptop is not open on a schedule. The original
+        design — two fixed slots a day, one long job per slot — assumed otherwise, and
+        the failure mode was not subtle: over the first week of the 2026 season,
+        <strong>13 daily runs were scheduled, 11 started, and 6 finished clean.</strong>
+        Two of the misses were self-inflicted, because a run that overran its slot
+        still held the launchd label when the next one was due.
+      </p>
+      <p>
+        The schedule is now built the other way round. It fires often and cheaply, and
+        each firing asks <em>what is stale</em> rather than <em>which slot am I</em>.
+        Everything below follows from that one inversion.
+      </p>
+    </div>
+
+    <figure>
+      <div class="figbox">
+        <svg viewBox="0 0 1180 720" role="img"
+             aria-label="Every firing passes four gates — in season, staleness, run lock, upstream reachability — before any work happens. A run that fails leaves the success stamp untouched, so the next firing retries within the hour.">
+          <defs>
+            <marker id="rf-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+            </marker>
+            <marker id="rf-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--ext)"/>
+            </marker>
+          </defs>
+
+          <rect x="70" y="18" width="460" height="62" fill="var(--surface-2)" stroke="var(--rule)"/>
+          <text x="86" y="42" font-size="13" font-weight="700" fill="var(--ink)">launchd fires</text>
+          <text x="86" y="62" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">hourly at :30 · at login · and on wake, coalesced</text>
+
+          <line x1="300" y1="80" x2="300" y2="114" stroke="currentColor" stroke-width="1.5" marker-end="url(#rf-a)"/>
+
+          <rect x="70" y="114" width="460" height="52" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="86" y="136" font-size="13" font-weight="700" fill="var(--ink)">in season?</text>
+          <text x="86" y="155" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">Sep 1 – Feb 15 · IN_SEASON=1 forces</text>
+          <line x1="530" y1="140" x2="612" y2="140" stroke="var(--ink-3)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#rf-a)" color="var(--ink-3)"/>
+          <rect x="620" y="121" width="470" height="38" fill="var(--surface-2)" stroke="var(--rule)"/>
+          <text x="636" y="145" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">skip — out of season</text>
+          <text x="1074" y="145" text-anchor="end" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">exit 0</text>
+
+          <line x1="300" y1="166" x2="300" y2="202" stroke="currentColor" stroke-width="1.5" marker-end="url(#rf-a)"/>
+
+          <rect x="70" y="202" width="460" height="52" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="86" y="224" font-size="13" font-weight="700" fill="var(--ink)">is the last <tspan font-style="italic">successful</tspan> run older than 6 h?</text>
+          <text x="86" y="243" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">REFRESH_MAX_AGE_HOURS · FORCE_RUN=1 overrides</text>
+          <line x1="530" y1="228" x2="612" y2="228" stroke="var(--ink-3)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#rf-a)" color="var(--ink-3)"/>
+          <rect x="620" y="209" width="470" height="38" fill="var(--surface-2)" stroke="var(--rule)"/>
+          <text x="636" y="233" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">skip — nothing to do, ~0 s</text>
+          <text x="1074" y="233" text-anchor="end" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">exit 0</text>
+
+          <line x1="300" y1="254" x2="300" y2="290" stroke="currentColor" stroke-width="1.5" marker-end="url(#rf-a)"/>
+
+          <rect x="70" y="290" width="460" height="52" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="86" y="312" font-size="13" font-weight="700" fill="var(--ink)">is the run lock free?</text>
+          <text x="86" y="331" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">mkdir lock · a dead owner’s lock is taken over</text>
+          <line x1="530" y1="316" x2="612" y2="316" stroke="var(--ink-3)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#rf-a)" color="var(--ink-3)"/>
+          <rect x="620" y="297" width="470" height="38" fill="var(--surface-2)" stroke="var(--rule)"/>
+          <text x="636" y="321" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">defer — another job is running</text>
+          <text x="1074" y="321" text-anchor="end" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">exit 0</text>
+
+          <line x1="300" y1="342" x2="300" y2="378" stroke="currentColor" stroke-width="1.5" marker-end="url(#rf-a)"/>
+
+          <rect x="70" y="378" width="460" height="52" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="86" y="400" font-size="13" font-weight="700" fill="var(--ink)">is any upstream reachable?</text>
+          <text x="86" y="419" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">github · habitatring · polymarket — two tries each</text>
+          <line x1="530" y1="404" x2="612" y2="404" stroke="var(--ext)" stroke-width="2" marker-end="url(#rf-w)"/>
+          <rect x="620" y="385" width="470" height="38" fill="var(--ext-bg)" stroke="var(--ext)"/>
+          <text x="636" y="409" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--ext)">abort — the machine has no network</text>
+          <text x="1074" y="409" text-anchor="end" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--ext)">exit 75</text>
+
+          <line x1="300" y1="430" x2="300" y2="468" stroke="currentColor" stroke-width="1.5" marker-end="url(#rf-a)"/>
+
+          <rect x="70" y="468" width="460" height="92" fill="var(--game-bg)" stroke="var(--game)" stroke-width="1.5"/>
+          <text x="86" y="492" font-size="13" font-weight="700" fill="var(--game)">REFRESH</text>
+          <text x="86" y="513" font-family="var(--mono)" font-size="11.5" fill="var(--ink-2)">lines · market · ECR · projections · leagues · publish</text>
+          <text x="86" y="532" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">per-step caps, plus a 4 h deadline on the run as a whole</text>
+          <text x="86" y="551" font-family="var(--mono)" font-size="11.5" fill="var(--ink-3)">TERM/INT traps name the in-flight step if it is killed</text>
+
+          <line x1="300" y1="560" x2="300" y2="582" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M 181 582 H 419" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="181" y1="582" x2="181" y2="600" stroke="currentColor" stroke-width="1.5" marker-end="url(#rf-a)"/>
+          <line x1="419" y1="582" x2="419" y2="600" stroke="var(--ext)" stroke-width="2" marker-end="url(#rf-w)"/>
+
+          <rect x="70" y="600" width="222" height="54" fill="var(--surface)" stroke="var(--rule)"/>
+          <text x="86" y="622" font-size="12.5" font-weight="700" fill="var(--ink)">every step ok</text>
+          <text x="86" y="641" font-family="var(--mono)" font-size="11" fill="var(--ink-3)">stamp advanced</text>
+
+          <rect x="308" y="600" width="222" height="54" fill="var(--ext-bg)" stroke="var(--ext)"/>
+          <text x="324" y="622" font-size="12.5" font-weight="700" fill="var(--ext)">anything failed</text>
+          <text x="324" y="641" font-family="var(--mono)" font-size="11" fill="var(--ext)">stamp untouched</text>
+
+          <path d="M 419 654 V 688 H 34 V 49 H 62" fill="none" stroke="var(--ext)" stroke-width="2" marker-end="url(#rf-w)"/>
+          <text x="446" y="684" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--ext)">retried at the next firing — within the hour</text>
+        </svg>
+      </div>
+      <figcaption>
+        Four gates stand between a firing and any real work, so firing hourly costs
+        almost nothing: the common outcome is the second gate returning in about a
+        second. The load-bearing detail is the fork at the bottom — the freshness stamp
+        advances only on a fully successful run, so a failure is retried within the
+        hour instead of waiting out a twelve-hour slot.
+      </figcaption>
+    </figure>
+
+    <h3>What runs, and how often</h3>
+    <div class="scroll">
+      <table class="cadence">
+        <thead><tr><th>Job</th><th>When it fires</th><th>What it does</th><th>Runtime</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Refresh</strong></td>
+            <td class="when">hourly at :30<br>+ login + wake<br><span style="color:var(--ink-3)">runs if &gt; 6 h stale</span></td>
+            <td>Lines and model-implied totals, an append-only market snapshot, ECR, the weekly board, league lineups and waivers, DST streamers — then publishes. Deliberately does <em>not</em> rebuild the feature matrix or refit anything.</td>
+            <td class="when">~2 min<br><span style="color:var(--ink-3)">+ leagues</span></td>
+          </tr>
+          <tr>
+            <td><strong>Tuesday</strong></td>
+            <td class="when">Tue 09:00<br><span style="color:var(--ink-3)">retries until done</span></td>
+            <td>The warehouse, the feature matrix and walk-forward; grades the completed week; season roll-ups; then re-projects off freshly rebuilt features. Rebuilding the warehouse is what invalidates the model cache, so this is also when the weekly models refit.</td>
+            <td class="when">~25–40 min</td>
+          </tr>
+          <tr>
+            <td><strong>Retrain</strong></td>
+            <td class="when">Wed 03:00<br><span style="color:var(--ink-3)">retries until done</span></td>
+            <td>The only job that touches the game ensemble: refits it and refreshes walk-forward.</td>
+            <td class="when">~1–2 hrs</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <p>
+        <strong>Tuesday and Retrain now retry.</strong> Both carry the same success stamp as
+        the refresh, so a missed or failed run fires again the next day instead of waiting a
+        week. The retry exposed a real fault: <strong>no scheduled retrain had ever
+        succeeded.</strong> Five attempts from 9 to 25 Sep each died downloading a different
+        season of play-by-play (2002, 2001, 2006, 2000, 2000), always on R&rsquo;s default
+        60-second timeout. Every retrain was re-downloading all 27 seasons at 03:00 on a
+        laptop in dark wake. Since 27 Sep the retrain reads the play-by-play store, and the
+        only download is the current season (about one second) with a 600-second timeout.
+      </p>
+    </div>
+
+    <h3>Where a refresh actually spends its time</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Step</th><th class="num">Typical</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">pbp</td><td class="num mono">~1 s</td><td>current season into <span class="m">pbp.db</span>; non-critical before a week, critical after one</td></tr>
+          <tr><td class="mono">upcoming</td><td class="num mono">25–75 s</td><td>loads <span class="m">ensemble_latest.rds</span> and scores — no fitting</td></tr>
+          <tr><td class="mono">market</td><td class="num mono">2 s</td><td>appends 144 observations to the market store</td></tr>
+          <tr><td class="mono">ecr</td><td class="num mono">6 s</td><td>weekly consensus capture</td></tr>
+          <tr><td class="mono">project</td><td class="num mono">7 s</td><td>on a cache hit; any edit to the feature code forces a refit, which took 35 min on 27 Sep</td></tr>
+          <tr><td class="mono">assemble</td><td class="num mono">45 s</td><td>weekly report JSON</td></tr>
+          <tr><td class="mono">dst</td><td class="num mono">20 s</td><td>streamer table</td></tr>
+          <tr><td class="mono">fantasy</td><td class="num mono">11–47 min</td><td><strong>the dominant cost</strong> — five league APIs, and the spread is upstream DNS, not compute</td></tr>
+          <tr><td class="mono">deploy</td><td class="num mono">25 s</td><td>static upload — <strong>critical</strong>: an unpublished run is a failed run</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>What makes a refresh cheap</h3>
+    <ul class="tight prose">
+      <li>
+        <strong>The weekly models are loaded, not fitted.</strong> The cached artifact
+        carries the fitted boosters, the active classifier <em>and</em> the imputation
+        medians, so a refresh never touches the training panel. Building that panel is
+        <span class="m">87.8 s</span> of the <span class="m">2.3 s</span> warehouse read
+        it sits on top of — and on a cache hit its only surviving output was a
+        <span class="m">5.3 KB</span> table of medians. Caching that table took the step
+        from 97 s to 7 s, with byte-identical predictions. Refitting still costs 285 s,
+        once a week, when Tuesday’s rebuild changes what the models were trained on.
+      </li>
+      <li>
+        <strong>The feature matrix is not rebuilt.</strong> Nothing in it changes until
+        games are played; what moves day to day reaches the models through the
+        upcoming-week export instead.
+      </li>
+      <li>
+        <strong>The cache key is the feature <em>code</em>, not the column names.</strong>
+        Hashing <span class="m">features.R</span> means an edit that changes values but
+        not column names invalidates the cache, which the previous key would have missed.
+      </li>
+      <li>
+        <strong>Scheduling is <span class="m">launchd</span>, not <span class="m">cron</span></strong> —
+        calendar intervals fire on wake and coalesce missed ones into a single event,
+        which cron will not. <span class="m">StartInterval</span> looks like the natural
+        fit for &ldquo;every hour&rdquo; and is the wrong tool: its missed firings are
+        dropped outright.
+      </li>
+    </ul>
+
+    <h3>Freshness budgets</h3>
+    <p class="prose">
+      Each shared artifact declares how old it may be, and a preflight check
+      refuses to start a run that would consume a stale one. The budgets are set
+      by the cadence that rebuilds each artifact — a weekly artifact is
+      legitimately six days old by Monday, so a three-day budget would block every
+      refresh rather than catch anything.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Artifact</th><th class="num">Budget</th><th>Rebuilt by</th><th>Readers</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">fantasy_football.db</td><td class="num mono">9d</td><td>Tuesday</td><td class="num">14</td></tr>
+          <tr><td class="mono">game_w_features.csv</td><td class="num mono">9d</td><td>Tuesday</td><td class="num">27</td></tr>
+          <tr><td class="mono">walk_forward_predictions.csv</td><td class="num mono">9d</td><td>Tuesday</td><td class="num">14</td></tr>
+          <tr><td class="mono">upcoming_predictions.csv</td><td class="num mono">2d</td><td>Refresh — lines move</td><td class="num">3</td></tr>
+          <tr><td class="mono">season_proj.csv</td><td class="num mono">30d</td><td>Season model — gates week 1 only</td><td class="num">4</td></tr>
+          <tr><td class="mono">pbp.db</td><td class="num mono">8d</td><td>Every run — current season; past seasons refreshed after 30 days</td><td class="num">8</td></tr>
+          <tr><td class="mono">ensemble_latest.rds</td><td class="num mono">120d</td><td>Retrain</td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <p>
+        <strong>A budget that could only fail.</strong> The season prior is built once before
+        week 1 and is meant to stay fixed all season, so a 30-day budget guaranteed the gate
+        would trip about four weeks in. It did: from 25 Sep every hourly refresh stopped at
+        preflight, and the site went 53 hours without publishing, into Week 3 Sunday. Since
+        27 Sep the pre-week run checks that budget only for week 1.
+      </p>
+    </div>
+
+    <div class="note">
+      <p>
+        <strong>Incremental feature builds were tried and rejected.</strong> Rebuilding a
+        trailing 3-season window and splicing it onto the cache leaves <strong>138 of 374
+        columns different</strong> — all unbounded-history counters
+        (<span class="m">ref_career_n_games</span>, <span class="m">coach_team_games</span>,
+        <span class="m">starter_career_games</span>) that accumulate from 2000, so no
+        window reproduces them. Skipping the rebuild entirely on a refresh is both
+        correct and cheaper.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= FINDINGS ================= -->
+  <section id="findings">
+    <h2>What the audit surfaced</h2>
+    <p class="prose">
+      Kept as a record rather than trimmed — what has since been closed is as
+      informative as what is still open.
+    </p>
+    <div class="prose">
+      <h4>The ensemble is not an ensemble <span class="tag t-open">still true</span></h4>
+      <p>
+        <span class="m">fit_stacking</span> returns a hard-coded GLM-only weight vector
+        unless <span class="m">STACK_FULL=1</span>. The decision is sound and well
+        documented — pure GLM dropped walk-forward MAE 9.832 → 9.778 and turned the
+        close-game bucket from 0.225 worse than Vegas to 0.036 better. But XGBoost and
+        random forest still train on every walk-forward and every production fit, and their
+        predictions are discarded. That is a large amount of compute buying nothing until
+        the fallback is exercised.
+      </p>
+
+      <h4>Two definitions of &ldquo;who wins&rdquo; <span class="tag t-fixed">resolved</span></h4>
+      <p>
+        The margin model and the win-probability model disagree on roughly 1% of games —
+        those near a coin flip, where the predicted margin is <span class="m">+0.2</span>
+        while the calibrated win probability sits at <span class="m">0.49</span>.
+        Grading keys off the margin (<span class="m">pred_winner</span>), so the site's
+        moneyline record and its win-probability bar can point at different teams in the
+        same game.
+      </p>
+
+      <h4>The weekly model inherits two staleness risks it cannot see <span class="tag t-fixed">resolved</span></h4>
+      <p>
+        Its game-environment block reads <span class="m">game_w_features.csv</span> and its
+        talent block reads <span class="m">season_proj.csv</span>. Neither carries a
+        freshness assertion into the weekly build, so a stale upstream cache degrades weekly
+        projections silently rather than failing loudly. The feature file is currently dated
+        7 Jun 2026.
+      </p>
+
+      <h4>Feature redundancy is a live, measured concern <span class="tag t-open">still open</span></h4>
+      <p>
+        A correlation audit of the season model's 55 features found 13 pairs at
+        |r| ≥ 0.95, including two exact duplicates
+        (<span class="m">projected_pass_rate</span> is a verbatim copy of
+        <span class="m">team_prev_pass_rate</span>). Because
+        <span class="m">colsample_bytree</span> samples columns, duplicates claim extra draws
+        and crowd out real signal — the documented failure mode that took
+        <span class="m">team_volume_model</span> from 0.447 to 0.410. The
+        <span class="m">PRUNE</span> flag exists to test it but is off by default.
+      </p>
+
+      <h4>How the resolved two were closed</h4>
+      <p>
+        The competing moneyline definitions were collapsed into one:
+        <span class="m">model_pick_winner()</span> now lives beside
+        <span class="m">model_pick_ats()</span> in a shared module and keys off the
+        predicted margin, matching what grading has always scored. Anything
+        displaying a pick uses it, so a card can no longer contradict its own
+        win/loss mark.
+      </p>
+      <p>
+        The weekly model&rsquo;s invisible dependencies are now explicit. Its two
+        upstream inputs are declared edges in a <span class="m">{targets}</span>
+        graph, so changing the season projection marks the board, the week&rsquo;s
+        reports and the regression gate out of date and nothing else. Joins that
+        feed it assert their own match rates, and a run refuses to start on a stale
+        input. The failure that motivated this — week-one projections collapsing
+        onto the positional median when the talent prior silently matched nothing —
+        now stops the pipeline with the match rate in the message.
+      </p>
+
+      <h4>The scheduled retrain never completed <span class="tag t-fixed">fixed · first run pending</span></h4>
+      <p>
+        No scheduled retrain had succeeded. The failing season changed every time, which
+        pointed away from any one file: each run re-downloaded all of 2000&ndash;2026 overnight,
+        and some season always hit the 60-second download timeout. The feature build now
+        reads the play-by-play store, which loads all 27 seasons in about 19 seconds with no
+        network. The first scheduled run on it is the next 03:00 firing. The production ensemble in use was rebuilt by
+        hand on 27 Sep, during a daily refresh.
+      </p>
+
+      <h4>Daily downloads still run on a 60-second timeout <span class="tag t-open">open</span></h4>
+      <p>
+        The 27 Sep 15:33 refresh hit its four-hour deadline after nflverse downloads stalled:
+        the upcoming-week step failed after 33 minutes and a roster fetch timed out. The
+        retrain loader now raises its timeout, but the daily steps&rsquo; loaders do not.
+      </p>
+
+      <h4>The Q&amp;A tool&rsquo;s play-by-play copy is out of date <span class="tag t-open">open</span></h4>
+      <p>
+        Cross-checking the new store against <span class="m">nflverse_qa</span>&rsquo;s DuckDB
+        copy matched row counts in all 27 seasons but not EPA in three (2001, 2002, 2020).
+        The store matches today&rsquo;s nflverse; the DuckDB copy was built from 3 Aug
+        files and missed both August republishes, so questions answered from it use
+        pre-revision EPA.
+      </p>
+
+      <h4>Every daily refresh failed for 14 hours <span class="tag t-fixed">resolved</span></h4>
+      <p>
+        From 08:58 to 22:20 on 27 Sep the critical upcoming-week step failed in every
+        scheduled refresh. An edit to <span class="m">refresh_live_features.R</span> loaded
+        <span class="m">ensemble_lib.R</span> by a relative path, which works from the
+        project folder by hand but not from the folder launchd starts runs in. The fix is
+        the same two lines its sibling scripts already used. The general lesson: test any
+        script a scheduled job runs from the scheduler&rsquo;s working directory.
+      </p>
+
+      <h4>League data missing from a clean run <span class="tag t-fixed">resolved</span></h4>
+      <p>
+        The 27 Sep refresh exited clean but published three leagues with missing data.
+        The MFL case was not a feed change: before kickoff MFL correctly lists players
+        without scores, and ffscrapr&rsquo;s <span class="m">ff_starters()</span> drops the
+        absent score column and then fails converting it, on every pre-week run. MFL set
+        lineups are now read straight from its <span class="m">weeklyResults</span> endpoint.
+        Two Sleeper leagues published without draft picks because neither has traded a
+        pick: Sleeper returns an empty list, and ffscrapr fails on it. Picks are now built
+        from each league&rsquo;s own settings, and only for keeper and dynasty leagues;
+        #SFB16 is redraft and owns none.
+      </p>
+
+      <h4>A preseason artifact on an age budget <span class="tag t-fixed">resolved</span></h4>
+      <p>
+        Covered under freshness budgets above: 53 hours offline, fixed on 27 Sep by gating
+        the season prior&rsquo;s age in week 1 only.
+      </p>
+
+      <h4>New: the feature build does not decompose <span class="tag t-open">by design</span></h4>
+      <p>
+        Measured while trying to make daily runs cheaper: 138 of the 374 feature
+        columns are unbounded-history counters accumulating since 2000, so the
+        matrix cannot be rebuilt in windows. This is a real constraint on how the
+        pipeline can ever be parallelised or incrementalised, not a defect —
+        recorded here so it is not rediscovered a third time.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p style="margin:0 0 10px">
+      Generated from a read of nfl_predictor · weekly_fantasy · fantasy_db —
+      ensemble bundle trained 2026-09-27.
+    </p>
+    <p style="margin:0 0 10px">
+      Revised 26 Aug 2026: added the refresh schedule, the league-scoring layer, and
+      the status of each finding. Model inventory, feature counts and data sources
+      are unchanged.
+    </p>
+    <p style="margin:0 0 10px">
+      Revised 8 Sep 2026: the refresh schedule was rebuilt around an intermittently
+      open laptop — hourly gated firing, a run lock, a whole-run deadline, an upstream
+      reachability check, and a freshness stamp that only a fully successful run
+      advances. Model inventory, feature counts and data sources are unchanged.
+    </p>
+    <p style="margin:0 0 10px">
+      Revised 27 Sep 2026: weekly model moved to the roster-week population and the
+      research protocol (71 of 129 features; vacated opportunity promoted; offense/QB state
+      passed; xFP, multiscale role and lineup continuity out). Polymarket, Kalshi, weekly
+      rosters and the market store added. Game ensemble retrained with EV slope 0.394.
+      Tuesday/Retrain retries, the 53-hour preflight outage, and the league-feed finding.
+      Season model unchanged since 7 Sep.
+    </p>
+    <p style="margin:0 0 10px">
+      Later on 27 Sep: offense/QB state deployed to the weekly model (71 → 88 features),
+      live from the 22:30 refresh; the retrain&rsquo;s play-by-play timeouts diagnosed and
+      fixed; the daily loaders&rsquo; timeout added as an open finding. Then: play-by-play
+      consolidated into <span class="m">fantasy_db/pbp.db</span> with one loader and eight
+      readers switched over (outputs verified identical, or different only where nflverse
+      republished), and the stale DuckDB copy recorded as a finding.
+    </p>
+    <p style="margin:0">
+      <strong style="color:var(--ink-2)">Two-stage fit, so the calibration set is never in-sample.</strong>
+      Base learners train on 2008–2023 (4,327 games) and predict on 2024–2025 (570 games);
+      the stacking weights, σ and Platt are fit on those genuinely out-of-sample predictions.
+      Only then are the learners retrained on the full window for
+      production. As of 27 Sep that full window is 2008–2026 (4,930 games). The two windows
+      overlap as date ranges but never as a single fit.
+    </p>
+  </footer>
+
+</div>

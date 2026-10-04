@@ -1,20 +1,20 @@
 {
   "season": 2026,
-  "updated": "2026-09-17T09:11:27-0700",
+  "updated": "2026-10-04T10:17:29-0700",
   "leagues": [
     {
       "label": "UNH SuperFlex Dynasty",
       "platform": "mfl",
       "my_franchise": "Amon-Ra St. Boomorbust",
-      "weeks": [1],
+      "weeks": [1, 2, 3],
       "franchises": [
         {
           "franchise": "Everything is Golden",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 190,
+          "points_for": 479.8,
           "weekly": [
             {
               "week": 1,
@@ -22,50 +22,30 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 190
-            }
-          ]
-        },
-        {
-          "franchise": "One Pretzel Bite to Rule Them All",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 170.2,
-          "weekly": [
+            },
             {
-              "week": 1,
-              "points": 170.2,
+              "week": 2,
+              "points": 134.3,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 170.2
-            }
-          ]
-        },
-        {
-          "franchise": "The BoogeyManz",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 127.9,
-          "weekly": [
+              "cum_wins": 2,
+              "cum_pf": 324.2
+            },
             {
-              "week": 1,
-              "points": 127.9,
+              "week": 3,
+              "points": 155.6,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 127.9
+              "cum_wins": 3,
+              "cum_pf": 479.8
             }
           ]
         },
         {
           "franchise": "Stroud Boys",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 116.3,
+          "points_for": 368.4,
           "weekly": [
             {
               "week": 1,
@@ -73,33 +53,92 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 116.3
+            },
+            {
+              "week": 2,
+              "points": 120.4,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 236.7
+            },
+            {
+              "week": 3,
+              "points": 131.8,
+              "result": "W",
+              "cum_wins": 3,
+              "cum_pf": 368.4
             }
           ]
         },
         {
-          "franchise": "Honor Bound Conflicts",
+          "franchise": "One Pretzel Bite to Rule Them All",
           "is_mine": false,
-          "wins": 1,
-          "losses": 0,
+          "wins": 2,
+          "losses": 1,
           "ties": 0,
-          "points_for": 115.4,
+          "points_for": 394.4,
           "weekly": [
             {
               "week": 1,
-              "points": 115.4,
+              "points": 170.2,
               "result": "W",
               "cum_wins": 1,
-              "cum_pf": 115.4
+              "cum_pf": 170.2
+            },
+            {
+              "week": 2,
+              "points": 86.7,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 256.9
+            },
+            {
+              "week": 3,
+              "points": 137.5,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 394.4
+            }
+          ]
+        },
+        {
+          "franchise": "The BoogeyManz",
+          "is_mine": false,
+          "wins": 2,
+          "losses": 1,
+          "ties": 0,
+          "points_for": 324.1,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 127.9,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 127.9
+            },
+            {
+              "week": 2,
+              "points": 87.6,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 215.5
+            },
+            {
+              "week": 3,
+              "points": 108.5,
+              "result": "L",
+              "cum_wins": 2,
+              "cum_pf": 324.1
             }
           ]
         },
         {
           "franchise": "Amon-Ra St. Boomorbust",
           "is_mine": true,
-          "wins": 0,
-          "losses": 1,
+          "wins": 1,
+          "losses": 2,
           "ties": 0,
-          "points_for": 143.4,
+          "points_for": 418.4,
           "weekly": [
             {
               "week": 1,
@@ -107,33 +146,30 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 143.4
-            }
-          ]
-        },
-        {
-          "franchise": "Hype Train",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 110.7,
-          "weekly": [
+            },
             {
-              "week": 1,
-              "points": 110.7,
+              "week": 2,
+              "points": 134,
               "result": "L",
               "cum_wins": 0,
-              "cum_pf": 110.7
+              "cum_pf": 277.4
+            },
+            {
+              "week": 3,
+              "points": 141,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 418.4
             }
           ]
         },
         {
           "franchise": "The Death Star",
           "is_mine": false,
-          "wins": 0,
-          "losses": 1,
+          "wins": 1,
+          "losses": 2,
           "ties": 0,
-          "points_for": 101.3,
+          "points_for": 371.8,
           "weekly": [
             {
               "week": 1,
@@ -141,33 +177,92 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 101.3
+            },
+            {
+              "week": 2,
+              "points": 167,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 268.3
+            },
+            {
+              "week": 3,
+              "points": 103.4,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 371.8
             }
           ]
         },
         {
-          "franchise": "Return of the Mac/Dak",
+          "franchise": "Hype Train",
           "is_mine": false,
-          "wins": 0,
-          "losses": 1,
+          "wins": 1,
+          "losses": 2,
           "ties": 0,
-          "points_for": 90.5,
+          "points_for": 309.7,
           "weekly": [
             {
               "week": 1,
-              "points": 90.5,
+              "points": 110.7,
               "result": "L",
               "cum_wins": 0,
-              "cum_pf": 90.5
+              "cum_pf": 110.7
+            },
+            {
+              "week": 2,
+              "points": 97,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 207.7
+            },
+            {
+              "week": 3,
+              "points": 102,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 309.7
+            }
+          ]
+        },
+        {
+          "franchise": "Honor Bound Conflicts",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 291.6,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 115.4,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 115.4
+            },
+            {
+              "week": 2,
+              "points": 67.9,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 183.3
+            },
+            {
+              "week": 3,
+              "points": 108.3,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 291.6
             }
           ]
         },
         {
           "franchise": "Super Styles",
           "is_mine": false,
-          "wins": 0,
-          "losses": 1,
+          "wins": 1,
+          "losses": 2,
           "ties": 0,
-          "points_for": 82.7,
+          "points_for": 268.6,
           "weekly": [
             {
               "week": 1,
@@ -175,6 +270,51 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 82.7
+            },
+            {
+              "week": 2,
+              "points": 87.2,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 169.9
+            },
+            {
+              "week": 3,
+              "points": 98.8,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 268.6
+            }
+          ]
+        },
+        {
+          "franchise": "Return of the Mac/Dak",
+          "is_mine": false,
+          "wins": 0,
+          "losses": 3,
+          "ties": 0,
+          "points_for": 328.4,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 90.5,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 90.5
+            },
+            {
+              "week": 2,
+              "points": 142.5,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 233.1
+            },
+            {
+              "week": 3,
+              "points": 95.3,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 328.4
             }
           ]
         }
@@ -184,32 +324,15 @@
       "label": "No Fun League",
       "platform": "sleeper",
       "my_franchise": "wadepfuller",
-      "weeks": [1],
+      "weeks": [1, 2, 3, 4],
       "franchises": [
-        {
-          "franchise": "jpnelson90",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 167.6,
-          "weekly": [
-            {
-              "week": 1,
-              "points": 167.6,
-              "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 167.6
-            }
-          ]
-        },
         {
           "franchise": "danterrr27",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 152.8,
+          "points_for": 527.5,
           "weekly": [
             {
               "week": 1,
@@ -217,33 +340,37 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 152.8
-            }
-          ]
-        },
-        {
-          "franchise": "dindinz",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 136.5,
-          "weekly": [
+            },
             {
-              "week": 1,
-              "points": 136.5,
+              "week": 2,
+              "points": 183.7,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 136.5
+              "cum_wins": 2,
+              "cum_pf": 336.5
+            },
+            {
+              "week": 3,
+              "points": 161.8,
+              "result": "W",
+              "cum_wins": 3,
+              "cum_pf": 498.3
+            },
+            {
+              "week": 4,
+              "points": 29.3,
+              "result": null,
+              "cum_wins": 3,
+              "cum_pf": 527.5
             }
           ]
         },
         {
           "franchise": "Brock and Roll",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 132.1,
+          "points_for": 460.8,
           "weekly": [
             {
               "week": 1,
@@ -251,101 +378,75 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 132.1
+            },
+            {
+              "week": 2,
+              "points": 141.7,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 273.8
+            },
+            {
+              "week": 3,
+              "points": 168.6,
+              "result": "W",
+              "cum_wins": 3,
+              "cum_pf": 442.4
+            },
+            {
+              "week": 4,
+              "points": 18.5,
+              "result": null,
+              "cum_wins": 3,
+              "cum_pf": 460.8
             }
           ]
         },
         {
-          "franchise": "dominickcoscia",
+          "franchise": "dindinz",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 131.9,
+          "points_for": 400.2,
           "weekly": [
             {
               "week": 1,
-              "points": 131.9,
+              "points": 136.5,
               "result": "W",
               "cum_wins": 1,
-              "cum_pf": 131.9
-            }
-          ]
-        },
-        {
-          "franchise": "Rdoan",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 129.8,
-          "weekly": [
+              "cum_pf": 136.5
+            },
             {
-              "week": 1,
-              "points": 129.8,
+              "week": 2,
+              "points": 116.4,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 129.8
-            }
-          ]
-        },
-        {
-          "franchise": "jaxel3",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 137.2,
-          "weekly": [
+              "cum_wins": 2,
+              "cum_pf": 252.9
+            },
             {
-              "week": 1,
-              "points": 137.2,
-              "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 137.2
-            }
-          ]
-        },
-        {
-          "franchise": "Washington Commies",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 131.9,
-          "weekly": [
+              "week": 3,
+              "points": 126.1,
+              "result": "W",
+              "cum_wins": 3,
+              "cum_pf": 379
+            },
             {
-              "week": 1,
-              "points": 131.9,
-              "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 131.9
-            }
-          ]
-        },
-        {
-          "franchise": "NPepe22",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 127.7,
-          "weekly": [
-            {
-              "week": 1,
-              "points": 127.7,
-              "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 127.7
+              "week": 4,
+              "points": 21.2,
+              "result": null,
+              "cum_wins": 3,
+              "cum_pf": 400.2
             }
           ]
         },
         {
           "franchise": "wadepfuller",
           "is_mine": true,
-          "wins": 0,
+          "wins": 2,
           "losses": 1,
           "ties": 0,
-          "points_for": 121.8,
+          "points_for": 494.2,
           "weekly": [
             {
               "week": 1,
@@ -353,16 +454,189 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 121.8
+            },
+            {
+              "week": 2,
+              "points": 166.8,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 288.6
+            },
+            {
+              "week": 3,
+              "points": 169.2,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 457.8
+            },
+            {
+              "week": 4,
+              "points": 36.4,
+              "result": null,
+              "cum_wins": 2,
+              "cum_pf": 494.2
+            }
+          ]
+        },
+        {
+          "franchise": "jpnelson90",
+          "is_mine": false,
+          "wins": 2,
+          "losses": 1,
+          "ties": 0,
+          "points_for": 413,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 167.6,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 167.6
+            },
+            {
+              "week": 2,
+              "points": 57.6,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 225.2
+            },
+            {
+              "week": 3,
+              "points": 146.8,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 372
+            },
+            {
+              "week": 4,
+              "points": 41,
+              "result": null,
+              "cum_wins": 2,
+              "cum_pf": 413
+            }
+          ]
+        },
+        {
+          "franchise": "Washington Commies",
+          "is_mine": false,
+          "wins": 2,
+          "losses": 1,
+          "ties": 0,
+          "points_for": 392.5,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 131.9,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 131.9
+            },
+            {
+              "week": 2,
+              "points": 138.6,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 270.5
+            },
+            {
+              "week": 3,
+              "points": 115.3,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 385.8
+            },
+            {
+              "week": 4,
+              "points": 6.7,
+              "result": null,
+              "cum_wins": 2,
+              "cum_pf": 392.5
+            }
+          ]
+        },
+        {
+          "franchise": "dominickcoscia",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 408.4,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 131.9,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 131.9
+            },
+            {
+              "week": 2,
+              "points": 125.6,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 257.4
+            },
+            {
+              "week": 3,
+              "points": 132.6,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 390
+            },
+            {
+              "week": 4,
+              "points": 18.4,
+              "result": null,
+              "cum_wins": 1,
+              "cum_pf": 408.4
+            }
+          ]
+        },
+        {
+          "franchise": "Rdoan",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 385.3,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 129.8,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 129.8
+            },
+            {
+              "week": 2,
+              "points": 131.8,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 261.6
+            },
+            {
+              "week": 3,
+              "points": 114.5,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 376.1
+            },
+            {
+              "week": 4,
+              "points": 9.2,
+              "result": null,
+              "cum_wins": 1,
+              "cum_pf": 385.3
             }
           ]
         },
         {
           "franchise": "Darty Time",
           "is_mine": false,
-          "wins": 0,
-          "losses": 1,
+          "wins": 1,
+          "losses": 2,
           "ties": 0,
-          "points_for": 111.3,
+          "points_for": 381,
           "weekly": [
             {
               "week": 1,
@@ -370,6 +644,103 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 111.3
+            },
+            {
+              "week": 2,
+              "points": 141.1,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 252.4
+            },
+            {
+              "week": 3,
+              "points": 114.2,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 366.6
+            },
+            {
+              "week": 4,
+              "points": 14.4,
+              "result": null,
+              "cum_wins": 1,
+              "cum_pf": 381
+            }
+          ]
+        },
+        {
+          "franchise": "jaxel3",
+          "is_mine": false,
+          "wins": 0,
+          "losses": 3,
+          "ties": 0,
+          "points_for": 359,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 137.2,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 137.2
+            },
+            {
+              "week": 2,
+              "points": 91.9,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 229.1
+            },
+            {
+              "week": 3,
+              "points": 111.6,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 340.7
+            },
+            {
+              "week": 4,
+              "points": 18.3,
+              "result": null,
+              "cum_wins": 0,
+              "cum_pf": 359
+            }
+          ]
+        },
+        {
+          "franchise": "NPepe22",
+          "is_mine": false,
+          "wins": 0,
+          "losses": 3,
+          "ties": 0,
+          "points_for": 352.3,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 127.7,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 127.7
+            },
+            {
+              "week": 2,
+              "points": 106.1,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 233.8
+            },
+            {
+              "week": 3,
+              "points": 95.3,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 329
+            },
+            {
+              "week": 4,
+              "points": 23.2,
+              "result": null,
+              "cum_wins": 0,
+              "cum_pf": 352.3
             }
           ]
         },
@@ -377,9 +748,9 @@
           "franchise": "peepee22",
           "is_mine": false,
           "wins": 0,
-          "losses": 1,
+          "losses": 3,
           "ties": 0,
-          "points_for": 103.8,
+          "points_for": 341.6,
           "weekly": [
             {
               "week": 1,
@@ -387,6 +758,27 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 103.8
+            },
+            {
+              "week": 2,
+              "points": 100.5,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 204.3
+            },
+            {
+              "week": 3,
+              "points": 126.4,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 330.7
+            },
+            {
+              "week": 4,
+              "points": 10.9,
+              "result": null,
+              "cum_wins": 0,
+              "cum_pf": 341.6
             }
           ]
         }
@@ -396,15 +788,15 @@
       "label": "Kansas Keepers League",
       "platform": "sleeper",
       "my_franchise": "Bowers Power Hour",
-      "weeks": [1],
+      "weeks": [1, 2, 3, 4],
       "franchises": [
         {
           "franchise": "Calamari Cockrings",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 168.6,
+          "points_for": 387.7,
           "weekly": [
             {
               "week": 1,
@@ -412,67 +804,37 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 168.6
-            }
-          ]
-        },
-        {
-          "franchise": "AustinBShawty",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 126.9,
-          "weekly": [
+            },
             {
-              "week": 1,
-              "points": 126.9,
+              "week": 2,
+              "points": 94.7,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 126.9
-            }
-          ]
-        },
-        {
-          "franchise": "Strib Club Closed",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 126.3,
-          "weekly": [
+              "cum_wins": 2,
+              "cum_pf": 263.3
+            },
             {
-              "week": 1,
-              "points": 126.3,
+              "week": 3,
+              "points": 92.1,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 126.3
-            }
-          ]
-        },
-        {
-          "franchise": "DirtyDangelo",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 120.1,
-          "weekly": [
+              "cum_wins": 3,
+              "cum_pf": 355.4
+            },
             {
-              "week": 1,
-              "points": 120.1,
-              "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 120.1
+              "week": 4,
+              "points": 32.3,
+              "result": null,
+              "cum_wins": 3,
+              "cum_pf": 387.7
             }
           ]
         },
         {
           "franchise": "SHAWTOWN GIANTS",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 109.9,
+          "points_for": 315.1,
           "weekly": [
             {
               "week": 1,
@@ -480,50 +842,37 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 109.9
-            }
-          ]
-        },
-        {
-          "franchise": "Kros Broncos",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 108,
-          "weekly": [
+            },
             {
-              "week": 1,
-              "points": 108,
+              "week": 2,
+              "points": 86.6,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 108
-            }
-          ]
-        },
-        {
-          "franchise": "Gannon’s Cannons",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 78.8,
-          "weekly": [
+              "cum_wins": 2,
+              "cum_pf": 196.5
+            },
             {
-              "week": 1,
-              "points": 78.8,
+              "week": 3,
+              "points": 105.3,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 78.8
+              "cum_wins": 3,
+              "cum_pf": 301.8
+            },
+            {
+              "week": 4,
+              "points": 13.3,
+              "result": null,
+              "cum_wins": 3,
+              "cum_pf": 315.1
             }
           ]
         },
         {
           "franchise": "Wheat Hill Hookers ",
           "is_mine": false,
-          "wins": 0,
+          "wins": 2,
           "losses": 1,
           "ties": 0,
-          "points_for": 133.3,
+          "points_for": 411.4,
           "weekly": [
             {
               "week": 1,
@@ -531,67 +880,37 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 133.3
-            }
-          ]
-        },
-        {
-          "franchise": "SunCity Pickers ",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 108.3,
-          "weekly": [
+            },
             {
-              "week": 1,
-              "points": 108.3,
-              "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 108.3
-            }
-          ]
-        },
-        {
-          "franchise": "Bowers Power Hour",
-          "is_mine": true,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 107.2,
-          "weekly": [
+              "week": 2,
+              "points": 124.4,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 257.7
+            },
             {
-              "week": 1,
-              "points": 107.2,
-              "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 107.2
-            }
-          ]
-        },
-        {
-          "franchise": "bmr5",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 94.7,
-          "weekly": [
+              "week": 3,
+              "points": 135.7,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 393.4
+            },
             {
-              "week": 1,
-              "points": 94.7,
-              "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 94.7
+              "week": 4,
+              "points": 18,
+              "result": null,
+              "cum_wins": 2,
+              "cum_pf": 411.4
             }
           ]
         },
         {
           "franchise": "Oysters, Clams & Cockles",
           "is_mine": false,
-          "wins": 0,
+          "wins": 2,
           "losses": 1,
           "ties": 0,
-          "points_for": 88.4,
+          "points_for": 385.7,
           "weekly": [
             {
               "week": 1,
@@ -599,16 +918,75 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 88.4
+            },
+            {
+              "week": 2,
+              "points": 158.7,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 247.1
+            },
+            {
+              "week": 3,
+              "points": 111,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 358.1
+            },
+            {
+              "week": 4,
+              "points": 27.6,
+              "result": null,
+              "cum_wins": 2,
+              "cum_pf": 385.7
+            }
+          ]
+        },
+        {
+          "franchise": "Kros Broncos",
+          "is_mine": false,
+          "wins": 2,
+          "losses": 1,
+          "ties": 0,
+          "points_for": 324.9,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 108,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 108
+            },
+            {
+              "week": 2,
+              "points": 89.6,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 197.6
+            },
+            {
+              "week": 3,
+              "points": 96.8,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 294.4
+            },
+            {
+              "week": 4,
+              "points": 30.5,
+              "result": null,
+              "cum_wins": 2,
+              "cum_pf": 324.9
             }
           ]
         },
         {
           "franchise": "Mexican Fighting Chickens",
           "is_mine": false,
-          "wins": 0,
+          "wins": 2,
           "losses": 1,
           "ties": 0,
-          "points_for": 76.4,
+          "points_for": 293.4,
           "weekly": [
             {
               "week": 1,
@@ -616,6 +994,293 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 76.4
+            },
+            {
+              "week": 2,
+              "points": 112.6,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 189
+            },
+            {
+              "week": 3,
+              "points": 97,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 286
+            },
+            {
+              "week": 4,
+              "points": 7.4,
+              "result": null,
+              "cum_wins": 2,
+              "cum_pf": 293.4
+            }
+          ]
+        },
+        {
+          "franchise": "Gannon’s Cannons",
+          "is_mine": false,
+          "wins": 2,
+          "losses": 1,
+          "ties": 0,
+          "points_for": 263.1,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 78.8,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 78.8
+            },
+            {
+              "week": 2,
+              "points": 67.8,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 146.5
+            },
+            {
+              "week": 3,
+              "points": 89.8,
+              "result": "L",
+              "cum_wins": 2,
+              "cum_pf": 236.4
+            },
+            {
+              "week": 4,
+              "points": 26.7,
+              "result": null,
+              "cum_wins": 2,
+              "cum_pf": 263.1
+            }
+          ]
+        },
+        {
+          "franchise": "Bowers Power Hour",
+          "is_mine": true,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 362,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 107.2,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 107.2
+            },
+            {
+              "week": 2,
+              "points": 136.3,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 243.5
+            },
+            {
+              "week": 3,
+              "points": 96.9,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 340.3
+            },
+            {
+              "week": 4,
+              "points": 21.6,
+              "result": null,
+              "cum_wins": 1,
+              "cum_pf": 362
+            }
+          ]
+        },
+        {
+          "franchise": "bmr5",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 311.5,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 94.7,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 94.7
+            },
+            {
+              "week": 2,
+              "points": 98.3,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 193
+            },
+            {
+              "week": 3,
+              "points": 94.4,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 287.4
+            },
+            {
+              "week": 4,
+              "points": 24.1,
+              "result": null,
+              "cum_wins": 1,
+              "cum_pf": 311.5
+            }
+          ]
+        },
+        {
+          "franchise": "DirtyDangelo",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 305.8,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 120.1,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 120.1
+            },
+            {
+              "week": 2,
+              "points": 67.6,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 187.7
+            },
+            {
+              "week": 3,
+              "points": 99.4,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 287.1
+            },
+            {
+              "week": 4,
+              "points": 18.7,
+              "result": null,
+              "cum_wins": 1,
+              "cum_pf": 305.8
+            }
+          ]
+        },
+        {
+          "franchise": "Strib Club Closed",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 290,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 126.3,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 126.3
+            },
+            {
+              "week": 2,
+              "points": 76.2,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 202.5
+            },
+            {
+              "week": 3,
+              "points": 84.1,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 286.5
+            },
+            {
+              "week": 4,
+              "points": 3.5,
+              "result": null,
+              "cum_wins": 1,
+              "cum_pf": 290
+            }
+          ]
+        },
+        {
+          "franchise": "AustinBShawty",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 277,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 126.9,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 126.9
+            },
+            {
+              "week": 2,
+              "points": 71.5,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 198.4
+            },
+            {
+              "week": 3,
+              "points": 44.9,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 243.3
+            },
+            {
+              "week": 4,
+              "points": 33.7,
+              "result": null,
+              "cum_wins": 1,
+              "cum_pf": 277
+            }
+          ]
+        },
+        {
+          "franchise": "SunCity Pickers ",
+          "is_mine": false,
+          "wins": 0,
+          "losses": 3,
+          "ties": 0,
+          "points_for": 344.1,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 108.3,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 108.3
+            },
+            {
+              "week": 2,
+              "points": 78.5,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 186.8
+            },
+            {
+              "week": 3,
+              "points": 106.1,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 292.9
+            },
+            {
+              "week": 4,
+              "points": 51.2,
+              "result": null,
+              "cum_wins": 0,
+              "cum_pf": 344.1
             }
           ]
         },
@@ -623,9 +1288,9 @@
           "franchise": "Lily's 529",
           "is_mine": false,
           "wins": 0,
-          "losses": 1,
+          "losses": 3,
           "ties": 0,
-          "points_for": 59.5,
+          "points_for": 257.5,
           "weekly": [
             {
               "week": 1,
@@ -633,6 +1298,27 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 59.5
+            },
+            {
+              "week": 2,
+              "points": 83.9,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 143.3
+            },
+            {
+              "week": 3,
+              "points": 82.3,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 225.6
+            },
+            {
+              "week": 4,
+              "points": 31.9,
+              "result": null,
+              "cum_wins": 0,
+              "cum_pf": 257.5
             }
           ]
         }
@@ -642,15 +1328,15 @@
       "label": "#SFB16 San Francisco",
       "platform": "sleeper",
       "my_franchise": "wadepfuller",
-      "weeks": [1],
+      "weeks": [1, 2, 3],
       "franchises": [
         {
           "franchise": "wadepfuller",
           "is_mine": true,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 299.5,
+          "points_for": 934.1,
           "weekly": [
             {
               "week": 1,
@@ -658,67 +1344,30 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 299.5
-            }
-          ]
-        },
-        {
-          "franchise": "Gibbs Drove So Godamn Fas",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 267,
-          "weekly": [
+            },
             {
-              "week": 1,
-              "points": 267,
+              "week": 2,
+              "points": 280.6,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 267
-            }
-          ]
-        },
-        {
-          "franchise": "American Made Outlaws",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 265,
-          "weekly": [
+              "cum_wins": 2,
+              "cum_pf": 580.1
+            },
             {
-              "week": 1,
-              "points": 265,
+              "week": 3,
+              "points": 354,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 265
-            }
-          ]
-        },
-        {
-          "franchise": "gwalor21",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 252.4,
-          "weekly": [
-            {
-              "week": 1,
-              "points": 252.4,
-              "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 252.4
+              "cum_wins": 3,
+              "cum_pf": 934.1
             }
           ]
         },
         {
           "franchise": "Swiftie Knicks",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 208.9,
+          "points_for": 806.1,
           "weekly": [
             {
               "week": 1,
@@ -726,16 +1375,30 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 208.9
+            },
+            {
+              "week": 2,
+              "points": 332.6,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 541.5
+            },
+            {
+              "week": 3,
+              "points": 264.6,
+              "result": "W",
+              "cum_wins": 3,
+              "cum_pf": 806.1
             }
           ]
         },
         {
           "franchise": "savvantman",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 202.5,
+          "points_for": 798.4,
           "weekly": [
             {
               "week": 1,
@@ -743,16 +1406,61 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 202.5
+            },
+            {
+              "week": 2,
+              "points": 309.2,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 511.6
+            },
+            {
+              "week": 3,
+              "points": 286.8,
+              "result": "W",
+              "cum_wins": 3,
+              "cum_pf": 798.4
+            }
+          ]
+        },
+        {
+          "franchise": "gwalor21",
+          "is_mine": false,
+          "wins": 2,
+          "losses": 1,
+          "ties": 0,
+          "points_for": 714.9,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 252.4,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 252.4
+            },
+            {
+              "week": 2,
+              "points": 274.7,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 527.1
+            },
+            {
+              "week": 3,
+              "points": 187.8,
+              "result": "L",
+              "cum_wins": 2,
+              "cum_pf": 714.9
             }
           ]
         },
         {
           "franchise": "theFunoneDunn",
           "is_mine": false,
-          "wins": 0,
+          "wins": 2,
           "losses": 1,
           "ties": 0,
-          "points_for": 268,
+          "points_for": 681.7,
           "weekly": [
             {
               "week": 1,
@@ -760,84 +1468,61 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 268
+            },
+            {
+              "week": 2,
+              "points": 205,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 473
+            },
+            {
+              "week": 3,
+              "points": 208.8,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 681.7
             }
           ]
         },
         {
-          "franchise": "laweegee",
+          "franchise": "Gibbs Drove So Godamn Fas",
           "is_mine": false,
-          "wins": 0,
-          "losses": 1,
+          "wins": 1,
+          "losses": 2,
           "ties": 0,
-          "points_for": 251.7,
+          "points_for": 718.5,
           "weekly": [
             {
               "week": 1,
-              "points": 251.7,
-              "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 251.7
-            }
-          ]
-        },
-        {
-          "franchise": "sleandres",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 226.2,
-          "weekly": [
+              "points": 267,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 267
+            },
             {
-              "week": 1,
-              "points": 226.2,
+              "week": 2,
+              "points": 201.1,
               "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 226.2
-            }
-          ]
-        },
-        {
-          "franchise": "Zero, Zip, Zilch, Nada RB",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 192.7,
-          "weekly": [
+              "cum_wins": 1,
+              "cum_pf": 468.1
+            },
             {
-              "week": 1,
-              "points": 192.7,
+              "week": 3,
+              "points": 250.4,
               "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 192.7
-            }
-          ]
-        },
-        {
-          "franchise": "EvanLieginger",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 185,
-          "weekly": [
-            {
-              "week": 1,
-              "points": 185,
-              "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 185
+              "cum_wins": 1,
+              "cum_pf": 718.5
             }
           ]
         },
         {
           "franchise": "Army Of 10",
           "is_mine": false,
-          "wins": 0,
-          "losses": 1,
+          "wins": 1,
+          "losses": 2,
           "ties": 0,
-          "points_for": 176,
+          "points_for": 609.1,
           "weekly": [
             {
               "week": 1,
@@ -845,6 +1530,175 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 176
+            },
+            {
+              "week": 2,
+              "points": 197.7,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 373.7
+            },
+            {
+              "week": 3,
+              "points": 235.4,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 609.1
+            }
+          ]
+        },
+        {
+          "franchise": "Zero, Zip, Zilch, Nada RB",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 573.8,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 192.7,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 192.7
+            },
+            {
+              "week": 2,
+              "points": 224.1,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 416.8
+            },
+            {
+              "week": 3,
+              "points": 157,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 573.8
+            }
+          ]
+        },
+        {
+          "franchise": "American Made Outlaws",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 538.7,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 265,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 265
+            },
+            {
+              "week": 2,
+              "points": 148.1,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 413.1
+            },
+            {
+              "week": 3,
+              "points": 125.6,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 538.7
+            }
+          ]
+        },
+        {
+          "franchise": "Team Trash ",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 525,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 185,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 185
+            },
+            {
+              "week": 2,
+              "points": 145.3,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 330.3
+            },
+            {
+              "week": 3,
+              "points": 194.7,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 525
+            }
+          ]
+        },
+        {
+          "franchise": "laweegee",
+          "is_mine": false,
+          "wins": 0,
+          "losses": 3,
+          "ties": 0,
+          "points_for": 683.3,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 251.7,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 251.7
+            },
+            {
+              "week": 2,
+              "points": 193.4,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 445.1
+            },
+            {
+              "week": 3,
+              "points": 238.2,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 683.3
+            }
+          ]
+        },
+        {
+          "franchise": "sleandres",
+          "is_mine": false,
+          "wins": 0,
+          "losses": 3,
+          "ties": 0,
+          "points_for": 607.9,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 226.2,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 226.2
+            },
+            {
+              "week": 2,
+              "points": 157.1,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 383.3
+            },
+            {
+              "week": 3,
+              "points": 224.6,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 607.9
             }
           ]
         }
@@ -854,15 +1708,15 @@
       "label": "SF Fantasy",
       "platform": "espn",
       "my_franchise": "Gruden's Grinders",
-      "weeks": [1],
+      "weeks": [1, 2, 3],
       "franchises": [
         {
           "franchise": "Non Fungible Tino",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 190.1,
+          "points_for": 437.3,
           "weekly": [
             {
               "week": 1,
@@ -870,50 +1724,30 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 190.1
-            }
-          ]
-        },
-        {
-          "franchise": "Substation Nation",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 145.1,
-          "weekly": [
+            },
             {
-              "week": 1,
-              "points": 145.1,
+              "week": 2,
+              "points": 134.2,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 145.1
-            }
-          ]
-        },
-        {
-          "franchise": "FLAVA SAVAS",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 143.9,
-          "weekly": [
+              "cum_wins": 2,
+              "cum_pf": 324.3
+            },
             {
-              "week": 1,
-              "points": 143.9,
+              "week": 3,
+              "points": 113,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 143.9
+              "cum_wins": 3,
+              "cum_pf": 437.3
             }
           ]
         },
         {
           "franchise": "Make It a Daily Double Alex",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 120.8,
+          "points_for": 385,
           "weekly": [
             {
               "week": 1,
@@ -921,33 +1755,30 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 120.8
-            }
-          ]
-        },
-        {
-          "franchise": "Nico Mode",
-          "is_mine": false,
-          "wins": 1,
-          "losses": 0,
-          "ties": 0,
-          "points_for": 110.4,
-          "weekly": [
+            },
             {
-              "week": 1,
-              "points": 110.4,
+              "week": 2,
+              "points": 119.2,
               "result": "W",
-              "cum_wins": 1,
-              "cum_pf": 110.4
+              "cum_wins": 2,
+              "cum_pf": 240
+            },
+            {
+              "week": 3,
+              "points": 145,
+              "result": "W",
+              "cum_wins": 3,
+              "cum_pf": 385
             }
           ]
         },
         {
-          "franchise": "Baker's Cweampiefield",
+          "franchise": "King TutenDobbins",
           "is_mine": false,
-          "wins": 1,
+          "wins": 3,
           "losses": 0,
           "ties": 0,
-          "points_for": 98,
+          "points_for": 317.2,
           "weekly": [
             {
               "week": 1,
@@ -955,33 +1786,30 @@
               "result": "W",
               "cum_wins": 1,
               "cum_pf": 98
-            }
-          ]
-        },
-        {
-          "franchise": "Daejon Love Island",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 100,
-          "weekly": [
+            },
             {
-              "week": 1,
-              "points": 100,
-              "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 100
+              "week": 2,
+              "points": 109.6,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 207.5
+            },
+            {
+              "week": 3,
+              "points": 109.7,
+              "result": "W",
+              "cum_wins": 3,
+              "cum_pf": 317.2
             }
           ]
         },
         {
           "franchise": "Metcalf’s Midnight Shaft",
           "is_mine": false,
-          "wins": 0,
+          "wins": 2,
           "losses": 1,
           "ties": 0,
-          "points_for": 87.6,
+          "points_for": 306,
           "weekly": [
             {
               "week": 1,
@@ -989,50 +1817,61 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 87.6
+            },
+            {
+              "week": 2,
+              "points": 98.4,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 186
+            },
+            {
+              "week": 3,
+              "points": 120,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 306
             }
           ]
         },
         {
-          "franchise": "Pulverizer Pete ",
+          "franchise": "Nico Mode",
           "is_mine": false,
-          "wins": 0,
+          "wins": 2,
           "losses": 1,
           "ties": 0,
-          "points_for": 83,
+          "points_for": 283.6,
           "weekly": [
             {
               "week": 1,
-              "points": 83,
-              "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 83
-            }
-          ]
-        },
-        {
-          "franchise": "Romo's Keys to the Game",
-          "is_mine": false,
-          "wins": 0,
-          "losses": 1,
-          "ties": 0,
-          "points_for": 80.8,
-          "weekly": [
+              "points": 110.4,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 110.4
+            },
             {
-              "week": 1,
-              "points": 80.8,
+              "week": 2,
+              "points": 64.7,
               "result": "L",
-              "cum_wins": 0,
-              "cum_pf": 80.8
+              "cum_wins": 1,
+              "cum_pf": 175
+            },
+            {
+              "week": 3,
+              "points": 108.5,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 283.6
             }
           ]
         },
         {
-          "franchise": "running by feel",
+          "franchise": "The Bye Week",
           "is_mine": false,
-          "wins": 0,
+          "wins": 2,
           "losses": 1,
           "ties": 0,
-          "points_for": 62.3,
+          "points_for": 238.4,
           "weekly": [
             {
               "week": 1,
@@ -1040,6 +1879,175 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 62.3
+            },
+            {
+              "week": 2,
+              "points": 69.9,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 132.2
+            },
+            {
+              "week": 3,
+              "points": 106.1,
+              "result": "W",
+              "cum_wins": 2,
+              "cum_pf": 238.4
+            }
+          ]
+        },
+        {
+          "franchise": "Substation Nation",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 373.6,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 145.1,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 145.1
+            },
+            {
+              "week": 2,
+              "points": 122.8,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 267.9
+            },
+            {
+              "week": 3,
+              "points": 105.8,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 373.6
+            }
+          ]
+        },
+        {
+          "franchise": "Daejon Love Island",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 314,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 100,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 100
+            },
+            {
+              "week": 2,
+              "points": 124.5,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 224.4
+            },
+            {
+              "week": 3,
+              "points": 89.6,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 314
+            }
+          ]
+        },
+        {
+          "franchise": "FLAVA SAVAS",
+          "is_mine": false,
+          "wins": 1,
+          "losses": 2,
+          "ties": 0,
+          "points_for": 281.7,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 143.9,
+              "result": "W",
+              "cum_wins": 1,
+              "cum_pf": 143.9
+            },
+            {
+              "week": 2,
+              "points": 68.3,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 212.2
+            },
+            {
+              "week": 3,
+              "points": 69.5,
+              "result": "L",
+              "cum_wins": 1,
+              "cum_pf": 281.7
+            }
+          ]
+        },
+        {
+          "franchise": "Romo's Keys to the Game",
+          "is_mine": false,
+          "wins": 0,
+          "losses": 3,
+          "ties": 0,
+          "points_for": 257.2,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 80.8,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 80.8
+            },
+            {
+              "week": 2,
+              "points": 91.3,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 172.1
+            },
+            {
+              "week": 3,
+              "points": 85.1,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 257.2
+            }
+          ]
+        },
+        {
+          "franchise": "Pulverizer Pete ",
+          "is_mine": false,
+          "wins": 0,
+          "losses": 3,
+          "ties": 0,
+          "points_for": 242.1,
+          "weekly": [
+            {
+              "week": 1,
+              "points": 83,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 83
+            },
+            {
+              "week": 2,
+              "points": 74.8,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 157.8
+            },
+            {
+              "week": 3,
+              "points": 84.3,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 242.1
             }
           ]
         },
@@ -1047,9 +2055,9 @@
           "franchise": "Gruden's Grinders",
           "is_mine": true,
           "wins": 0,
-          "losses": 1,
+          "losses": 3,
           "ties": 0,
-          "points_for": 59.6,
+          "points_for": 226.1,
           "weekly": [
             {
               "week": 1,
@@ -1057,6 +2065,20 @@
               "result": "L",
               "cum_wins": 0,
               "cum_pf": 59.6
+            },
+            {
+              "week": 2,
+              "points": 81.8,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 141.4
+            },
+            {
+              "week": 3,
+              "points": 84.7,
+              "result": "L",
+              "cum_wins": 0,
+              "cum_pf": 226.1
             }
           ]
         }

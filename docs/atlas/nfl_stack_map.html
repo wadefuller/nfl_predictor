@@ -1,0 +1,406 @@
+<title>NFL Stack Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root {
+    --ground:#f5f7fa; --surface:#ffffff; --surface-2:#eef1f6;
+    --ink:#0f141c; --ink-2:#3d4757; --ink-3:#6b7688; --rule:#d8dee8; --rule-2:#e8ecf3;
+    --game:#2f6fd0;   --game-bg:#e8f0fc;
+    --weekly:#17784a; --weekly-bg:#e3f4ea;
+    --season:#a3246d; --season-bg:#fbe8f2;
+    --ext:#8d5a00;    --ext-bg:#fbf0dd;
+    --shared:#4b5566; --shared-bg:#e9edf3;
+    --alert:#c2410c;  --alert-bg:#fdebe2;
+    --display:"Barlow Semi Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground:#0e1218; --surface:#161c25; --surface-2:#1d2531;
+      --ink:#e7ecf4; --ink-2:#b3becd; --ink-3:#7d8899; --rule:#2a3441; --rule-2:#222b37;
+      --game:#6fb2ff;   --game-bg:#14243a;
+      --weekly:#4fcd7e; --weekly-bg:#102a1d;
+      --season:#f887c4; --season-bg:#2e1425;
+      --ext:#e0a949;    --ext-bg:#2c2213;
+      --shared:#a6b1c2; --shared-bg:#1f2733;
+      --alert:#ff8a5c;  --alert-bg:#331a10;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground:#0e1218; --surface:#161c25; --surface-2:#1d2531;
+    --ink:#e7ecf4; --ink-2:#b3becd; --ink-3:#7d8899; --rule:#2a3441; --rule-2:#222b37;
+    --game:#6fb2ff;   --game-bg:#14243a;
+    --weekly:#4fcd7e; --weekly-bg:#102a1d;
+    --season:#f887c4; --season-bg:#2e1425;
+    --ext:#e0a949;    --ext-bg:#2c2213;
+    --shared:#a6b1c2; --shared-bg:#1f2733;
+    --alert:#ff8a5c;  --alert-bg:#331a10;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: var(--display); font-size: 15px; line-height: 1.35;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1480px; margin: 0 auto; padding: 18px 24px 28px; display: grid; gap: 14px; }
+
+  /* ---- header ---- */
+  .top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px; justify-content: space-between; }
+  h1 { margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+  h1 small { font-family: var(--mono); font-size: 11px; font-weight: 400; color: var(--ink-3); letter-spacing: .06em; margin-left: 10px; text-transform: uppercase; }
+  .top a { font-family: var(--mono); font-size: 12px; color: var(--game); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--game) 40%, transparent); }
+  .top a:hover { border-bottom-color: var(--game); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { width: 10px; height: 10px; display: inline-block; }
+
+  /* ---- vitals ---- */
+  .vitals { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border: 1px solid var(--rule); background: var(--rule); gap: 1px; }
+  .vital { background: var(--surface); padding: 9px 14px 10px; }
+  .vital b { display: block; font-family: var(--mono); font-size: 21px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+  .vital span { font-size: 13px; color: var(--ink-3); font-weight: 500; }
+
+  /* ---- board + panel ---- */
+  .main { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 18px; align-items: start; }
+  .board-wrap { position: relative; border: 1px solid var(--rule); background: var(--surface); padding: 14px 18px 18px; overflow: hidden; }
+  .board { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 70px; z-index: 1; }
+  svg.edges { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: visible; }
+  .col { display: flex; flex-direction: column; gap: 10px; }
+  .col-head { padding-bottom: 6px; border-bottom: 1px solid var(--rule); margin-bottom: 2px; }
+  .col-head b { display: block; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .col-head span { font-size: 13px; color: var(--ink-3); }
+  .col-body { display: flex; flex-direction: column; gap: 10px; justify-content: center; flex: 1; }
+
+  .node {
+    all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 10px 1fr auto;
+    column-gap: 9px; align-items: start; padding: 9px 10px 10px; background: var(--surface);
+    border: 1px solid var(--rule); border-radius: 3px; transition: opacity .18s, border-color .18s, background .18s;
+  }
+  .node:hover { border-color: var(--ink-3); }
+  .node:focus-visible { outline: 2px solid var(--game); outline-offset: 2px; }
+  .node .glyph { width: 10px; height: 10px; margin-top: 5px; }
+  .node .name { font-size: 17px; font-weight: 700; line-height: 1.15; }
+  .node .meta { grid-column: 2 / 4; font-size: 13px; color: var(--ink-3); font-weight: 500; margin-top: 2px; }
+  .node[aria-pressed="true"] { border-color: var(--ink); background: var(--surface-2); }
+  .node.off { border-style: dashed; }
+  .node.dim { opacity: .28; }
+
+  .pill { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; white-space: nowrap; align-self: start; margin-top: 2px; }
+  .p-new     { color: var(--weekly); background: var(--weekly-bg); }
+  .p-pending { color: var(--ext);    background: var(--ext-bg); }
+  .p-open    { color: var(--alert);  background: var(--alert-bg); }
+  .p-off     { color: var(--ink-3);  background: var(--surface-2); }
+
+  .edge { fill: none; stroke-width: 1.6; opacity: .55; transition: opacity .18s, stroke-width .18s; }
+  .edge.dash { stroke-dasharray: 4 4; }
+  .edge.hot  { opacity: 1; stroke-width: 2.4; }
+  .edge.cold { opacity: .08; }
+  .tip { transition: opacity .18s; }
+  .tip.cold { opacity: .08; }
+
+  /* ---- panel ---- */
+  .panel { border: 1px solid var(--rule); background: var(--surface); padding: 16px 16px 18px; display: grid; gap: 12px; position: sticky; top: env(safe-area-inset-top, 0px); }
+  .panel .sys { font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .panel h2 { margin: 2px 0 0; font-size: 26px; font-weight: 700; line-height: 1.05; text-wrap: balance; }
+  .panel p { margin: 0; font-size: 14.5px; color: var(--ink-2); font-weight: 500; max-width: 48ch; }
+  .facts { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 0; border-top: 1px solid var(--rule-2); padding-top: 10px; }
+  .facts dt { font-size: 13px; color: var(--ink-3); font-weight: 500; }
+  .facts dd { margin: 0; font-family: var(--mono); font-size: 12.5px; text-align: right; font-variant-numeric: tabular-nums; }
+  .flow { border-top: 1px solid var(--rule-2); padding-top: 10px; display: grid; gap: 6px; }
+  .flow h3 { margin: 0; font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  .flow ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .flow li button { all: unset; cursor: pointer; font-size: 14px; font-weight: 600; }
+  .flow li button:hover { text-decoration: underline; }
+  .flow li button:focus-visible { outline: 2px solid var(--game); outline-offset: 2px; }
+  .flow li em { font-style: normal; color: var(--ink-3); font-weight: 500; font-size: 13px; }
+  .status { font-size: 14px; font-weight: 600; padding: 8px 10px; border-radius: 3px; }
+  .status.s-open    { color: var(--alert); background: var(--alert-bg); }
+  .status.s-pending { color: var(--ext);   background: var(--ext-bg); }
+  .status.s-new     { color: var(--weekly);background: var(--weekly-bg); }
+  .status.s-off     { color: var(--ink-2); background: var(--surface-2); }
+
+  /* ---- open items ---- */
+  .issues { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .issue { all: unset; box-sizing: border-box; cursor: pointer; background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--c); padding: 9px 12px 11px; display: grid; gap: 3px; }
+  .issue:hover { border-color: var(--ink-3); border-top-color: var(--c); }
+  .issue:focus-visible { outline: 2px solid var(--game); outline-offset: 2px; }
+  .issue b { font-size: 15.5px; font-weight: 700; line-height: 1.2; }
+  .issue span { font-size: 13px; color: var(--ink-3); font-weight: 500; }
+  .issue .k { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--c); }
+  .issues-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .issues-head b { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+  .issues-head span { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+
+  @media (max-width: 1180px) {
+    .main { grid-template-columns: 1fr; }
+    .panel { position: static; }
+  }
+  @media (max-width: 760px) {
+    .wrap { padding: 14px 16px 24px; }
+    .board { grid-template-columns: 1fr; row-gap: 18px; }
+    svg.edges { display: none; }
+    .col-body { justify-content: flex-start; }
+    h1 { font-size: 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>NFL Stack Map <small>as of 27 Sep 2026 · 22:45 PT</small></h1>
+    <div class="legend" aria-label="Legend">
+      <span><i class="sw" style="background:var(--game)"></i>game model</span>
+      <span><i class="sw" style="background:var(--season)"></i>season model</span>
+      <span><i class="sw" style="background:var(--weekly)"></i>weekly model</span>
+      <span><i class="sw" style="background:var(--ext)"></i>external</span>
+      <span><i class="sw" style="background:var(--shared)"></i>shared</span>
+      <a href="https://claude.ai/artifact/QkzWMCUVguVnUW4vHdA2eX">Full atlas</a>
+    </div>
+  </header>
+
+  <section class="vitals" aria-label="Headline figures">
+    <div class="vital"><b>1.29M</b><span>plays in pbp.db, 1999–2026</span></div>
+    <div class="vital"><b>374</b><span>game-model features</span></div>
+    <div class="vital"><b>88 / 129</b><span>weekly features in production</span></div>
+    <div class="vital"><b>16</b><span>trained models</span></div>
+    <div class="vital"><b>5</b><span>connected leagues</span></div>
+    <div class="vital"><b>hourly</b><span>refresh · runs only when stale</span></div>
+  </section>
+
+  <div class="main">
+    <section class="board-wrap" aria-label="Data flow from feeds to site">
+      <svg class="edges" id="edges" aria-hidden="true"></svg>
+      <div class="board" id="board"></div>
+    </section>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+
+  <section aria-label="Open items">
+    <div class="issues-head"><b>Open and pending</b><span>select one to see where it sits</span></div>
+    <div class="issues" id="issues" style="margin-top:8px"></div>
+  </section>
+</div>
+
+<script>
+const SYS = {
+  game:   { label: "Game model",   c: "var(--game)" },
+  season: { label: "Season model", c: "var(--season)" },
+  weekly: { label: "Weekly model", c: "var(--weekly)" },
+  ext:    { label: "External",     c: "var(--ext)" },
+  shared: { label: "Shared",       c: "var(--shared)" },
+};
+const COLS = [
+  { id: "feeds",  label: "Feeds",  sub: "where the data comes from" },
+  { id: "stores", label: "Stores", sub: "kept between runs" },
+  { id: "models", label: "Models", sub: "what gets trained" },
+  { id: "site",   label: "Site",   sub: "what gets published" },
+];
+const STATUS_TEXT = { new: "new", pending: "pending", open: "open", off: "off site" };
+
+const NODES = [
+  // feeds
+  { id: "nflverse", col: "feeds", sys: "shared", name: "nflverse", meta: "play-by-play, box scores, rosters, injuries, snaps, NGS",
+    about: "The source for nearly everything. Its loaders return partial or empty data instead of erroring, which is behind most confusing bugs in this stack.",
+    facts: [["Loaders used", "13"], ["Fetched", "one season at a time"], ["Guard", "coverage asserts"]] },
+  { id: "lines", col: "feeds", sys: "ext", name: "Betting lines", meta: "habitatring games.rds",
+    about: "Spreads, totals and moneylines for every game, the market baseline the game model is judged against.",
+    facts: [["Supplies", "spread · total · ML"], ["Retries", "3, since a 2 Sep timeout"]] },
+  { id: "markets", col: "feeds", sys: "ext", name: "Prediction markets", meta: "Polymarket · Kalshi",
+    about: "Contract prices captured every refresh. They feed the bet card and are archived in the market store.",
+    facts: [["Polymarket contracts", "24 (5 EV+)"], ["Kalshi spread refs", "12"], ["Kalshi win proxies", "24"]] },
+  { id: "consensus", col: "feeds", sys: "ext", name: "Consensus ranks", meta: "FantasyPros ECR · DraftScout",
+    about: "Expert consensus and rookie priors for the season model. ECR is blended by position; DraftScout fills the rookie gap.",
+    facts: [["ECR players, wk 3", "471"], ["Rookie prior", "DraftScout PPG + hit rate"]] },
+  { id: "leagues", col: "feeds", sys: "ext", name: "League platforms", meta: "Sleeper · MFL · ESPN · FantasyCalc",
+    about: "Live rosters, scoring rules and market values for the five connected leagues. MFL set lineups are read directly (ffscrapr fails before kickoff) and Sleeper draft picks follow each league's type: redraft leagues own none.",
+    facts: [["Leagues", "5"], ["Types", "dynasty · keeper · redraft"], ["Scoring rules", "read from each platform"], ["Values", "FantasyCalc API"]] },
+
+  // stores
+  { id: "pbpdb", col: "stores", sys: "shared", name: "pbp.db", meta: "play-by-play store · 1999–2026", status: "new",
+    about: "The one place play-by-play is downloaded. Seasons are replaced whole, since nflverse revises published plays, and every season records when it was pulled.",
+    statusText: "Built 27 Sep and verified against nflverse (0 of 147 columns differ). First scheduled runs pending.",
+    facts: [["Plays", "1,287,582"], ["Columns", "147, pinned"], ["Size", "909 MB"], ["Routine refresh", "~1 s"], ["Readers", "8 scripts"]] },
+  { id: "warehouse", col: "stores", sys: "season", name: "fantasy_football.db", meta: "the warehouse · rebuilt Tuesday",
+    about: "Weekly box scores, rosters, ADP and IDs. Built into a side file and swapped in only when every table is written.",
+    facts: [["Player-week rows", "289,412"], ["Seasons", "2010–2026"], ["Tables", "7"]] },
+  { id: "marketdb", col: "stores", sys: "ext", name: "market_observations.db", meta: "append-only · since 7 Sep", status: "off",
+    about: "Every line and price the refresh sees, never overwritten. Nothing reads it yet: it is building the history that line-movement features will need.",
+    statusText: "No readers yet. Kept separate from the warehouse so the Tuesday rebuild cannot erase it.",
+    facts: [["Rows", "6,320"], ["Snapshots per source", "46"], ["Sources", "Vegas · Polymarket · Kalshi"]] },
+  { id: "gwf", col: "stores", sys: "game", name: "game_w_features.csv", meta: "374 columns · 15 modules",
+    about: "The game model's feature matrix. 138 columns are career-length counters accumulating since 2000, so it cannot be rebuilt in windows.",
+    facts: [["Columns", "374"], ["Modules", "15"], ["Rebuilt", "Tuesday + retrain"]] },
+
+  // models
+  { id: "game", col: "models", sys: "game", name: "Game model", meta: "elastic-net GLM → Platt → EV calibration", status: "pending",
+    about: "Predicts margin and win probability and sizes the bet card. XGBoost and random forest still train but carry zero weight.",
+    statusText: "Retrain fix pending its first scheduled run (Mon 03:00). No scheduled retrain had ever succeeded; the current bundle was rebuilt by hand on 27 Sep.",
+    facts: [["Weights", "GLM 1 · XGB 0 · RF 0"], ["Trained", "27 Sep · 4,930 games"], ["σ", "13.05"], ["EV slope", "0.394 (was 0.704)"], ["Cal-set MAE", "9.66"]] },
+  { id: "season", col: "models", sys: "season", name: "Season model", meta: "XGBoost per position + 4 share feeders",
+    about: "The preseason talent prior. Built once before week 1 and held fixed all season on purpose.",
+    facts: [["Features", "55"], ["ECR blend", "QB 1 · WR 1 · TE .4 · RB .25"], ["Prior built", "25 Aug"]] },
+  { id: "weekly", col: "models", sys: "weekly", name: "Weekly model", meta: "7 quantile LightGBM + active classifier", status: "new",
+    about: "A distribution for every player-week: floor, median and ceiling from a zero-inflated mixture. It sits downstream of both other models.",
+    statusText: "Offense/QB state live since 27 Sep (+0.0052 pinball, all seasons and seeds, gain concentrated at QB).",
+    facts: [["Features", "88 of 129"], ["Population", "every rostered player-week"], ["Output", "p10 · median · p90"], ["Rejected", "xFP · multiscale role"]] },
+  { id: "dst", col: "models", sys: "season", name: "DST model", meta: "XGBoost · weekly streamer",
+    about: "Ranks team defenses and projects the next four weeks for the streaming board.",
+    facts: [["Horizon", "weeks 3–6"], ["Teams ranked", "32"]] },
+  { id: "xfp", col: "models", sys: "weekly", name: "xFP", meta: "expected fantasy points · research", status: "off",
+    about: "Values every target, carry and attempt from play-by-play. Ties nflverse's own ffopportunity and beats raw points early in a season.",
+    statusText: "Measured and kept off the site: added to the weekly model it changed CRPS by +0.0008 (interval spans zero).",
+    facts: [["Split-half r", ".767 vs ffo .768"], ["After 1 game", "+.103 over raw points"], ["Weekly model", "no gain"]] },
+
+  // site
+  { id: "thisweek", col: "site", sys: "game", name: "This Week", meta: "game cards · bet card · market prices",
+    about: "Every game with the model's margin and win probability, the Kelly-sized bet card, and Kalshi and Polymarket comparisons.",
+    facts: [["Games, wk 3", "16"], ["Bets", "3"], ["Sizing", "0.15 Kelly · 5% cap"]] },
+  { id: "seasonview", col: "site", sys: "game", name: "Season", meta: "rankings · betting record",
+    about: "Season-long rankings and tiers, and the running record of the model's picks.",
+    facts: [["Seasons shown", "2024–2026"], ["Scoring", "PPR · half · standard"]] },
+  { id: "gameday", col: "site", sys: "weekly", name: "Game Day", meta: "projections · floor & ceiling · DST stream",
+    about: "The weekly board: every player's projection with its range, plus defense streamers.",
+    facts: [["Players, wk 3", "616"], ["On the board", "200"]] },
+  { id: "myteams", col: "site", sys: "weekly", name: "My Teams", meta: "lineups · waivers · 5 leagues",
+    about: "Start/sit and waiver calls per league, rescaled to each league's real scoring.",
+    facts: [["Leagues", "5"], ["SFB16 TE multiplier", "2.43×"]] },
+  { id: "marketview", col: "site", sys: "season", name: "Market", meta: "dynasty & redraft values · movers",
+    about: "Market values for dynasty and redraft formats against the model's own board.",
+    facts: [["Boards", "6 formats"], ["Dynasty SF players", "421"]] },
+];
+
+const EDGES = [
+  ["nflverse", "pbpdb", "play-by-play"], ["nflverse", "warehouse", "box scores, rosters"],
+  ["nflverse", "gwf", "injuries, snaps, NGS, officials"], ["lines", "gwf", "spreads, totals"],
+  ["markets", "marketdb", "every snapshot"], ["markets", "thisweek", "contract prices"],
+  ["consensus", "season", "ECR, rookie priors"], ["leagues", "myteams", "rosters, scoring"],
+  ["leagues", "marketview", "market values"],
+  ["pbpdb", "gwf", "EPA, success, QB splits"], ["pbpdb", "season", "pace, red zone"],
+  ["pbpdb", "weekly", "red-zone usage"], ["pbpdb", "dst", "safeties"], ["pbpdb", "xfp", "every opportunity"],
+  ["warehouse", "season", "player history"], ["warehouse", "weekly", "box scores"],
+  ["gwf", "game", "374 features"], ["gwf", "weekly", "game env, offense/QB state"],
+  ["game", "thisweek", "margin, win prob"], ["game", "seasonview", "pick record"], ["game", "weekly", "win prob, implied points"],
+  ["season", "weekly", "talent prior"], ["season", "seasonview", "rankings, tiers"], ["season", "marketview", "model board"],
+  ["weekly", "gameday", "distributions"], ["weekly", "myteams", "projections"],
+  ["dst", "gameday", "DST stream"],
+];
+
+const ISSUES = [
+  { node: "game",    k: "pending", c: "var(--ext)",   t: "Retrain on the new store", d: "First scheduled run Mon 03:00" },
+  { node: "nflverse",k: "open",    c: "var(--alert)", t: "Daily downloads time out at 60 s", d: "Killed the 27 Sep 15:33 refresh" },
+  { node: "pbpdb",   k: "open",    c: "var(--alert)", t: "Q&A tool's copy is stale", d: "nflverse_qa DuckDB misses August revisions" },
+];
+
+const byId = Object.fromEntries(NODES.map(n => [n.id, n]));
+const outs = {}, ins = {};
+EDGES.forEach(([a, b]) => { (outs[a] ||= []).push(b); (ins[b] ||= []).push(a); });
+const label = Object.fromEntries(EDGES.map(([a, b, l]) => [a + ">" + b, l]));
+
+const board = document.getElementById("board");
+const svg = document.getElementById("edges");
+const panel = document.getElementById("panel");
+const els = {};
+
+COLS.forEach(col => {
+  const c = document.createElement("div"); c.className = "col";
+  c.innerHTML = `<div class="col-head"><b>${col.label}</b><span>${col.sub}</span></div><div class="col-body"></div>`;
+  const body = c.querySelector(".col-body");
+  NODES.filter(n => n.col === col.id).forEach(n => {
+    const b = document.createElement("button");
+    b.className = "node" + (n.status === "off" ? " off" : "");
+    b.id = "node-" + n.id; b.type = "button"; b.setAttribute("aria-pressed", "false");
+    b.innerHTML = `<i class="glyph" style="background:${SYS[n.sys].c}"></i><span class="name">${n.name}</span>` +
+      (n.status ? `<span class="pill p-${n.status}">${STATUS_TEXT[n.status]}</span>` : `<span></span>`) +
+      `<span class="meta">${n.meta}</span>`;
+    b.addEventListener("click", () => select(n.id));
+    body.appendChild(b); els[n.id] = b;
+  });
+  board.appendChild(c);
+});
+
+const issuesEl = document.getElementById("issues");
+ISSUES.forEach(i => {
+  const b = document.createElement("button"); b.className = "issue"; b.type = "button";
+  b.style.setProperty("--c", i.c);
+  b.innerHTML = `<span class="k">${i.k} · ${byId[i.node].name}</span><b>${i.t}</b><span>${i.d}</span>`;
+  b.addEventListener("click", () => { select(i.node); els[i.node].scrollIntoView({ block: "nearest", behavior: "smooth" }); });
+  issuesEl.appendChild(b);
+});
+
+function walk(start, adj) {
+  const seen = new Set(), stack = [start];
+  while (stack.length) { const x = stack.pop(); (adj[x] || []).forEach(y => { if (!seen.has(y)) { seen.add(y); stack.push(y); } }); }
+  return seen;
+}
+
+let current = null;
+function draw() {
+  svg.innerHTML = "";
+  if (getComputedStyle(svg).display === "none") return;
+  const box = svg.getBoundingClientRect();
+  const port = {};   // spread multiple edges on one side of a node
+  const slot = (id, side, other) => {
+    const list = side === "out" ? outs[id] : ins[id];
+    const i = list.indexOf(other), n = list.length;
+    const r = els[id].getBoundingClientRect();
+    const span = Math.min(r.height - 14, 7 * (n - 1));
+    return r.top - box.top + r.height / 2 + (n > 1 ? (i / (n - 1) - .5) * span : 0);
+  };
+  const up = current ? walk(current, ins) : null, down = current ? walk(current, outs) : null;
+  EDGES.forEach(([a, b]) => {
+    const ra = els[a].getBoundingClientRect(), rb = els[b].getBoundingClientRect();
+    const x1 = ra.right - box.left, x2 = rb.left - box.left;
+    const y1 = slot(a, "out", b), y2 = slot(b, "in", a);
+    const dx = Math.max(24, (x2 - x1) * .5);
+    const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    p.setAttribute("d", `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`);
+    const off = byId[a].status === "off" || byId[b].status === "off";
+    p.setAttribute("class", "edge" + (off ? " dash" : ""));
+    p.style.stroke = SYS[byId[a].sys].c;
+    const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    dot.setAttribute("cx", x2); dot.setAttribute("cy", y2); dot.setAttribute("r", 2.6);
+    dot.setAttribute("class", "tip"); dot.style.fill = SYS[byId[a].sys].c;
+    if (current) {
+      const onPath = (a === current || up.has(a)) && (b === current || up.has(b)) ||
+                     (a === current || down.has(a)) && (b === current || down.has(b));
+      p.classList.add(onPath ? "hot" : "cold"); if (!onPath) dot.classList.add("cold");
+    }
+    svg.appendChild(p); svg.appendChild(dot);
+  });
+}
+
+function select(id) {
+  current = id;
+  const n = byId[id], up = walk(id, ins), down = walk(id, outs);
+  NODES.forEach(m => {
+    const e = els[m.id];
+    e.setAttribute("aria-pressed", m.id === id ? "true" : "false");
+    e.classList.toggle("dim", !(m.id === id || up.has(m.id) || down.has(m.id)));
+  });
+  const flow = (title, list, dir) => list && list.length ? `<div class="flow"><h3>${title}</h3><ul>${
+    list.map(o => `<li><button type="button" data-go="${o}">${byId[o].name}</button> <em>${label[dir === "in" ? o + ">" + id : id + ">" + o]}</em></li>`).join("")
+  }</ul></div>` : "";
+  panel.innerHTML =
+    `<div><div class="sys" style="color:${SYS[n.sys].c}">${SYS[n.sys].label} · ${COLS.find(c => c.id === n.col).label.replace(/s$/, "")}</div><h2>${n.name}</h2></div>` +
+    `<p>${n.about}</p>` +
+    (n.statusText ? `<div class="status s-${n.status}">${n.statusText}</div>` : "") +
+    `<dl class="facts">${n.facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` +
+    flow("Reads from", ins[id], "in") + flow("Feeds", outs[id], "out") +
+    (!ins[id] && !outs[id] ? "" : "");
+  panel.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => select(b.dataset.go)));
+  try { localStorage.setItem("stackmap.sel", id); } catch (e) {}
+  draw();
+}
+
+let start = "weekly";
+try { const s = localStorage.getItem("stackmap.sel"); if (s && byId[s]) start = s; } catch (e) {}
+const h = location.hash.replace("#", ""); if (byId[h]) start = h;
+select(start);
+new ResizeObserver(() => draw()).observe(board);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+</script>

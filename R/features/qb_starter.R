@@ -1,5 +1,6 @@
-# QB starter features: identify the starting QB per team-game (most
-# dropbacks), then compute player-level rolling EPA + team-level stability.
+# QB history uses the primary passer (most dropbacks) after each completed
+# game. A game's own primary passer is NOT a valid pregame feature: a surprise
+# scratch or in-game replacement cannot be learned from that game's PBP.
 
 identify_starters <- function(plys) {
   plys %>%
@@ -52,16 +53,61 @@ qb_team_stability <- function(starters_w_rolling) {
     select(-prior_starter)
 }
 
+# Historical pregame proxy: the last observed primary passer for this team.
+# There is no archived pregame depth chart for old seasons. In particular,
+# never join the current game's postgame primary passer to its own predictors.
+historical_pregame_qb_ids <- function(game_split, actual) {
+  game_split %>%
+    distinct(game_id, season, week, gameday, team) %>%
+    left_join(actual %>% select(game_id, team, actual_id = starter_id),
+              by = c("game_id", "team")) %>%
+    arrange(team, season, week, gameday, game_id) %>%
+    group_by(team) %>%
+    tidyr::fill(actual_id, .direction = "down") %>%
+    mutate(expected_id = lag(actual_id)) %>%
+    ungroup() %>%
+    select(game_id, season, week, team, expected_id)
+}
+
+historical_pregame_qb_features <- function(game_split, plys) {
+  actual <- identify_starters(plys) %>% arrange(season, week, game_id)
+  schedule <- historical_pregame_qb_ids(game_split, actual)
+
+  by_player <- split(actual, actual$starter_id)
+  by_team <- split(actual, actual$team)
+  feature_names <- c("starter_qb_epa_r4", "starter_qb_epa_r8",
+                     "starter_pass_epa_r4", "starter_pass_epa_r8",
+                     "starter_career_games", "starter_games_team_season",
+                     "new_starter")
+  values <- t(vapply(seq_len(nrow(schedule)), function(i) {
+    row <- schedule[i, ]
+    id <- row$expected_id
+    if (is.na(id) || !nzchar(id))
+      return(stats::setNames(rep(NA_real_, length(feature_names)), feature_names))
+    prior <- function(x) {
+      if (is.null(x)) return(actual[0, ])
+      x[x$season < row$season | (x$season == row$season & x$week < row$week), , drop = FALSE]
+    }
+    p <- prior(by_player[[id]])
+    t <- prior(by_team[[row$team]])
+    avg <- function(col, n) if (!nrow(p)) NA_real_ else mean(tail(p[[col]], n))
+    c(starter_qb_epa_r4 = avg("starter_qb_epa", 4),
+      starter_qb_epa_r8 = avg("starter_qb_epa", 8),
+      starter_pass_epa_r4 = avg("starter_pass_epa", 4),
+      starter_pass_epa_r8 = avg("starter_pass_epa", 8),
+      starter_career_games = nrow(p),
+      starter_games_team_season = sum(p$team == row$team & p$season == row$season),
+      new_starter = if (!nrow(t)) 0 else as.integer(tail(t$starter_id, 1) != id))
+  }, stats::setNames(numeric(length(feature_names)), feature_names)))
+  bind_cols(schedule %>% select(game_id, season, week, team),
+            tibble::as_tibble(values))
+}
+
 QB_STARTER_MODULE <- feature_module(
   name        = "qb_starter",
-  description = "QB starter rolling features: player-level EPA r4/r8, career games, team-season games, new-starter flag",
+  description = "Pregame QB proxy from the team's last observed primary passer and that player's earlier starts",
   level       = "team_game_pre_pivot",
-  needs       = c("pbp"),
-  build       = function(seasons, deps) {
-    deps$pbp %>%
-      identify_starters() %>%
-      roll_qb_player() %>%
-      qb_team_stability() %>%
-      select(-starter_id)
-  }
+  needs       = c("pbp", "game_split"),
+  build       = function(seasons, deps)
+    historical_pregame_qb_features(deps$game_split, deps$pbp)
 )

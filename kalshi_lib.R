@@ -19,6 +19,15 @@
   if (team %in% names(.kalshi_code)) unname(.kalshi_code[[team]]) else team
 }
 
+# Kalshi omits optional market fields from some responses. Keep a missing
+# liquidity/volume value as NA rather than failing the entire slate export.
+.kalshi_numeric_field <- function(markets, field, fallback = NULL) {
+  name <- if (field %in% names(markets)) field else fallback
+  if (is.null(name) || !name %in% names(markets))
+    return(rep(NA_real_, nrow(markets)))
+  suppressWarnings(as.numeric(markets[[name]]))
+}
+
 .kalshi_win_empty <- function() tibble::tibble(
   season = integer(), week = integer(), game_id = character(), event_ticker = character(),
   market_ticker = character(), team = character(), threshold = numeric(), bid = numeric(),
@@ -32,17 +41,30 @@ fetch_kalshi_game_spreads <- function(predictions, season, week, sigma,
   fetched_at <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z")
   empty <- .kalshi_empty()
   if (nrow(predictions) == 0 || !is.finite(sigma) || sigma <= 0) return(empty)
+  # The model probability is pre-kickoff; a started game's book is not. Scoring
+  # one against the other reports the model's staleness as an edge.
+  predictions <- tradable_slate(predictions, season)
+  if (nrow(predictions) == 0) {
+    message("  kalshi: no eligible pregame predictions (started or availability unverified)")
+    return(empty)
+  }
   markets <- tryCatch(
     jsonlite::fromJSON("https://external-api.kalshi.com/trade-api/v2/markets?series_ticker=KXNFLSPREAD&status=open&limit=1000")$markets,
     error = function(e) NULL
   )
   if (!is.data.frame(markets) || nrow(markets) == 0) return(empty)
-  markets <- tibble::as_tibble(markets) %>%
-    mutate(ask = suppressWarnings(as.numeric(yes_ask_dollars)),
-           bid = suppressWarnings(as.numeric(yes_bid_dollars)),
-           volume = suppressWarnings(as.numeric(volume_fp)),
-           liquidity = suppressWarnings(as.numeric(liquidity_dollars))) %>%
-    filter(is.finite(ask), ask > 0, ask < 1)
+  markets <- tibble::as_tibble(markets)
+  markets <- markets %>%
+    mutate(ask = .kalshi_numeric_field(markets, "yes_ask_dollars"),
+           bid = .kalshi_numeric_field(markets, "yes_bid_dollars"),
+           volume = .kalshi_numeric_field(markets, "volume_fp", "volume"),
+           liquidity = .kalshi_numeric_field(markets, "liquidity_dollars", "liquidity")) %>%
+    # Kalshi quotes in whole cents, so 0.01 is the real minimum tick. The old
+    # bound was `ask > 0`, paired with a `pmax(ask, 1e-6)` divide-guard further
+    # down — which does not guard anything: it licenses a denominator of one
+    # millionth and therefore an EV of 100,000,000%. Anything quoted below a
+    # cent is not a price you can take.
+    filter(is.finite(ask), ask >= 0.01, ask < 1)
   if (nrow(markets) == 0) return(empty)
 
   purrr::map_dfr(seq_len(nrow(predictions)), function(i) {
@@ -92,9 +114,11 @@ fetch_kalshi_game_spreads <- function(predictions, season, week, sigma,
         # slope to the wrong scale, so Kalshi could never clear a threshold the
         # book cleared on identical edge.
         ev_per_contract = model_probability - ask - fee_estimate,
-        ev_raw = ev_per_contract / pmax(ask, 1e-6),
+        ev_raw = ev_per_contract / ask,
         ev = calibrate_ev(ev_raw, ev_cal),
-        qualifies = ev >= min_ev,
+        # Out-of-domain EV means the denominator collapsed, not that the edge is
+        # real — report it, never qualify it.
+        qualifies = ev >= min_ev & ev_raw_in_domain(ev_raw, ev_cal),
         fetched_at = fetched_at
       )
   })
@@ -107,6 +131,8 @@ fetch_kalshi_win_proxies <- function(predictions, season, week, sigma) {
   fetched_at <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z")
   empty <- .kalshi_win_empty()
   if (nrow(predictions) == 0 || !is.finite(sigma) || sigma <= 0) return(empty)
+  predictions <- tradable_slate(predictions, season)
+  if (nrow(predictions) == 0) return(empty)
   markets <- tryCatch(
     jsonlite::fromJSON("https://external-api.kalshi.com/trade-api/v2/markets?series_ticker=KXNFLSPREAD&status=open&limit=1000")$markets,
     error = function(e) NULL
@@ -116,7 +142,7 @@ fetch_kalshi_win_proxies <- function(predictions, season, week, sigma) {
     mutate(ask = suppressWarnings(as.numeric(yes_ask_dollars)),
            bid = suppressWarnings(as.numeric(yes_bid_dollars)),
            threshold = suppressWarnings(as.numeric(stringr::str_match(title, "over ([0-9.]+) points")[, 2]))) %>%
-    filter(is.finite(ask), ask > 0, ask < 1, threshold == 1.5)
+    filter(is.finite(ask), ask >= 0.01, ask < 1, threshold == 1.5)
   if (nrow(markets) == 0) return(empty)
   purrr::map_dfr(seq_len(nrow(predictions)), function(i) {
     game <- predictions[i, ]

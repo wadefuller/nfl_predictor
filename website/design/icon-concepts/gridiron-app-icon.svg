@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">NFL Predictor app icon</title>
+  <rect width="512" height="512" fill="#0d1117"/>
+  <path d="M100 292c43-137 174-203 312-152 10 143-80 252-228 256-52-20-78-54-84-104Z" fill="#58a6ff"/>
+  <path d="M160 328c64-32 120-80 176-144" fill="none" stroke="#0d1117" stroke-width="32" stroke-linecap="round"/>
+  <path d="M212 244l64 56M248 208l64 56" fill="none" stroke="#e6edf3" stroke-width="24" stroke-linecap="round"/>
+</svg>

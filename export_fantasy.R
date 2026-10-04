@@ -578,6 +578,36 @@ power_rankings <- function(roster, lineup, spec, seed = 42L) {
     mutate(pw_rank = rank(-pw_expected, ties.method = "min"))
 }
 
+# ff_draftpicks(), except for a Sleeper league in which no pick has ever been
+# traded. /traded_picks then returns [], ffscrapr binds it to a zero-column
+# frame and fails on `.data$season %in% seasons` -- which dropped the picks of
+# every such league (Kansas Keepers, SFB16). With no trades each franchise
+# simply owns its own picks, so build that directly: the next three seasons,
+# as ffscrapr does.
+#
+# A REDRAFT league (Sleeper settings$type 0; 1 = keeper, 2 = dynasty) owns no
+# future picks at all — rosters reset each year — so it gets an empty frame, not
+# three seasons of synthesised picks. Without this, #SFB16 (redraft) published
+# 108 picks for 2027-29 that cannot exist.
+league_draftpicks <- function(conn, platform) {
+  if (platform != "sleeper") return(ff_draftpicks(conn))
+  lg <- sleeper_getendpoint(glue::glue("league/{conn$league_id}"))$content
+  type <- as.integer(lg$settings$type %||% NA)
+  if (is.na(type)) stop("Sleeper league has no settings$type (redraft/keeper/dynasty)")
+  if (type == 0L)
+    return(tibble(season = character(), franchise_id = character(), franchise_name = character(),
+                  round = integer(), original_franchise_id = character()))
+  traded <- sleeper_getendpoint(glue::glue("league/{conn$league_id}/traded_picks"))$content
+  if (length(traded) > 0) return(ff_draftpicks(conn))
+  rounds <- as.integer(lg$settings$draft_rounds %||% NA)
+  if (is.na(rounds) || rounds < 1) stop("Sleeper league has no draft_rounds setting")
+  base <- as.numeric(lg$season)
+  tidyr::crossing(season = as.character(base + 1:3), round = seq_len(rounds),
+                  ff_franchises(conn) %>% select(franchise_id, franchise_name)) %>%
+    mutate(original_franchise_id = franchise_id) %>%
+    select(season, franchise_id, franchise_name, round, original_franchise_id)
+}
+
 pull_league <- function(cfg) {
   cat(sprintf("\n== League: %s (%s %s) ==\n", cfg$label, cfg$platform, cfg$league_id))
   # ff_connect_auth, not ff_connect: the generic constructor drops espn_s2/swid,
@@ -593,7 +623,14 @@ pull_league <- function(cfg) {
   standings <- cached(ck("standings"), soft(ff_standings(conn), "standings"))
   txns      <- cached(ck("txns"),      soft(ff_transactions(conn), "transactions"))
   franch    <- cached(ck("franchises"),soft(ff_franchises(conn), "franchises"))
-  picks     <- cached(ck("picks"),     soft(ff_draftpicks(conn), "draft picks"))
+  # ESPN has no tradeable picks: ff_draftpicks() only warns and returns NULL.
+  picks     <- if (cfg$platform != "espn")
+    cached(ck("picks"), soft(league_draftpicks(conn, cfg$platform), "draft picks"))
+  # soft() covers the network; a response in the wrong shape must not quietly
+  # ship a league page with no pick capital.
+  if (!is.null(picks))
+    expect_frame(picks, cols = c("franchise_id", "season", "round"), min_rows = 0,
+                 label = sprintf("%s draft picks", cfg$key))
 
   if (is.null(rosters) || nrow(rosters) == 0) {
     cat("  ! no rosters; skipping league\n"); return(NULL)

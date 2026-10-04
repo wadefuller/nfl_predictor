@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Gridiron Mark icon</title>
+  <rect x="3" y="3" width="58" height="58" rx="15" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+  <path d="M12.5 36.5c5.4-17.1 21.7-25.4 39-19 1.2 17.9-10 31.5-28.5 32-6.5-2.5-9.8-6.8-10.5-13Z" fill="#58a6ff"/>
+  <path d="M20 41c8-4 15-10 22-18" fill="none" stroke="#0d1117" stroke-width="4" stroke-linecap="round"/>
+  <path d="M26.5 30.5l8 7M31 26l8 7" fill="none" stroke="#e6edf3" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { availabilityEligible } from '../../lib/availability';
 import type { Game } from '../../types';
 import { getWeekLabel } from '../../data/weekLabels';
 import { GameCard, type LiveGame } from './GameCard';
@@ -55,6 +56,7 @@ function useLiveGames(): Record<string, LiveGame> {
 }
 
 export function GameGrid({ games, week, polymarket = [], kalshi = [], kalshiWin = [] }: GameGridProps) {
+  games = games.map(g => g.result || availabilityEligible(g.availability) ? g : { ...g, bet: null });
   const liveGames = useLiveGames();
   const [mobileFilter, setMobileFilter] = useState<'all' | 'plays' | 'in_progress'>('all');
 

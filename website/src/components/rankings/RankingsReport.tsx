@@ -153,6 +153,8 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
   const [index, setIndex] = useState<IndexFile | null>(null);
   const [snap, setSnap] = useState<any>(null);
   const [loaded, setLoaded] = useState(false);
+  const [indexLoaded, setIndexLoaded] = useState(false);
+  const [retry, setRetry] = useState(0);
   const [pos, setPos] = useState('ALL');
   const [sort, setSort] = useState<{ key: string; dir: 1 | -1 }>({ key: 'my_overall', dir: 1 });
   // Scoring format. Snapshots for different formats coexist in the index, so the
@@ -161,11 +163,17 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
   const [fmt, setFmt] = useState<string | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
+    setIndexLoaded(false);
+    setIndex(null);
     getJSON<IndexFile>(dataUrl('/data/rankings/index.json')).then(idx => {
+      if (cancelled) return;
       setIndex(idx);
       setFmt(f => f ?? idx?.scoring ?? 'ppr');
+      setIndexLoaded(true);
     });
-  }, []);
+    return () => { cancelled = true; };
+  }, [retry]);
 
   // A completed season only has the formats that were actually published for
   // it (2024/25 are full-PPR). Never let the current season's default format
@@ -198,23 +206,19 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
       const atOrBefore = inSeason.filter(s => s.week <= week).sort((a, b) => b.week - a.week)[0];
       return (atOrBefore ?? inSeason.sort((a, b) => b.week - a.week)[0]).tag;
     }
-    return index?.latest ?? snaps[0].tag;
-  }, [index, season, week, activeFmt]);
+    return null;
+  }, [index, season, week, activeFmt, embedded]);
 
   useEffect(() => {
+    let cancelled = false;
     if (!resolvedTag) { setSnap(null); setLoaded(true); return; }
     setLoaded(false);
     setSnap(null);
-    getJSON(dataUrl(`/data/rankings/${resolvedTag}.json`)).then(d => { setSnap(d); setLoaded(true); });
+    getJSON(dataUrl(`/data/rankings/${resolvedTag}.json`)).then(d => {
+      if (!cancelled) { setSnap(d); setLoaded(true); }
+    });
+    return () => { cancelled = true; };
   }, [resolvedTag]);
-
-  if (index && (index.snapshots?.length ?? 0) === 0)
-    return (
-      <div className="text-center py-16 text-text-muted text-sm">
-        <p>No rankings snapshots yet.</p>
-        <p className="mt-1 text-xs">Run <code className="text-accent">weekly_run/export_rankings_ecr.R &lt;season&gt;</code>.</p>
-      </div>
-    );
 
   const acc = snap?.accuracy ?? [];
   const all = obj(acc.find ? acc.find((a: any) => a.group === 'ALL') : acc);
@@ -241,6 +245,22 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
 
   const sortBy = (key: string, defDir: 1 | -1 = 1) =>
     setSort(s => (s.key === key ? { key, dir: (s.dir * -1) as 1 | -1 } : { key, dir: defDir }));
+
+  // Missing data is not preseason. Keep every hook above these early returns.
+  if (!indexLoaded || !loaded) return <Skeleton h={160} />;
+  const invalidIndex = !Array.isArray(index?.snapshots);
+  const invalidSnapshot = resolvedTag && (
+    !snap || snap.season !== season || (snap.scoring ?? 'ppr') !== activeFmt ||
+    !Array.isArray(snap.players) || snap.players.length === 0
+  );
+  if (invalidIndex || invalidSnapshot) return (
+    <section role="alert" className="rounded-2xl border border-border bg-bg-card/60 p-6 text-sm">
+      <h3 className="font-semibold text-text-primary">Season comparison couldn’t load</h3>
+      <p className="mt-2 text-text-muted">The rankings data is unavailable. This does not mean no games have been played. Check the connection or local server, then retry.</p>
+      <button className="mt-4 rounded-lg border border-border px-3 py-1.5 text-accent" onClick={() => setRetry(n => n + 1)}>Retry</button>
+    </section>
+  );
+  if (!resolvedTag) return <p className="p-6 text-sm text-text-muted">No season comparison has been published for {season}.</p>;
 
   // Summary block renders inside a full page hero standalone, or a plain panel
   // when embedded in Season Report (which already supplies the page hero).
@@ -373,7 +393,7 @@ export function RankingsReport({ season, week, embedded }: RankingsReportProps) 
                 ['Season#', 'my_pos_rank', 'right'], ['Pts', 'season_total', 'right'], ['VOR', 'vor', 'right'],
                 ...(hasActuals ? [['Pts Finish', 'actual_finish', 'right'], ['PPG Finish', 'actual_ppg_finish', 'right'], ['My Err', 'my_err', 'right'], ['ECR Err', 'ecr_err', 'right'], ['PPG (gms)', 'actual_ppg', 'right'], ['Pts', 'actual_pts', 'right']] : []),
               ] as [string, string, string][]).map(([label, key, align]) => (
-                <th key={label} onClick={() => sortBy(key, key === 'proj' || key === 'vor' || key === 'season_total' || key === 'actual_ppg' || key === 'actual_pts' || key === 'delta' ? -1 : 1)}
+                <th key={key} onClick={() => sortBy(key, key === 'proj' || key === 'vor' || key === 'season_total' || key === 'actual_ppg' || key === 'actual_pts' || key === 'delta' ? -1 : 1)}
                   className={`px-2.5 py-2 font-medium cursor-pointer select-none hover:text-text-primary whitespace-nowrap ${align === 'right' ? 'text-right' : 'text-left'}`}>
                   {label}{sort.key === key ? (sort.dir === 1 ? ' ▲' : ' ▼') : ''}
                 </th>

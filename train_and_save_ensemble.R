@@ -36,22 +36,17 @@ REG_PARAMS <- load_tuned_xgb_params(TUNED_PARAMS)
 cat("Loading feature data...\n")
 g <- read.csv(file.path(DATA_DIR, "game_w_features.csv"))
 
-# Train on the latest available complete data. Use all completed games up to
-# the most recent fully-played season. CAL_SEASON is the most recent one,
-# pre-cal trains on everything before it.
-completed <- g %>% filter(!is.na(home_result))
-max_season  <- max(completed$season)
-cat(sprintf("Most recent completed season: %d\n", max_season))
+cal_seasons <- complete_calibration_seasons(g %>%
+  filter(season >= MIN_TRAIN_SEASON), CAL_WINDOW_SEASONS)
+cat(sprintf("Most recent fully completed season: %d\n", max(cal_seasons)))
 
 train_raw   <- g %>% filter(season >= MIN_TRAIN_SEASON,
-                            season <= max_season,
                             !is.na(home_result))
-cal_seasons <- (max(train_raw$season) - CAL_WINDOW_SEASONS + 1):max(train_raw$season)
-pre_cal_raw <- train_raw %>% filter(!season %in% cal_seasons)
+pre_cal_raw <- train_raw %>% filter(season < min(cal_seasons))
 cal_raw     <- train_raw %>% filter( season %in% cal_seasons)
 
 cat(sprintf("Training window: %d–%d (%d games)\n",
-            MIN_TRAIN_SEASON, max(cal_seasons), nrow(train_raw)))
+            MIN_TRAIN_SEASON, max(train_raw$season), nrow(train_raw)))
 cat(sprintf("Pre-cal window:  %d–%d (%d games)\n",
             MIN_TRAIN_SEASON, min(cal_seasons) - 1, nrow(pre_cal_raw)))
 cat(sprintf("Cal seasons:     %s (%d games)\n",
@@ -148,7 +143,7 @@ bundle <- list(
                               expand_prune_blocks(names(train_raw)))),
   metadata = list(
     trained_date     = Sys.Date(),
-    training_seasons = c(MIN_TRAIN_SEASON, max(cal_seasons)),
+    training_seasons = c(MIN_TRAIN_SEASON, max(train_raw$season)),
     cal_seasons      = cal_seasons,
     n_training_games = nrow(train_raw),
     n_cal_games      = nrow(cal_raw),
@@ -183,24 +178,57 @@ cat(sprintf("  MAE: %.2f, cover acc: %.3f\n", mae, cover))
 # walk_forward_eval.R must have run already (we need walk_forward_predictions.csv
 # to fit fresh EV cal). If not, skip — bundle uses default constants.
 wf_preds_path <- file.path(DATA_DIR, "walk_forward_predictions.csv")
+# Every branch below used to fail silently, and all four did at once: the 2026-09-07
+# bundle shipped with no `ev_calibration` at all, so `ev_calibration_from_bundle()`
+# fell back to the 2026-05 hardcoded constants (slope 0.3596) while the fitted
+# value was 0.6302. That halves every EV the betting card computes, which moves
+# the effective bet threshold from raw 0.071 to raw 0.128 — on the 2016-2025
+# walk-forward that is 247 bets at +4.45% instead of 784 at +5.80%.
 if (file.exists(wf_preds_path)) {
   cat("\nRecalibrating EV from walk_forward_predictions.csv...\n")
-  rc <- system2("Rscript", "recalibrate_ev.R", stdout = TRUE, stderr = TRUE)
   ev_cal_path <- file.path(DATA_DIR, "ev_calibration.json")
-  if (file.exists(ev_cal_path)) {
+  t0 <- Sys.time()
+  # Absolute path: a relative one resolves against the caller's working
+  # directory, which is only nfl_predictor/ when run_pipeline.sh is the caller.
+  rc <- system2("Rscript", file.path(PROJECT_DIR, "recalibrate_ev.R"),
+                stdout = TRUE, stderr = TRUE)
+  status <- attr(rc, "status") %||% 0L
+  # The refit's exit code was captured into `rc` and never read. A failed refit
+  # then fell through to whatever ev_calibration.json happened to be lying
+  # around and baked it in as if it were fresh.
+  if (!identical(as.integer(status), 0L)) {
+    cat("  ! recalibrate_ev.R FAILED — bundle will carry no EV calibration\n")
+    cat(paste0("    ", utils::tail(rc, 10), collapse = "\n"), "\n")
+  } else if (!file.exists(ev_cal_path)) {
+    cat("  ! recalibrate_ev.R reported success but wrote no ev_calibration.json\n")
+  } else if (file.info(ev_cal_path)$mtime < t0) {
+    # Existence is not freshness. The file on disk was five days stale and would
+    # have passed the old `file.exists()` check without comment.
+    cat(sprintf("  ! ev_calibration.json was not rewritten (mtime %s, older than this run) — not baking\n",
+                format(file.info(ev_cal_path)$mtime)))
+  } else {
     ev_cal <- jsonlite::fromJSON(ev_cal_path)
-    bundle$metadata$ev_calibration <- list(
-      intercept = ev_cal$intercept, slope = ev_cal$slope,
-      fit_n = ev_cal$fit_n, fit_timestamp = ev_cal$fit_timestamp
-    )
-    # Re-save bundle with EV cal baked in
-    saveRDS(bundle, dated_path)
-    saveRDS(bundle, latest_path)
-    cat(sprintf("  EV cal baked into bundle: intercept=%.4f slope=%.4f (n=%d)\n",
-                ev_cal$intercept, ev_cal$slope, ev_cal$fit_n))
+    if (!all(c("intercept", "slope") %in% names(ev_cal)) ||
+        !is.finite(ev_cal$intercept) || !is.finite(ev_cal$slope)) {
+      cat("  ! ev_calibration.json is missing intercept/slope — not baking\n")
+    } else {
+      bundle$metadata$ev_calibration <- list(
+        intercept = ev_cal$intercept, slope = ev_cal$slope,
+        fit_n = ev_cal$fit_n, fit_timestamp = ev_cal$fit_timestamp
+      )
+      # Re-save bundle with EV cal baked in
+      saveRDS(bundle, dated_path)
+      saveRDS(bundle, latest_path)
+      cat(sprintf("  EV cal baked into bundle: intercept=%.4f slope=%.4f (n=%d)\n",
+                  ev_cal$intercept, ev_cal$slope, ev_cal$fit_n))
+    }
   }
 } else {
   cat("\n[skipped EV recal — no walk_forward_predictions.csv]\n")
 }
+if (is.null(bundle$metadata$ev_calibration))
+  cat("\n  ! WARNING: this bundle carries NO EV calibration. Every EV the betting\n",
+      "    card reports will use the stale hardcoded default. Run\n",
+      "    `./run_pipeline.sh full` (walk_forward first) to fit and bake one.\n", sep = "")
 
 cat("Done.\n")

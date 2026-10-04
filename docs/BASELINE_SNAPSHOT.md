@@ -1,5 +1,12 @@
 # Baseline snapshot — GLM-only + dead-column pruning
 
+> Superseded after the 2026-09-27 feature-integrity repair. The metrics below
+> use the old feature matrix and are not current promotion evidence. The
+> corrected 2016–2025 walk-forward is MAE **9.79047** vs market **9.78677**,
+> Brier **0.21101** vs market **0.21118**, with 5/10 seasons beating the market
+> on each metric. The corrected model no longer has an aggregate margin-error
+> advantage.
+
 Frozen 2026-09-02. Supersedes the 2026-06-07 pre-prune snapshot
 (MAE 9.7783 / Brier 0.21033 / LogLoss 0.60871 / Cover 0.5336, 4 seasons).
 Any future change is measured against these numbers.

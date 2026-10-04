@@ -68,6 +68,13 @@ generate_all_features <- function() {
   games      <- load_game_data(SEASONS)
   game_split <- split_home_away(games)
   pbp        <- load_pbp_data(SEASONS)
+  # Persist the exact training-definition history for player-keyed serving.
+  qb_history <- list(schema=1L,first_season=as.integer(min(SEASONS)),
+    seasons=sort(unique(as.integer(pbp$season))),observed_at=format(Sys.time(),tz="UTC"),
+    starts=identify_starters(pbp))
+  saveRDS(qb_history,file.path(DATA_DIR,"qb_start_history.rds.tmp"))
+  stopifnot(file.rename(file.path(DATA_DIR,"qb_start_history.rds.tmp"),
+                       file.path(DATA_DIR,"qb_start_history.rds")))
   player_cap <- load_player_cap_by_season(SEASONS)
   team_cap   <- build_team_cap_aggregates(SEASONS, player_cap)
 

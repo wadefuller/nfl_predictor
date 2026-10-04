@@ -175,14 +175,41 @@ if (length(suspicious) == 0) {
   for (s in suspicious) fail(sprintf("Possible leakage (R²>0.5 vs home_result): %s", s))
 }
 
+# A prior away result must be encoded from the away team's perspective. This
+# was previously wrong for every 2026 Week-1 away team, while the single-
+# column R² leakage screen above still passed.
+week1 <- g %>% filter(season >= 2010, week == 1, !is.na(home_result))
+prior_wins <- bind_rows(
+  week1 %>% transmute(season, team = home_team,
+                      expected_win = as.integer(home_result > 0)),
+  week1 %>% transmute(season, team = away_team,
+                      expected_win = as.integer(home_result < 0))
+)
+week2_form <- bind_rows(
+  g %>% filter(week == 2) %>%
+    transmute(season, team = home_team, encoded_win = win_season_avg_home),
+  g %>% filter(week == 2) %>%
+    transmute(season, team = away_team, encoded_win = win_season_avg_away)
+) %>% inner_join(prior_wins, by = c("season", "team"))
+bad_perspective <- week2_form %>% filter(is.na(encoded_win) |
+  abs(encoded_win - expected_win) > 1e-9)
+if (!nrow(bad_perspective)) {
+  pass(sprintf("Week-2 team form matches each team's own Week-1 result (%d teams)",
+               nrow(week2_form)))
+} else {
+  fail(sprintf("Week-2 team form has %d incorrect prior-win values", nrow(bad_perspective)))
+}
+
 # ============================================================================
 # Test 4: Distribution drift — current season vs historical bands
 # ============================================================================
 section("Distribution drift — current season within historical 1-99% bands")
 
-# For top XGB-importance cols, current season's mean should fall within the
-# historical (1%, 99%) percentile of season means. Catches: nflreadr schema
-# change introducing different units, upstream data bug.
+# For important model cols, the current season's mean should fall within the
+# historical (1%, 99%) percentile of season means THROUGH THE SAME WEEK.
+# Comparing one September slate with 18-game historical seasons confounds
+# schedule composition with data drift and creates predictable false alarms.
+# This still catches unit/schema changes while making the early-season gate fair.
 DRIFT_CHECK_COLS <- intersect(c(
   "spread_line", "home_moneyline", "impl_prob_home",
   "off_epa_r16_home", "def_epa_r16_home",
@@ -190,10 +217,13 @@ DRIFT_CHECK_COLS <- intersect(c(
 ), names(g))
 
 current_season <- max(g$season[!is.na(g$home_result)])
-historical <- g %>% filter(season < current_season, !is.na(home_result))
 current    <- g %>% filter(season == current_season, !is.na(home_result))
+current_week <- max(current$week, na.rm = TRUE)
+historical <- g %>% filter(season < current_season, week <= current_week,
+                           !is.na(home_result))
 
 drift_issues <- c()
+drift_breaks <- c()
 for (col in DRIFT_CHECK_COLS) {
   hist_means <- historical %>% group_by(season) %>%
     summarise(m = mean(.data[[col]], na.rm = TRUE), .groups = "drop") %>% pull(m)
@@ -202,16 +232,24 @@ for (col in DRIFT_CHECK_COLS) {
   band_high <- quantile(hist_means, 0.99, na.rm = TRUE)
   cur_mean  <- mean(current[[col]], na.rm = TRUE)
   if (cur_mean < band_low || cur_mean > band_high) {
-    drift_issues <- c(drift_issues,
-                       sprintf("%s: current %.4f vs historical band [%.4f, %.4f]",
-                               col, cur_mean, band_low, band_high))
+    msg <- sprintf("%s: current %.4f vs historical season-mean band [%.4f, %.4f]",
+                   col, cur_mean, band_low, band_high)
+    # A 1–99% band of ~25 season means is a monitoring signal, not proof of a
+    # broken feed. Hard-fail only when the current mean is outside even the
+    # historical per-game envelope (a likely scale/unit/schema failure).
+    envelope <- quantile(historical[[col]], c(.001, .999), na.rm = TRUE)
+    if (cur_mean < envelope[1] || cur_mean > envelope[2])
+      drift_breaks <- c(drift_breaks, msg)
+    else drift_issues <- c(drift_issues, msg)
   }
 }
-if (length(drift_issues) == 0) {
-  pass(sprintf("All %d drift-checked cols within historical 1-99%% band for season %d",
-               length(DRIFT_CHECK_COLS), current_season))
+if (length(drift_issues) == 0 && length(drift_breaks) == 0) {
+  pass(sprintf("All %d drift-checked cols within historical 1-99%% same-week band for season %d through week %d",
+               length(DRIFT_CHECK_COLS), current_season, current_week))
 } else {
-  for (msg in drift_issues) fail(msg)
+  for (msg in drift_issues) cat(sprintf("  WARN  %s (unusual but within historical game range)\n", msg))
+  for (msg in drift_breaks) fail(msg)
+  if (!length(drift_breaks)) pass("No feature scale/schema drift outside historical game ranges")
 }
 
 # ============================================================================

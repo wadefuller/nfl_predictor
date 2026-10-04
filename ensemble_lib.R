@@ -30,6 +30,8 @@ suppressPackageStartupMessages({
 PROJECT_DIR <- Sys.getenv("NFL_PROJECT_DIR",
                           unset = path.expand("~/Projects/R/nfl_predictor"))
 DATA_DIR    <- file.path(PROJECT_DIR, "data")
+source(file.path(PROJECT_DIR, "qb_availability.R"))
+source(file.path(PROJECT_DIR, "qb_features.R"))
 MODELS_DIR  <- file.path(PROJECT_DIR, "models")
 
 # Columns that must NOT be features (outcomes, leakage). SINGLE source of
@@ -46,6 +48,12 @@ LEAKAGE_VARS_REG <- c(
   "def_int_rate", "def_third_dn_rate",
   # Pace + total environment current-game (rolling versions are the features)
   "team_points_against", "team_total_env", "team_off_plays",
+  # PBP weather is observed during the game; there is no archived pregame
+  # forecast with the same definition for honest historical evaluation.
+  "temp", "wind", "high_wind", "cold_game",
+  # Historical expected-QB identity is last known passer, so a current-game
+  # starter-change flag cannot be trained honestly without pregame archives.
+  "new_starter_home", "new_starter_away", "new_starter_home_diff",
   "home_points", "away_points", "home_pct_points_scored", "away_pct_points_scored",
   "home_win", "spread_adjusted_result", "spread_cover",
   # SoS-adjusted EPA — disabled (experiment hurt every strategy 1-4pp ROI).
@@ -240,6 +248,18 @@ prep_for_train <- function(data,
     select(-any_of(drop), -any_of("season"))
 }
 
+# Calibration must be drawn from fully completed seasons. A current season
+# with only a few final games is valid final-fit training data, but it is not
+# a complete calibration season and must never enter the pre-cal fit either.
+complete_calibration_seasons <- function(data, n = 2L) {
+  status <- data %>%
+    group_by(season) %>%
+    summarise(complete = all(!is.na(home_result)), .groups = "drop")
+  out <- tail(sort(status$season[status$complete]), n)
+  if (length(out) != n) stop("Not enough fully completed seasons for calibration")
+  out
+}
+
 # Predict-time prep: no outcome filtering (live games have NA result).
 # Drops leakage columns and the season factor. Keeps home_result if present
 # (used as recipe outcome at predict time; tidymodels handles missing outcome
@@ -399,31 +419,211 @@ train_xgb_model <- function(train_data,
   workflow() %>% add_recipe(rec) %>% add_model(spec) %>% fit(data = train_data)
 }
 
-train_glm_model <- function(train_data, seed = 989,
-                              alpha = get0("GLM_ALPHA", inherits = TRUE,
-                                            ifnotfound = load_tuned_glm_alpha())) {
-  set.seed(seed)
-  rec <- recipe(home_result ~ ., data = train_data) %>%
+glm_recipe <- function(train_data) {
+  recipe(home_result ~ ., data = train_data) %>%
     step_nzv(all_numeric_predictors()) %>%
     step_impute_median(all_numeric_predictors()) %>%
     step_novel(all_nominal_predictors()) %>%
     step_dummy(all_nominal_predictors(), one_hot = TRUE) %>%
     step_normalize(all_numeric_predictors())
+}
 
-  prep_rec <- prep(rec, training = train_data)
-  baked    <- bake(prep_rec, new_data = train_data)
-  x_mat    <- as.matrix(baked %>% select(-home_result))
-  y_vec    <- baked$home_result
+glm_design <- function(train_data, rec = NULL) {
+  prep_rec <- prep(rec %||% glm_recipe(train_data), training = train_data)
+  baked <- bake(prep_rec, new_data = train_data)
+  list(
+    recipe = prep_rec,
+    x = as.matrix(baked %>% select(-home_result)),
+    y = baked$home_result
+  )
+}
 
-  cv_fit <- cv.glmnet(x_mat, y_vec, alpha = alpha, nfolds = 5)
-  list(recipe = prep_rec, model = cv_fit,
-       lambda = cv_fit$lambda.min, alpha = alpha)
+glm_nonzero_features <- function(model, s) {
+  coefs <- as.matrix(stats::coef(model, s = s))[, 1]
+  setdiff(names(coefs)[coefs != 0], "(Intercept)")
+}
+
+select_temporal_glm_lambda <- function(raw_data, lambda_grid, alpha,
+                                        seed = 989, n_folds = 4L) {
+  if (is.null(raw_data) || !"season" %in% names(raw_data)) {
+    stop("GLM_LAMBDA_RULE=temporal requires raw training data with season")
+  }
+  eligible <- raw_data %>%
+    filter(!is.na(result), !is.na(home_moneyline))
+  seasons <- sort(unique(as.integer(eligible$season)))
+  validation_seasons <- seasons[vapply(seasons, function(s)
+    sum(seasons < s) >= 3L, logical(1))]
+  validation_seasons <- tail(validation_seasons,
+                             min(as.integer(n_folds), length(validation_seasons)))
+  if (!length(validation_seasons)) {
+    stop("Not enough prior seasons for temporal GLM lambda selection")
+  }
+
+  absolute_error_sum <- numeric(length(lambda_grid))
+  validation_rows <- 0L
+  fold_rows <- integer(length(validation_seasons))
+
+  for (i in seq_along(validation_seasons)) {
+    validation_season <- validation_seasons[[i]]
+    inner_train <- prep_for_train(raw_data %>% filter(season < validation_season))
+    inner_valid <- prep_for_train(raw_data %>% filter(season == validation_season))
+    if (!nrow(inner_train) || !nrow(inner_valid)) next
+
+    design <- glm_design(inner_train)
+    valid_baked <- bake(design$recipe, new_data = inner_valid)
+    valid_x <- as.matrix(valid_baked %>% select(-home_result))
+    set.seed(seed + i - 1L)
+    fit <- glmnet(design$x, design$y, alpha = alpha, lambda = lambda_grid)
+    pred <- as.matrix(predict(fit, newx = valid_x, s = lambda_grid))
+    absolute_error_sum <- absolute_error_sum +
+      colSums(abs(pred - valid_baked$home_result))
+    fold_rows[[i]] <- nrow(valid_baked)
+    validation_rows <- validation_rows + nrow(valid_baked)
+  }
+  if (!validation_rows) stop("Temporal GLM lambda selection produced no validation rows")
+
+  temporal_mae <- absolute_error_sum / validation_rows
+  best <- which.min(temporal_mae)
+  list(
+    lambda = lambda_grid[[best]],
+    validation_seasons = validation_seasons[fold_rows > 0],
+    validation_rows = validation_rows,
+    temporal_mae = temporal_mae[[best]]
+  )
+}
+
+select_prior_outer_glm_lambda <- function(raw_data, alpha, seed = 989,
+                                           n_folds = 5L) {
+  if (is.null(raw_data) || !"season" %in% names(raw_data)) {
+    stop("GLM_LAMBDA_RULE=fixed_prior requires raw training data with season")
+  }
+  eligible <- raw_data %>%
+    filter(!is.na(result), !is.na(home_moneyline))
+  seasons <- sort(unique(as.integer(eligible$season)))
+  prior_holdouts <- seasons[vapply(seasons, function(s)
+    sum(seasons < s) >= 3L, logical(1))]
+  prior_holdouts <- tail(prior_holdouts, min(as.integer(n_folds), length(prior_holdouts)))
+  if (!length(prior_holdouts)) {
+    stop("Not enough prior seasons for fixed-prior GLM lambda selection")
+  }
+
+  prior_lambdas <- vapply(seq_along(prior_holdouts), function(i) {
+    prior_data <- prep_for_train(raw_data %>% filter(season < prior_holdouts[[i]]))
+    design <- glm_design(prior_data)
+    set.seed(seed + i - 1L)
+    cv.glmnet(design$x, design$y, alpha = alpha, nfolds = 5)$lambda.min
+  }, numeric(1))
+
+  list(
+    lambda = stats::median(prior_lambdas),
+    prior_holdout_seasons = prior_holdouts,
+    prior_lambdas = prior_lambdas,
+    lambda_sd = if (length(prior_lambdas) > 1L) stats::sd(prior_lambdas) else 0
+  )
+}
+
+train_glm_model <- function(train_data, seed = 989,
+                              alpha = get0("GLM_ALPHA", inherits = TRUE,
+                                            ifnotfound = load_tuned_glm_alpha()),
+                              raw_data = NULL, observation_weights = NULL,
+                              lambda_rule = Sys.getenv("GLM_LAMBDA_RULE", "min"),
+                              cv_repeats = as.integer(Sys.getenv("GLM_CV_REPEATS", "5")),
+                              temporal_folds = as.integer(Sys.getenv("GLM_TEMPORAL_FOLDS", "4")),
+                              prior_folds = as.integer(Sys.getenv("GLM_PRIOR_FOLDS", "5"))) {
+  lambda_rule <- match.arg(lambda_rule,
+                           c("min", "1se", "repeat_median", "temporal", "fixed_prior"))
+  if (!is.finite(cv_repeats) || cv_repeats < 2L) cv_repeats <- 5L
+  if (!is.finite(temporal_folds) || temporal_folds < 1L) temporal_folds <- 4L
+  if (!is.finite(prior_folds) || prior_folds < 1L) prior_folds <- 5L
+
+  design <- glm_design(train_data)
+  if (!is.null(observation_weights)) {
+    stopifnot(length(observation_weights) == nrow(train_data),
+              all(is.finite(observation_weights)), all(observation_weights > 0))
+    if (lambda_rule != "min") stop("Observation-weight experiment requires lambda.min")
+  }
+  prep_rec <- design$recipe
+  x_mat <- design$x
+  y_vec <- design$y
+
+  selected_lambdas <- numeric(0)
+  repeat_feature_sets <- list()
+  temporal <- NULL
+  prior <- NULL
+
+  if (lambda_rule %in% c("min", "1se")) {
+    set.seed(seed)
+    model <- cv.glmnet(x_mat, y_vec, alpha = alpha, nfolds = 5, weights = observation_weights)
+    prediction_s <- if (lambda_rule == "min") "lambda.min" else "lambda.1se"
+    selected_lambda <- if (lambda_rule == "min") model$lambda.min else model$lambda.1se
+    selected_lambdas <- selected_lambda
+  } else if (lambda_rule == "repeat_median") {
+    fits <- vector("list", cv_repeats)
+    selected_lambdas <- numeric(cv_repeats)
+    for (i in seq_len(cv_repeats)) {
+      set.seed(seed + i - 1L)
+      fold_id <- sample(rep(seq_len(5L), length.out = nrow(x_mat)))
+      fits[[i]] <- cv.glmnet(x_mat, y_vec, alpha = alpha, nfolds = 5,
+                             foldid = fold_id)
+      selected_lambdas[[i]] <- fits[[i]]$lambda.min
+      repeat_feature_sets[[i]] <- glm_nonzero_features(fits[[i]], "lambda.min")
+    }
+    model <- fits[[1]]
+    selected_lambda <- stats::median(selected_lambdas)
+    prediction_s <- selected_lambda
+  } else if (lambda_rule == "temporal") {
+    base_model <- glmnet(x_mat, y_vec, alpha = alpha)
+    temporal <- select_temporal_glm_lambda(
+      raw_data = raw_data, lambda_grid = base_model$lambda, alpha = alpha,
+      seed = seed, n_folds = temporal_folds
+    )
+    model <- base_model
+    selected_lambda <- temporal$lambda
+    selected_lambdas <- selected_lambda
+    prediction_s <- selected_lambda
+  } else {
+    prior <- select_prior_outer_glm_lambda(
+      raw_data = raw_data, alpha = alpha, seed = seed, n_folds = prior_folds
+    )
+    model <- glmnet(x_mat, y_vec, alpha = alpha)
+    selected_lambda <- prior$lambda
+    selected_lambdas <- prior$prior_lambdas
+    prediction_s <- selected_lambda
+  }
+
+  nonzero <- glm_nonzero_features(model, prediction_s)
+  repeat_rates <- if (length(repeat_feature_sets)) {
+    sort(table(unlist(repeat_feature_sets)) / length(repeat_feature_sets),
+         decreasing = TRUE)
+  } else numeric(0)
+
+  list(
+    recipe = prep_rec,
+    model = model,
+    lambda = selected_lambda,
+    alpha = alpha,
+    prediction_s = prediction_s,
+    diagnostics = list(
+      lambda_rule = lambda_rule,
+      selected_lambda = selected_lambda,
+      selected_lambdas = selected_lambdas,
+      lambda_sd = if (length(selected_lambdas) > 1L) stats::sd(selected_lambdas) else 0,
+      nonzero_count = length(nonzero),
+      nonzero_features = nonzero,
+      repeat_selection_rates = repeat_rates,
+      temporal_validation_seasons = temporal$validation_seasons %||% integer(0),
+      temporal_validation_rows = temporal$validation_rows %||% 0L,
+      temporal_mae = temporal$temporal_mae %||% NA_real_,
+      prior_holdout_seasons = prior$prior_holdout_seasons %||% integer(0)
+    )
+  )
 }
 
 predict_glm <- function(glm_obj, new_data) {
   baked <- bake(glm_obj$recipe, new_data = new_data)
   x_new <- as.matrix(baked %>% select(-any_of("home_result")))
-  as.numeric(predict(glm_obj$model, newx = x_new, s = "lambda.min"))
+  prediction_s <- glm_obj$prediction_s %||% "lambda.min"
+  as.numeric(predict(glm_obj$model, newx = x_new, s = prediction_s))
 }
 
 train_rf_model <- function(train_data, seed = 989,
@@ -713,10 +913,25 @@ apply_winprob <- function(pred_margin, winprob, sigma, platt = NULL) {
 # Default params chosen from the portfolio sweep (best Sharpe at deployable DD).
 
 PORTFOLIO_DEFAULTS <- list(
-  # Note: min_ev now applies to CALIBRATED EV (see EV_CALIBRATION below).
-  # Raw model EVs are systematically inflated (slope ≈ 0.36 vs realized).
-  # Calibrated 0.05 ≈ raw 0.128 ≈ "5% real edge per $1".
-  min_ev          = 0.05,
+  # min_ev applies to CALIBRATED EV, so this threshold and the calibration slope
+  # are a MATCHED PAIR — changing one alone silently moves the betting policy.
+  # It was 0.05, chosen against the stale 2026-05 slope (0.36) that had leaked
+  # into production because no bundle carried a fitted calibration. Re-swept
+  # 2026-09-20 against the fitted slope, and again after fixing the moneyline
+  # grading bug (.bet_won_ml above) that had mis-scored 65 of 2,638 walk-forward
+  # ML rows. Final numbers, slope 0.6084, kelly_mult 0.15 — 0.04 DOMINATES 0.05
+  # on every metric:
+  #     min_ev  n_bets   roi     cagr    max_dd  sharpe
+  #       0.04    1044   4.69%   10.1%    49.2%    0.59
+  #       0.05     773   3.00%    5.5%    54.5%    0.39
+  # The band this admits, calibrated EV in [0.04, 0.05), is also one of only two
+  # in the whole distribution whose season-block bootstrap excludes zero:
+  # n=270, ROI +12.4%, 90% CI [+4.9%, +20.4%], P(>0) = 0.997. Cumulative ROI
+  # peaks here too (+7.23% at >=0.04 vs +5.40% at >=0.05).
+  # Going lower is NOT supported: [0.03,0.04) and [0.02,0.03) are positive but
+  # their CIs straddle zero. Ignore the min_ev 0.12 row in the sweep — n=79, and
+  # it swung from sharpe 0.27 to 0.65 on the grading fix alone.
+  min_ev          = 0.04,
   kelly_mult      = 0.15,
   max_bet_pct     = 0.05,
   max_abs_odds    = 300,
@@ -733,8 +948,85 @@ EV_CALIBRATION_DEFAULT <- list(intercept = 0.0039, slope = 0.3596)
 # Kept for back-compat — older code references EV_CALIBRATION directly.
 EV_CALIBRATION <- EV_CALIBRATION_DEFAULT
 
+# The domain the EV calibration was FITTED on, in per-dollar-staked units.
+# recalibrate_ev.R buckets its training rows at c(-Inf,-0.05,0,0.05,0.1,0.15,
+# 0.2,0.3,Inf): sportsbook edges live in roughly +/-0.5 and never approach 1.
+# The line is a straight `intercept + slope*x` with nothing stopping it being
+# evaluated at 47, which is what a dust-priced contract produces — a resolved
+# Polymarket loser trading at 0.1c gave `p/price - 1 = 47` and the calibration
+# happily reported +1702% EV. Extrapolating a linear fit ~100x past its data is
+# not a calibration, so the input is clamped and callers are told when it was.
+EV_RAW_DOMAIN <- c(-1, 1)
+
+#' Was this raw EV inside the range the calibration can actually speak to?
+#' Callers use it to DISQUALIFY rather than to silently report a clamped number:
+#' a raw EV outside the domain means the price is not trustworthy, not that the
+#' opportunity is merely large.
+ev_raw_in_domain <- function(ev_raw, cal = EV_CALIBRATION_DEFAULT) {
+  dom <- cal$domain %||% EV_RAW_DOMAIN
+  is.finite(ev_raw) & ev_raw >= dom[1] & ev_raw <= dom[2]
+}
+
 calibrate_ev <- function(ev_raw, cal = EV_CALIBRATION_DEFAULT) {
-  cal$intercept + cal$slope * ev_raw
+  dom <- cal$domain %||% EV_RAW_DOMAIN
+  clamped <- pmax(dom[1], pmin(dom[2], ev_raw))
+  n_out <- sum(is.finite(ev_raw) & ev_raw != clamped)
+  if (n_out > 0)
+    message(sprintf("  ! calibrate_ev: %d value(s) outside the fitted domain [%g, %g] were clamped (max seen %.1f) — check the underlying prices",
+                    n_out, dom[1], dom[2], max(ev_raw[is.finite(ev_raw)], na.rm = TRUE)))
+  cal$intercept + cal$slope * clamped
+}
+
+# ---- Tradability -----------------------------------------------------------
+
+#' Restrict a predictions frame to games that have NOT kicked off.
+#'
+#' Every market lib scored whatever was in `predictions`, and nothing anywhere
+#' checked the clock. On a Sunday evening that meant comparing a PRE-KICKOFF
+#' model probability against a POST-GAME order book: the market knows the score
+#' and the model does not, so the gap between them is guaranteed to look
+#' enormous, and the losing contract's price has collapsed to dust. The board
+#' then ranked by that gap — sorting the model's worst misses to the top and
+#' presenting them as the best opportunities available.
+#'
+#' `gameday` is a local date and `gametime` the local kickoff ("13:00"), both in
+#' US/Eastern. A row whose kickoff cannot be determined is treated as STARTED and
+#' dropped: showing a possibly-settled market as tradable is the failure that
+#' costs money, while dropping a live one only costs a row. The count is logged
+#' either way so a schema change cannot empty the board silently.
+tradable_slate <- function(predictions, season, now = Sys.time()) {
+  if (nrow(predictions) == 0) return(predictions)
+  if (!all(c("availability_ok","availability_checked_at") %in% names(predictions))) return(predictions[0, ])
+  age <- as.numeric(difftime(now, as.POSIXct(predictions$availability_checked_at,tz="UTC"),units="hours"))
+  eligible <- !is.na(predictions$availability_ok) & predictions$availability_ok &
+    is.finite(age) & age >= 0 & age <= 6
+  predictions <- predictions[eligible, ]
+  if (nrow(predictions) == 0) return(predictions)
+  sched <- NULL
+  for (attempt in 1:3) {
+    d <- try(nflreadr::load_schedules(season), silent = TRUE)
+    if (!inherits(d, "try-error") && NROW(d) > 0 &&
+        all(c("game_id", "gameday", "gametime") %in% names(d))) { sched <- d; break }
+    Sys.sleep(2 * attempt)
+  }
+  if (is.null(sched)) {
+    message("  ! tradable_slate: schedules unavailable — cannot tell which games have started; scoring none")
+    return(predictions[0, ])
+  }
+  kick <- tibble::as_tibble(sched) %>%
+    dplyr::select(game_id, gameday, gametime) %>%
+    dplyr::mutate(kickoff = suppressWarnings(as.POSIXct(
+      paste(as.character(gameday), as.character(gametime)),
+      format = "%Y-%m-%d %H:%M", tz = "America/New_York")))
+  out <- predictions %>%
+    dplyr::left_join(dplyr::select(kick, game_id, kickoff), by = "game_id") %>%
+    dplyr::filter(!is.na(kickoff), kickoff > now) %>%
+    dplyr::select(-kickoff)
+  dropped <- nrow(predictions) - nrow(out)
+  if (dropped > 0)
+    message(sprintf("  tradable_slate: %d of %d game(s) already started or undated — not scored",
+                    dropped, nrow(predictions)))
+  out
 }
 
 # Extract EV calibration from a trained bundle. Falls back to the default if
@@ -742,6 +1034,11 @@ calibrate_ev <- function(ev_raw, cal = EV_CALIBRATION_DEFAULT) {
 ev_calibration_from_bundle <- function(bundle) {
   cal <- bundle$metadata$ev_calibration
   if (is.null(cal) || is.null(cal$intercept) || is.null(cal$slope)) {
+    # Silent until now, which is how a bundle with no calibration ran in
+    # production for two weeks scoring every bet on 2026-05 constants.
+    message("  ! bundle carries no EV calibration — falling back to the stale ",
+            sprintf("default (intercept=%.4f slope=%.4f). Re-run the retrain to bake a fresh one.",
+                    EV_CALIBRATION_DEFAULT$intercept, EV_CALIBRATION_DEFAULT$slope))
     EV_CALIBRATION_DEFAULT
   } else {
     list(intercept = as.numeric(cal$intercept), slope = as.numeric(cal$slope))
@@ -802,9 +1099,35 @@ pnl_dollars <- function(correct, odds_american, wager_dollars) {
 #                          pred_win_pct, home_spread_odds, away_spread_odds,
 #                          home_moneyline, away_moneyline
 # Optionally: cover_correct, ml_correct (used only for backtest scoring).
+# ---- Grading a BET (not the model's pick) ---------------------------------
+# These exist because the two are not the same question and were being conflated.
+# `ml_correct` in grade_week.R answers "did the MODEL's pick win?", and the model
+# picks by predicted margin — shared/teams.R calls that the definition of record
+# and it must stay that way, or the scorecard contradicts itself. But a MONEYLINE
+# BET is placed on the side with the higher win PROBABILITY, because that is the
+# probability the EV is computed from. Those two rules disagree on the coin-flip
+# games (teams.R measures ~1% of them), and build_bet_candidates was choosing the
+# side by win probability while attaching the margin's grade — so on exactly the
+# thinnest-edge games the bet was scored on a side it was never placed on.
+# Observed: 2026 week 2 JAX @ DEN, margin +0.53 (DEN) vs win prob 0.4967 (JAX).
+# The bet went on Jacksonville, Denver won, and it was recorded as a win.
+.bet_won_ml <- function(bet_team, home_team, away_team, home_result) {
+  if (length(home_result) == 0 || is.na(home_result)) return(NA_integer_)
+  if (home_result == 0) return(NA_integer_)                       # tie -> push
+  as.integer(bet_team == if (home_result > 0) home_team else away_team)
+}
+.bet_won_spread <- function(bet_team, home_team, away_team, home_result, spread_line) {
+  if (length(home_result) == 0 || is.na(home_result) || is.na(spread_line)) return(NA_integer_)
+  margin <- home_result - spread_line
+  if (margin == 0) return(NA_integer_)                            # push
+  as.integer(bet_team == if (margin > 0) home_team else away_team)
+}
+
 build_bet_candidates <- function(predictions) {
   pmap_dfr(predictions, function(...) {
     row <- list(...)
+    if (!is.null(row$availability_ok) && !isTRUE(row$availability_ok) &&
+        (is.null(row$home_result) || is.na(row$home_result))) return(tibble())
     out <- list()
 
     has_spread <- !is.null(row$home_spread_odds) && !is.null(row$away_spread_odds) &&
@@ -823,7 +1146,12 @@ build_bet_candidates <- function(predictions) {
         home_team = row$home_team, away_team = row$away_team,
         bet_type = paste0(side, "_spread"), bet_team = team,
         odds = odds, our_prob = prob,
-        correct = if (!is.null(row$cover_correct)) row$cover_correct else NA_integer_
+        # Derived from the side staked. Falls back to the caller's cover_correct
+        # only when no outcome is attached (a live card has none).
+        correct = if (!is.null(row$home_result))
+                    .bet_won_spread(team, row$home_team, row$away_team,
+                                    row$home_result, row$spread_line)
+                  else if (!is.null(row$cover_correct)) row$cover_correct else NA_integer_
       )
     }
 
@@ -843,7 +1171,9 @@ build_bet_candidates <- function(predictions) {
         home_team = row$home_team, away_team = row$away_team,
         bet_type = paste0(side, "_ml"), bet_team = team,
         odds = odds, our_prob = prob,
-        correct = if (!is.null(row$ml_correct)) row$ml_correct else NA_integer_
+        correct = if (!is.null(row$home_result))
+                    .bet_won_ml(team, row$home_team, row$away_team, row$home_result)
+                  else if (!is.null(row$ml_correct)) row$ml_correct else NA_integer_
       )
     }
 
@@ -885,7 +1215,12 @@ generate_bet_card <- function(predictions, bankroll,
                                bundle = NULL) {
   ev_cal <- if (is.null(bundle)) EV_CALIBRATION_DEFAULT
             else ev_calibration_from_bundle(bundle)
-  filter_and_size_bets(build_bet_candidates(predictions), bankroll, params, ev_cal) %>%
+  sized <- filter_and_size_bets(build_bet_candidates(predictions), bankroll, params, ev_cal)
+  if (!nrow(sized)) return(tibble(game_id=character(),week=integer(),
+    home_team=character(),away_team=character(),bet_type=character(),bet_team=character(),
+    odds=double(),our_prob=double(),ev=double(),kelly_frac=double(),stake=double(),
+    payout_if_win=double(),expected_value=double()))
+  sized %>%
     arrange(desc(ev)) %>%
     select(game_id, week, home_team, away_team, bet_type, bet_team,
            odds, our_prob, ev, kelly_frac, stake, payout_if_win, expected_value)
@@ -898,7 +1233,10 @@ generate_bet_card <- function(predictions, bankroll,
 # Returns: tibble with game_id, identifiers, market lines, and all prediction
 # columns (nfl_predictor_line, line_diff, pred_win_pct, raw/stacked outputs).
 predict_with_ensemble <- function(bundle, raw_data) {
-  prep_data <- prep_for_predict(raw_data, bundle$leakage_vars)
+  model_columns <- names(raw_data)[!grepl("^(qb_features_|expected_qb_)",names(raw_data))]
+  raw_data <- refresh_qb_features(raw_data, DATA_DIR)
+  # Audit metadata must not become accidental predictors in a baked recipe.
+  prep_data <- prep_for_predict(raw_data[,model_columns,drop=FALSE], bundle$leakage_vars)
 
   xgb <- predict(bundle$xgb, new_data = prep_data)$.pred
   glm <- predict_glm(bundle$glm, prep_data)
@@ -944,5 +1282,26 @@ predict_with_ensemble <- function(bundle, raw_data) {
     xgb_pred           = xgb,
     glm_pred           = glm,
     rf_pred            = rf
-  )
+  ) %>% bind_cols({
+    status <- annotate_qb_availability(raw_data, DATA_DIR) %>%
+      select(availability_ok, availability_reason, availability_checked_at,
+             qb_features_ready, qb_features_reason, starts_with("expected_qb_"))
+    kickoff <- as.POSIXct(paste(raw_data$gameday, raw_data$gametime),
+                          tz = "America/New_York")
+    pending <- is.na(raw_data$home_result) & !is.na(kickoff) & kickoff > Sys.time()
+    for (i in which(pending)) {
+      needed <- c("inj_out_cap_pct_home", "inj_out_cap_pct_away")
+      if (raw_data$week[i] > 1) needed <- c(needed,
+        "snap_qb_pct_lastwk_home", "snap_qb_pct_lastwk_away")
+      fresh <- all(needed %in% names(raw_data)) &&
+        all(!is.na(unlist(raw_data[i, needed, drop = FALSE])))
+      if (!fresh) {
+        status$availability_ok[i] <- FALSE
+        status$availability_reason[i] <- paste(
+          c(status$availability_reason[i], "Current injury or prior-game snap inputs unavailable"),
+          collapse = " · ")
+      }
+    }
+    status
+  })
 }

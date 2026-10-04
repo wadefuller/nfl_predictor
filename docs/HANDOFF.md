@@ -8,8 +8,8 @@ Last updated: 2026-06-07
 - **Cal-set OOS (2024–2025):** MAE 9.583, Brier 0.2015, LogLoss 0.5872, cover 0.697.
 - **Dead-column pruning (2026-09-02, default ON):** drops 29 raw columns / 117 matrix columns (30% of the design matrix) that the feature census found carry zero GLM coefficients and 1.6% combined XGB gain — team-identity dummies, schedule dummies, the rest module, officials, weather. Improved all 4 metrics (Brier and LogLoss by real margins) and took seasons-beating-Vegas from 4 to 5. `PRUNE_DEAD=0` disables. See `ensemble_lib::PRUNED_VARS_REG` — note the comment there records that the *stated mechanism was wrong* (lambda went up, not down); the gain is real but unexplained.
 - **Architecture change (2026-06-07):** **GLM-only stack** is now the default. The cv.glmnet learner is the only one carrying real signal; XGB and RF were getting stacking weight 0 in every recent bundle. The multi-stacker was also AMPLIFYING GLM by ~1.23× which over-fit cal-set residuals — disastrous on walk-forward, especially close games. Switching to pure unamplified GLM dropped MAE 9.832 → 9.778, Brier 0.21075 → 0.21033, LogLoss 0.60967 → 0.60871, Cover 52.91% → 53.36% — **the largest single improvement in project history**. The structural close-game overshoot (+0.225 MAE) that survived 7 feature experiments is now **−0.036 MAE BETTER than Vegas** in that bucket. Set `STACK_FULL=1` to fall back.
-- **Production bundle defaults (post-2026-06-07):** `R/features/pace_total.R` (kept 2026-06-01), GLM-only stack, no carryover, no Elo, no NGS. XGB and RF still train per-fold but their predictions are discarded by the stacker (~3-4 min of wasted compute per eval; left in for STACK_FULL fallback).
-- **Pipeline:** `./run_pipeline.sh {full|eval|train|features|predict|test|diagnose|learners|census}` is the entry point. Don't run the four `Rscript` commands manually. `learners` explains *why* the stack is GLM-dominated; `census` shows feature provenance + per-learner usage (see EXPERIMENTS_RULED_OUT.md).
+- **Production bundle defaults (post-2026-06-07):** `R/features/pace_total.R` (kept 2026-06-01), GLM-only stack, no carryover, no Elo, no NGS. The walk-forward runner now skips zero-weight XGB/RF fits; `STACK_MODE=full` still exercises the full architecture explicitly.
+- **Pipeline:** `./run_pipeline.sh {full|eval|train|features|predict|test|diagnose|ats-probe|ats-screen|ats-confirm|learners|census}` is the entry point. Don't run the four `Rscript` commands manually. `learners` explains *why* the stack is GLM-dominated; `census` shows feature provenance + per-learner usage (see EXPERIMENTS_RULED_OUT.md).
 - **`tune_hyperparams.R` was rewritten 2026-06-07.** The old version silently shipped params that lost to the market by 0.445 MAE (wrong objective, no monotone constraint, no colsample sweep, grid missed the depth-2 corner). It now tunes the direct-xgboost path with nested early stopping and a market gate that refuses to bless params which lose to the closing line — `load_xgb_direct_params()` ignores any file tagged `gate="fail"`. Output moved to `data/tune_best_xgb_direct.rds`; the tidymodels path in `train_xgb_model()` is legacy (it cannot express a monotone constraint).
 - **Features:** modular under `R/features/`. Add one = new file + one line in `_registry.R`. See `docs/HOW_TO_ADD_A_FEATURE.md`.
 - **Tuning:** XGB, GLM alpha, RF mtry/min_n, stacking λ all have their own scripts. Auto-loaded by `ensemble_lib::load_tuned_*`.
@@ -40,6 +40,10 @@ more. Every additive-feature experiment this project has run has been reverted;
 
 ## What's queued for next session
 
+> **Superseded queue:** use `docs/ATS_RESEARCH_ROADMAP.md` for the current
+> prioritized ATS program. The historical list below is retained for context;
+> several of its items have since been completed or ruled out.
+
 **GLM-only architecture (2026-06-07) is the new baseline.** Confirmed pace_total
 remains valuable (all 4 metrics regress slightly without it). PFR v2 re-test
 under GLM-only also failed (1 of 42 cols got tiny coef, distorted CV-fold
@@ -58,9 +62,8 @@ In priority order:
    them directly; the leaner GLM may absorb a targeted coef without the noise.
    `data/external/team_locations.csv` cached.
 
-3. **Drop XGB+RF training entirely** (1 hr cleanup) — they still train but
-   are discarded under GLM-only. Removing the calls cuts ~3 min per eval.
-   Pure cleanup; no metric change expected.
+3. **Drop XGB+RF training entirely — COMPLETED 2026-09-20.** The active-learner
+   fast path is bit-for-bit equivalent and cut the 2025 fold from 22.8s to 3.6s.
 
 4. **Quantile regression head** (3-4 hr) — DEPRIORITIZED. The close-game
    overshoot it was designed to fix is **already solved** by GLM-only
@@ -111,7 +114,7 @@ See `docs/EXPERIMENTS_RULED_OUT.md` for details. Quick list:
 
 ## Loose ends
 
-- **Last full retrain:** 2026-06-06 (sanity re-eval after lines revert, baseline restored). Production bundle = `models/ensemble_latest.rds` (~148 MB), trained on 2008-2025. Stacking weights: 0.00·xgb + 1.23·glm + 0.00·rf (GLM dominates).
+- **Production bundle:** `models/ensemble_latest.rds`, trained on 2008-2025. Active stack is exactly 0.00·xgb + 1.00·glm + 0.00·rf (`glm_only`); inspect bundle metadata for the current artifact timestamp and EV calibration fit.
 - **Cached external data:** `data/external/nfelo_games.csv` (3.5 MB, 1999-2024 opening + closing spreads). Kept for the queued subset-conditional line-movement experiment. Refresh via re-running the deleted `etl_nfelo_lines.R` pattern (URL: github.com/greerreNFL/nfelo, file `nfelo/Data/Formatted Data/nfelo_games.csv`).
 - **Failure buckets pace_total did NOT fix** (despite aggregate-metric gains): home_short rest (+0.310 MAE), big road favorites 7.5-10pt (+0.273), close games 0-3 actual margin (+0.244), Thursday games (+0.257). Each is an open lead for targeted future work.
 - **`dnn_poc.R`** at repo root — standalone DNN attempt from 2026-06-04. Reference for any future DNN exploration.
@@ -152,3 +155,10 @@ docs/                             # this file + sibling docs
 | `EV_CAL_INTERCEPT_OVERRIDE`, `EV_CAL_SLOPE_OVERRIDE` | Override EV calibration |
 | `STACKING_TUNE_OBJECTIVE=mae` | Tune stacking λ for MAE instead of Brier |
 | `WF_SEASONS=2024,2025` | (not implemented yet — see backlog) per-season walk-forward subset |
+| `ATS_PROFILE=probe|screen|confirm` | Progressive ATS experiment scope; only confirm can promote |
+| `ATS_HOLDOUT_SEASONS=2018,2021-2023` | Diagnostic fold override (never promotion evidence) |
+| `ATS_WORKERS=2` | Bounded outer-season parallelism |
+| `ATS_CACHE_MODE=use|refresh|off` | Exact fold-cache behavior |
+
+See `docs/ATS_EXPERIMENT_PROCESS.md` for the optimized ATS workflow, current
+honest baseline, comparison diagnostics, and promotion standard.

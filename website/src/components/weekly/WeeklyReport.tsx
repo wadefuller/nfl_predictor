@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { availabilityEligible } from '../../lib/availability';
 import { getTeamColor } from '../../data/teamColors';
 import { teamNames } from '../../data/teamMeta';
 import { WinProbabilityBar } from '../games/WinProbabilityBar';
@@ -21,6 +22,7 @@ const SECTION_ACCENT: Record<string, string> = {
   games_preview: '#58a6ff', games_result: '#58a6ff', bet_card: '#d29922', lineups: '#3fb950', waivers: '#a371f7',
   projections: '#58a6ff', model_scorecard: '#3fb950', fantasy_recap: '#f778ba',
   weekly_accuracy: '#d29922', league_report: '#f778ba', dst_stream: '#56b6c2', fantasy_ranks: '#3fb950',
+  opportunity_share: '#a371f7',
 };
 
 function formatFreshness(updated: string | null | undefined) {
@@ -139,6 +141,100 @@ function GamesPreview({ d }: { d: any }) {
             </div>
           );
         })}
+      </div>
+    </Section>
+  );
+}
+
+// Pregame usage map: the model's leak-safe rolling role features, adjusted for
+// current Out/Doubtful teammates by the production vacated-opportunity feature.
+// Target and rush shares are team allocations (sum to 100%); snap rate is an
+// individual participation rate and therefore deliberately is not stacked.
+function OpportunityShare({ d }: { d: any }) {
+  const games = arr(d.games);
+  const metric = [
+    { key: 'snap_share', volume: null, label: 'Snap share', color: '#58a6ff', positions: ['RB', 'WR', 'TE'] },
+    { key: 'target_share', volume: 'targets_per_game', label: 'Targets', color: '#a371f7', positions: ['RB', 'WR', 'TE'] },
+    { key: 'rush_share', volume: 'carries_per_game', label: 'Rushes', color: '#d29922', positions: ['QB', 'RB', 'WR'] },
+  ];
+
+  const Distribution = ({ players, spec }: { players: any[]; spec: typeof metric[number] }) => {
+    const eligible = players
+      .filter(p => spec.positions.includes(p.position) && Number(p[spec.key] ?? 0) > 0)
+      .sort((a, b) => Number(b[spec.key]) - Number(a[spec.key]));
+    const visible = eligible.slice(0, 4);
+    const hiddenShare = eligible.slice(4).reduce((sum, p) => sum + Number(p[spec.key] ?? 0), 0);
+    return (
+      <div className="rounded-lg border border-border-light bg-bg-page/25 p-2.5">
+        <div className="mb-2 flex items-center justify-between">
+          <span className="text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: spec.color }}>{spec.label}</span>
+          <span className="text-[8px] text-text-muted">{spec.key === 'snap_share' ? 'rate' : 'team share'}</span>
+        </div>
+        {visible.length ? <div className="space-y-2">
+          {visible.map((p, index) => {
+            const share = clamp(Number(p[spec.key] ?? 0), 0, 1);
+            const volume = spec.volume ? Number(p[spec.volume] ?? 0) : null;
+            return (
+              <div key={`${p.player}-${index}`}>
+                <div className="flex items-baseline justify-between gap-2 text-[10px]">
+                  <span className="min-w-0 truncate text-text-secondary"><span className="mr-1 text-[8px] font-bold text-text-muted">{p.position}</span>{p.player}</span>
+                  <span className="shrink-0 tabular-nums text-text-primary">
+                    <strong>{Math.round(share * 100)}%</strong>
+                    {volume != null && volume > 0 && <span className="ml-1 text-[8px] text-text-muted">· {num(volume, 1)}/g</span>}
+                  </span>
+                </div>
+                <div className="mt-1 h-1 overflow-hidden rounded-full bg-border-light">
+                  <div className="h-full rounded-full" style={{ width: `${share * 100}%`, backgroundColor: spec.color }} />
+                </div>
+              </div>
+            );
+          })}
+          {hiddenShare >= 0.02 && spec.key !== 'snap_share' && (
+            <div className="flex items-center justify-between border-t border-border-light pt-1.5 text-[8px] text-text-muted">
+              <span>Other players</span><span className="tabular-nums">{Math.round(hiddenShare * 100)}%</span>
+            </div>
+          )}
+        </div> : <div className="py-3 text-center text-[9px] text-text-muted">No prior-game role yet</div>}
+      </div>
+    );
+  };
+
+  const Team = ({ team, rawPlayers, unavailableCount, sampleGames }: {
+    team: string; rawPlayers: any; unavailableCount: number; sampleGames: number;
+  }) => {
+    const players = arr(rawPlayers).filter(p => !p.unavailable);
+    return (
+      <div className="min-w-0 p-3">
+        <div className="mb-2.5 flex items-start justify-between gap-2">
+          <div><TeamChip team={team} /><div className="mt-1 text-[9px] text-text-muted">{teamNames[team] ?? ''}</div></div>
+          <div className="text-right text-[8px] leading-relaxed text-text-muted">
+            <div>{sampleGames > 0 ? `${sampleGames} prior game${sampleGames === 1 ? '' : 's'}` : 'No sample'}</div>
+            {unavailableCount > 0 && <div className="text-[#d29922]">adjusted for {unavailableCount} absence{unavailableCount === 1 ? '' : 's'}</div>}
+          </div>
+        </div>
+        <div className="space-y-2">{metric.map(spec => <Distribution key={spec.key} players={players} spec={spec} />)}</div>
+      </div>
+    );
+  };
+
+  return (
+    <Section id="opportunity_share" title="Opportunity Map" accent={SECTION_ACCENT.opportunity_share}
+      subtitle="pregame role allocation · prior games only · current absences redistributed"
+      right={<span className="text-[10px] text-text-muted">{games.length} matchups</span>}>
+      <div className="grid gap-3 xl:grid-cols-2">
+        {games.map((g: any) => (
+          <div key={g.game_id ?? `${g.away_team}-${g.home_team}`} className="overflow-hidden rounded-xl border border-border-light bg-bg-card/25">
+            <div className="border-b border-border-light bg-bg-page/30 px-3 py-2 text-xs font-semibold text-text-primary">
+              {g.away_team} <span className="font-normal text-text-muted">at</span> {g.home_team}
+            </div>
+            <div className="divide-y divide-border-light sm:grid sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+              <Team team={g.away_team} rawPlayers={g.away_players}
+                unavailableCount={Number(g.away_unavailable_count ?? 0)} sampleGames={Number(g.away_sample_games ?? 0)} />
+              <Team team={g.home_team} rawPlayers={g.home_players}
+                unavailableCount={Number(g.home_unavailable_count ?? 0)} sampleGames={Number(g.home_sample_games ?? 0)} />
+            </div>
+          </div>
+        ))}
       </div>
     </Section>
   );
@@ -395,7 +491,7 @@ function BetCard({ d }: { d: any }) {
   // reads identically to one falling back to the season JSON — one design for
   // the whole tab. The card is the richer source: it carries EVERY qualifying
   // bet, where the season JSON keeps only the highest-EV one per game.
-  const rows: TopBetRow[] = arr(d.bets).map((b: any, i: number) => {
+  const rows: TopBetRow[] = arr(d.bets).filter((b: any) => b.result != null || availabilityEligible(b.availability)).map((b: any, i: number) => {
     const [away, home] = String(b.game ?? '').split('@').map((x: string) => x.trim());
     const parts = String(b.bet ?? '').trim().split(/\s+/);
     const side = parts[0] ?? '';
@@ -412,7 +508,7 @@ function BetCard({ d }: { d: any }) {
     return (
       <Section id="bet_card" title="Bet Card" accent={SECTION_ACCENT.bet_card}
         subtitle="EV-positive plays, Kelly-sized">
-        <p className="text-xs text-text-muted py-2">No bets cleared the EV threshold this week.</p>
+        <p className="text-xs text-text-muted py-2">No verified recommendations available. Bets require fresh QB availability checks as well as a qualifying edge.</p>
       </Section>
     );
   }
@@ -499,7 +595,7 @@ function KalshiLines({ d }: { d: any }) {
  * where is the best live price this week?
  */
 function MarketBoard({ polymarket, kalshi }: { polymarket: any[]; kalshi: any[] }) {
-  const moneyline = polymarket.filter(m => m.qualifies).map(m => ({
+  const moneyline = polymarket.filter(m => m.qualifies && availabilityEligible(m.availability)).map(m => ({
     key: `pm-${m.market_id}-${m.bet_team}`,
     venue: 'Polymarket', color: '#c9a7ff',
     pick: `${m.bet_team} YES`, matchup: m.question ?? `${m.bet_team} vs ${m.opponent}`,
@@ -507,7 +603,7 @@ function MarketBoard({ polymarket, kalshi }: { polymarket: any[]; kalshi: any[] 
     ev: Number(m.net_ev), detail: `$${Math.round(Number(m.liquidity ?? 0)).toLocaleString()} liquidity`,
     href: `https://polymarket.com/event/${m.slug}`,
   }));
-  const spreads = kalshi.filter(m => m.qualifies).map(m => ({
+  const spreads = kalshi.filter(m => m.qualifies && availabilityEligible(m.availability)).map(m => ({
     key: `kalshi-${m.market_ticker}`,
     venue: 'Kalshi', color: '#f0b44d',
     pick: `${m.team} by ${Number(m.threshold).toFixed(1)}+`,
@@ -517,7 +613,25 @@ function MarketBoard({ polymarket, kalshi }: { polymarket: any[]; kalshi: any[] 
     href: `https://kalshi.com/markets/${m.event_ticker}`,
   }));
   const opportunities = [...moneyline, ...spreads].sort((a, b) => b.ev - a.ev);
-  if (opportunities.length === 0) return null;
+  // Priced but not qualifying. Returning null here made "nothing cleared the bar"
+  // and "we never fetched anything" look identical — the same ambiguity that let
+  // a board full of settled markets pass as live. Say which it is.
+  const considered = polymarket.length + kalshi.length;
+  if (opportunities.length === 0) {
+    return (
+      <Section id="market_board" title="Market board" accent="#c9a7ff"
+        subtitle="Venue-neutral opportunities, ranked by estimated return after execution costs">
+        <p className="text-xs text-text-muted">
+          {considered === 0
+            ? 'No prediction-market contracts are listed for the games still to play.'
+            : `${considered} contract${considered === 1 ? '' : 's'} priced; none passed both the QB availability checks and the EV threshold.`}
+        </p>
+        <p className="mt-1 text-[10px] text-text-muted">
+          Games that have kicked off are not priced — a pre-kickoff model against a live book is not a real edge.
+        </p>
+      </Section>
+    );
+  }
   return (
     <Section id="market_board" title="Market board" accent="#c9a7ff"
       subtitle="Venue-neutral opportunities, ranked by estimated return after execution costs"
@@ -1549,18 +1663,18 @@ function Waivers({ d }: { d: any }) {
 }
 
 function Projections({ d }: { d: any }) {
-  const positions = ['QB', 'RB', 'WR', 'TE'];
+  const positions = ['QB', 'RB', 'WR', 'TE', 'K'];
   const byPosition = useMemo(() => Object.fromEntries(positions.map(pos => [
     pos, (d.players ?? []).filter((p: any) => p.position === pos).slice(0, 50),
   ])), [d.players]);
   return (
-    <Section id="projections" title="Projections" accent={SECTION_ACCENT.projections} subtitle="top 50 at each position · scroll a column for more">
-      <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-4">
+    <Section id="projections" title="Projections" accent={SECTION_ACCENT.projections} subtitle="weekly model by position · kickers use standard scoring">
+      <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-5">
         {positions.map(pos => (
           <div key={pos} className="overflow-hidden rounded-lg border border-border-light bg-bg-card/30">
             <div className="flex items-center justify-between border-b border-border-light bg-bg-card-hover/50 px-2.5 py-1.5">
               <span className="text-xs font-semibold text-text-primary">{pos}</span>
-              <span className="text-[9px] uppercase tracking-wider text-text-muted">{byPosition[pos].length} · proj · range · availability</span>
+              <span className="text-[9px] uppercase tracking-wider text-text-muted">{byPosition[pos].length} · proj · range{pos === 'K' ? '' : ' · availability'}</span>
             </div>
             <div className="max-h-[36rem] overflow-y-auto overscroll-contain">
               {byPosition[pos].map((p: any, i: number) => (
@@ -1571,7 +1685,7 @@ function Projections({ d }: { d: any }) {
                       <span className="mr-1 inline-flex items-center gap-1 font-semibold text-text-secondary"><span className="inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: readableTeamColor(p.team ?? '') }} />{p.team}</span>
                       <span className="font-medium">{p.player}</span>
                     </div>
-                    <div className="mt-0.5 truncate text-[9px] tabular-nums text-text-muted">{p.opponent} · {num(p.floor, 0)}–{num(p.ceiling, 0)} · Avail {Math.round((p.p_active ?? 1) * 100)}%</div>
+                    <div className="mt-0.5 truncate text-[9px] tabular-nums text-text-muted">{p.opponent} · {num(p.floor, 0)}–{num(p.ceiling, 0)}{pos === 'K' ? ' · high variance' : ` · Avail ${Math.round((p.p_active ?? 1) * 100)}%`}</div>
                   </div>
                   <span className="text-right text-[12px] font-semibold tabular-nums text-text-primary">{num(p.proj)}</span>
                 </div>
@@ -2138,26 +2252,31 @@ function LeagueReport({ d, onNav }: { d: any; onNav?: (s: number, w: number) => 
 // of chips for every defense.
 function RunWeek({ w, thr }: { w: any; thr?: number | null }) {
   const base = 'dst-run-cell flex min-w-0 flex-col rounded-lg border px-1.5 py-1 text-left text-[10px] leading-tight';
+  // Older DST exports encoded an unposted line as `{}` rather than null.
+  // Never hand that object to React as a text child (error #31); treat it as
+  // the same unpriced week as a missing line.
+  const implied = typeof w?.opp_implied === 'number' && Number.isFinite(w.opp_implied)
+    ? w.opp_implied : null;
   if (w.bye)
     return <span className={`${base} border-dashed border-border-light bg-transparent text-text-muted`}
                  title={`Week ${w.week} — bye`}>
              <span className="text-[8px] uppercase tracking-wide opacity-60">W{w.week}</span><span className="mt-0.5 font-semibold">Bye</span>
            </span>;
-  if (w.opp_implied == null)
+  if (implied == null)
     return <span className={`${base} border-border-light bg-bg-card-hover text-text-muted`}
                  title={`Week ${w.week} — no line posted`}>
              <span className="text-[8px] uppercase tracking-wide opacity-60">W{w.week}</span><span className="mt-0.5 font-semibold">{w.is_home ? 'vs ' : '@ '}{w.opp}</span>
            </span>;
-  const good = thr != null && w.opp_implied <= thr;
-  const bad = thr != null && w.opp_implied >= thr + 3;
+  const good = thr != null && implied <= thr;
+  const bad = thr != null && implied >= thr + 3;
   const cls = good ? 'border-win/40 bg-win/10 text-win'
             : bad ? 'border-loss/30 bg-loss/10 text-loss'
             : 'border-border-light bg-bg-card-hover text-text-secondary';
   return <span className={`${base} ${cls}`}
-               title={`Week ${w.week} — ${w.is_home ? 'vs' : '@'} ${w.opp}, ${w.opp_implied} implied opponent points`}>
+               title={`Week ${w.week} — ${w.is_home ? 'vs' : '@'} ${w.opp}, ${implied} implied opponent points`}>
            <span className="text-[8px] uppercase tracking-wide opacity-60">W{w.week}</span>
            <span className="mt-0.5 font-semibold">{w.is_home ? 'vs ' : '@ '}{w.opp}</span>
-           <span className="mt-0.5 tabular-nums opacity-80">{w.opp_implied}</span>
+           <span className="mt-0.5 tabular-nums opacity-80">{implied}</span>
          </span>;
 }
 
@@ -2170,8 +2289,8 @@ function DstStream({ d }: { d: any }) {
   const dstLeagues = leagues.filter(lg => lg.uses_dst !== false);
   return (
     <Section id="dst_stream" title="DST Streaming" accent={SECTION_ACCENT.dst_stream}
-      subtitle="Start the available defense facing the lowest opponent implied total."
-      right={<span className="text-[10px] text-text-muted">Lower opponent points = better matchup</span>}>
+      subtitle="Matchup ranking with historically calibrated standard-scoring DST points."
+      right={<span className="text-[10px] text-text-muted">Expected points · band = 10th–90th percentile historical error</span>}>
       {!d.has_lines ? (
         <p className="text-xs text-text-muted py-2">No betting lines posted yet for this week — check back closer to kickoff.</p>
       ) : (
@@ -2197,7 +2316,14 @@ function DstStream({ d }: { d: any }) {
                       {primary ? (
                         <div className="mt-2 flex items-end justify-between gap-3">
                           <div className="flex items-center gap-2"><TeamChip team={primary.team} big /><span className="text-xs text-text-secondary">{primary.is_home ? 'vs' : '@'} {primary.opp}</span></div>
-                          <div className="text-right"><div className="text-lg font-bold tabular-nums text-text-primary">{num(primary.opp_implied)}</div><div className="text-[9px] uppercase tracking-wide text-text-muted">opp pts</div></div>
+                          <div className="text-right">
+                            {primary.dst_proj != null && <>
+                              <div className="text-lg font-bold tabular-nums text-text-primary">{num(primary.dst_proj)}</div>
+                              <div className="text-[9px] uppercase tracking-wide text-text-muted">model DST pts</div>
+                              {primary.dst_floor != null && primary.dst_ceiling != null && <div className="text-[9px] tabular-nums text-text-muted">{num(primary.dst_floor)}–{num(primary.dst_ceiling)} historical band</div>}
+                            </>}
+                            <div className="text-[9px] tabular-nums text-text-muted">{num(primary.opp_implied)} opp pts</div>
+                          </div>
                         </div>
                       ) : <div className="mt-2 text-xs text-text-muted">No available DST is currently identified.</div>}
                     </div>
@@ -2208,7 +2334,10 @@ function DstStream({ d }: { d: any }) {
                         {options.slice(1, 5).map((a: any, j: number) => (
                           <div key={j} className="flex items-center justify-between gap-2 rounded-lg border border-border-light bg-bg-page/25 px-2.5 py-2">
                             <span className="flex min-w-0 items-center gap-2"><TeamChip team={a.team} /><span className="truncate text-[11px] text-text-secondary">{a.is_home ? 'vs' : '@'} {a.opp}</span></span>
-                            <span className="shrink-0 text-[11px] font-semibold tabular-nums text-text-primary">{num(a.opp_implied)}</span>
+                            <span className="shrink-0 text-right">
+                              <span className="block text-[11px] font-semibold tabular-nums text-text-primary">{a.dst_proj == null ? '—' : `${num(a.dst_proj)} DST pts`}</span>
+                              <span className="block text-[9px] tabular-nums text-text-muted">{num(a.opp_implied)} opp pts</span>
+                            </span>
                           </div>
                         ))}
                         {options.length <= 1 && <div className="rounded-lg border border-dashed border-border-light px-2.5 py-2 text-[11px] text-text-muted">No alternate streamers found.</div>}
@@ -2251,7 +2380,10 @@ function DstStream({ d }: { d: any }) {
                   <span className="text-center text-[10px] tabular-nums text-text-muted">{r.rank}</span>
                   <TeamChip team={r.team} />
                   <span className="min-w-0 truncate text-[11px] text-text-secondary">{r.is_home ? 'vs' : '@'} {r.opp}</span>
-                  <span className="text-right text-[11px] font-semibold tabular-nums text-text-primary">{num(r.opp_implied)}<span className="ml-0.5 text-[9px] font-normal text-text-muted">pts</span></span>
+                  <span className="text-right">
+                    <span className="block text-[11px] font-semibold tabular-nums text-text-primary">{r.dst_proj == null ? '—' : num(r.dst_proj)}<span className="ml-0.5 text-[9px] font-normal text-text-muted">DST pts</span></span>
+                    <span className="block text-[9px] tabular-nums text-text-muted">{num(r.opp_implied)} opp pts</span>
+                  </span>
                 </div>
               ))}
             </div>
@@ -2268,19 +2400,20 @@ const RENDERERS: Record<string, (p: { d: any; onNav?: (s: number, w: number) => 
   games_preview: GamesPreview, games_result: GamesResult, bet_card: BetCard, polymarket_bets: PolymarketBets, kalshi_lines: KalshiLines, lineups: MyLineups, waivers: Waivers, fantasy_ranks: FantasyRanks,
   projections: Projections, model_scorecard: ModelScorecard, fantasy_recap: FantasyRecap,
   weekly_accuracy: WeeklyAccuracy, experiment_diagnostics: ExperimentDiagnostics,
-  league_report: LeagueReport, dst_stream: DstStream,
+  league_report: LeagueReport, dst_stream: DstStream, opportunity_share: OpportunityShare,
 };
-const PRE_ORDER = ['games_preview', 'bet_card', 'polymarket_bets', 'kalshi_lines', 'lineups', 'waivers', 'dst_stream', 'projections'];
+const PRE_ORDER = ['games_preview', 'bet_card', 'polymarket_bets', 'kalshi_lines', 'lineups', 'opportunity_share', 'waivers', 'dst_stream', 'projections'];
 const POST_ORDER = ['games_result', 'fantasy_ranks', 'league_report', 'model_scorecard', 'fantasy_recap', 'weekly_accuracy', 'experiment_diagnostics'];
 
 // Sections grouped by the QUESTION being asked, so the page shows one coherent
 // group at a time instead of a ten-section scroll mixing model, fantasy and league.
-type GroupKey = 'games' | 'lineups' | 'fantasy' | 'results' | 'lab';
+type GroupKey = 'games' | 'lineups' | 'opportunity' | 'fantasy' | 'results' | 'lab';
 const GROUPS: { key: GroupKey; label: string; accent: string; sections: string[] }[] = [
   { key: 'games',   label: 'Games & Bets', accent: '#58a6ff', sections: ['games_result', 'games_preview', 'bet_card', 'polymarket_bets', 'kalshi_lines'] },
   // Lineups get their own tab rather than sitting fifth in the fantasy stack:
   // it's the one section that is about MY teams and gets acted on every week.
   { key: 'lineups', label: 'My Lineups',   accent: '#3fb950', sections: ['lineups'] },
+  { key: 'opportunity', label: 'Opportunity', accent: '#a371f7', sections: ['opportunity_share'] },
   { key: 'fantasy', label: 'Roster Tools', accent: '#3fb950', sections: ['fantasy_ranks', 'dst_stream', 'waivers', 'projections'] },
   { key: 'results', label: 'Results',      accent: '#f778ba', sections: ['model_scorecard', 'fantasy_recap', 'league_report'] },
   { key: 'lab',     label: 'Model Lab',    accent: '#d29922', sections: ['weekly_accuracy', 'experiment_diagnostics'] },
@@ -2441,15 +2574,15 @@ export function WeeklyReport({ season, week, onNavigate, gamesFallback, betsFall
 
   // Groups that actually have something to show. "Games" always qualifies because
   // the fallback game cards exist for every week.
-  const permitted = scope === 'fantasy' ? new Set<GroupKey>(['lineups', 'fantasy']) : new Set<GroupKey>(['games', 'results', 'lab']);
+  const permitted = scope === 'fantasy' ? new Set<GroupKey>(['lineups', 'opportunity', 'fantasy']) : new Set<GroupKey>(['games', 'results', 'lab']);
   const groups = GROUPS
     .filter(g => permitted.has(g.key))
     .map(g => ({ ...g, label: played && g.key === 'games' ? 'Games' : g.label, ready: g.sections.filter(s => ready.includes(s)) }))
     .filter(g => g.ready.length > 0 || (g.key === 'games' && gamesFallback));
   const active = groups.find(g => g.key === group) ?? groups[0];
-  const betCount = arr(data.bet_card?.bets).length;
-  const marketCount = arr(data.polymarket_bets?.markets).filter(m => m.qualifies).length
-    + arr(data.kalshi_lines?.lines).filter(m => m.qualifies).length;
+  const betCount = arr(data.bet_card?.bets).filter(b => availabilityEligible(b.availability)).length;
+  const marketCount = arr(data.polymarket_bets?.markets).filter(m => m.qualifies && availabilityEligible(m.availability)).length
+    + arr(data.kalshi_lines?.lines).filter(m => m.qualifies && availabilityEligible(m.availability)).length;
 
   return (
     <div className="space-y-4">

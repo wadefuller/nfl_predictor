@@ -1,0 +1,366 @@
+{
+  "season": 2026,
+  "week": 2,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 316,
+      "mae": 4.24,
+      "rmse": 5.89,
+      "bias": 0.09,
+      "spearman": 0.617,
+      "ceiling_cov": 0.851,
+      "floor_cov": 0.93
+    },
+    {
+      "position": "QB",
+      "n": 39,
+      "mae": 6.93,
+      "rmse": 8.31,
+      "bias": -0.45,
+      "spearman": 0.52,
+      "ceiling_cov": 0.821,
+      "floor_cov": 0.795
+    },
+    {
+      "position": "RB",
+      "n": 85,
+      "mae": 3.34,
+      "rmse": 4.42,
+      "bias": -0.54,
+      "spearman": 0.704,
+      "ceiling_cov": 0.871,
+      "floor_cov": 0.929
+    },
+    {
+      "position": "TE",
+      "n": 63,
+      "mae": 3.49,
+      "rmse": 4.95,
+      "bias": 0.88,
+      "spearman": 0.505,
+      "ceiling_cov": 0.857,
+      "floor_cov": 0.952
+    },
+    {
+      "position": "WR",
+      "n": 129,
+      "mae": 4.37,
+      "rmse": 6.26,
+      "bias": 0.28,
+      "spearman": 0.465,
+      "ceiling_cov": 0.845,
+      "floor_cov": 0.961
+    }
+  ],
+  "cohort": {
+    "projected": 606,
+    "evaluated": 316,
+    "no_opportunity": 290,
+    "high_confidence_no_opportunity": 13,
+    "rule": "At least one pass attempt, carry, target, or non-zero fantasy score"
+  },
+  "calibration": [
+    {
+      "bucket": "0–5",
+      "n": 128,
+      "projected": 1.86,
+      "actual": 3.21,
+      "bias": 1.35,
+      "mae": 2.56
+    },
+    {
+      "bucket": "5–10",
+      "n": 107,
+      "projected": 7.31,
+      "actual": 6.58,
+      "bias": -0.73,
+      "mae": 4.29
+    },
+    {
+      "bucket": "10–15",
+      "n": 52,
+      "projected": 12.35,
+      "actual": 11.4,
+      "bias": -0.95,
+      "mae": 6.11
+    },
+    {
+      "bucket": "15–20",
+      "n": 22,
+      "projected": 17.49,
+      "actual": 16.17,
+      "bias": -1.32,
+      "mae": 7.4
+    },
+    {
+      "bucket": "20+",
+      "n": 7,
+      "projected": 21.48,
+      "actual": 23.25,
+      "bias": 1.76,
+      "mae": 10.36
+    }
+  ],
+  "availability": [],
+  "class_counts": [
+    {
+      "boom": 13,
+      "bust": 17,
+      "met": 134
+    }
+  ],
+  "beats": [
+    {
+      "player": "Davante Adams",
+      "position": "WR",
+      "team": "LA",
+      "proj": 9.2,
+      "actual": 35.5,
+      "surprise": 26.3,
+      "class": "boom"
+    },
+    {
+      "player": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "team": "SEA",
+      "proj": 13.7,
+      "actual": 38,
+      "surprise": 24.3,
+      "class": "boom"
+    },
+    {
+      "player": "Josh Allen",
+      "position": "QB",
+      "team": "BUF",
+      "proj": 23.4,
+      "actual": 40.8,
+      "surprise": 17.4,
+      "class": "boom"
+    },
+    {
+      "player": "CeeDee Lamb",
+      "position": "WR",
+      "team": "DAL",
+      "proj": 14.7,
+      "actual": 31.3,
+      "surprise": 16.6,
+      "class": "boom"
+    },
+    {
+      "player": "Amon-Ra St. Brown",
+      "position": "WR",
+      "team": "DET",
+      "proj": 15.2,
+      "actual": 30.7,
+      "surprise": 15.5,
+      "class": "boom"
+    },
+    {
+      "player": "Tre Tucker",
+      "position": "WR",
+      "team": "LV",
+      "proj": 6.1,
+      "actual": 20.4,
+      "surprise": 14.3,
+      "class": "boom"
+    },
+    {
+      "player": "Dalton Schultz",
+      "position": "TE",
+      "team": "HOU",
+      "proj": 7.1,
+      "actual": 20,
+      "surprise": 12.9,
+      "class": "boom"
+    },
+    {
+      "player": "Drew Lock",
+      "position": "QB",
+      "team": "SEA",
+      "proj": 9,
+      "actual": 21.4,
+      "surprise": 12.4,
+      "class": "boom"
+    },
+    {
+      "player": "Jake Ferguson",
+      "position": "TE",
+      "team": "DAL",
+      "proj": 6.4,
+      "actual": 18.3,
+      "surprise": 11.9,
+      "class": "boom"
+    },
+    {
+      "player": "Jonathan Taylor",
+      "position": "RB",
+      "team": "IND",
+      "proj": 16.1,
+      "actual": 27.2,
+      "surprise": 11.1,
+      "class": "met"
+    },
+    {
+      "player": "Matthew Stafford",
+      "position": "QB",
+      "team": "LA",
+      "proj": 16.1,
+      "actual": 27,
+      "surprise": 10.9,
+      "class": "boom"
+    },
+    {
+      "player": "Jared Goff",
+      "position": "QB",
+      "team": "DET",
+      "proj": 18.9,
+      "actual": 29.8,
+      "surprise": 10.9,
+      "class": "met"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Jaxson Dart",
+      "position": "QB",
+      "team": "NYG",
+      "proj": 18.6,
+      "actual": 0.8,
+      "surprise": -17.8,
+      "class": "bust"
+    },
+    {
+      "player": "Caleb Williams",
+      "position": "QB",
+      "team": "CHI",
+      "proj": 22.3,
+      "actual": 7.7,
+      "surprise": -14.6,
+      "class": "bust"
+    },
+    {
+      "player": "DJ Moore",
+      "position": "WR",
+      "team": "BUF",
+      "proj": 13.1,
+      "actual": -0.1,
+      "surprise": -13.2,
+      "class": "bust"
+    },
+    {
+      "player": "Justin Herbert",
+      "position": "QB",
+      "team": "LAC",
+      "proj": 19.9,
+      "actual": 7.9,
+      "surprise": -12,
+      "class": "bust"
+    },
+    {
+      "player": "Trevor Lawrence",
+      "position": "QB",
+      "team": "JAX",
+      "proj": 17.9,
+      "actual": 6.2,
+      "surprise": -11.7,
+      "class": "bust"
+    },
+    {
+      "player": "Malik Nabers",
+      "position": "WR",
+      "team": "NYG",
+      "proj": 12.3,
+      "actual": 0.6,
+      "surprise": -11.7,
+      "class": "bust"
+    },
+    {
+      "player": "Cooper Rush",
+      "position": "QB",
+      "team": "ATL",
+      "proj": 11,
+      "actual": -0.6,
+      "surprise": -11.6,
+      "class": "bust"
+    },
+    {
+      "player": "Rhamondre Stevenson",
+      "position": "RB",
+      "team": "NE",
+      "proj": 14.5,
+      "actual": 3.1,
+      "surprise": -11.4,
+      "class": "bust"
+    },
+    {
+      "player": "Saquon Barkley",
+      "position": "RB",
+      "team": "PHI",
+      "proj": 13.3,
+      "actual": 2.5,
+      "surprise": -10.8,
+      "class": "bust"
+    },
+    {
+      "player": "Drake Maye",
+      "position": "QB",
+      "team": "NE",
+      "proj": 18.2,
+      "actual": 8,
+      "surprise": -10.2,
+      "class": "met"
+    },
+    {
+      "player": "David Montgomery",
+      "position": "RB",
+      "team": "HOU",
+      "proj": 13.5,
+      "actual": 3.4,
+      "surprise": -10.1,
+      "class": "bust"
+    },
+    {
+      "player": "Javonte Williams",
+      "position": "RB",
+      "team": "DAL",
+      "proj": 16.3,
+      "actual": 6.5,
+      "surprise": -9.8,
+      "class": "bust"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 314,
+      "model": 0.616,
+      "ecr": 0.575
+    },
+    {
+      "position": "QB",
+      "n": 39,
+      "model": 0.52,
+      "ecr": 0.5
+    },
+    {
+      "position": "RB",
+      "n": 83,
+      "model": 0.698,
+      "ecr": 0.755
+    },
+    {
+      "position": "TE",
+      "n": 63,
+      "model": 0.505,
+      "ecr": 0.559
+    },
+    {
+      "position": "WR",
+      "n": 129,
+      "model": 0.465,
+      "ecr": 0.495
+    }
+  ],
+  "ecr_kind": "weekly"
+}

@@ -57,7 +57,9 @@ calculate_outcomes <- function(correct, odds, wager = WAGER_AMOUNT) {
 make_predictions <- function(data) {
   preds <- predict_with_ensemble(bundle, data) %>%
     select(game_id, nfl_predictor_line, line_diff, pred_win_pct,
-           cover_prob_home, xgb_pred, glm_pred, rf_pred)
+           cover_prob_home, xgb_pred, glm_pred, rf_pred,
+           availability_ok, availability_reason, availability_checked_at,
+           qb_features_ready, qb_features_reason, starts_with("expected_qb_"))
   data %>% left_join(preds, by = "game_id")
 }
 
@@ -67,6 +69,10 @@ make_predictions <- function(data) {
 # the highest-EV side — so the site can show the actual recommended position and
 # stake next to each matchup. Settled games also carry the realized P&L.
 bets_for_games <- function(preds) {
+  empty_bets <- function() tibble(game_id = character(), betSide = character(),
+    betType = character(), betOdds = double(), betEv = double(),
+    betStake = double(), betUnits = double(), betToWin = double(),
+    betResult = character(), betPnl = double())
   ev_cal <- ev_calibration_from_bundle(bundle)
   scored <- preds %>%
     mutate(
@@ -80,9 +86,9 @@ bets_for_games <- function(preds) {
                               NA_integer_, as.integer(pred_ml_winner == won_team))
     )
   cands <- tryCatch(build_bet_candidates(scored), error = function(e) tibble())
-  if (nrow(cands) == 0) return(tibble(game_id = character()))
+  if (nrow(cands) == 0) return(empty_bets())
   sized <- filter_and_size_bets(cands, BET_BANKROLL, PORTFOLIO_DEFAULTS, ev_cal)
-  if (nrow(sized) == 0) return(tibble(game_id = character()))
+  if (nrow(sized) == 0) return(empty_bets())
   sized %>%
     mutate(pnl = pnl_dollars(correct, odds, stake)) %>%
     group_by(game_id) %>% slice_max(ev, n = 1, with_ties = FALSE) %>% ungroup() %>%
@@ -162,6 +168,11 @@ for (szn in EXPORT_SEASONS) {
         homeMoneyline = if_else(is.na(home_moneyline), NA_real_, home_moneyline),
         awayMoneyline = if_else(is.na(away_moneyline), NA_real_, away_moneyline),
         divGame = as.logical(div_game),
+        availability = list(eligible = isTRUE(availability_ok),
+          reason = availability_reason, checkedAt = availability_checked_at),
+        qbInputs = list(verified = isTRUE(qb_features_ready), reason = qb_features_reason,
+          home = list(id=expected_qb_id_home,name=expected_qb_name_home),
+          away = list(id=expected_qb_id_away,name=expected_qb_name_away)),
         prediction = list(
           predWinner = pred_winner,
           predWinPct = pred_win_pct_norm,
@@ -365,7 +376,12 @@ for (szn in EXPORT_SEASONS) {
 
   season_meta[[as.character(szn)]] <- list(
     maxWeek = max(season_games$week),
-    completedWeek = max_week
+    completedWeek = max_week,
+    # The selector should open the slate still in progress, not the last
+    # fully graded week. Week 4 can already be live while Week 3 is the most
+    # recently completed week.
+    currentWeek = if (any(is.na(season_games$home_result)))
+      min(season_games$week[is.na(season_games$home_result)]) else max(season_games$week)
   )
 }
 
@@ -374,7 +390,7 @@ current_season <- max(EXPORT_SEASONS)
 meta <- list(
   availableSeasons = EXPORT_SEASONS,
   currentSeason = current_season,
-  currentWeek = season_meta[[as.character(current_season)]]$completedWeek,
+  currentWeek = season_meta[[as.character(current_season)]]$currentWeek,
   lastUpdated = format(Sys.time(), "%Y-%m-%dT%H:%M:%S"),
   weeksPerSeason = lapply(season_meta, function(x) x$maxWeek),
   # staking convention, so the UI can explain the numbers it shows
