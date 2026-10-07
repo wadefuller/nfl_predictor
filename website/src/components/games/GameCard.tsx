@@ -1,5 +1,5 @@
 import type { Game } from '../../types';
-import { availabilityEligible, availabilityFresh } from '../../lib/availability';
+import { availabilityEligible } from '../../lib/availability';
 import { num } from '../ui/primitives';
 
 export interface LiveGame {
@@ -161,18 +161,13 @@ export function GameCard({ game, polymarket = [], kalshi = [], kalshiWin = [], l
         )}
         {isLive && <div className="flex items-center justify-between rounded-lg border border-loss/25 bg-loss/5 px-2 py-1.5 text-[10px]"><span className="font-medium text-[#ff8b86]">Live score</span><span className="text-text-secondary">Pregame model: {referenceTeam} {pct(modelWin)} win chance</span></div>}
 
-        {availabilityBlocked && !isLive ? (
-          <div role="status" className="rounded-lg border border-amber-400/30 bg-amber-400/5 px-2.5 py-2 text-[10px] text-text-secondary">
-            <div className="font-semibold text-amber-300">{availabilityFresh(game.availability) ? 'Recommendations withheld · QB availability' : 'Forecast needs refresh'}</div>
-            <div className="mt-1">{availabilityFresh(game.availability) ? game.availability?.reason || 'Expected starter could not be verified.' : 'The availability check is older than six hours or unavailable.'} Model probabilities below are unverified, not actionable edges.</div>
-          </div>
-        ) : bestVenue ? (
+        {bestVenue ? (
           <div className="rounded-lg px-2.5 py-2" style={{ background: `${bestVenue.color}14`, boxShadow: `inset 2px 0 0 ${bestVenue.color}` }}>
             <div className="flex items-center justify-between gap-2"><span className="text-[9px] font-medium uppercase tracking-wide" style={{ color: bestVenue.color }}>{options.length > 1 ? 'Best available price' : 'Recommended position'}</span><span className="text-[10px] font-semibold tabular-nums" style={{ color: bestVenue.color }}>+{(bestVenue.ev * 100).toFixed(1)}% EV</span></div>
             <div className="mt-0.5 flex items-baseline justify-between gap-2"><span className="min-w-0 truncate text-xs font-bold text-text-primary">{bestVenue.pick} <span className="font-normal text-text-secondary">{bestVenue.kind}</span></span><span className="shrink-0 text-[10px] tabular-nums text-text-secondary"><span style={{ color: bestVenue.color }}>{bestVenue.venue}</span><span className="mx-1 opacity-50">·</span>{bestVenue.price}</span></div>
           </div>
         ) : (
-          <div className="flex items-center justify-between rounded-lg border border-border-light bg-bg-card-hover/30 px-2.5 py-2 text-[10px]"><span className="text-text-muted">Model lean</span><span className="font-medium tabular-nums text-text-primary">{referenceTeam} {formatLine(modelMargin)} · {pct(modelWin)} win</span></div>
+          <div className="flex items-center justify-between rounded-lg border border-border-light bg-bg-card-hover/30 px-2.5 py-2 text-[10px]"><span className="text-text-muted">Model lean{availabilityBlocked && !isLive ? ' · unverified' : ''}</span><span className="font-medium tabular-nums text-text-primary">{referenceTeam} {formatLine(modelMargin)} · {pct(modelWin)} win</span></div>
         )}
 
         <div className="rounded-lg border border-border-light bg-bg-card/25">

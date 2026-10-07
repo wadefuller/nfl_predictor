@@ -508,7 +508,7 @@ function BetCard({ d }: { d: any }) {
     return (
       <Section id="bet_card" title="Bet Card" accent={SECTION_ACCENT.bet_card}
         subtitle="EV-positive plays, Kelly-sized">
-        <p className="text-xs text-text-muted py-2">No verified recommendations available. Bets require fresh QB availability checks as well as a qualifying edge.</p>
+        <p className="text-xs text-text-muted py-2">No verified recommendations available. Bets require current availability inputs as well as a qualifying edge.</p>
       </Section>
     );
   }
@@ -624,7 +624,7 @@ function MarketBoard({ polymarket, kalshi }: { polymarket: any[]; kalshi: any[] 
         <p className="text-xs text-text-muted">
           {considered === 0
             ? 'No prediction-market contracts are listed for the games still to play.'
-            : `${considered} contract${considered === 1 ? '' : 's'} priced; none passed both the QB availability checks and the EV threshold.`}
+            : `${considered} contract${considered === 1 ? '' : 's'} priced; none passed both the availability checks and the EV threshold.`}
         </p>
         <p className="mt-1 text-[10px] text-text-muted">
           Games that have kicked off are not priced — a pre-kickoff model against a live book is not a real edge.

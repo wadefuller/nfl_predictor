@@ -87,6 +87,8 @@ export function GameGrid({ games, week, polymarket = [], kalshi = [], kalshiWin 
   }).length;
   const liveCount = sorted.filter(game => !game.result && liveGames[`${game.awayTeam}@${game.homeTeam}`]?.status === 'live').length;
   const finalCount = sorted.filter(game => game.result || liveGames[`${game.awayTeam}@${game.homeTeam}`]?.status === 'final').length;
+  const scheduled = sorted.filter(game => !game.result && !liveGames[`${game.awayTeam}@${game.homeTeam}`]);
+  const blockedCount = scheduled.filter(game => !availabilityEligible(game.availability)).length;
   const nextGame = sorted.find(game => !game.result && !liveGames[`${game.awayTeam}@${game.homeTeam}`]);
   const bestBet = [...sorted].filter(game => game.bet?.ev != null)
     .sort((a, b) => Number(b.bet?.ev) - Number(a.bet?.ev))[0];
@@ -135,6 +137,12 @@ export function GameGrid({ games, week, polymarket = [], kalshi = [], kalshiWin 
           </button>
         </div>
       </section>
+      {blockedCount > 0 && (
+        <div role="status" className="rounded-lg border border-amber-400/25 bg-amber-400/5 px-3 py-2 text-[11px] leading-relaxed text-text-secondary">
+          <span className="font-semibold text-amber-300">Recommendations paused for {blockedCount === scheduled.length ? 'this slate' : `${blockedCount} of ${scheduled.length} upcoming games`}.</span>{' '}
+          Required injury, snap, or QB checks are incomplete or stale. Model estimates remain visible for context, but no betting edge is actionable until those checks pass.
+        </div>
+      )}
       {/* On a phone, filters prevent a 16-game analytical grid from becoming a
           long undifferentiated feed. Desktop retains the full scan-first grid. */}
       <div className="rounded-xl border border-border-light bg-bg-card/40 p-1.5 md:hidden">
