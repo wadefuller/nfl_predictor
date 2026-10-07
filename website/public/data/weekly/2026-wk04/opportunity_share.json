@@ -97,17 +97,6 @@
           "sample_games": 2
         },
         {
-          "player": "Daniel Bellinger",
-          "position": "TE",
-          "unavailable": false,
-          "snap_share": 0.28,
-          "target_share": 0.0489,
-          "rush_share": 0,
-          "targets_per_game": 1.3,
-          "carries_per_game": 0,
-          "sample_games": 3
-        },
-        {
           "player": "Chimere Dike",
           "position": "WR",
           "unavailable": false,
@@ -117,6 +106,17 @@
           "targets_per_game": 1,
           "carries_per_game": 0,
           "sample_games": 2
+        },
+        {
+          "player": "Daniel Bellinger",
+          "position": "TE",
+          "unavailable": false,
+          "snap_share": 0.28,
+          "target_share": 0.0489,
+          "rush_share": 0,
+          "targets_per_game": 1.3,
+          "carries_per_game": 0,
+          "sample_games": 3
         },
         {
           "player": "Nicholas Singleton",
@@ -222,17 +222,6 @@
           "sample_games": 3
         },
         {
-          "player": "Zay Flowers",
-          "position": "WR",
-          "unavailable": false,
-          "snap_share": 0.29,
-          "target_share": 0.2132,
-          "rush_share": 0.0131,
-          "targets_per_game": 6,
-          "carries_per_game": 0.5,
-          "sample_games": 2
-        },
-        {
           "player": "Mark Andrews",
           "position": "TE",
           "unavailable": false,
@@ -242,6 +231,17 @@
           "targets_per_game": 6,
           "carries_per_game": 0,
           "sample_games": 3
+        },
+        {
+          "player": "Zay Flowers",
+          "position": "WR",
+          "unavailable": false,
+          "snap_share": 0.29,
+          "target_share": 0.2132,
+          "rush_share": 0.0131,
+          "targets_per_game": 6,
+          "carries_per_game": 0.5,
+          "sample_games": 2
         },
         {
           "player": "Rashod Bateman",
@@ -266,17 +266,6 @@
           "sample_games": 3
         },
         {
-          "player": "Chris Moore",
-          "position": "WR",
-          "unavailable": false,
-          "snap_share": 0.37,
-          "target_share": 0.0612,
-          "rush_share": 0,
-          "targets_per_game": 2,
-          "carries_per_game": 0,
-          "sample_games": 3
-        },
-        {
           "player": "Durham Smythe",
           "position": "TE",
           "unavailable": false,
@@ -286,6 +275,17 @@
           "targets_per_game": 1,
           "carries_per_game": 0,
           "sample_games": 2
+        },
+        {
+          "player": "Chris Moore",
+          "position": "WR",
+          "unavailable": false,
+          "snap_share": 0.37,
+          "target_share": 0.0612,
+          "rush_share": 0,
+          "targets_per_game": 2,
+          "carries_per_game": 0,
+          "sample_games": 3
         },
         {
           "player": "Matthew Hibner",
@@ -594,8 +594,8 @@
           "sample_games": 1
         },
         {
-          "player": "Myles Montgomery",
-          "position": "RB",
+          "player": "Jeremiah Webb",
+          "position": "WR",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -605,8 +605,8 @@
           "sample_games": 0
         },
         {
-          "player": "Jeremiah Webb",
-          "position": "WR",
+          "player": "Myles Montgomery",
+          "position": "RB",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -818,8 +818,8 @@
           "sample_games": 0
         },
         {
-          "player": "Keleki Latu",
-          "position": "TE",
+          "player": "Kyle Allen",
+          "position": "QB",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -829,8 +829,8 @@
           "sample_games": 0
         },
         {
-          "player": "Kyle Allen",
-          "position": "QB",
+          "player": "Keleki Latu",
+          "position": "TE",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -970,6 +970,17 @@
           "sample_games": 0
         },
         {
+          "player": "Tom Kennedy",
+          "position": "WR",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0,
+          "rush_share": 0,
+          "targets_per_game": 0,
+          "carries_per_game": 0,
+          "sample_games": 0
+        },
+        {
           "player": "Tay Martin",
           "position": "WR",
           "unavailable": false,
@@ -982,17 +993,6 @@
         },
         {
           "player": "Kendrick Law",
-          "position": "WR",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0,
-          "rush_share": 0,
-          "targets_per_game": 0,
-          "carries_per_game": 0,
-          "sample_games": 0
-        },
-        {
-          "player": "Tom Kennedy",
           "position": "WR",
           "unavailable": false,
           "snap_share": 0,
@@ -1172,17 +1172,6 @@
           "sample_games": 1
         },
         {
-          "player": "Chris Brazzell II",
-          "position": "WR",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0,
-          "rush_share": 0,
-          "targets_per_game": 0,
-          "carries_per_game": 0,
-          "sample_games": 0
-        },
-        {
           "player": "Jimmy Horn Jr.",
           "position": "WR",
           "unavailable": false,
@@ -1192,6 +1181,17 @@
           "targets_per_game": 1,
           "carries_per_game": 0,
           "sample_games": 1
+        },
+        {
+          "player": "Chris Brazzell II",
+          "position": "WR",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0,
+          "rush_share": 0,
+          "targets_per_game": 0,
+          "carries_per_game": 0,
+          "sample_games": 0
         },
         {
           "player": "Kenny Pickett",
@@ -1445,6 +1445,17 @@
           "sample_games": 0
         },
         {
+          "player": "Cade Klubnik",
+          "position": "QB",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0,
+          "rush_share": 0,
+          "targets_per_game": 0,
+          "carries_per_game": 0,
+          "sample_games": 0
+        },
+        {
           "player": "Andrew Beck",
           "position": "RB",
           "unavailable": false,
@@ -1458,17 +1469,6 @@
         {
           "player": "Kene Nwangwu",
           "position": "RB",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0,
-          "rush_share": 0,
-          "targets_per_game": 0,
-          "carries_per_game": 0,
-          "sample_games": 0
-        },
-        {
-          "player": "Cade Klubnik",
-          "position": "QB",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -1680,7 +1680,7 @@
           "sample_games": 0
         },
         {
-          "player": "Ray-Ray McCloud",
+          "player": "Kaden Davis",
           "position": "WR",
           "unavailable": false,
           "snap_share": 0,
@@ -1691,7 +1691,7 @@
           "sample_games": 0
         },
         {
-          "player": "Kaden Davis",
+          "player": "Ray-Ray McCloud",
           "position": "WR",
           "unavailable": false,
           "snap_share": 0,
@@ -1799,17 +1799,6 @@
           "sample_games": 3
         },
         {
-          "player": "Brian Thomas Jr.",
-          "position": "WR",
-          "unavailable": false,
-          "snap_share": 0.35,
-          "target_share": 0.1465,
-          "rush_share": 0,
-          "targets_per_game": 4,
-          "carries_per_game": 0,
-          "sample_games": 3
-        },
-        {
           "player": "Brenton Strange",
           "position": "TE",
           "unavailable": false,
@@ -1817,6 +1806,17 @@
           "target_share": 0.1259,
           "rush_share": 0,
           "targets_per_game": 3.3,
+          "carries_per_game": 0,
+          "sample_games": 3
+        },
+        {
+          "player": "Brian Thomas Jr.",
+          "position": "WR",
+          "unavailable": false,
+          "snap_share": 0.35,
+          "target_share": 0.1465,
+          "rush_share": 0,
+          "targets_per_game": 4,
           "carries_per_game": 0,
           "sample_games": 3
         },
@@ -1865,17 +1865,6 @@
           "sample_games": 2
         },
         {
-          "player": "Ameer Abdullah",
-          "position": "RB",
-          "unavailable": false,
-          "snap_share": 0.09,
-          "target_share": 0.038,
-          "rush_share": 0.1109,
-          "targets_per_game": 1,
-          "carries_per_game": 3.3,
-          "sample_games": 3
-        },
-        {
           "player": "Travis Hunter",
           "position": "WR",
           "unavailable": false,
@@ -1885,6 +1874,17 @@
           "targets_per_game": 0,
           "carries_per_game": 0,
           "sample_games": 0
+        },
+        {
+          "player": "Ameer Abdullah",
+          "position": "RB",
+          "unavailable": false,
+          "snap_share": 0.09,
+          "target_share": 0.038,
+          "rush_share": 0.1109,
+          "targets_per_game": 1,
+          "carries_per_game": 3.3,
+          "sample_games": 3
         },
         {
           "player": "Quintin Morris",
@@ -2056,17 +2056,6 @@
           "sample_games": 1
         },
         {
-          "player": "Tanner Hudson",
-          "position": "TE",
-          "unavailable": false,
-          "snap_share": 0.09,
-          "target_share": 0.0363,
-          "rush_share": 0,
-          "targets_per_game": 1.5,
-          "carries_per_game": 0,
-          "sample_games": 2
-        },
-        {
           "player": "Dohnte Meyers",
           "position": "WR",
           "unavailable": false,
@@ -2076,6 +2065,17 @@
           "targets_per_game": 2.3,
           "carries_per_game": 0.3,
           "sample_games": 3
+        },
+        {
+          "player": "Tanner Hudson",
+          "position": "TE",
+          "unavailable": false,
+          "snap_share": 0.09,
+          "target_share": 0.0363,
+          "rush_share": 0,
+          "targets_per_game": 1.5,
+          "carries_per_game": 0,
+          "sample_games": 2
         },
         {
           "player": "Joe Flacco",
@@ -2089,8 +2089,8 @@
           "sample_games": 0
         },
         {
-          "player": "Tahj Brooks",
-          "position": "RB",
+          "player": "Jack Endries",
+          "position": "TE",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -2100,8 +2100,8 @@
           "sample_games": 0
         },
         {
-          "player": "Jack Endries",
-          "position": "TE",
+          "player": "Tahj Brooks",
+          "position": "RB",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -2749,8 +2749,8 @@
           "sample_games": 1
         },
         {
-          "player": "Sam Howell",
-          "position": "QB",
+          "player": "Camden Brown",
+          "position": "WR",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -2760,8 +2760,8 @@
           "sample_games": 0
         },
         {
-          "player": "Camden Brown",
-          "position": "WR",
+          "player": "Sam Howell",
+          "position": "QB",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -3202,17 +3202,6 @@
           "sample_games": 0
         },
         {
-          "player": "John Michael Gyllenborg",
-          "position": "TE",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0,
-          "rush_share": 0,
-          "targets_per_game": 0,
-          "carries_per_game": 0,
-          "sample_games": 0
-        },
-        {
           "player": "Jeff Caldwell",
           "position": "WR",
           "unavailable": false,
@@ -3225,6 +3214,17 @@
         },
         {
           "player": "Thomas Odukoya",
+          "position": "TE",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0,
+          "rush_share": 0,
+          "targets_per_game": 0,
+          "carries_per_game": 0,
+          "sample_games": 0
+        },
+        {
+          "player": "John Michael Gyllenborg",
           "position": "TE",
           "unavailable": false,
           "snap_share": 0,
@@ -3360,17 +3360,6 @@
           "sample_games": 3
         },
         {
-          "player": "Jack Bech",
-          "position": "WR",
-          "unavailable": false,
-          "snap_share": 0.4,
-          "target_share": 0.0755,
-          "rush_share": 0,
-          "targets_per_game": 3,
-          "carries_per_game": 0,
-          "sample_games": 2
-        },
-        {
           "player": "Cody White",
           "position": "WR",
           "unavailable": false,
@@ -3380,6 +3369,17 @@
           "targets_per_game": 2,
           "carries_per_game": 0,
           "sample_games": 3
+        },
+        {
+          "player": "Jack Bech",
+          "position": "WR",
+          "unavailable": false,
+          "snap_share": 0.4,
+          "target_share": 0.0755,
+          "rush_share": 0,
+          "targets_per_game": 3,
+          "carries_per_game": 0,
+          "sample_games": 2
         },
         {
           "player": "Fernando Mendoza",
@@ -3492,8 +3492,8 @@
           "sample_games": 0
         },
         {
-          "player": "Carter Runyon",
-          "position": "TE",
+          "player": "Aidan O'Connell",
+          "position": "QB",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -3503,8 +3503,8 @@
           "sample_games": 0
         },
         {
-          "player": "Aidan O'Connell",
-          "position": "QB",
+          "player": "Carter Runyon",
+          "position": "TE",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -3611,17 +3611,6 @@
           "sample_games": 3
         },
         {
-          "player": "Ryan Miller",
-          "position": "WR",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0.0622,
-          "rush_share": 0,
-          "targets_per_game": 2,
-          "carries_per_game": 0,
-          "sample_games": 2
-        },
-        {
           "player": "Kevin Coleman Jr.",
           "position": "WR",
           "unavailable": false,
@@ -3629,6 +3618,17 @@
           "target_share": 0.0908,
           "rush_share": 0,
           "targets_per_game": 3,
+          "carries_per_game": 0,
+          "sample_games": 2
+        },
+        {
+          "player": "Ryan Miller",
+          "position": "WR",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0.0622,
+          "rush_share": 0,
+          "targets_per_game": 2,
           "carries_per_game": 0,
           "sample_games": 2
         },
@@ -3644,17 +3644,6 @@
           "sample_games": 0
         },
         {
-          "player": "Jaylen Wright",
-          "position": "RB",
-          "unavailable": false,
-          "snap_share": 0.07,
-          "target_share": 0,
-          "rush_share": 0.0562,
-          "targets_per_game": 0,
-          "carries_per_game": 1.5,
-          "sample_games": 2
-        },
-        {
           "player": "Will Kacmarek",
           "position": "TE",
           "unavailable": false,
@@ -3666,15 +3655,15 @@
           "sample_games": 2
         },
         {
-          "player": "Justin Joly",
-          "position": "TE",
+          "player": "Jaylen Wright",
+          "position": "RB",
           "unavailable": false,
-          "snap_share": 0,
+          "snap_share": 0.07,
           "target_share": 0,
-          "rush_share": 0,
+          "rush_share": 0.0562,
           "targets_per_game": 0,
-          "carries_per_game": 0,
-          "sample_games": 0
+          "carries_per_game": 1.5,
+          "sample_games": 2
         },
         {
           "player": "Brady Cook",
@@ -3690,6 +3679,17 @@
         {
           "player": "Kyle McCord",
           "position": "QB",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0,
+          "rush_share": 0,
+          "targets_per_game": 0,
+          "carries_per_game": 0,
+          "sample_games": 0
+        },
+        {
+          "player": "Justin Joly",
+          "position": "TE",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -4675,17 +4675,6 @@
       "away_sample_games": 3,
       "home_players": [
         {
-          "player": "Jameis Winston",
-          "position": "QB",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0,
-          "rush_share": 0.064,
-          "targets_per_game": 0,
-          "carries_per_game": 2,
-          "sample_games": 2
-        },
-        {
           "player": "Cam Skattebo",
           "position": "RB",
           "unavailable": false,
@@ -4695,6 +4684,17 @@
           "targets_per_game": 2.7,
           "carries_per_game": 16.7,
           "sample_games": 3
+        },
+        {
+          "player": "Jameis Winston",
+          "position": "QB",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0,
+          "rush_share": 0.064,
+          "targets_per_game": 0,
+          "carries_per_game": 2,
+          "sample_games": 2
         },
         {
           "player": "Malik Nabers",
@@ -4774,17 +4774,6 @@
           "sample_games": 2
         },
         {
-          "player": "Theo Johnson",
-          "position": "TE",
-          "unavailable": false,
-          "snap_share": 0.46,
-          "target_share": 0.0718,
-          "rush_share": 0,
-          "targets_per_game": 2.5,
-          "carries_per_game": 0,
-          "sample_games": 2
-        },
-        {
           "player": "Devin Singletary",
           "position": "RB",
           "unavailable": false,
@@ -4793,6 +4782,17 @@
           "rush_share": 0.1252,
           "targets_per_game": 2.5,
           "carries_per_game": 4.5,
+          "sample_games": 2
+        },
+        {
+          "player": "Theo Johnson",
+          "position": "TE",
+          "unavailable": false,
+          "snap_share": 0.46,
+          "target_share": 0.0718,
+          "rush_share": 0,
+          "targets_per_game": 2.5,
+          "carries_per_game": 0,
           "sample_games": 2
         },
         {
@@ -4840,30 +4840,8 @@
           "sample_games": 0
         },
         {
-          "player": "Chris Manhertz",
-          "position": "TE",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0,
-          "rush_share": 0,
-          "targets_per_game": 0,
-          "carries_per_game": 0,
-          "sample_games": 0
-        },
-        {
           "player": "Gunner Olszewski",
           "position": "WR",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0,
-          "rush_share": 0,
-          "targets_per_game": 0,
-          "carries_per_game": 0,
-          "sample_games": 0
-        },
-        {
-          "player": "Jake Haener",
-          "position": "QB",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -4886,6 +4864,28 @@
         {
           "player": "Dalen Cambre",
           "position": "WR",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0,
+          "rush_share": 0,
+          "targets_per_game": 0,
+          "carries_per_game": 0,
+          "sample_games": 0
+        },
+        {
+          "player": "Chris Manhertz",
+          "position": "TE",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0,
+          "rush_share": 0,
+          "targets_per_game": 0,
+          "carries_per_game": 0,
+          "sample_games": 0
+        },
+        {
+          "player": "Jake Haener",
+          "position": "QB",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -5401,17 +5401,6 @@
           "sample_games": 3
         },
         {
-          "player": "Ladd McConkey",
-          "position": "WR",
-          "unavailable": false,
-          "snap_share": 0.49,
-          "target_share": 0.1692,
-          "rush_share": 0,
-          "targets_per_game": 5,
-          "carries_per_game": 0,
-          "sample_games": 3
-        },
-        {
           "player": "Quentin Johnston",
           "position": "WR",
           "unavailable": false,
@@ -5420,6 +5409,17 @@
           "rush_share": 0.0102,
           "targets_per_game": 5.7,
           "carries_per_game": 0.3,
+          "sample_games": 3
+        },
+        {
+          "player": "Ladd McConkey",
+          "position": "WR",
+          "unavailable": false,
+          "snap_share": 0.49,
+          "target_share": 0.1692,
+          "rush_share": 0,
+          "targets_per_game": 5,
+          "carries_per_game": 0,
           "sample_games": 3
         },
         {
@@ -5489,8 +5489,30 @@
           "sample_games": 2
         },
         {
+          "player": "KeAndre Lambert-Smith",
+          "position": "WR",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0,
+          "rush_share": 0,
+          "targets_per_game": 0,
+          "carries_per_game": 0,
+          "sample_games": 0
+        },
+        {
           "player": "DJ Uiagalelei",
           "position": "QB",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0,
+          "rush_share": 0,
+          "targets_per_game": 0,
+          "carries_per_game": 0,
+          "sample_games": 0
+        },
+        {
+          "player": "Sincere Brown",
+          "position": "WR",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -5511,19 +5533,8 @@
           "sample_games": 0
         },
         {
-          "player": "KeAndre Lambert-Smith",
-          "position": "WR",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0,
-          "rush_share": 0,
-          "targets_per_game": 0,
-          "carries_per_game": 0,
-          "sample_games": 0
-        },
-        {
-          "player": "Sincere Brown",
-          "position": "WR",
+          "player": "Alec Ingold",
+          "position": "RB",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -5546,17 +5557,6 @@
         {
           "player": "Hayden Rucci",
           "position": "TE",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0,
-          "rush_share": 0,
-          "targets_per_game": 0,
-          "carries_per_game": 0,
-          "sample_games": 0
-        },
-        {
-          "player": "Alec Ingold",
-          "position": "RB",
           "unavailable": false,
           "snap_share": 0,
           "target_share": 0,
@@ -5898,17 +5898,6 @@
           "sample_games": 2
         },
         {
-          "player": "J.K. Dobbins",
-          "position": "RB",
-          "unavailable": false,
-          "snap_share": 0.43,
-          "target_share": 0.0168,
-          "rush_share": 0.4073,
-          "targets_per_game": 0.7,
-          "carries_per_game": 11.7,
-          "sample_games": 3
-        },
-        {
           "player": "Courtland Sutton",
           "position": "WR",
           "unavailable": false,
@@ -5917,6 +5906,17 @@
           "rush_share": 0,
           "targets_per_game": 5.3,
           "carries_per_game": 0,
+          "sample_games": 3
+        },
+        {
+          "player": "J.K. Dobbins",
+          "position": "RB",
+          "unavailable": false,
+          "snap_share": 0.43,
+          "target_share": 0.0168,
+          "rush_share": 0.4073,
+          "targets_per_game": 0.7,
+          "carries_per_game": 11.7,
           "sample_games": 3
         },
         {
@@ -6243,17 +6243,6 @@
           "sample_games": 0
         },
         {
-          "player": "Jacob Cowing",
-          "position": "WR",
-          "unavailable": false,
-          "snap_share": 0,
-          "target_share": 0.0692,
-          "rush_share": 0,
-          "targets_per_game": 2,
-          "carries_per_game": 0,
-          "sample_games": 1
-        },
-        {
           "player": "Isaac Guerendo",
           "position": "RB",
           "unavailable": false,
@@ -6263,6 +6252,17 @@
           "targets_per_game": 0,
           "carries_per_game": 0,
           "sample_games": 0
+        },
+        {
+          "player": "Jacob Cowing",
+          "position": "WR",
+          "unavailable": false,
+          "snap_share": 0,
+          "target_share": 0.0692,
+          "rush_share": 0,
+          "targets_per_game": 2,
+          "carries_per_game": 0,
+          "sample_games": 1
         },
         {
           "player": "KhaDarel Hodge",

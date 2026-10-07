@@ -52,6 +52,48 @@
       "bet": null
     },
     {
+      "gameId": "2026_05_DET_ARI",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "16:25",
+      "homeTeam": "ARI",
+      "awayTeam": "DET",
+      "spreadLine": -4.5,
+      "totalLine": 54.5,
+      "homeMoneyline": 195,
+      "awayMoneyline": -238,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0033119",
+          "name": "Jacoby Brissett"
+        },
+        "away": {
+          "id": "00-0033106",
+          "name": "Jared Goff"
+        }
+      },
+      "prediction": {
+        "predWinner": "DET",
+        "predWinPct": 0.736,
+        "nflPredictorLine": -5.6,
+        "homeImplPts": 24.4,
+        "awayImplPts": 30.1,
+        "lineDiff": -1.1
+      },
+      "result": null,
+      "bet": null
+    },
+    {
       "gameId": "2026_02_CAR_ATL",
       "season": 2026,
       "week": 2,
@@ -99,6 +141,90 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
+      "bet": null
+    },
+    {
+      "gameId": "2026_05_BAL_ATL",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "20:20",
+      "homeTeam": "ATL",
+      "awayTeam": "BAL",
+      "spreadLine": 3.5,
+      "totalLine": 43.5,
+      "homeMoneyline": -170,
+      "awayMoneyline": 142,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": "Lamar Jackson Questionable · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0039917",
+          "name": "Michael Penix"
+        },
+        "away": {
+          "id": "00-0034796",
+          "name": "Lamar Jackson"
+        }
+      },
+      "prediction": {
+        "predWinner": "ATL",
+        "predWinPct": 0.551,
+        "nflPredictorLine": 1.8,
+        "homeImplPts": 22.6,
+        "awayImplPts": 20.9,
+        "lineDiff": -1.7
+      },
+      "result": null,
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_CHI_ATL",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "ATL",
+      "awayTeam": "CHI",
+      "spreadLine": -1.5,
+      "totalLine": 47.5,
+      "homeMoneyline": 102,
+      "awayMoneyline": -122,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · ATL expected QB identity unresolved · CHI expected QB identity unresolved · ATL QB status not freshly verified · CHI QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · ATL expected QB identity unresolved · CHI expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "CHI",
+        "predWinPct": 0.575,
+        "nflPredictorLine": -1.3,
+        "homeImplPts": 23.1,
+        "awayImplPts": 24.4,
+        "lineDiff": 0.2
+      },
+      "result": null,
       "bet": null
     },
     {
@@ -161,14 +287,14 @@
       "homeTeam": "BAL",
       "awayTeam": "TEN",
       "spreadLine": 11.5,
-      "totalLine": 43.5,
-      "homeMoneyline": -750,
-      "awayMoneyline": 525,
+      "totalLine": 42.5,
+      "homeMoneyline": -800,
+      "awayMoneyline": 550,
       "divGame": false,
       "availability": {
         "eligible": false,
-        "reason": "No pregame QB feature refresh · BAL forecast does not match expected starter · TEN forecast does not match expected starter",
-        "checkedAt": "2026-10-04 17:19:55"
+        "reason": "No pregame QB feature refresh · BAL QB status not freshly verified · TEN QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
         "verified": false,
@@ -184,13 +310,21 @@
       },
       "prediction": {
         "predWinner": "BAL",
-        "predWinPct": 0.867,
-        "nflPredictorLine": 11.5,
-        "homeImplPts": 27.5,
-        "awayImplPts": 16,
-        "lineDiff": 0
+        "predWinPct": 0.872,
+        "nflPredictorLine": 11.7,
+        "homeImplPts": 27.1,
+        "awayImplPts": 15.4,
+        "lineDiff": 0.2
       },
-      "result": null,
+      "result": {
+        "homePoints": 24,
+        "awayPoints": 18,
+        "homeResult": 6,
+        "homeWin": true,
+        "winningTeam": "BAL",
+        "predCorrect": true,
+        "vegasCorrect": true
+      },
       "bet": null
     },
     {
@@ -303,14 +437,14 @@
       "homeTeam": "BUF",
       "awayTeam": "NE",
       "spreadLine": 7,
-      "totalLine": 48.5,
-      "homeMoneyline": -298,
-      "awayMoneyline": 240,
+      "totalLine": 49.5,
+      "homeMoneyline": -345,
+      "awayMoneyline": 275,
       "divGame": true,
       "availability": {
         "eligible": false,
-        "reason": "No pregame QB feature refresh · BUF forecast does not match expected starter · NE forecast does not match expected starter",
-        "checkedAt": "2026-10-04 17:19:55"
+        "reason": "No pregame QB feature refresh · BUF QB status not freshly verified · NE QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
         "verified": false,
@@ -326,13 +460,21 @@
       },
       "prediction": {
         "predWinner": "BUF",
-        "predWinPct": 0.741,
-        "nflPredictorLine": 6.8,
-        "homeImplPts": 27.7,
-        "awayImplPts": 20.8,
-        "lineDiff": -0.2
+        "predWinPct": 0.76,
+        "nflPredictorLine": 7.4,
+        "homeImplPts": 28.5,
+        "awayImplPts": 21,
+        "lineDiff": 0.4
       },
-      "result": null,
+      "result": {
+        "homePoints": 26,
+        "awayPoints": 29,
+        "homeResult": -3,
+        "homeWin": false,
+        "winningTeam": "NE",
+        "predCorrect": false,
+        "vegasCorrect": false
+      },
       "bet": null
     },
     {
@@ -394,37 +536,45 @@
       "gametime": "20:20",
       "homeTeam": "CAR",
       "awayTeam": "DET",
-      "spreadLine": -3.5,
-      "totalLine": 50.5,
-      "homeMoneyline": 150,
-      "awayMoneyline": -180,
+      "spreadLine": -4.5,
+      "totalLine": 52.5,
+      "homeMoneyline": 185,
+      "awayMoneyline": -225,
       "divGame": false,
       "availability": {
-        "eligible": true,
-        "reason": "",
-        "checkedAt": "2026-10-04 17:19:55"
+        "eligible": false,
+        "reason": "No pregame QB feature refresh · CAR QB status not freshly verified · DET QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
-        "verified": true,
-        "reason": "",
+        "verified": false,
+        "reason": "No pregame QB feature refresh",
         "home": {
-          "id": "00-0039150",
-          "name": "Bryce Young"
+          "id": null,
+          "name": null
         },
         "away": {
-          "id": "00-0033106",
-          "name": "Jared Goff"
+          "id": null,
+          "name": null
         }
       },
       "prediction": {
         "predWinner": "DET",
-        "predWinPct": 0.659,
-        "nflPredictorLine": -3.4,
-        "homeImplPts": 23.5,
-        "awayImplPts": 27,
-        "lineDiff": 0.1
+        "predWinPct": 0.703,
+        "nflPredictorLine": -4.6,
+        "homeImplPts": 23.9,
+        "awayImplPts": 28.6,
+        "lineDiff": -0.1
       },
-      "result": null,
+      "result": {
+        "homePoints": 32,
+        "awayPoints": 26,
+        "homeResult": 6,
+        "homeWin": true,
+        "winningTeam": "CAR",
+        "predCorrect": false,
+        "vegasCorrect": false
+      },
       "bet": null
     },
     {
@@ -537,14 +687,14 @@
       "homeTeam": "CHI",
       "awayTeam": "NYJ",
       "spreadLine": 3.5,
-      "totalLine": 42.5,
-      "homeMoneyline": -170,
-      "awayMoneyline": 142,
+      "totalLine": 43.5,
+      "homeMoneyline": -192,
+      "awayMoneyline": 160,
       "divGame": false,
       "availability": {
         "eligible": false,
-        "reason": "No pregame QB feature refresh · CHI forecast does not match expected starter · NYJ forecast does not match expected starter",
-        "checkedAt": "2026-10-04 17:19:55"
+        "reason": "No pregame QB feature refresh · CHI QB status not freshly verified · NYJ QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
         "verified": false,
@@ -560,13 +710,21 @@
       },
       "prediction": {
         "predWinner": "CHI",
-        "predWinPct": 0.654,
-        "nflPredictorLine": 4.4,
-        "homeImplPts": 23.4,
-        "awayImplPts": 19.1,
-        "lineDiff": 0.9
+        "predWinPct": 0.676,
+        "nflPredictorLine": 5,
+        "homeImplPts": 24.2,
+        "awayImplPts": 19.3,
+        "lineDiff": 1.5
       },
-      "result": null,
+      "result": {
+        "homePoints": 23,
+        "awayPoints": 12,
+        "homeResult": 11,
+        "homeWin": true,
+        "winningTeam": "CHI",
+        "predCorrect": true,
+        "vegasCorrect": true
+      },
       "bet": null
     },
     {
@@ -630,13 +788,13 @@
       "awayTeam": "JAX",
       "spreadLine": 2.5,
       "totalLine": 51.5,
-      "homeMoneyline": -142,
-      "awayMoneyline": 120,
+      "homeMoneyline": -148,
+      "awayMoneyline": 124,
       "divGame": false,
       "availability": {
         "eligible": false,
-        "reason": "No pregame QB feature refresh · CIN forecast does not match expected starter · JAX forecast does not match expected starter",
-        "checkedAt": "2026-10-04 17:19:55"
+        "reason": "No pregame QB feature refresh · CIN QB status not freshly verified · JAX QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
         "verified": false,
@@ -652,13 +810,21 @@
       },
       "prediction": {
         "predWinner": "CIN",
-        "predWinPct": 0.574,
-        "nflPredictorLine": 2.4,
-        "homeImplPts": 26.9,
-        "awayImplPts": 24.6,
-        "lineDiff": -0.1
+        "predWinPct": 0.582,
+        "nflPredictorLine": 2.6,
+        "homeImplPts": 27,
+        "awayImplPts": 24.5,
+        "lineDiff": 0.1
       },
-      "result": null,
+      "result": {
+        "homePoints": 17,
+        "awayPoints": 22,
+        "homeResult": -5,
+        "homeWin": false,
+        "winningTeam": "JAX",
+        "predCorrect": false,
+        "vegasCorrect": false
+      },
       "bet": null
     },
     {
@@ -727,8 +893,8 @@
       "divGame": true,
       "availability": {
         "eligible": false,
-        "reason": "No pregame QB feature refresh · CLE forecast does not match expected starter · PIT forecast does not match expected starter",
-        "checkedAt": "2026-10-04 17:19:55"
+        "reason": "No pregame QB feature refresh · CLE QB status not freshly verified · PIT QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
         "verified": false,
@@ -749,6 +915,56 @@
         "homeImplPts": 17.8,
         "awayImplPts": 20.7,
         "lineDiff": -0.4
+      },
+      "result": {
+        "homePoints": 27,
+        "awayPoints": 24,
+        "homeResult": 3,
+        "homeWin": true,
+        "winningTeam": "CLE",
+        "predCorrect": false,
+        "vegasCorrect": false
+      },
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_BAL_CLE",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "CLE",
+      "awayTeam": "BAL",
+      "spreadLine": -2.5,
+      "totalLine": 40.5,
+      "homeMoneyline": 120,
+      "awayMoneyline": -142,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · CLE expected QB identity unresolved · BAL expected QB identity unresolved · CLE QB status not freshly verified · BAL QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · CLE expected QB identity unresolved · BAL expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "BAL",
+        "predWinPct": 0.653,
+        "nflPredictorLine": -3.3,
+        "homeImplPts": 18.6,
+        "awayImplPts": 21.9,
+        "lineDiff": -0.8
       },
       "result": null,
       "bet": null
@@ -854,6 +1070,48 @@
       "bet": null
     },
     {
+      "gameId": "2026_05_TB_DAL",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-08",
+      "weekday": "Thursday",
+      "gametime": "20:15",
+      "homeTeam": "DAL",
+      "awayTeam": "TB",
+      "spreadLine": 8.5,
+      "totalLine": 47.5,
+      "homeMoneyline": -455,
+      "awayMoneyline": 350,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0033077",
+          "name": "Dak Prescott"
+        },
+        "away": {
+          "id": "00-0041251",
+          "name": "Jalon Daniels"
+        }
+      },
+      "prediction": {
+        "predWinner": "DAL",
+        "predWinPct": 0.78,
+        "nflPredictorLine": 8.1,
+        "homeImplPts": 27.8,
+        "awayImplPts": 19.7,
+        "lineDiff": -0.4
+      },
+      "result": null,
+      "bet": null
+    },
+    {
       "gameId": "2026_02_JAX_DEN",
       "season": 2026,
       "week": 2,
@@ -951,6 +1209,48 @@
         "predCorrect": false,
         "vegasCorrect": true
       },
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_SEA_DEN",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-15",
+      "weekday": "Thursday",
+      "gametime": "20:15",
+      "homeTeam": "DEN",
+      "awayTeam": "SEA",
+      "spreadLine": -1.5,
+      "totalLine": 42.5,
+      "homeMoneyline": 105,
+      "awayMoneyline": -125,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · DEN expected QB identity unresolved · SEA expected QB identity unresolved · DEN QB status not freshly verified · SEA QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · DEN expected QB identity unresolved · SEA expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "SEA",
+        "predWinPct": 0.589,
+        "nflPredictorLine": -1.6,
+        "homeImplPts": 20.4,
+        "awayImplPts": 22.1,
+        "lineDiff": -0.1
+      },
+      "result": null,
       "bet": null
     },
     {
@@ -1104,6 +1404,90 @@
       "bet": null
     },
     {
+      "gameId": "2026_05_CHI_GB",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "GB",
+      "awayTeam": "CHI",
+      "spreadLine": -3,
+      "totalLine": 45.5,
+      "homeMoneyline": 124,
+      "awayMoneyline": -148,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0036264",
+          "name": "Jordan Love"
+        },
+        "away": {
+          "id": "00-0038416",
+          "name": "Tyson Bagent"
+        }
+      },
+      "prediction": {
+        "predWinner": "CHI",
+        "predWinPct": 0.591,
+        "nflPredictorLine": -1.7,
+        "homeImplPts": 21.9,
+        "awayImplPts": 23.6,
+        "lineDiff": 1.3
+      },
+      "result": null,
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_DAL_GB",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "20:20",
+      "homeTeam": "GB",
+      "awayTeam": "DAL",
+      "spreadLine": -2.5,
+      "totalLine": 50.5,
+      "homeMoneyline": 120,
+      "awayMoneyline": -142,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · GB expected QB identity unresolved · DAL expected QB identity unresolved · GB QB status not freshly verified · DAL QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · GB expected QB identity unresolved · DAL expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "DAL",
+        "predWinPct": 0.592,
+        "nflPredictorLine": -1.7,
+        "homeImplPts": 24.4,
+        "awayImplPts": 26.1,
+        "lineDiff": 0.8
+      },
+      "result": null,
+      "bet": null
+    },
+    {
       "gameId": "2026_01_BUF_HOU",
       "season": 2026,
       "week": 1,
@@ -1212,15 +1596,15 @@
       "gametime": "13:00",
       "homeTeam": "HOU",
       "awayTeam": "DAL",
-      "spreadLine": 2.5,
-      "totalLine": 47.5,
-      "homeMoneyline": -142,
-      "awayMoneyline": 120,
+      "spreadLine": 3,
+      "totalLine": 48.5,
+      "homeMoneyline": -155,
+      "awayMoneyline": 130,
       "divGame": false,
       "availability": {
         "eligible": false,
-        "reason": "No pregame QB feature refresh · HOU forecast does not match expected starter · DAL forecast does not match expected starter",
-        "checkedAt": "2026-10-04 17:19:55"
+        "reason": "No pregame QB feature refresh · HOU QB status not freshly verified · DAL QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
         "verified": false,
@@ -1236,13 +1620,21 @@
       },
       "prediction": {
         "predWinner": "HOU",
-        "predWinPct": 0.553,
-        "nflPredictorLine": 1.9,
-        "homeImplPts": 24.7,
-        "awayImplPts": 22.8,
+        "predWinPct": 0.574,
+        "nflPredictorLine": 2.4,
+        "homeImplPts": 25.4,
+        "awayImplPts": 23.1,
         "lineDiff": -0.6
       },
-      "result": null,
+      "result": {
+        "homePoints": 30,
+        "awayPoints": 34,
+        "homeResult": -4,
+        "homeWin": false,
+        "winningTeam": "DAL",
+        "predCorrect": false,
+        "vegasCorrect": false
+      },
       "bet": null
     },
     {
@@ -1346,6 +1738,48 @@
       "bet": null
     },
     {
+      "gameId": "2026_06_TEN_IND",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "IND",
+      "awayTeam": "TEN",
+      "spreadLine": 6.5,
+      "totalLine": 44.5,
+      "homeMoneyline": -298,
+      "awayMoneyline": 240,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · IND expected QB identity unresolved · TEN expected QB identity unresolved · IND QB status not freshly verified · TEN QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · IND expected QB identity unresolved · TEN expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "IND",
+        "predWinPct": 0.741,
+        "nflPredictorLine": 6.9,
+        "homeImplPts": 25.7,
+        "awayImplPts": 18.8,
+        "lineDiff": 0.4
+      },
+      "result": null,
+      "bet": null
+    },
+    {
       "gameId": "2026_01_CLE_JAX",
       "season": 2026,
       "week": 1,
@@ -1443,6 +1877,90 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
+      "bet": null
+    },
+    {
+      "gameId": "2026_05_PHI_JAX",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "09:30",
+      "homeTeam": "JAX",
+      "awayTeam": "PHI",
+      "spreadLine": 7,
+      "totalLine": 42.5,
+      "homeMoneyline": -355,
+      "awayMoneyline": 280,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0036971",
+          "name": "Trevor Lawrence"
+        },
+        "away": {
+          "id": "00-0036389",
+          "name": "Jalen Hurts"
+        }
+      },
+      "prediction": {
+        "predWinner": "JAX",
+        "predWinPct": 0.756,
+        "nflPredictorLine": 7.3,
+        "homeImplPts": 24.9,
+        "awayImplPts": 17.6,
+        "lineDiff": 0.3
+      },
+      "result": null,
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_HOU_JAX",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "09:30",
+      "homeTeam": "JAX",
+      "awayTeam": "HOU",
+      "spreadLine": 3,
+      "totalLine": 43.5,
+      "homeMoneyline": -175,
+      "awayMoneyline": 145,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · JAX expected QB identity unresolved · HOU expected QB identity unresolved · JAX QB status not freshly verified · HOU QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · JAX expected QB identity unresolved · HOU expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "JAX",
+        "predWinPct": 0.634,
+        "nflPredictorLine": 3.9,
+        "homeImplPts": 23.7,
+        "awayImplPts": 19.8,
+        "lineDiff": 0.9
+      },
+      "result": null,
       "bet": null
     },
     {
@@ -1546,6 +2064,48 @@
       "bet": null
     },
     {
+      "gameId": "2026_06_LAC_KC",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "16:25",
+      "homeTeam": "KC",
+      "awayTeam": "LAC",
+      "spreadLine": 7.5,
+      "totalLine": 45.5,
+      "homeMoneyline": -395,
+      "awayMoneyline": 310,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · KC expected QB identity unresolved · LAC expected QB identity unresolved · KC QB status not freshly verified · LAC QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · KC expected QB identity unresolved · LAC expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "KC",
+        "predWinPct": 0.799,
+        "nflPredictorLine": 8.8,
+        "homeImplPts": 27.1,
+        "awayImplPts": 18.4,
+        "lineDiff": 1.3
+      },
+      "result": null,
+      "bet": null
+    },
+    {
       "gameId": "2026_01_SF_LA",
       "season": 2026,
       "week": 1,
@@ -1643,6 +2203,90 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
+      "bet": null
+    },
+    {
+      "gameId": "2026_05_BUF_LA",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-12",
+      "weekday": "Monday",
+      "gametime": "20:15",
+      "homeTeam": "LA",
+      "awayTeam": "BUF",
+      "spreadLine": 3,
+      "totalLine": 54.5,
+      "homeMoneyline": -162,
+      "awayMoneyline": 136,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0026498",
+          "name": "Matthew Stafford"
+        },
+        "away": {
+          "id": "00-0034857",
+          "name": "Josh Allen"
+        }
+      },
+      "prediction": {
+        "predWinner": "LA",
+        "predWinPct": 0.603,
+        "nflPredictorLine": 3.1,
+        "homeImplPts": 28.8,
+        "awayImplPts": 25.7,
+        "lineDiff": 0.1
+      },
+      "result": null,
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_ARI_LA",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "16:05",
+      "homeTeam": "LA",
+      "awayTeam": "ARI",
+      "spreadLine": 10.5,
+      "totalLine": 51.5,
+      "homeMoneyline": -625,
+      "awayMoneyline": 455,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · LA expected QB identity unresolved · ARI expected QB identity unresolved · LA QB status not freshly verified · ARI QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · LA expected QB identity unresolved · ARI expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "LA",
+        "predWinPct": 0.857,
+        "nflPredictorLine": 11.1,
+        "homeImplPts": 31.3,
+        "awayImplPts": 20.2,
+        "lineDiff": 0.6
+      },
+      "result": null,
       "bet": null
     },
     {
@@ -1746,6 +2390,48 @@
       "bet": null
     },
     {
+      "gameId": "2026_05_DEN_LAC",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "16:05",
+      "homeTeam": "LAC",
+      "awayTeam": "DEN",
+      "spreadLine": -3.5,
+      "totalLine": 42.5,
+      "homeMoneyline": 154,
+      "awayMoneyline": -185,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0036355",
+          "name": "Justin Herbert"
+        },
+        "away": {
+          "id": "00-0039732",
+          "name": "Bo Nix"
+        }
+      },
+      "prediction": {
+        "predWinner": "DEN",
+        "predWinPct": 0.64,
+        "nflPredictorLine": -2.9,
+        "homeImplPts": 19.8,
+        "awayImplPts": 22.7,
+        "lineDiff": 0.6
+      },
+      "result": null,
+      "bet": null
+    },
+    {
       "gameId": "2026_01_MIA_LV",
       "season": 2026,
       "week": 1,
@@ -1810,29 +2496,79 @@
       "awayMoneyline": -225,
       "divGame": true,
       "availability": {
-        "eligible": true,
-        "reason": "",
-        "checkedAt": "2026-10-04 17:19:55"
+        "eligible": false,
+        "reason": "No pregame QB feature refresh · LV QB status not freshly verified · KC QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
-        "verified": true,
-        "reason": "",
+        "verified": false,
+        "reason": "No pregame QB feature refresh",
         "home": {
-          "id": "00-0029604",
-          "name": "Kirk Cousins"
+          "id": null,
+          "name": null
         },
         "away": {
-          "id": "00-0033873",
-          "name": "Patrick Mahomes"
+          "id": null,
+          "name": null
         }
       },
       "prediction": {
         "predWinner": "KC",
-        "predWinPct": 0.72,
-        "nflPredictorLine": -5.1,
+        "predWinPct": 0.722,
+        "nflPredictorLine": -5.2,
         "homeImplPts": 21.2,
         "awayImplPts": 26.3,
-        "lineDiff": -0.6
+        "lineDiff": -0.7
+      },
+      "result": {
+        "homePoints": 27,
+        "awayPoints": 30,
+        "homeResult": -3,
+        "homeWin": false,
+        "winningTeam": "KC",
+        "predCorrect": true,
+        "vegasCorrect": true
+      },
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_BUF_LV",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "16:25",
+      "homeTeam": "LV",
+      "awayTeam": "BUF",
+      "spreadLine": -4.5,
+      "totalLine": 51.5,
+      "homeMoneyline": 185,
+      "awayMoneyline": -225,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · LV expected QB identity unresolved · BUF expected QB identity unresolved · LV QB status not freshly verified · BUF QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · LV expected QB identity unresolved · BUF expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "BUF",
+        "predWinPct": 0.734,
+        "nflPredictorLine": -5.6,
+        "homeImplPts": 23,
+        "awayImplPts": 28.5,
+        "lineDiff": -1.1
       },
       "result": null,
       "bet": null
@@ -1885,6 +2621,48 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
+      "bet": null
+    },
+    {
+      "gameId": "2026_05_CIN_MIA",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "MIA",
+      "awayTeam": "CIN",
+      "spreadLine": -7,
+      "totalLine": 42.5,
+      "homeMoneyline": 280,
+      "awayMoneyline": -355,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0038128",
+          "name": "Malik Willis"
+        },
+        "away": {
+          "id": "00-0036442",
+          "name": "Joe Burrow"
+        }
+      },
+      "prediction": {
+        "predWinner": "CIN",
+        "predWinPct": 0.809,
+        "nflPredictorLine": -8.1,
+        "homeImplPts": 17.2,
+        "awayImplPts": 25.3,
+        "lineDiff": -1.1
+      },
+      "result": null,
       "bet": null
     },
     {
@@ -1946,37 +2724,45 @@
       "gametime": "16:05",
       "homeTeam": "MIN",
       "awayTeam": "MIA",
-      "spreadLine": 11.5,
+      "spreadLine": 10,
       "totalLine": 38.5,
-      "homeMoneyline": -750,
-      "awayMoneyline": 525,
+      "homeMoneyline": -535,
+      "awayMoneyline": 400,
       "divGame": false,
       "availability": {
-        "eligible": true,
-        "reason": "",
-        "checkedAt": "2026-10-04 17:19:55"
+        "eligible": false,
+        "reason": "No pregame QB feature refresh · MIN QB status not freshly verified · MIA QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
-        "verified": true,
-        "reason": "",
+        "verified": false,
+        "reason": "No pregame QB feature refresh",
         "home": {
-          "id": "00-0035228",
-          "name": "Kyler Murray"
+          "id": null,
+          "name": null
         },
         "away": {
-          "id": "00-0038128",
-          "name": "Malik Willis"
+          "id": null,
+          "name": null
         }
       },
       "prediction": {
         "predWinner": "MIN",
-        "predWinPct": 0.869,
-        "nflPredictorLine": 11.6,
-        "homeImplPts": 25,
-        "awayImplPts": 13.5,
+        "predWinPct": 0.835,
+        "nflPredictorLine": 10.1,
+        "homeImplPts": 24.3,
+        "awayImplPts": 14.2,
         "lineDiff": 0.1
       },
-      "result": null,
+      "result": {
+        "homePoints": 15,
+        "awayPoints": 10,
+        "homeResult": 5,
+        "homeWin": true,
+        "winningTeam": "MIN",
+        "predCorrect": true,
+        "vegasCorrect": true
+      },
       "bet": null
     },
     {
@@ -2027,6 +2813,90 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
+      "bet": null
+    },
+    {
+      "gameId": "2026_05_LV_NE",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "NE",
+      "awayTeam": "LV",
+      "spreadLine": 3.5,
+      "totalLine": 45.5,
+      "homeMoneyline": -192,
+      "awayMoneyline": 160,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0039851",
+          "name": "Drake Maye"
+        },
+        "away": {
+          "id": "00-0029604",
+          "name": "Kirk Cousins"
+        }
+      },
+      "prediction": {
+        "predWinner": "NE",
+        "predWinPct": 0.657,
+        "nflPredictorLine": 4.5,
+        "homeImplPts": 25,
+        "awayImplPts": 20.5,
+        "lineDiff": 1
+      },
+      "result": null,
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_NYJ_NE",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "NE",
+      "awayTeam": "NYJ",
+      "spreadLine": 7,
+      "totalLine": 43.5,
+      "homeMoneyline": -340,
+      "awayMoneyline": 270,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · NE expected QB identity unresolved · NYJ expected QB identity unresolved · NE QB status not freshly verified · NYJ QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · NE expected QB identity unresolved · NYJ expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "NE",
+        "predWinPct": 0.763,
+        "nflPredictorLine": 7.5,
+        "homeImplPts": 25.5,
+        "awayImplPts": 18,
+        "lineDiff": 0.5
+      },
+      "result": null,
       "bet": null
     },
     {
@@ -2088,15 +2958,65 @@
       "gametime": "20:15",
       "homeTeam": "NO",
       "awayTeam": "ATL",
-      "spreadLine": 3,
-      "totalLine": 48.5,
-      "homeMoneyline": -155,
-      "awayMoneyline": 130,
+      "spreadLine": 1.5,
+      "totalLine": 47.5,
+      "homeMoneyline": -118,
+      "awayMoneyline": -102,
       "divGame": true,
       "availability": {
-        "eligible": true,
-        "reason": "",
-        "checkedAt": "2026-10-04 17:19:55"
+        "eligible": false,
+        "reason": "No pregame QB feature refresh · NO QB status not freshly verified · ATL QB status not freshly verified",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "No pregame QB feature refresh",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "NO",
+        "predWinPct": 0.512,
+        "nflPredictorLine": 0.9,
+        "homeImplPts": 24.2,
+        "awayImplPts": 23.3,
+        "lineDiff": -0.6
+      },
+      "result": {
+        "homePoints": 24,
+        "awayPoints": 45,
+        "homeResult": -21,
+        "homeWin": false,
+        "winningTeam": "ATL",
+        "predCorrect": false,
+        "vegasCorrect": false
+      },
+      "bet": null
+    },
+    {
+      "gameId": "2026_05_MIN_NO",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "NO",
+      "awayTeam": "MIN",
+      "spreadLine": -1.5,
+      "totalLine": 42.5,
+      "homeMoneyline": 110,
+      "awayMoneyline": -130,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
       },
       "qbInputs": {
         "verified": true,
@@ -2106,16 +3026,16 @@
           "name": "Tyler Shough"
         },
         "away": {
-          "id": "00-0039917",
-          "name": "Michael Penix"
+          "id": "00-0035228",
+          "name": "Kyler Murray"
         }
       },
       "prediction": {
-        "predWinner": "NO",
-        "predWinPct": 0.588,
-        "nflPredictorLine": 2.7,
-        "homeImplPts": 25.6,
-        "awayImplPts": 22.9,
+        "predWinner": "MIN",
+        "predWinPct": 0.595,
+        "nflPredictorLine": -1.8,
+        "homeImplPts": 20.4,
+        "awayImplPts": 22.1,
         "lineDiff": -0.3
       },
       "result": null,
@@ -2230,15 +3150,15 @@
       "gametime": "13:00",
       "homeTeam": "NYG",
       "awayTeam": "ARI",
-      "spreadLine": -1.5,
+      "spreadLine": -2.5,
       "totalLine": 44.5,
-      "homeMoneyline": -105,
-      "awayMoneyline": -115,
+      "homeMoneyline": 114,
+      "awayMoneyline": -135,
       "divGame": false,
       "availability": {
         "eligible": false,
-        "reason": "No pregame QB feature refresh · NYG forecast does not match expected starter · ARI forecast does not match expected starter",
-        "checkedAt": "2026-10-04 17:19:55"
+        "reason": "No pregame QB feature refresh · NYG QB status not freshly verified · ARI QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
         "verified": false,
@@ -2253,12 +3173,62 @@
         }
       },
       "prediction": {
-        "predWinner": "NYG",
-        "predWinPct": 0.502,
-        "nflPredictorLine": 0.5,
-        "homeImplPts": 22.5,
-        "awayImplPts": 22,
-        "lineDiff": 2
+        "predWinner": "ARI",
+        "predWinPct": 0.555,
+        "nflPredictorLine": -0.8,
+        "homeImplPts": 21.9,
+        "awayImplPts": 22.6,
+        "lineDiff": 1.7
+      },
+      "result": {
+        "homePoints": 36,
+        "awayPoints": 24,
+        "homeResult": 12,
+        "homeWin": true,
+        "winningTeam": "NYG",
+        "predCorrect": false,
+        "vegasCorrect": false
+      },
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_NO_NYG",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "NYG",
+      "awayTeam": "NO",
+      "spreadLine": -1.5,
+      "totalLine": 45.5,
+      "homeMoneyline": -102,
+      "awayMoneyline": -118,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · NYG expected QB identity unresolved · NO expected QB identity unresolved · NYG QB status not freshly verified · NO QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · NYG expected QB identity unresolved · NO expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "NO",
+        "predWinPct": 0.533,
+        "nflPredictorLine": -0.2,
+        "homeImplPts": 22.6,
+        "awayImplPts": 22.9,
+        "lineDiff": 1.3
       },
       "result": null,
       "bet": null
@@ -2311,6 +3281,48 @@
         "predCorrect": true,
         "vegasCorrect": true
       },
+      "bet": null
+    },
+    {
+      "gameId": "2026_05_CLE_NYJ",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "NYJ",
+      "awayTeam": "CLE",
+      "spreadLine": 2.5,
+      "totalLine": 39.5,
+      "homeMoneyline": -130,
+      "awayMoneyline": 110,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0030565",
+          "name": "Geno Smith"
+        },
+        "away": {
+          "id": "00-0033537",
+          "name": "Deshaun Watson"
+        }
+      },
+      "prediction": {
+        "predWinner": "NYJ",
+        "predWinPct": 0.57,
+        "nflPredictorLine": 2.3,
+        "homeImplPts": 20.9,
+        "awayImplPts": 18.6,
+        "lineDiff": -0.2
+      },
+      "result": null,
       "bet": null
     },
     {
@@ -2372,15 +3384,15 @@
       "gametime": "13:00",
       "homeTeam": "PHI",
       "awayTeam": "LA",
-      "spreadLine": -3,
-      "totalLine": 44.5,
-      "homeMoneyline": 130,
-      "awayMoneyline": -155,
+      "spreadLine": -3.5,
+      "totalLine": 42.5,
+      "homeMoneyline": 164,
+      "awayMoneyline": -198,
       "divGame": false,
       "availability": {
         "eligible": false,
-        "reason": "No pregame QB feature refresh · PHI forecast does not match expected starter · LA forecast does not match expected starter",
-        "checkedAt": "2026-10-04 17:19:55"
+        "reason": "No pregame QB feature refresh · PHI QB status not freshly verified · LA QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
         "verified": false,
@@ -2396,11 +3408,61 @@
       },
       "prediction": {
         "predWinner": "LA",
-        "predWinPct": 0.614,
-        "nflPredictorLine": -2.3,
-        "homeImplPts": 21.1,
-        "awayImplPts": 23.4,
-        "lineDiff": 0.7
+        "predWinPct": 0.655,
+        "nflPredictorLine": -3.3,
+        "homeImplPts": 19.6,
+        "awayImplPts": 22.9,
+        "lineDiff": 0.2
+      },
+      "result": {
+        "homePoints": 20,
+        "awayPoints": 24,
+        "homeResult": -4,
+        "homeWin": false,
+        "winningTeam": "LA",
+        "predCorrect": true,
+        "vegasCorrect": true
+      },
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_CAR_PHI",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "PHI",
+      "awayTeam": "CAR",
+      "spreadLine": 2.5,
+      "totalLine": 43.5,
+      "homeMoneyline": -135,
+      "awayMoneyline": 114,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · PHI expected QB identity unresolved · CAR expected QB identity unresolved · PHI QB status not freshly verified · CAR QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · PHI expected QB identity unresolved · CAR expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "PHI",
+        "predWinPct": 0.571,
+        "nflPredictorLine": 2.3,
+        "homeImplPts": 22.9,
+        "awayImplPts": 20.6,
+        "lineDiff": -0.2
       },
       "result": null,
       "bet": null
@@ -2506,6 +3568,48 @@
       "bet": null
     },
     {
+      "gameId": "2026_05_IND_PIT",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "PIT",
+      "awayTeam": "IND",
+      "spreadLine": 2.5,
+      "totalLine": 44.5,
+      "homeMoneyline": -142,
+      "awayMoneyline": 120,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0023459",
+          "name": "Aaron Rodgers"
+        },
+        "away": {
+          "id": "00-0035710",
+          "name": "Daniel Jones"
+        }
+      },
+      "prediction": {
+        "predWinner": "PIT",
+        "predWinPct": 0.572,
+        "nflPredictorLine": 2.3,
+        "homeImplPts": 23.4,
+        "awayImplPts": 21.1,
+        "lineDiff": -0.2
+      },
+      "result": null,
+      "bet": null
+    },
+    {
       "gameId": "2026_01_NE_SEA",
       "season": 2026,
       "week": 1,
@@ -2566,13 +3670,63 @@
       "awayTeam": "LAC",
       "spreadLine": 7,
       "totalLine": 42.5,
-      "homeMoneyline": -355,
-      "awayMoneyline": 280,
+      "homeMoneyline": -345,
+      "awayMoneyline": 275,
       "divGame": false,
       "availability": {
-        "eligible": true,
-        "reason": "",
-        "checkedAt": "2026-10-04 17:19:55"
+        "eligible": false,
+        "reason": "No pregame QB feature refresh · SEA QB status not freshly verified · LAC QB status not freshly verified",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "No pregame QB feature refresh",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "SEA",
+        "predWinPct": 0.767,
+        "nflPredictorLine": 7.7,
+        "homeImplPts": 25.1,
+        "awayImplPts": 17.4,
+        "lineDiff": 0.7
+      },
+      "result": {
+        "homePoints": 30,
+        "awayPoints": 23,
+        "homeResult": 7,
+        "homeWin": true,
+        "winningTeam": "SEA",
+        "predCorrect": true,
+        "vegasCorrect": true
+      },
+      "bet": null
+    },
+    {
+      "gameId": "2026_05_SF_SEA",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "16:25",
+      "homeTeam": "SEA",
+      "awayTeam": "SF",
+      "spreadLine": 2.5,
+      "totalLine": 46.5,
+      "homeMoneyline": -155,
+      "awayMoneyline": 130,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
       },
       "qbInputs": {
         "verified": true,
@@ -2582,17 +3736,17 @@
           "name": "Sam Darnold"
         },
         "away": {
-          "id": "00-0036355",
-          "name": "Justin Herbert"
+          "id": "00-0037834",
+          "name": "Brock Purdy"
         }
       },
       "prediction": {
         "predWinner": "SEA",
-        "predWinPct": 0.769,
-        "nflPredictorLine": 7.7,
-        "homeImplPts": 25.1,
-        "awayImplPts": 17.4,
-        "lineDiff": 0.7
+        "predWinPct": 0.598,
+        "nflPredictorLine": 3,
+        "homeImplPts": 24.7,
+        "awayImplPts": 21.8,
+        "lineDiff": 0.5
       },
       "result": null,
       "bet": null
@@ -2707,34 +3861,84 @@
       "homeTeam": "SF",
       "awayTeam": "DEN",
       "spreadLine": 3,
-      "totalLine": 46.5,
-      "homeMoneyline": -155,
-      "awayMoneyline": 130,
+      "totalLine": 48.5,
+      "homeMoneyline": -166,
+      "awayMoneyline": 140,
       "divGame": false,
       "availability": {
-        "eligible": true,
-        "reason": "",
-        "checkedAt": "2026-10-04 17:19:55"
+        "eligible": false,
+        "reason": "No pregame QB feature refresh · SF QB status not freshly verified · DEN QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
-        "verified": true,
-        "reason": "",
+        "verified": false,
+        "reason": "No pregame QB feature refresh",
         "home": {
-          "id": "00-0037834",
-          "name": "Brock Purdy"
+          "id": null,
+          "name": null
         },
         "away": {
-          "id": "00-0039732",
-          "name": "Bo Nix"
+          "id": null,
+          "name": null
         }
       },
       "prediction": {
         "predWinner": "SF",
-        "predWinPct": 0.632,
-        "nflPredictorLine": 3.8,
-        "homeImplPts": 25.2,
-        "awayImplPts": 21.3,
-        "lineDiff": 0.8
+        "predWinPct": 0.645,
+        "nflPredictorLine": 4.2,
+        "homeImplPts": 26.3,
+        "awayImplPts": 22.2,
+        "lineDiff": 1.2
+      },
+      "result": {
+        "homePoints": 24,
+        "awayPoints": 14,
+        "homeResult": 10,
+        "homeWin": true,
+        "winningTeam": "SF",
+        "predCorrect": true,
+        "vegasCorrect": true
+      },
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_WAS_SF",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-19",
+      "weekday": "Monday",
+      "gametime": "20:15",
+      "homeTeam": "SF",
+      "awayTeam": "WAS",
+      "spreadLine": 7.5,
+      "totalLine": 50.5,
+      "homeMoneyline": -425,
+      "awayMoneyline": 330,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · SF expected QB identity unresolved · WAS expected QB identity unresolved · SF QB status not freshly verified · WAS QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · SF expected QB identity unresolved · WAS expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "SF",
+        "predWinPct": 0.813,
+        "nflPredictorLine": 9.2,
+        "homeImplPts": 29.9,
+        "awayImplPts": 20.6,
+        "lineDiff": 1.7
       },
       "result": null,
       "bet": null
@@ -2848,15 +4052,15 @@
       "gametime": "13:00",
       "homeTeam": "TB",
       "awayTeam": "GB",
-      "spreadLine": -3.5,
-      "totalLine": 39.5,
-      "homeMoneyline": 160,
-      "awayMoneyline": -192,
+      "spreadLine": -3,
+      "totalLine": 38.5,
+      "homeMoneyline": 130,
+      "awayMoneyline": -155,
       "divGame": false,
       "availability": {
         "eligible": false,
-        "reason": "No pregame QB feature refresh · TB forecast does not match expected starter · GB forecast does not match expected starter",
-        "checkedAt": "2026-10-04 17:19:55"
+        "reason": "No pregame QB feature refresh · TB QB status not freshly verified · GB QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
         "verified": false,
@@ -2872,11 +4076,61 @@
       },
       "prediction": {
         "predWinner": "GB",
-        "predWinPct": 0.655,
-        "nflPredictorLine": -3.3,
+        "predWinPct": 0.616,
+        "nflPredictorLine": -2.3,
         "homeImplPts": 18.1,
-        "awayImplPts": 21.4,
-        "lineDiff": 0.2
+        "awayImplPts": 20.4,
+        "lineDiff": 0.7
+      },
+      "result": {
+        "homePoints": 14,
+        "awayPoints": 17,
+        "homeResult": -3,
+        "homeWin": false,
+        "winningTeam": "GB",
+        "predCorrect": true,
+        "vegasCorrect": true
+      },
+      "bet": null
+    },
+    {
+      "gameId": "2026_06_PIT_TB",
+      "season": 2026,
+      "week": 6,
+      "gameday": "2026-10-18",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "TB",
+      "awayTeam": "PIT",
+      "spreadLine": -3,
+      "totalLine": 39.5,
+      "homeMoneyline": 130,
+      "awayMoneyline": -155,
+      "divGame": false,
+      "availability": {
+        "eligible": false,
+        "reason": "QB history missing or incomplete through the previous week · TB expected QB identity unresolved · PIT expected QB identity unresolved · TB QB status not freshly verified · PIT QB status not freshly verified · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": null
+      },
+      "qbInputs": {
+        "verified": false,
+        "reason": "QB history missing or incomplete through the previous week · TB expected QB identity unresolved · PIT expected QB identity unresolved",
+        "home": {
+          "id": null,
+          "name": null
+        },
+        "away": {
+          "id": null,
+          "name": null
+        }
+      },
+      "prediction": {
+        "predWinner": "PIT",
+        "predWinPct": 0.606,
+        "nflPredictorLine": -2.1,
+        "homeImplPts": 18.7,
+        "awayImplPts": 20.8,
+        "lineDiff": 0.9
       },
       "result": null,
       "bet": null
@@ -2982,6 +4236,48 @@
       "bet": null
     },
     {
+      "gameId": "2026_05_HOU_TEN",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "TEN",
+      "awayTeam": "HOU",
+      "spreadLine": -7.5,
+      "totalLine": 37.5,
+      "homeMoneyline": 280,
+      "awayMoneyline": -355,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": " · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0040676",
+          "name": "Cam Ward"
+        },
+        "away": {
+          "id": "00-0039163",
+          "name": "C.J. Stroud"
+        }
+      },
+      "prediction": {
+        "predWinner": "HOU",
+        "predWinPct": 0.782,
+        "nflPredictorLine": -7.1,
+        "homeImplPts": 15.2,
+        "awayImplPts": 22.3,
+        "lineDiff": 0.4
+      },
+      "result": null,
+      "bet": null
+    },
+    {
       "gameId": "2026_03_SEA_WAS",
       "season": 2026,
       "week": 3,
@@ -3040,15 +4336,15 @@
       "gametime": "09:30",
       "homeTeam": "WAS",
       "awayTeam": "IND",
-      "spreadLine": -3.5,
-      "totalLine": 47.5,
-      "homeMoneyline": 150,
-      "awayMoneyline": -180,
+      "spreadLine": -4.5,
+      "totalLine": 46.5,
+      "homeMoneyline": 190,
+      "awayMoneyline": -230,
       "divGame": false,
       "availability": {
         "eligible": false,
-        "reason": "No pregame QB feature refresh · WAS forecast does not match expected starter · Marcus Mariota Out · IND forecast does not match expected starter",
-        "checkedAt": "2026-10-04 17:19:55"
+        "reason": "No pregame QB feature refresh · WAS QB status not freshly verified · IND QB status not freshly verified",
+        "checkedAt": null
       },
       "qbInputs": {
         "verified": false,
@@ -3064,11 +4360,61 @@
       },
       "prediction": {
         "predWinner": "IND",
-        "predWinPct": 0.661,
-        "nflPredictorLine": -3.5,
-        "homeImplPts": 22,
-        "awayImplPts": 25.5,
-        "lineDiff": 0
+        "predWinPct": 0.706,
+        "nflPredictorLine": -4.7,
+        "homeImplPts": 20.9,
+        "awayImplPts": 25.6,
+        "lineDiff": -0.2
+      },
+      "result": {
+        "homePoints": 13,
+        "awayPoints": 30,
+        "homeResult": -17,
+        "homeWin": false,
+        "winningTeam": "IND",
+        "predCorrect": true,
+        "vegasCorrect": true
+      },
+      "bet": null
+    },
+    {
+      "gameId": "2026_05_NYG_WAS",
+      "season": 2026,
+      "week": 5,
+      "gameday": "2026-10-11",
+      "weekday": "Sunday",
+      "gametime": "13:00",
+      "homeTeam": "WAS",
+      "awayTeam": "NYG",
+      "spreadLine": 3.5,
+      "totalLine": 43.5,
+      "homeMoneyline": -175,
+      "awayMoneyline": 145,
+      "divGame": true,
+      "availability": {
+        "eligible": false,
+        "reason": "Marcus Mariota Out · Current injury or prior-game snap inputs unavailable",
+        "checkedAt": "2026-10-07 04:08:12"
+      },
+      "qbInputs": {
+        "verified": true,
+        "reason": "",
+        "home": {
+          "id": "00-0032268",
+          "name": "Marcus Mariota"
+        },
+        "away": {
+          "id": "00-0031503",
+          "name": "Jameis Winston"
+        }
+      },
+      "prediction": {
+        "predWinner": "WAS",
+        "predWinPct": 0.579,
+        "nflPredictorLine": 2.5,
+        "homeImplPts": 23,
+        "awayImplPts": 20.5,
+        "lineDiff": -1
       },
       "result": null,
       "bet": null

@@ -1,6 +1,20 @@
 {
   "snapshots": [
     {
+      "file": "2026-wk04_half.json",
+      "season": 2026,
+      "week": 4,
+      "tag": "2026-wk04_half",
+      "scoring": "half"
+    },
+    {
+      "file": "2026-wk04.json",
+      "season": 2026,
+      "week": 4,
+      "tag": "2026-wk04",
+      "scoring": "ppr"
+    },
+    {
       "file": "2026-wk03_half.json",
       "season": 2026,
       "week": 3,
@@ -309,7 +323,7 @@
       "scoring": "ppr"
     }
   ],
-  "latest": "2026-wk03",
+  "latest": "2026-wk04",
   "scoring": "ppr",
   "formats": ["half", "ppr"]
 }

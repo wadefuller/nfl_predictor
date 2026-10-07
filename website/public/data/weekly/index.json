@@ -1,12 +1,35 @@
 {
   "weeks": [
     {
+      "tag": "2026-wk05",
+      "season": 2026,
+      "week": 5,
+      "phase": "pre",
+      "reports": ["bet_card", "dst_stream", "games_preview", "kalshi_lines", "kalshi_win_probs", "lineups", "opportunity_share", "polymarket_bets", "projections", "waivers"],
+      "updated": "2026-10-06T21:19:14-0700"
+    },
+    {
       "tag": "2026-wk04",
       "season": 2026,
       "week": 4,
-      "phase": "pre",
-      "reports": ["bet_card", "dst_stream", "games_preview", "kalshi_lines", "kalshi_win_probs", "lineups", "opportunity_share", "polymarket_bets", "projections", "waivers"],
-      "updated": "2026-10-04T10:22:37-0700"
+      "phase": "post",
+      "reports": [
+        "bet_card",
+        "dst_stream",
+        "fantasy_ranks",
+        "fantasy_recap",
+        "games_preview",
+        "kalshi_lines",
+        "kalshi_win_probs",
+        "league_report",
+        "lineups",
+        "opportunity_share",
+        "polymarket_bets",
+        "projections",
+        "waivers",
+        "weekly_accuracy"
+      ],
+      "updated": "2026-10-06T21:05:44-0700"
     },
     {
       "tag": "2026-wk03",
@@ -677,5 +700,5 @@
       "updated": "2026-08-14T22:21:24-0700"
     }
   ],
-  "latest": "2026-wk04"
+  "latest": "2026-wk05"
 }

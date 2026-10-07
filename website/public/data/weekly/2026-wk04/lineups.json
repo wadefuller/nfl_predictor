@@ -15,11 +15,11 @@
       "player": "Lamar Jackson",
       "team": "BAL",
       "sleeper_id": "4881",
-      "proj": 20,
-      "half_ppr": 20,
+      "proj": 20.1,
+      "half_ppr": 20.1,
       "scoring_mult": 1,
-      "floor": 10.7,
-      "ceiling": 28.6,
+      "floor": 10.6,
+      "ceiling": 28.8,
       "opponent": "TEN"
     },
     {
@@ -58,8 +58,8 @@
       "proj": 10.9,
       "half_ppr": 10.9,
       "scoring_mult": 1,
-      "floor": 3.1,
-      "ceiling": 20.3,
+      "floor": 3,
+      "ceiling": 19.9,
       "opponent": "CIN"
     },
     {
@@ -75,11 +75,11 @@
       "player": "Amon-Ra St. Brown",
       "team": "DET",
       "sleeper_id": "7547",
-      "proj": 16.2,
-      "half_ppr": 16.2,
+      "proj": 15.3,
+      "half_ppr": 15.3,
       "scoring_mult": 1,
-      "floor": 5.1,
-      "ceiling": 29.2,
+      "floor": 4.6,
+      "ceiling": 28.4,
       "opponent": "CAR"
     },
     {
@@ -95,11 +95,11 @@
       "player": "Rashee Rice",
       "team": "KC",
       "sleeper_id": "10229",
-      "proj": 10.9,
-      "half_ppr": 10.9,
+      "proj": 10.6,
+      "half_ppr": 10.6,
       "scoring_mult": 1,
-      "floor": 2.4,
-      "ceiling": 21.3,
+      "floor": 2.3,
+      "ceiling": 21.2,
       "opponent": "LV"
     },
     {
@@ -119,7 +119,7 @@
       "half_ppr": 10.9,
       "scoring_mult": 1,
       "floor": 2.9,
-      "ceiling": 20.5,
+      "ceiling": 20.4,
       "opponent": "NYG"
     },
     {
@@ -155,11 +155,11 @@
       "player": "George Kittle",
       "team": "SF",
       "sleeper_id": "4217",
-      "proj": 9.9,
-      "half_ppr": 9.9,
+      "proj": 9.7,
+      "half_ppr": 9.7,
       "scoring_mult": 1,
       "floor": 2.1,
-      "ceiling": 19.2,
+      "ceiling": 18.6,
       "opponent": "DEN"
     },
     {
@@ -175,11 +175,11 @@
       "player": "Jared Goff",
       "team": "DET",
       "sleeper_id": "3163",
-      "proj": 19.9,
-      "half_ppr": 19.9,
+      "proj": 20.1,
+      "half_ppr": 20.1,
       "scoring_mult": 1,
-      "floor": 10.4,
-      "ceiling": 30.9,
+      "floor": 10.2,
+      "ceiling": 31.2,
       "opponent": "CAR"
     },
     {
@@ -199,7 +199,7 @@
       "half_ppr": 16.4,
       "scoring_mult": 1,
       "floor": 7.7,
-      "ceiling": 26.1,
+      "ceiling": 26.2,
       "opponent": "NYG"
     },
     {
@@ -235,11 +235,11 @@
       "player": "Zay Flowers",
       "team": "BAL",
       "sleeper_id": "9997",
-      "proj": 8.9,
-      "half_ppr": 8.9,
+      "proj": 8.4,
+      "half_ppr": 8.4,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 22.1,
+      "ceiling": 21.5,
       "opponent": "TEN"
     },
     {
@@ -278,8 +278,8 @@
       "proj": 7.1,
       "half_ppr": 7.1,
       "scoring_mult": 1,
-      "floor": 0.7,
-      "ceiling": 16,
+      "floor": 0.6,
+      "ceiling": 15.9,
       "opponent": "SF"
     },
     {
@@ -295,11 +295,11 @@
       "player": "Rashod Bateman",
       "team": "BAL",
       "sleeper_id": "7571",
-      "proj": 6.9,
-      "half_ppr": 6.9,
+      "proj": 6.7,
+      "half_ppr": 6.7,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 15.7,
+      "ceiling": 15.6,
       "opponent": "TEN"
     },
     {
@@ -318,29 +318,9 @@
       "proj": 5.8,
       "half_ppr": 5.8,
       "scoring_mult": 1,
-      "floor": 0.5,
+      "floor": 0.6,
       "ceiling": 12.7,
       "opponent": "LAC"
-    },
-    {
-      "season": 2026,
-      "week": 4,
-      "league": "UNH SuperFlex Dynasty",
-      "franchise": "Amon-Ra St. Boomorbust",
-      "platform_id": "16778",
-      "actual_status": "SIT",
-      "lineup_slot": "nonstarter",
-      "status": "SIT",
-      "position": "WR",
-      "player": "Ryan Flournoy",
-      "team": "DAL",
-      "sleeper_id": "11783",
-      "proj": 5.8,
-      "half_ppr": 5.8,
-      "scoring_mult": 1,
-      "floor": 0,
-      "ceiling": 13.6,
-      "opponent": "HOU"
     },
     {
       "season": 2026,
@@ -378,9 +358,29 @@
       "proj": 5.7,
       "half_ppr": 5.7,
       "scoring_mult": 1,
-      "floor": 0.4,
-      "ceiling": 14.4,
+      "floor": 0.3,
+      "ceiling": 14.3,
       "opponent": "PHI"
+    },
+    {
+      "season": 2026,
+      "week": 4,
+      "league": "UNH SuperFlex Dynasty",
+      "franchise": "Amon-Ra St. Boomorbust",
+      "platform_id": "16778",
+      "actual_status": "SIT",
+      "lineup_slot": "nonstarter",
+      "status": "SIT",
+      "position": "WR",
+      "player": "Ryan Flournoy",
+      "team": "DAL",
+      "sleeper_id": "11783",
+      "proj": 5.5,
+      "half_ppr": 5.5,
+      "scoring_mult": 1,
+      "floor": 0,
+      "ceiling": 13.4,
+      "opponent": "HOU"
     },
     {
       "season": 2026,
@@ -395,11 +395,11 @@
       "player": "Isaac TeSlaa",
       "team": "DET",
       "sleeper_id": "12535",
-      "proj": 5.3,
-      "half_ppr": 5.3,
+      "proj": 5.1,
+      "half_ppr": 5.1,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 13.3,
+      "ceiling": 13.2,
       "opponent": "CAR"
     },
     {
@@ -415,11 +415,11 @@
       "player": "Darnell Mooney",
       "team": "NYG",
       "sleeper_id": "7090",
-      "proj": 5.1,
-      "half_ppr": 5.1,
+      "proj": 5,
+      "half_ppr": 5,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 12.5,
+      "ceiling": 12.1,
       "opponent": "ARI"
     },
     {
@@ -439,7 +439,7 @@
       "half_ppr": 4.3,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 10.6,
+      "ceiling": 10.3,
       "opponent": "BAL"
     },
     {
@@ -499,7 +499,7 @@
       "half_ppr": 2,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 7.1,
+      "ceiling": 7.2,
       "opponent": "ATL"
     },
     {
@@ -535,8 +535,8 @@
       "player": "Isaiah Davis",
       "team": "NYJ",
       "sleeper_id": "11571",
-      "proj": 1.5,
-      "half_ppr": 1.5,
+      "proj": 1.4,
+      "half_ppr": 1.4,
       "scoring_mult": 1,
       "floor": 0,
       "ceiling": 4.9,
@@ -579,7 +579,7 @@
       "half_ppr": 1.1,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 4.4,
+      "ceiling": 4.2,
       "opponent": "TEN"
     },
     {
@@ -599,7 +599,7 @@
       "half_ppr": 0.9,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 0.2,
+      "ceiling": 0.6,
       "opponent": "JAX"
     },
     {
@@ -719,7 +719,7 @@
       "half_ppr": 16.2,
       "scoring_mult": 1.278,
       "floor": 5.5,
-      "ceiling": 35.4,
+      "ceiling": 35.3,
       "opponent": "BUF"
     },
     {
@@ -779,7 +779,7 @@
       "half_ppr": 8.4,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 20,
+      "ceiling": 20.1,
       "opponent": "DET"
     },
     {
@@ -787,20 +787,20 @@
       "week": 4,
       "league": "No Fun League",
       "franchise": "wadepfuller",
-      "platform_id": "4217",
+      "platform_id": "12518",
       "actual_status": "START",
       "lineup_slot": "starter",
       "status": "START",
       "position": "TE",
-      "player": "George Kittle",
-      "team": "SF",
-      "sleeper_id": "4217",
-      "proj": 9.9,
-      "half_ppr": 9.9,
+      "player": "Tyler Warren",
+      "team": "IND",
+      "sleeper_id": "12518",
+      "proj": 9.8,
+      "half_ppr": 9.8,
       "scoring_mult": 1,
-      "floor": 2.1,
-      "ceiling": 19.2,
-      "opponent": "DEN"
+      "floor": 2.7,
+      "ceiling": 18.7,
+      "opponent": "WAS"
     },
     {
       "season": 2026,
@@ -835,8 +835,8 @@
       "player": "Kyren Williams",
       "team": "LA",
       "sleeper_id": "8150",
-      "proj": 13.3,
-      "half_ppr": 13.3,
+      "proj": 13.2,
+      "half_ppr": 13.2,
       "scoring_mult": 1,
       "floor": 4.7,
       "ceiling": 23.1,
@@ -847,20 +847,20 @@
       "week": 4,
       "league": "No Fun League",
       "franchise": "wadepfuller",
-      "platform_id": "12518",
+      "platform_id": "4217",
       "actual_status": "START",
       "lineup_slot": "starter",
       "status": "START",
       "position": "TE",
-      "player": "Tyler Warren",
-      "team": "IND",
-      "sleeper_id": "12518",
-      "proj": 9.8,
-      "half_ppr": 9.8,
+      "player": "George Kittle",
+      "team": "SF",
+      "sleeper_id": "4217",
+      "proj": 9.7,
+      "half_ppr": 9.7,
       "scoring_mult": 1,
-      "floor": 2.7,
-      "ceiling": 18.7,
-      "opponent": "WAS"
+      "floor": 2.1,
+      "ceiling": 18.6,
+      "opponent": "DEN"
     },
     {
       "season": 2026,
@@ -879,7 +879,7 @@
       "half_ppr": 7.1,
       "scoring_mult": 1,
       "floor": 0.4,
-      "ceiling": 15.7,
+      "ceiling": 15.9,
       "opponent": "SF"
     },
     {
@@ -895,11 +895,11 @@
       "player": "Brock Purdy",
       "team": "SF",
       "sleeper_id": "8183",
-      "proj": 19.5,
-      "half_ppr": 19.3,
+      "proj": 19.7,
+      "half_ppr": 19.5,
       "scoring_mult": 1.012,
       "floor": 9.5,
-      "ceiling": 29.4,
+      "ceiling": 30.3,
       "opponent": "DEN"
     },
     {
@@ -939,7 +939,7 @@
       "half_ppr": 6.6,
       "scoring_mult": 1,
       "floor": 0.3,
-      "ceiling": 15,
+      "ceiling": 15.1,
       "opponent": "SEA"
     },
     {
@@ -955,11 +955,11 @@
       "player": "Alvin Kamara",
       "team": "NO",
       "sleeper_id": "4035",
-      "proj": 6.5,
-      "half_ppr": 6.5,
+      "proj": 6.4,
+      "half_ppr": 6.4,
       "scoring_mult": 1,
       "floor": 0.7,
-      "ceiling": 15.2,
+      "ceiling": 14.8,
       "opponent": "ATL"
     },
     {
@@ -975,11 +975,11 @@
       "player": "Michael Mayer",
       "team": "LV",
       "sleeper_id": "9482",
-      "proj": 6.5,
-      "half_ppr": 6.5,
+      "proj": 6.4,
+      "half_ppr": 6.4,
       "scoring_mult": 1,
       "floor": 1.1,
-      "ceiling": 14.3,
+      "ceiling": 13.9,
       "opponent": "KC"
     },
     {
@@ -995,11 +995,11 @@
       "player": "Pat Bryant",
       "team": "DEN",
       "sleeper_id": "12492",
-      "proj": 6.4,
-      "half_ppr": 6.4,
+      "proj": 6.3,
+      "half_ppr": 6.3,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 14.4,
+      "ceiling": 14.3,
       "opponent": "SF"
     },
     {
@@ -1019,7 +1019,7 @@
       "half_ppr": 6.2,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 17.2,
+      "ceiling": 17,
       "opponent": "CIN"
     },
     {
@@ -1047,26 +1047,6 @@
       "week": 4,
       "league": "No Fun League",
       "franchise": "wadepfuller",
-      "platform_id": "9511",
-      "actual_status": "SIT",
-      "lineup_slot": "nonstarter",
-      "status": "SIT",
-      "position": "RB",
-      "player": "Keaton Mitchell",
-      "team": "LAC",
-      "sleeper_id": "9511",
-      "proj": 5.2,
-      "half_ppr": 5.2,
-      "scoring_mult": 1,
-      "floor": 0.3,
-      "ceiling": 11.9,
-      "opponent": "SEA"
-    },
-    {
-      "season": 2026,
-      "week": 4,
-      "league": "No Fun League",
-      "franchise": "wadepfuller",
       "platform_id": "8172",
       "actual_status": "SIT",
       "lineup_slot": "nonstarter",
@@ -1079,8 +1059,28 @@
       "half_ppr": 5.1,
       "scoring_mult": 1,
       "floor": 0.5,
-      "ceiling": 11.4,
+      "ceiling": 11.3,
       "opponent": "MIN"
+    },
+    {
+      "season": 2026,
+      "week": 4,
+      "league": "No Fun League",
+      "franchise": "wadepfuller",
+      "platform_id": "9511",
+      "actual_status": "SIT",
+      "lineup_slot": "nonstarter",
+      "status": "SIT",
+      "position": "RB",
+      "player": "Keaton Mitchell",
+      "team": "LAC",
+      "sleeper_id": "9511",
+      "proj": 5.1,
+      "half_ppr": 5.1,
+      "scoring_mult": 1,
+      "floor": 0.3,
+      "ceiling": 12,
+      "opponent": "SEA"
     },
     {
       "season": 2026,
@@ -1099,7 +1099,7 @@
       "half_ppr": 4.3,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 13.6,
+      "ceiling": 13.4,
       "opponent": "SF"
     },
     {
@@ -1115,8 +1115,8 @@
       "player": "Kendre Miller",
       "team": "NO",
       "sleeper_id": "9757",
-      "proj": 4.3,
-      "half_ppr": 4.3,
+      "proj": 4.2,
+      "half_ppr": 4.2,
       "scoring_mult": 1,
       "floor": 0,
       "ceiling": 11.9,
@@ -1135,11 +1135,11 @@
       "player": "Tory Horton",
       "team": "SEA",
       "sleeper_id": "12497",
-      "proj": 3.9,
-      "half_ppr": 3.9,
+      "proj": 3.8,
+      "half_ppr": 3.8,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 11,
+      "ceiling": 10.9,
       "opponent": "LAC"
     },
     {
@@ -1155,11 +1155,11 @@
       "player": "Jordan Mason",
       "team": "MIN",
       "sleeper_id": "8408",
-      "proj": 3.8,
-      "half_ppr": 3.8,
+      "proj": 3.7,
+      "half_ppr": 3.7,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 13.4,
+      "ceiling": 13,
       "opponent": "MIA"
     },
     {
@@ -1195,11 +1195,31 @@
       "player": "Kyle Williams",
       "team": "NE",
       "sleeper_id": "12547",
-      "proj": 3.2,
-      "half_ppr": 3.2,
+      "proj": 3.3,
+      "half_ppr": 3.3,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 9.8,
+      "ceiling": 10,
+      "opponent": "BUF"
+    },
+    {
+      "season": 2026,
+      "week": 4,
+      "league": "No Fun League",
+      "franchise": "wadepfuller",
+      "platform_id": "5859",
+      "actual_status": "SIT",
+      "lineup_slot": "nonstarter",
+      "status": "SIT",
+      "position": "WR",
+      "player": "A.J. Brown",
+      "team": "NE",
+      "sleeper_id": "5859",
+      "proj": 3.1,
+      "half_ppr": 3.1,
+      "scoring_mult": 1,
+      "floor": 0,
+      "ceiling": 12.5,
       "opponent": "BUF"
     },
     {
@@ -1219,28 +1239,8 @@
       "half_ppr": 3,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 9,
+      "ceiling": 8.9,
       "opponent": "SEA"
-    },
-    {
-      "season": 2026,
-      "week": 4,
-      "league": "No Fun League",
-      "franchise": "wadepfuller",
-      "platform_id": "5859",
-      "actual_status": "SIT",
-      "lineup_slot": "nonstarter",
-      "status": "SIT",
-      "position": "WR",
-      "player": "A.J. Brown",
-      "team": "NE",
-      "sleeper_id": "5859",
-      "proj": 2.9,
-      "half_ppr": 2.9,
-      "scoring_mult": 1,
-      "floor": 0,
-      "ceiling": 12.1,
-      "opponent": "BUF"
     },
     {
       "season": 2026,
@@ -1255,11 +1255,11 @@
       "player": "KaVontae Turpin",
       "team": "DAL",
       "sleeper_id": "8917",
-      "proj": 2.8,
-      "half_ppr": 2.8,
+      "proj": 2.7,
+      "half_ppr": 2.7,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 8.7,
+      "ceiling": 8.4,
       "opponent": "HOU"
     },
     {
@@ -1295,11 +1295,11 @@
       "player": "De'Zhaun Stribling",
       "team": "SF",
       "sleeper_id": "13417",
-      "proj": 1.8,
-      "half_ppr": 1.8,
+      "proj": 1.7,
+      "half_ppr": 1.7,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 7.5,
+      "ceiling": 7.3,
       "opponent": "DEN"
     },
     {
@@ -1319,7 +1319,7 @@
       "half_ppr": 1.1,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 4,
+      "ceiling": 4.5,
       "opponent": "CAR"
     },
     {
@@ -1339,7 +1339,7 @@
       "half_ppr": 0.8,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 2.8,
+      "ceiling": 2.6,
       "opponent": "LV"
     },
     {
@@ -1359,7 +1359,7 @@
       "half_ppr": 0.5,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 1.1,
+      "ceiling": 1.2,
       "opponent": "ATL"
     },
     {
@@ -1535,11 +1535,11 @@
       "player": "Josh Allen",
       "team": "BUF",
       "sleeper_id": "4984",
-      "proj": 24.2,
-      "half_ppr": 21.9,
+      "proj": 24.4,
+      "half_ppr": 22,
       "scoring_mult": 1.107,
-      "floor": 13.3,
-      "ceiling": 35.6,
+      "floor": 13.1,
+      "ceiling": 36,
       "opponent": "NE"
     },
     {
@@ -1555,11 +1555,11 @@
       "player": "Travis Etienne",
       "team": "NO",
       "sleeper_id": "7543",
-      "proj": 11.4,
-      "half_ppr": 11.4,
+      "proj": 11.2,
+      "half_ppr": 11.2,
       "scoring_mult": 1,
       "floor": 2.4,
-      "ceiling": 22.8,
+      "ceiling": 22.4,
       "opponent": "ATL"
     },
     {
@@ -1567,20 +1567,20 @@
       "week": 4,
       "league": "Kansas Keepers League",
       "franchise": "Bowers Power Hour",
-      "platform_id": "12490",
+      "platform_id": "7611",
       "actual_status": "START",
       "lineup_slot": "starter",
       "status": "START",
       "position": "RB",
-      "player": "Bhayshul Tuten",
-      "team": "JAX",
-      "sleeper_id": "12490",
-      "proj": 10.9,
-      "half_ppr": 10.9,
+      "player": "Rhamondre Stevenson",
+      "team": "NE",
+      "sleeper_id": "7611",
+      "proj": 11,
+      "half_ppr": 11,
       "scoring_mult": 1,
-      "floor": 3.1,
-      "ceiling": 20.3,
-      "opponent": "CIN"
+      "floor": 2.6,
+      "ceiling": 22.3,
+      "opponent": "BUF"
     },
     {
       "season": 2026,
@@ -1595,11 +1595,11 @@
       "player": "CeeDee Lamb",
       "team": "DAL",
       "sleeper_id": "6786",
-      "proj": 12.8,
-      "half_ppr": 12.8,
+      "proj": 12,
+      "half_ppr": 12,
       "scoring_mult": 1,
-      "floor": 3.8,
-      "ceiling": 24.2,
+      "floor": 3.2,
+      "ceiling": 23.4,
       "opponent": "HOU"
     },
     {
@@ -1635,11 +1635,11 @@
       "player": "George Kittle",
       "team": "SF",
       "sleeper_id": "4217",
-      "proj": 9.9,
-      "half_ppr": 9.9,
+      "proj": 9.7,
+      "half_ppr": 9.7,
       "scoring_mult": 1,
       "floor": 2.1,
-      "ceiling": 19.2,
+      "ceiling": 18.6,
       "opponent": "DEN"
     },
     {
@@ -1667,20 +1667,20 @@
       "week": 4,
       "league": "Kansas Keepers League",
       "franchise": "Bowers Power Hour",
-      "platform_id": "7611",
+      "platform_id": "12490",
       "actual_status": "START",
       "lineup_slot": "starter",
       "status": "START",
       "position": "RB",
-      "player": "Rhamondre Stevenson",
-      "team": "NE",
-      "sleeper_id": "7611",
+      "player": "Bhayshul Tuten",
+      "team": "JAX",
+      "sleeper_id": "12490",
       "proj": 10.9,
       "half_ppr": 10.9,
       "scoring_mult": 1,
-      "floor": 2.4,
-      "ceiling": 22.5,
-      "opponent": "BUF"
+      "floor": 3,
+      "ceiling": 19.9,
+      "opponent": "CIN"
     },
     {
       "season": 2026,
@@ -1755,11 +1755,11 @@
       "player": "Pat Bryant",
       "team": "DEN",
       "sleeper_id": "12492",
-      "proj": 6.4,
-      "half_ppr": 6.4,
+      "proj": 6.3,
+      "half_ppr": 6.3,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 14.4,
+      "ceiling": 14.3,
       "opponent": "SF"
     },
     {
@@ -1775,11 +1775,11 @@
       "player": "Chris Rodriguez",
       "team": "JAX",
       "sleeper_id": "10219",
-      "proj": 4.6,
-      "half_ppr": 4.6,
+      "proj": 4.5,
+      "half_ppr": 4.5,
       "scoring_mult": 1,
       "floor": 0.1,
-      "ceiling": 11.2,
+      "ceiling": 10.7,
       "opponent": "CIN"
     },
     {
@@ -1795,8 +1795,8 @@
       "player": "Kendre Miller",
       "team": "NO",
       "sleeper_id": "9757",
-      "proj": 4.3,
-      "half_ppr": 4.3,
+      "proj": 4.2,
+      "half_ppr": 4.2,
       "scoring_mult": 1,
       "floor": 0,
       "ceiling": 11.9,
@@ -1835,11 +1835,11 @@
       "player": "Tank Bigsby",
       "team": "PHI",
       "sleeper_id": "9225",
-      "proj": 2.7,
-      "half_ppr": 2.7,
+      "proj": 2.6,
+      "half_ppr": 2.6,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 8.5,
+      "ceiling": 8.3,
       "opponent": "LA"
     },
     {
@@ -1855,11 +1855,11 @@
       "player": "James Cook",
       "team": "BUF",
       "sleeper_id": "8138",
-      "proj": 32.4,
-      "half_ppr": 17.3,
+      "proj": 32.2,
+      "half_ppr": 17.2,
       "scoring_mult": 1.871,
-      "floor": 12,
-      "ceiling": 56.1,
+      "floor": 11.8,
+      "ceiling": 55.9,
       "opponent": "NE"
     },
     {
@@ -1875,11 +1875,11 @@
       "player": "Drake London",
       "team": "ATL",
       "sleeper_id": "8112",
-      "proj": 27.5,
-      "half_ppr": 12.1,
+      "proj": 28,
+      "half_ppr": 12.3,
       "scoring_mult": 2.275,
       "floor": 7.7,
-      "ceiling": 52.6,
+      "ceiling": 53,
       "opponent": "NO"
     },
     {
@@ -1895,11 +1895,11 @@
       "player": "D'Andre Swift",
       "team": "CHI",
       "sleeper_id": "6790",
-      "proj": 25.8,
-      "half_ppr": 13.3,
+      "proj": 26,
+      "half_ppr": 13.4,
       "scoring_mult": 1.94,
       "floor": 8.1,
-      "ceiling": 46.4,
+      "ceiling": 46.6,
       "opponent": "NYJ"
     },
     {
@@ -1939,7 +1939,7 @@
       "half_ppr": 8.1,
       "scoring_mult": 2.765,
       "floor": 5,
-      "ceiling": 45.1,
+      "ceiling": 44.8,
       "opponent": "ATL"
     },
     {
@@ -1959,7 +1959,7 @@
       "half_ppr": 9.7,
       "scoring_mult": 2.186,
       "floor": 3.7,
-      "ceiling": 43.3,
+      "ceiling": 43.1,
       "opponent": "TB"
     },
     {
@@ -2055,11 +2055,11 @@
       "player": "Jared Goff",
       "team": "DET",
       "sleeper_id": "3163",
-      "proj": 30.2,
-      "half_ppr": 19.9,
+      "proj": 30.5,
+      "half_ppr": 20.1,
       "scoring_mult": 1.518,
-      "floor": 15.8,
-      "ceiling": 46.9,
+      "floor": 15.5,
+      "ceiling": 47.4,
       "opponent": "CAR"
     },
     {
@@ -2075,11 +2075,11 @@
       "player": "Rashod Bateman",
       "team": "BAL",
       "sleeper_id": "7571",
-      "proj": 13.5,
-      "half_ppr": 6.9,
+      "proj": 13.1,
+      "half_ppr": 6.7,
       "scoring_mult": 1.957,
       "floor": 0,
-      "ceiling": 30.7,
+      "ceiling": 30.5,
       "opponent": "TEN"
     },
     {
@@ -2095,11 +2095,11 @@
       "player": "Puka Nacua",
       "team": "LA",
       "sleeper_id": "9493",
-      "proj": 12.2,
-      "half_ppr": 3.9,
+      "proj": 12.8,
+      "half_ppr": 4.1,
       "scoring_mult": 3.121,
       "floor": 0,
-      "ceiling": 49,
+      "ceiling": 49.3,
       "opponent": "PHI"
     },
     {
@@ -2135,11 +2135,11 @@
       "player": "Tyquan Thornton",
       "team": "KC",
       "sleeper_id": "8188",
-      "proj": 10.6,
-      "half_ppr": 4.1,
+      "proj": 10.1,
+      "half_ppr": 3.9,
       "scoring_mult": 2.594,
       "floor": 0,
-      "ceiling": 31.1,
+      "ceiling": 30.6,
       "opponent": "LV"
     },
     {
@@ -2159,28 +2159,8 @@
       "half_ppr": 8.3,
       "scoring_mult": 1.164,
       "floor": 0.8,
-      "ceiling": 21.4,
+      "ceiling": 21.2,
       "opponent": "CHI"
-    },
-    {
-      "season": 2026,
-      "week": 4,
-      "league": "#SFB16 San Francisco",
-      "franchise": "wadepfuller",
-      "platform_id": "12474",
-      "actual_status": "SIT",
-      "lineup_slot": "nonstarter",
-      "status": "SIT",
-      "position": "RB",
-      "player": "Woody Marks",
-      "team": "HOU",
-      "sleeper_id": "12474",
-      "proj": 8.5,
-      "half_ppr": 7,
-      "scoring_mult": 1.209,
-      "floor": 1.2,
-      "ceiling": 19,
-      "opponent": "DAL"
     },
     {
       "season": 2026,
@@ -2199,8 +2179,28 @@
       "half_ppr": 4.3,
       "scoring_mult": 1.951,
       "floor": 0,
-      "ceiling": 20.7,
+      "ceiling": 20.1,
       "opponent": "BAL"
+    },
+    {
+      "season": 2026,
+      "week": 4,
+      "league": "#SFB16 San Francisco",
+      "franchise": "wadepfuller",
+      "platform_id": "12474",
+      "actual_status": "SIT",
+      "lineup_slot": "nonstarter",
+      "status": "SIT",
+      "position": "RB",
+      "player": "Woody Marks",
+      "team": "HOU",
+      "sleeper_id": "12474",
+      "proj": 8.3,
+      "half_ppr": 6.9,
+      "scoring_mult": 1.209,
+      "floor": 1.2,
+      "ceiling": 18.6,
+      "opponent": "DAL"
     },
     {
       "season": 2026,
@@ -2215,11 +2215,11 @@
       "player": "Alvin Kamara",
       "team": "NO",
       "sleeper_id": "4035",
-      "proj": 7.6,
-      "half_ppr": 6.5,
+      "proj": 7.4,
+      "half_ppr": 6.4,
       "scoring_mult": 1.163,
       "floor": 0.8,
-      "ceiling": 17.7,
+      "ceiling": 17.2,
       "opponent": "ATL"
     },
     {
@@ -2239,7 +2239,7 @@
       "half_ppr": 1.9,
       "scoring_mult": 3.385,
       "floor": 0,
-      "ceiling": 22,
+      "ceiling": 21.7,
       "opponent": "CHI"
     },
     {
@@ -2255,11 +2255,11 @@
       "player": "Matthew Stafford",
       "team": "LA",
       "sleeper_id": "421",
-      "proj": 17.7,
-      "half_ppr": 17.7,
+      "proj": 17.9,
+      "half_ppr": 17.9,
       "scoring_mult": 1,
-      "floor": 8.1,
-      "ceiling": 28.7,
+      "floor": 8.2,
+      "ceiling": 28.8,
       "opponent": "PHI"
     },
     {
@@ -2315,11 +2315,11 @@
       "player": "George Pickens",
       "team": "DAL",
       "sleeper_id": "8137",
-      "proj": 12.3,
-      "half_ppr": 12.3,
+      "proj": 11.7,
+      "half_ppr": 11.7,
       "scoring_mult": 1,
-      "floor": 3,
-      "ceiling": 23.4,
+      "floor": 2.9,
+      "ceiling": 23,
       "opponent": "HOU"
     },
     {
@@ -2355,11 +2355,11 @@
       "player": "Colston Loveland",
       "team": "CHI",
       "sleeper_id": "12517",
-      "proj": 6.7,
-      "half_ppr": 6.7,
+      "proj": 6.6,
+      "half_ppr": 6.6,
       "scoring_mult": 1,
-      "floor": 0.4,
-      "ceiling": 15.1,
+      "floor": 0.3,
+      "ceiling": 14.9,
       "opponent": "NYJ"
     },
     {
@@ -2407,20 +2407,20 @@
       "week": 4,
       "league": "SF Fantasy",
       "franchise": "Gruden's Grinders",
-      "platform_id": "3116165",
-      "actual_status": "SIT",
-      "lineup_slot": "BE",
+      "platform_id": "4569587",
+      "actual_status": "START",
+      "lineup_slot": "RB/WR/TE",
       "status": "START",
       "position": "WR",
-      "player": "Chris Godwin Jr.",
-      "team": "TB",
-      "sleeper_id": "4037",
-      "proj": 7.5,
-      "half_ppr": 7.5,
+      "player": "Wan'Dale Robinson",
+      "team": "TEN",
+      "sleeper_id": "8126",
+      "proj": 7.7,
+      "half_ppr": 7.7,
       "scoring_mult": 1,
-      "floor": 0.5,
-      "ceiling": 16.1,
-      "opponent": "GB"
+      "floor": 1,
+      "ceiling": 15.6,
+      "opponent": "BAL"
     },
     {
       "season": 2026,
@@ -2447,20 +2447,20 @@
       "week": 4,
       "league": "SF Fantasy",
       "franchise": "Gruden's Grinders",
-      "platform_id": "4569587",
-      "actual_status": "START",
-      "lineup_slot": "RB/WR/TE",
+      "platform_id": "3116165",
+      "actual_status": "SIT",
+      "lineup_slot": "BE",
       "status": "SIT",
       "position": "WR",
-      "player": "Wan'Dale Robinson",
-      "team": "TEN",
-      "sleeper_id": "8126",
-      "proj": 7.4,
-      "half_ppr": 7.4,
+      "player": "Chris Godwin Jr.",
+      "team": "TB",
+      "sleeper_id": "4037",
+      "proj": 7.5,
+      "half_ppr": 7.5,
       "scoring_mult": 1,
-      "floor": 1,
-      "ceiling": 15.1,
-      "opponent": "BAL"
+      "floor": 0.5,
+      "ceiling": 16.1,
+      "opponent": "GB"
     },
     {
       "season": 2026,
@@ -2495,11 +2495,11 @@
       "player": "Keaton Mitchell",
       "team": "LAC",
       "sleeper_id": "9511",
-      "proj": 5.2,
-      "half_ppr": 5.2,
+      "proj": 5.1,
+      "half_ppr": 5.1,
       "scoring_mult": 1,
       "floor": 0.3,
-      "ceiling": 11.9,
+      "ceiling": 12,
       "opponent": "SEA"
     },
     {
@@ -2515,11 +2515,11 @@
       "player": "Emmett Johnson",
       "team": "KC",
       "sleeper_id": "13337",
-      "proj": 4.7,
-      "half_ppr": 4.7,
+      "proj": 4.6,
+      "half_ppr": 4.6,
       "scoring_mult": 1,
       "floor": 0.1,
-      "ceiling": 11.1,
+      "ceiling": 11,
       "opponent": "LV"
     },
     {
@@ -2535,11 +2535,11 @@
       "player": "A.J. Brown",
       "team": "NE",
       "sleeper_id": "5859",
-      "proj": 2.9,
-      "half_ppr": 2.9,
+      "proj": 3.1,
+      "half_ppr": 3.1,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 12.1,
+      "ceiling": 12.5,
       "opponent": "BUF"
     },
     {
@@ -2559,7 +2559,7 @@
       "half_ppr": 2.7,
       "scoring_mult": 1,
       "floor": 0,
-      "ceiling": 10.8,
+      "ceiling": 10.7,
       "opponent": "ATL"
     },
     {
@@ -2596,7 +2596,7 @@
       "sleeper_id": "4046",
       "proj": 18.3,
       "floor": 9.2,
-      "ceiling": 27,
+      "ceiling": 26.9,
       "opponent": "LV"
     },
     {
@@ -2610,8 +2610,8 @@
       "team": "SEA",
       "sleeper_id": "12048",
       "proj": 7.3,
-      "floor": 0.5,
-      "ceiling": 15.3,
+      "floor": 0.4,
+      "ceiling": 15,
       "opponent": "LAC"
     },
     {
@@ -2624,9 +2624,9 @@
       "player": "Alvin Kamara",
       "team": "NO",
       "sleeper_id": "4035",
-      "proj": 6.5,
+      "proj": 6.4,
       "floor": 0.7,
-      "ceiling": 15.2,
+      "ceiling": 14.8,
       "opponent": "ATL"
     },
     {
@@ -2639,9 +2639,9 @@
       "player": "Garrett Wilson",
       "team": "NYJ",
       "sleeper_id": "8146",
-      "proj": 11.9,
+      "proj": 11.6,
       "floor": 2.9,
-      "ceiling": 22.5,
+      "ceiling": 22.2,
       "opponent": "CHI"
     },
     {
@@ -2654,9 +2654,9 @@
       "player": "Tee Higgins",
       "team": "CIN",
       "sleeper_id": "6801",
-      "proj": 11.7,
-      "floor": 2.8,
-      "ceiling": 23.7,
+      "proj": 11.5,
+      "floor": 2.7,
+      "ceiling": 23.6,
       "opponent": "JAX"
     },
     {
@@ -2669,25 +2669,10 @@
       "player": "Mark Andrews",
       "team": "BAL",
       "sleeper_id": "5012",
-      "proj": 8.6,
+      "proj": 8.5,
       "floor": 2.2,
-      "ceiling": 16.6,
+      "ceiling": 16.1,
       "opponent": "TEN"
-    },
-    {
-      "season": 2026,
-      "week": 4,
-      "league": "UNH SuperFlex Dynasty",
-      "franchise": "The BoogeyManz",
-      "status": "START",
-      "position": "WR",
-      "player": "Makai Lemon",
-      "team": "PHI",
-      "sleeper_id": "13294",
-      "proj": 7.9,
-      "floor": 0,
-      "ceiling": 18,
-      "opponent": "LA"
     },
     {
       "season": 2026,
@@ -2701,8 +2686,23 @@
       "sleeper_id": "11604",
       "proj": 7.9,
       "floor": 1.3,
-      "ceiling": 16,
+      "ceiling": 15.9,
       "opponent": "KC"
+    },
+    {
+      "season": 2026,
+      "week": 4,
+      "league": "UNH SuperFlex Dynasty",
+      "franchise": "The BoogeyManz",
+      "status": "START",
+      "position": "WR",
+      "player": "Makai Lemon",
+      "team": "PHI",
+      "sleeper_id": "13294",
+      "proj": 7.8,
+      "floor": 0,
+      "ceiling": 17.9,
+      "opponent": "LA"
     },
     {
       "season": 2026,
@@ -2714,9 +2714,9 @@
       "player": "Case Keenum",
       "team": "CHI",
       "sleeper_id": "1737",
-      "proj": 12.8,
-      "floor": 3.1,
-      "ceiling": 22.5,
+      "proj": 13.2,
+      "floor": 4.1,
+      "ceiling": 22.2,
       "opponent": "NYJ"
     },
     {
@@ -2729,9 +2729,9 @@
       "player": "Josh Allen",
       "team": "BUF",
       "sleeper_id": "4984",
-      "proj": 22.6,
-      "floor": 12.4,
-      "ceiling": 33.2,
+      "proj": 22.7,
+      "floor": 12.2,
+      "ceiling": 33.5,
       "opponent": "NE"
     },
     {
@@ -2741,13 +2741,13 @@
       "franchise": "NPepe22",
       "status": "START",
       "position": "RB",
-      "player": "Cam Skattebo",
-      "team": "NYG",
-      "sleeper_id": "12481",
+      "player": "Aaron Jones",
+      "team": "MIN",
+      "sleeper_id": "4199",
       "proj": 11.8,
-      "floor": 3.5,
-      "ceiling": 20.4,
-      "opponent": "ARI"
+      "floor": 2.4,
+      "ceiling": 21.3,
+      "opponent": "MIA"
     },
     {
       "season": 2026,
@@ -2759,9 +2759,9 @@
       "player": "Jameson Williams",
       "team": "DET",
       "sleeper_id": "8148",
-      "proj": 11,
-      "floor": 1.6,
-      "ceiling": 22.9,
+      "proj": 10.8,
+      "floor": 1.4,
+      "ceiling": 22.7,
       "opponent": "CAR"
     },
     {
@@ -2774,9 +2774,9 @@
       "player": "Rashee Rice",
       "team": "KC",
       "sleeper_id": "10229",
-      "proj": 10.9,
-      "floor": 2.4,
-      "ceiling": 21.3,
+      "proj": 10.6,
+      "floor": 2.3,
+      "ceiling": 21.2,
       "opponent": "LV"
     },
     {
@@ -2789,9 +2789,9 @@
       "player": "Mark Andrews",
       "team": "BAL",
       "sleeper_id": "5012",
-      "proj": 8.6,
+      "proj": 8.5,
       "floor": 2.2,
-      "ceiling": 16.6,
+      "ceiling": 16.1,
       "opponent": "TEN"
     },
     {
@@ -2816,13 +2816,13 @@
       "franchise": "NPepe22",
       "status": "START",
       "position": "RB",
-      "player": "Aaron Jones",
-      "team": "MIN",
-      "sleeper_id": "4199",
-      "proj": 11.8,
-      "floor": 2.4,
-      "ceiling": 21.3,
-      "opponent": "MIA"
+      "player": "Cam Skattebo",
+      "team": "NYG",
+      "sleeper_id": "12481",
+      "proj": 11.7,
+      "floor": 3.4,
+      "ceiling": 20.3,
+      "opponent": "ARI"
     },
     {
       "season": 2026,
@@ -2864,9 +2864,9 @@
       "player": "Dak Prescott",
       "team": "DAL",
       "sleeper_id": "3294",
-      "proj": 23,
-      "floor": 10.2,
-      "ceiling": 36,
+      "proj": 23.1,
+      "floor": 10.3,
+      "ceiling": 36.3,
       "opponent": "HOU"
     },
     {
@@ -2879,9 +2879,9 @@
       "player": "Christian McCaffrey",
       "team": "SF",
       "sleeper_id": "4034",
-      "proj": 17,
-      "floor": 5.6,
-      "ceiling": 28.6,
+      "proj": 16.7,
+      "floor": 5.4,
+      "ceiling": 28.4,
       "opponent": "DEN"
     },
     {
@@ -2909,9 +2909,9 @@
       "player": "George Pickens",
       "team": "DAL",
       "sleeper_id": "8137",
-      "proj": 12.3,
-      "floor": 3,
-      "ceiling": 23.4,
+      "proj": 11.7,
+      "floor": 2.9,
+      "ceiling": 23,
       "opponent": "HOU"
     },
     {
@@ -2924,9 +2924,9 @@
       "player": "Luther Burden",
       "team": "CHI",
       "sleeper_id": "12519",
-      "proj": 9.6,
-      "floor": 2,
-      "ceiling": 19.3,
+      "proj": 9.9,
+      "floor": 2.2,
+      "ceiling": 19.5,
       "opponent": "NYJ"
     },
     {
@@ -2941,7 +2941,7 @@
       "sleeper_id": "8110",
       "proj": 6.2,
       "floor": 0.3,
-      "ceiling": 13.8,
+      "ceiling": 13.6,
       "opponent": "HOU"
     },
     {
@@ -2966,13 +2966,13 @@
       "franchise": "Mexican Fighting Chickens",
       "status": "START",
       "position": "WR",
-      "player": "Malik Washington",
-      "team": "MIA",
-      "sleeper_id": "11610",
-      "proj": 8.6,
-      "floor": 0.9,
-      "ceiling": 17.7,
-      "opponent": "MIN"
+      "player": "Carnell Tate",
+      "team": "TEN",
+      "sleeper_id": "13279",
+      "proj": 8.8,
+      "floor": 1.3,
+      "ceiling": 17.5,
+      "opponent": "BAL"
     },
     {
       "season": 2026,
@@ -2984,9 +2984,9 @@
       "player": "CeeDee Lamb",
       "team": "DAL",
       "sleeper_id": "6786",
-      "proj": 32,
-      "floor": 9.5,
-      "ceiling": 60.6,
+      "proj": 30,
+      "floor": 8,
+      "ceiling": 58.6,
       "opponent": "HOU"
     },
     {
@@ -2999,9 +2999,9 @@
       "player": "Davante Adams",
       "team": "LA",
       "sleeper_id": "2133",
-      "proj": 29.8,
-      "floor": 5.4,
-      "ceiling": 60.2,
+      "proj": 29.2,
+      "floor": 5.2,
+      "ceiling": 58.8,
       "opponent": "PHI"
     },
     {
@@ -3016,7 +3016,7 @@
       "sleeper_id": "3198",
       "proj": 27.8,
       "floor": 10.4,
-      "ceiling": 45.6,
+      "ceiling": 45.8,
       "opponent": "TEN"
     },
     {
@@ -3029,8 +3029,8 @@
       "player": "Malik Washington",
       "team": "MIA",
       "sleeper_id": "11610",
-      "proj": 27.5,
-      "floor": 2.9,
+      "proj": 27.8,
+      "floor": 3.2,
       "ceiling": 56.5,
       "opponent": "MIN"
     },
@@ -3060,8 +3060,8 @@
       "team": "PHI",
       "sleeper_id": "4866",
       "proj": 20.2,
-      "floor": 4.4,
-      "ceiling": 40.6,
+      "floor": 4.2,
+      "ceiling": 40.7,
       "opponent": "LA"
     },
     {
@@ -3074,9 +3074,9 @@
       "player": "Chuba Hubbard",
       "team": "CAR",
       "sleeper_id": "7594",
-      "proj": 18.8,
+      "proj": 19,
       "floor": 6.5,
-      "ceiling": 34.1,
+      "ceiling": 34.3,
       "opponent": "DET"
     },
     {
@@ -3085,13 +3085,13 @@
       "league": "#SFB16 San Francisco",
       "franchise": "savvantman",
       "status": "START",
-      "position": "WR",
-      "player": "Chris Bell",
+      "position": "TE",
+      "player": "Greg Dulcich",
       "team": "MIA",
-      "sleeper_id": "13311",
-      "proj": 14.1,
-      "floor": 0,
-      "ceiling": 33.4,
+      "sleeper_id": "8172",
+      "proj": 14,
+      "floor": 1.4,
+      "ceiling": 31,
       "opponent": "MIN"
     },
     {
@@ -3104,9 +3104,9 @@
       "player": "Matthew Stafford",
       "team": "LA",
       "sleeper_id": "421",
-      "proj": 35.6,
-      "floor": 16.3,
-      "ceiling": 57.7,
+      "proj": 36,
+      "floor": 16.5,
+      "ceiling": 57.9,
       "opponent": "PHI"
     },
     {
@@ -3120,8 +3120,8 @@
       "team": "CIN",
       "sleeper_id": "6770",
       "proj": 26.3,
-      "floor": 13.9,
-      "ceiling": 38.9,
+      "floor": 13.6,
+      "ceiling": 39.2,
       "opponent": "JAX"
     },
     {
@@ -3134,9 +3134,9 @@
       "player": "Trevor Lawrence",
       "team": "JAX",
       "sleeper_id": "7523",
-      "proj": 18.5,
-      "floor": 8.3,
-      "ceiling": 28.7,
+      "proj": 18.7,
+      "floor": 8.5,
+      "ceiling": 29.3,
       "opponent": "CIN"
     },
     {
@@ -3150,7 +3150,7 @@
       "team": "KC",
       "sleeper_id": "8151",
       "proj": 18.7,
-      "floor": 7.4,
+      "floor": 7.3,
       "ceiling": 30.9,
       "opponent": "LV"
     },
@@ -3164,9 +3164,9 @@
       "player": "Travis Etienne Jr.",
       "team": "NO",
       "sleeper_id": "7543",
-      "proj": 11.4,
+      "proj": 11.2,
       "floor": 2.4,
-      "ceiling": 22.8,
+      "ceiling": 22.4,
       "opponent": "ATL"
     },
     {
@@ -3179,9 +3179,9 @@
       "player": "Amon-Ra St. Brown",
       "team": "DET",
       "sleeper_id": "7547",
-      "proj": 16.2,
-      "floor": 5.1,
-      "ceiling": 29.2,
+      "proj": 15.3,
+      "floor": 4.6,
+      "ceiling": 28.4,
       "opponent": "CAR"
     },
     {
@@ -3196,7 +3196,7 @@
       "sleeper_id": "9487",
       "proj": 10.6,
       "floor": 1.3,
-      "ceiling": 20.7,
+      "ceiling": 20.9,
       "opponent": "CIN"
     },
     {
@@ -3254,9 +3254,9 @@
       "player": "Luther Burden III",
       "team": "CHI",
       "sleeper_id": "12519",
-      "proj": 9.6,
-      "floor": 2,
-      "ceiling": 19.3,
+      "proj": 9.9,
+      "floor": 2.2,
+      "ceiling": 19.5,
       "opponent": "NYJ"
     }
   ],
@@ -3271,8 +3271,8 @@
       "scoring_note": null,
       "opponent": "The BoogeyManz",
       "opponent_id": "0008",
-      "opponent_proj": 92.9,
-      "win_probability": 0.896,
+      "opponent_proj": 92.5,
+      "win_probability": 0.893,
       "starters": 9,
       "bench": 26
     },
@@ -3286,8 +3286,8 @@
       "scoring_note": null,
       "opponent": "NPepe22",
       "opponent_id": "10",
-      "opponent_proj": 102.5,
-      "win_probability": 0.561,
+      "opponent_proj": 101.9,
+      "win_probability": 0.566,
       "starters": 9,
       "bench": 32
     },
@@ -3301,8 +3301,8 @@
       "scoring_note": null,
       "opponent": "Mexican Fighting Chickens",
       "opponent_id": "8",
-      "opponent_proj": 99,
-      "win_probability": 0.51,
+      "opponent_proj": 98.7,
+      "win_probability": 0.497,
       "starters": 8,
       "bench": 8
     },
@@ -3316,8 +3316,8 @@
       "scoring_note": null,
       "opponent": "savvantman",
       "opponent_id": "7",
-      "opponent_proj": 254.4,
-      "win_probability": 0.523,
+      "opponent_proj": 252.6,
+      "win_probability": 0.54,
       "starters": 10,
       "bench": 10
     },
@@ -3331,8 +3331,8 @@
       "scoring_note": null,
       "opponent": "Substation Nation",
       "opponent_id": "6",
-      "opponent_proj": 108.9,
-      "win_probability": 0.374,
+      "opponent_proj": 108.3,
+      "win_probability": 0.378,
       "starters": 9,
       "bench": 8
     }

@@ -18,32 +18,32 @@
       "edge_abs": 2,
       "home_players": [
         {
-          "player": "Jameis Winston",
-          "position": "QB",
-          "proj": 11.8,
-          "floor": 1.2,
-          "ceiling": 22.8
-        },
-        {
           "player": "Cam Skattebo",
           "position": "RB",
-          "proj": 11.8,
-          "floor": 3.5,
-          "ceiling": 20.4
+          "proj": 11.7,
+          "floor": 3.4,
+          "ceiling": 20.3
+        },
+        {
+          "player": "Jameis Winston",
+          "position": "QB",
+          "proj": 11.6,
+          "floor": 1.5,
+          "ceiling": 22.4
         },
         {
           "player": "Malik Nabers",
           "position": "WR",
-          "proj": 10.4,
-          "floor": 2.1,
-          "ceiling": 21.6
+          "proj": 10.5,
+          "floor": 2.2,
+          "ceiling": 21.5
         },
         {
           "player": "Isaiah Likely",
           "position": "TE",
           "proj": 8.4,
           "floor": 2.1,
-          "ceiling": 16.1
+          "ceiling": 16
         }
       ],
       "away_players": [
@@ -52,7 +52,7 @@
           "position": "QB",
           "proj": 16.4,
           "floor": 7.7,
-          "ceiling": 26.1
+          "ceiling": 26.2
         },
         {
           "player": "Jeremiyah Love",
@@ -66,14 +66,14 @@
           "position": "TE",
           "proj": 10.9,
           "floor": 2.9,
-          "ceiling": 20.5
+          "ceiling": 20.4
         },
         {
           "player": "Michael Wilson",
           "position": "WR",
           "proj": 10.2,
-          "floor": 2.5,
-          "ceiling": 20.1
+          "floor": 2.4,
+          "ceiling": 19.9
         }
       ]
     },
@@ -95,60 +95,60 @@
         {
           "player": "D'Andre Swift",
           "position": "RB",
-          "proj": 13.3,
+          "proj": 13.4,
           "floor": 4.2,
-          "ceiling": 23.9
+          "ceiling": 24
         },
         {
           "player": "Case Keenum",
           "position": "QB",
-          "proj": 12.8,
-          "floor": 3.1,
-          "ceiling": 22.5
+          "proj": 13.2,
+          "floor": 4.1,
+          "ceiling": 22.2
         },
         {
           "player": "Luther Burden III",
           "position": "WR",
-          "proj": 9.6,
-          "floor": 2,
-          "ceiling": 19.3
+          "proj": 9.9,
+          "floor": 2.2,
+          "ceiling": 19.5
         },
         {
           "player": "Kyle Monangai",
           "position": "RB",
-          "proj": 8.2,
-          "floor": 1,
-          "ceiling": 17.2
+          "proj": 8.1,
+          "floor": 1.1,
+          "ceiling": 16.9
         }
       ],
       "away_players": [
         {
           "player": "Geno Smith",
           "position": "QB",
-          "proj": 14.6,
-          "floor": 5.3,
+          "proj": 14.5,
+          "floor": 5.2,
           "ceiling": 24.4
         },
         {
           "player": "Garrett Wilson",
           "position": "WR",
-          "proj": 11.9,
+          "proj": 11.6,
           "floor": 2.9,
-          "ceiling": 22.5
+          "ceiling": 22.2
         },
         {
           "player": "Braelon Allen",
           "position": "RB",
           "proj": 8.3,
           "floor": 0.7,
-          "ceiling": 18.4
+          "ceiling": 18.2
         },
         {
           "player": "Kenyon Sadiq",
           "position": "TE",
           "proj": 6.1,
           "floor": 0.6,
-          "ceiling": 13.8
+          "ceiling": 13.7
         }
       ]
     },
@@ -170,30 +170,30 @@
         {
           "player": "Brock Purdy",
           "position": "QB",
-          "proj": 19.3,
+          "proj": 19.5,
           "floor": 9.4,
-          "ceiling": 29.1
+          "ceiling": 29.9
         },
         {
           "player": "Christian McCaffrey",
           "position": "RB",
-          "proj": 17,
-          "floor": 5.6,
-          "ceiling": 28.6
+          "proj": 16.7,
+          "floor": 5.4,
+          "ceiling": 28.4
         },
         {
           "player": "George Kittle",
           "position": "TE",
-          "proj": 9.9,
+          "proj": 9.7,
           "floor": 2.1,
-          "ceiling": 19.2
+          "ceiling": 18.6
         },
         {
           "player": "Mike Evans",
           "position": "WR",
-          "proj": 7.5,
+          "proj": 7.3,
           "floor": 0,
-          "ceiling": 18.2
+          "ceiling": 18.1
         }
       ],
       "away_players": [
@@ -202,28 +202,28 @@
           "position": "QB",
           "proj": 17.5,
           "floor": 8,
-          "ceiling": 26.7
+          "ceiling": 26.6
         },
         {
           "player": "Jaylen Waddle",
           "position": "WR",
-          "proj": 9.5,
+          "proj": 9.6,
           "floor": 2.1,
-          "ceiling": 19.1
+          "ceiling": 19.2
         },
         {
           "player": "RJ Harvey",
           "position": "RB",
           "proj": 7.4,
           "floor": 1.3,
-          "ceiling": 15.6
+          "ceiling": 15.7
         },
         {
-          "player": "J.K. Dobbins",
-          "position": "RB",
+          "player": "Courtland Sutton",
+          "position": "WR",
           "proj": 7.1,
-          "floor": 0.7,
-          "ceiling": 16
+          "floor": 0.4,
+          "ceiling": 15.9
         }
       ]
     },
@@ -245,60 +245,60 @@
         {
           "player": "Jalen Hurts",
           "position": "QB",
-          "proj": 17.9,
+          "proj": 18,
           "floor": 7.8,
-          "ceiling": 28
+          "ceiling": 28.1
         },
         {
           "player": "Saquon Barkley",
           "position": "RB",
           "proj": 12,
-          "floor": 2.6,
-          "ceiling": 24.1
+          "floor": 2.5,
+          "ceiling": 24.2
         },
         {
           "player": "Dontayvion Wicks",
           "position": "WR",
-          "proj": 9.2,
+          "proj": 9.1,
           "floor": 0.6,
           "ceiling": 20.2
         },
         {
           "player": "Makai Lemon",
           "position": "WR",
-          "proj": 7.9,
+          "proj": 7.8,
           "floor": 0,
-          "ceiling": 18
+          "ceiling": 17.9
         }
       ],
       "away_players": [
         {
           "player": "Matthew Stafford",
           "position": "QB",
-          "proj": 17.7,
-          "floor": 8.1,
-          "ceiling": 28.7
+          "proj": 17.9,
+          "floor": 8.2,
+          "ceiling": 28.8
         },
         {
           "player": "Kyren Williams",
           "position": "RB",
-          "proj": 13.3,
+          "proj": 13.2,
           "floor": 4.7,
           "ceiling": 23.1
         },
         {
           "player": "Davante Adams",
           "position": "WR",
-          "proj": 10.4,
-          "floor": 1.9,
-          "ceiling": 21
+          "proj": 10.2,
+          "floor": 1.8,
+          "ceiling": 20.5
         },
         {
           "player": "Blake Corum",
           "position": "RB",
           "proj": 5.7,
-          "floor": 0.4,
-          "ceiling": 14.4
+          "floor": 0.3,
+          "ceiling": 14.3
         }
       ]
     },
@@ -320,45 +320,45 @@
         {
           "player": "Sam Darnold",
           "position": "QB",
-          "proj": 15.5,
+          "proj": 15.4,
           "floor": 5.2,
           "ceiling": 26.5
         },
         {
           "player": "Jaxon Smith-Njigba",
           "position": "WR",
-          "proj": 14.5,
-          "floor": 4.1,
-          "ceiling": 26.3
+          "proj": 14.3,
+          "floor": 4,
+          "ceiling": 26.1
         },
         {
           "player": "George Holani",
           "position": "RB",
           "proj": 7.3,
-          "floor": 0.5,
-          "ceiling": 15.3
+          "floor": 0.4,
+          "ceiling": 15
         },
         {
           "player": "Emanuel Wilson",
           "position": "RB",
-          "proj": 6.6,
+          "proj": 6.5,
           "floor": 0,
-          "ceiling": 16.6
+          "ceiling": 16.4
         }
       ],
       "away_players": [
         {
           "player": "Justin Herbert",
           "position": "QB",
-          "proj": 14.8,
+          "proj": 14.7,
           "floor": 5.7,
-          "ceiling": 24.4
+          "ceiling": 24
         },
         {
           "player": "Omarion Hampton",
           "position": "RB",
           "proj": 11.5,
-          "floor": 2.9,
+          "floor": 2.8,
           "ceiling": 21.9
         },
         {
@@ -366,14 +366,14 @@
           "position": "WR",
           "proj": 6.8,
           "floor": 0.3,
-          "ceiling": 15.4
+          "ceiling": 15.6
         },
         {
-          "player": "Ladd McConkey",
+          "player": "Quentin Johnston",
           "position": "WR",
           "proj": 6.6,
-          "floor": 0,
-          "ceiling": 17.1
+          "floor": 0.3,
+          "ceiling": 15.1
         }
       ]
     },
@@ -395,16 +395,16 @@
         {
           "player": "C.J. Stroud",
           "position": "QB",
-          "proj": 17.2,
-          "floor": 8.1,
+          "proj": 17.3,
+          "floor": 8.2,
           "ceiling": 27.2
         },
         {
           "player": "David Montgomery",
           "position": "RB",
-          "proj": 11,
+          "proj": 10.9,
           "floor": 2.1,
-          "ceiling": 21.1
+          "ceiling": 20.6
         },
         {
           "player": "Dalton Schultz",
@@ -416,39 +416,39 @@
         {
           "player": "Woody Marks",
           "position": "RB",
-          "proj": 7,
+          "proj": 6.9,
           "floor": 1,
-          "ceiling": 15.7
+          "ceiling": 15.4
         }
       ],
       "away_players": [
         {
           "player": "Dak Prescott",
           "position": "QB",
-          "proj": 18.7,
-          "floor": 8.3,
-          "ceiling": 29.3
+          "proj": 18.8,
+          "floor": 8.4,
+          "ceiling": 29.5
         },
         {
           "player": "Javonte Williams",
           "position": "RB",
-          "proj": 13,
-          "floor": 4.9,
-          "ceiling": 22.1
+          "proj": 12.8,
+          "floor": 4.8,
+          "ceiling": 21.6
         },
         {
           "player": "CeeDee Lamb",
           "position": "WR",
-          "proj": 12.8,
-          "floor": 3.8,
-          "ceiling": 24.2
+          "proj": 12,
+          "floor": 3.2,
+          "ceiling": 23.4
         },
         {
           "player": "George Pickens",
           "position": "WR",
-          "proj": 12.3,
-          "floor": 3,
-          "ceiling": 23.4
+          "proj": 11.7,
+          "floor": 2.9,
+          "ceiling": 23
         }
       ]
     },
@@ -472,28 +472,28 @@
           "position": "RB",
           "proj": 15.1,
           "floor": 5.1,
-          "ceiling": 26.7
+          "ceiling": 26.8
         },
         {
           "player": "Kirk Cousins",
           "position": "QB",
           "proj": 14.4,
-          "floor": 5.5,
-          "ceiling": 22.8
+          "floor": 5.3,
+          "ceiling": 22.9
         },
         {
           "player": "Brock Bowers",
           "position": "TE",
           "proj": 7.9,
           "floor": 1.3,
-          "ceiling": 16
+          "ceiling": 15.9
         },
         {
           "player": "Tre Tucker",
           "position": "WR",
-          "proj": 7.8,
+          "proj": 7.6,
           "floor": 0.6,
-          "ceiling": 17.4
+          "ceiling": 17.1
         }
       ],
       "away_players": [
@@ -501,7 +501,7 @@
           "player": "Kenneth Walker III",
           "position": "RB",
           "proj": 18.7,
-          "floor": 7.4,
+          "floor": 7.3,
           "ceiling": 30.9
         },
         {
@@ -509,21 +509,21 @@
           "position": "QB",
           "proj": 18.3,
           "floor": 9.2,
-          "ceiling": 27
+          "ceiling": 26.9
         },
         {
           "player": "Rashee Rice",
           "position": "WR",
-          "proj": 10.9,
-          "floor": 2.4,
-          "ceiling": 21.3
+          "proj": 10.6,
+          "floor": 2.3,
+          "ceiling": 21.2
         },
         {
           "player": "Travis Kelce",
           "position": "TE",
-          "proj": 9.8,
+          "proj": 9.7,
           "floor": 2.1,
-          "ceiling": 19.1
+          "ceiling": 18.9
         }
       ]
     },
@@ -620,53 +620,53 @@
         {
           "player": "Tyler Shough",
           "position": "QB",
-          "proj": 18.9,
-          "floor": 9.3,
-          "ceiling": 28.5
+          "proj": 18.8,
+          "floor": 9.2,
+          "ceiling": 28.6
         },
         {
           "player": "Chris Olave",
           "position": "WR",
-          "proj": 13.4,
-          "floor": 3.5,
-          "ceiling": 24.5
+          "proj": 13.5,
+          "floor": 3.4,
+          "ceiling": 24.8
         },
         {
           "player": "Travis Etienne",
           "position": "RB",
-          "proj": 11.4,
+          "proj": 11.2,
           "floor": 2.4,
-          "ceiling": 22.8
+          "ceiling": 22.4
         },
         {
           "player": "Devaughn Vele",
           "position": "WR",
           "proj": 8.4,
           "floor": 0.8,
-          "ceiling": 18.2
+          "ceiling": 18.3
         }
       ],
       "away_players": [
         {
           "player": "Bijan Robinson",
           "position": "RB",
-          "proj": 19,
-          "floor": 6.7,
+          "proj": 19.1,
+          "floor": 6.8,
           "ceiling": 33.1
         },
         {
           "player": "Michael Penix Jr.",
           "position": "QB",
-          "proj": 14.9,
+          "proj": 14.8,
           "floor": 5.3,
-          "ceiling": 24.4
+          "ceiling": 24.2
         },
         {
           "player": "Drake London",
           "position": "WR",
-          "proj": 12.1,
+          "proj": 12.3,
           "floor": 3.4,
-          "ceiling": 23.1
+          "ceiling": 23.3
         },
         {
           "player": "Kyle Pitts",
@@ -695,30 +695,30 @@
         {
           "player": "Josh Allen",
           "position": "QB",
-          "proj": 21.9,
-          "floor": 12,
-          "ceiling": 32.2
+          "proj": 22,
+          "floor": 11.8,
+          "ceiling": 32.5
         },
         {
           "player": "James Cook",
           "position": "RB",
-          "proj": 17.3,
-          "floor": 6.4,
-          "ceiling": 30
+          "proj": 17.2,
+          "floor": 6.3,
+          "ceiling": 29.9
         },
         {
           "player": "Dalton Kincaid",
           "position": "TE",
-          "proj": 10.2,
-          "floor": 1.7,
-          "ceiling": 21.6
+          "proj": 10.1,
+          "floor": 1.6,
+          "ceiling": 21.4
         },
         {
           "player": "DJ Moore",
           "position": "WR",
-          "proj": 9.9,
+          "proj": 9.4,
           "floor": 0,
-          "ceiling": 19.9
+          "ceiling": 19.4
         }
       ],
       "away_players": [
@@ -727,28 +727,28 @@
           "position": "QB",
           "proj": 16.2,
           "floor": 4.3,
-          "ceiling": 27.7
+          "ceiling": 27.6
         },
         {
           "player": "Rhamondre Stevenson",
           "position": "RB",
-          "proj": 10.9,
-          "floor": 2.4,
-          "ceiling": 22.5
+          "proj": 11,
+          "floor": 2.6,
+          "ceiling": 22.3
         },
         {
           "player": "TreVeyon Henderson",
           "position": "RB",
           "proj": 9.2,
-          "floor": 1.3,
-          "ceiling": 19.9
+          "floor": 1.4,
+          "ceiling": 19.7
         },
         {
           "player": "Romeo Doubs",
           "position": "WR",
-          "proj": 6.5,
+          "proj": 6.7,
           "floor": 0,
-          "ceiling": 15.4
+          "ceiling": 15.8
         }
       ]
     },
@@ -791,7 +791,7 @@
         {
           "player": "Cade Otton",
           "position": "TE",
-          "proj": 6.9,
+          "proj": 6.8,
           "floor": 1.2,
           "ceiling": 13.2
         }
@@ -816,7 +816,7 @@
           "position": "WR",
           "proj": 9.7,
           "floor": 1.7,
-          "ceiling": 19.8
+          "ceiling": 19.7
         },
         {
           "player": "Tucker Kraft",
@@ -846,59 +846,59 @@
           "player": "Bryce Young",
           "position": "QB",
           "proj": 16.4,
-          "floor": 6.3,
-          "ceiling": 25.2
+          "floor": 6.5,
+          "ceiling": 25.1
         },
         {
           "player": "Chuba Hubbard",
           "position": "RB",
-          "proj": 12.2,
+          "proj": 12.3,
           "floor": 4.2,
-          "ceiling": 22.1
+          "ceiling": 22.2
         },
         {
           "player": "Tetairoa McMillan",
           "position": "WR",
           "proj": 10.5,
-          "floor": 1.9,
-          "ceiling": 21.9
+          "floor": 1.8,
+          "ceiling": 22
         },
         {
           "player": "Jalen Coker",
           "position": "WR",
           "proj": 8.4,
           "floor": 0,
-          "ceiling": 20
+          "ceiling": 20.1
         }
       ],
       "away_players": [
         {
           "player": "Jahmyr Gibbs",
           "position": "RB",
-          "proj": 21.4,
-          "floor": 7.4,
-          "ceiling": 36.6
+          "proj": 21,
+          "floor": 7.3,
+          "ceiling": 36
         },
         {
           "player": "Jared Goff",
           "position": "QB",
-          "proj": 19.9,
-          "floor": 10.4,
-          "ceiling": 30.9
+          "proj": 20.1,
+          "floor": 10.2,
+          "ceiling": 31.2
         },
         {
           "player": "Amon-Ra St. Brown",
           "position": "WR",
-          "proj": 16.2,
-          "floor": 5.1,
-          "ceiling": 29.2
+          "proj": 15.3,
+          "floor": 4.6,
+          "ceiling": 28.4
         },
         {
           "player": "Jameson Williams",
           "position": "WR",
-          "proj": 11,
-          "floor": 1.6,
-          "ceiling": 22.9
+          "proj": 10.8,
+          "floor": 1.4,
+          "ceiling": 22.7
         }
       ]
     },
@@ -921,59 +921,59 @@
           "player": "Joe Burrow",
           "position": "QB",
           "proj": 19.5,
-          "floor": 10.3,
-          "ceiling": 28.8
+          "floor": 10.1,
+          "ceiling": 29
         },
         {
           "player": "Chase Brown",
           "position": "RB",
-          "proj": 15.3,
+          "proj": 15,
           "floor": 5.2,
-          "ceiling": 26.5
+          "ceiling": 25.9
         },
         {
           "player": "Ja'Marr Chase",
           "position": "WR",
-          "proj": 14.4,
-          "floor": 4.1,
-          "ceiling": 25.8
+          "proj": 14.1,
+          "floor": 4,
+          "ceiling": 25.7
         },
         {
           "player": "Tee Higgins",
           "position": "WR",
-          "proj": 11.7,
-          "floor": 2.8,
-          "ceiling": 23.7
+          "proj": 11.5,
+          "floor": 2.7,
+          "ceiling": 23.6
         }
       ],
       "away_players": [
         {
           "player": "Trevor Lawrence",
           "position": "QB",
-          "proj": 18.5,
-          "floor": 8.3,
-          "ceiling": 28.7
+          "proj": 18.7,
+          "floor": 8.5,
+          "ceiling": 29.3
         },
         {
           "player": "Bhayshul Tuten",
           "position": "RB",
           "proj": 10.9,
-          "floor": 3.1,
-          "ceiling": 20.3
+          "floor": 3,
+          "ceiling": 19.9
         },
         {
           "player": "Parker Washington",
           "position": "WR",
           "proj": 10.6,
           "floor": 1.3,
-          "ceiling": 20.7
+          "ceiling": 20.9
         },
         {
           "player": "Jakobi Meyers",
           "position": "WR",
-          "proj": 7.1,
-          "floor": 0.3,
-          "ceiling": 15.5
+          "proj": 7,
+          "floor": 0.2,
+          "ceiling": 15.6
         }
       ]
     },
@@ -995,7 +995,7 @@
         {
           "player": "Kyler Murray",
           "position": "QB",
-          "proj": 13.8,
+          "proj": 13.7,
           "floor": 0,
           "ceiling": 26.5
         },
@@ -1009,38 +1009,38 @@
         {
           "player": "Jordan Addison",
           "position": "WR",
-          "proj": 8.3,
+          "proj": 8.2,
           "floor": 0.7,
-          "ceiling": 17.5
+          "ceiling": 17.6
         },
         {
           "player": "T.J. Hockenson",
           "position": "TE",
           "proj": 7.7,
           "floor": 1.5,
-          "ceiling": 15.5
+          "ceiling": 15.3
         }
       ],
       "away_players": [
         {
           "player": "Malik Willis",
           "position": "QB",
-          "proj": 11.1,
-          "floor": 2.5,
-          "ceiling": 20.7
+          "proj": 11.2,
+          "floor": 2.4,
+          "ceiling": 20.9
         },
         {
           "player": "De'Von Achane",
           "position": "RB",
-          "proj": 11,
+          "proj": 10.9,
           "floor": 1.9,
-          "ceiling": 23.1
+          "ceiling": 23
         },
         {
           "player": "Malik Washington",
           "position": "WR",
-          "proj": 8.6,
-          "floor": 0.9,
+          "proj": 8.7,
+          "floor": 1,
           "ceiling": 17.7
         },
         {
@@ -1048,7 +1048,7 @@
           "position": "RB",
           "proj": 5.9,
           "floor": 0.1,
-          "ceiling": 13.6
+          "ceiling": 13.5
         }
       ]
     },
@@ -1070,39 +1070,39 @@
         {
           "player": "Lamar Jackson",
           "position": "QB",
-          "proj": 20,
-          "floor": 10.7,
-          "ceiling": 28.6
+          "proj": 20.1,
+          "floor": 10.6,
+          "ceiling": 28.8
         },
         {
           "player": "Derrick Henry",
           "position": "RB",
           "proj": 16.6,
           "floor": 6.2,
-          "ceiling": 27.2
-        },
-        {
-          "player": "Zay Flowers",
-          "position": "WR",
-          "proj": 8.9,
-          "floor": 0,
-          "ceiling": 22.1
+          "ceiling": 27.3
         },
         {
           "player": "Mark Andrews",
           "position": "TE",
-          "proj": 8.6,
+          "proj": 8.5,
           "floor": 2.2,
-          "ceiling": 16.6
+          "ceiling": 16.1
+        },
+        {
+          "player": "Zay Flowers",
+          "position": "WR",
+          "proj": 8.4,
+          "floor": 0,
+          "ceiling": 21.5
         }
       ],
       "away_players": [
         {
           "player": "Cam Ward",
           "position": "QB",
-          "proj": 13.4,
-          "floor": 4.8,
-          "ceiling": 23.5
+          "proj": 13.5,
+          "floor": 4.9,
+          "ceiling": 23.4
         },
         {
           "player": "Tony Pollard",
@@ -1114,16 +1114,16 @@
         {
           "player": "Carnell Tate",
           "position": "WR",
-          "proj": 8.5,
+          "proj": 8.8,
           "floor": 1.3,
-          "ceiling": 16.6
+          "ceiling": 17.5
         },
         {
           "player": "Wan'Dale Robinson",
           "position": "WR",
-          "proj": 7.4,
+          "proj": 7.7,
           "floor": 1,
-          "ceiling": 15.1
+          "ceiling": 15.6
         }
       ]
     },

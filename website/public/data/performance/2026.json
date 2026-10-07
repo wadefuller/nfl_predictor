@@ -111,6 +111,43 @@
         "modelBrier": 0.2381,
         "vegasBrier": 0.2335
       }
+    },
+    {
+      "week": 4,
+      "games": 16,
+      "weekly": {
+        "modelCorrect": 9,
+        "vegasCorrect": 9,
+        "modelAccuracy": 0.562,
+        "vegasAccuracy": 0.562,
+        "modelSpreadCorrect": 6,
+        "vegasSpreadCorrect": 4,
+        "modelSpreadAccuracy": 0.429,
+        "vegasSpreadAccuracy": 0.286,
+        "mlROI": -0.203,
+        "spreadROI": -0.191,
+        "modelMarginMAE": 7.169,
+        "vegasMarginMAE": 7.312,
+        "modelBrier": 0.2172,
+        "vegasBrier": 0.222
+      },
+      "cumulative": {
+        "games": 64,
+        "modelCorrect": 39,
+        "vegasCorrect": 41,
+        "modelAccuracy": 0.609,
+        "vegasAccuracy": 0.641,
+        "modelSpreadCorrect": 22,
+        "vegasSpreadCorrect": 27,
+        "modelSpreadAccuracy": 0.373,
+        "vegasSpreadAccuracy": 0.458,
+        "mlROI": -0.107,
+        "spreadROI": -0.296,
+        "modelMarginMAE": 9.764,
+        "vegasMarginMAE": 9.633,
+        "modelBrier": 0.2329,
+        "vegasBrier": 0.2306
+      }
     }
   ]
 }

@@ -1,0 +1,366 @@
+{
+  "season": 2026,
+  "week": 4,
+  "metrics": [
+    {
+      "position": "ALL",
+      "n": 302,
+      "mae": 4.16,
+      "rmse": 6.08,
+      "bias": 1.26,
+      "spearman": 0.674,
+      "ceiling_cov": 0.844,
+      "floor_cov": 0.977
+    },
+    {
+      "position": "QB",
+      "n": 34,
+      "mae": 4.89,
+      "rmse": 5.76,
+      "bias": -0.18,
+      "spearman": 0.498,
+      "ceiling_cov": 0.882,
+      "floor_cov": 1
+    },
+    {
+      "position": "RB",
+      "n": 79,
+      "mae": 4.51,
+      "rmse": 6.56,
+      "bias": 1.68,
+      "spearman": 0.722,
+      "ceiling_cov": 0.81,
+      "floor_cov": 0.962
+    },
+    {
+      "position": "TE",
+      "n": 64,
+      "mae": 3.01,
+      "rmse": 4.1,
+      "bias": 0.8,
+      "spearman": 0.597,
+      "ceiling_cov": 0.844,
+      "floor_cov": 0.969
+    },
+    {
+      "position": "WR",
+      "n": 125,
+      "mae": 4.32,
+      "rmse": 6.67,
+      "bias": 1.61,
+      "spearman": 0.568,
+      "ceiling_cov": 0.856,
+      "floor_cov": 0.984
+    }
+  ],
+  "cohort": {
+    "projected": 635,
+    "evaluated": 302,
+    "no_opportunity": 333,
+    "high_confidence_no_opportunity": 15,
+    "rule": "At least one pass attempt, carry, target, or non-zero fantasy score"
+  },
+  "calibration": [
+    {
+      "bucket": "0–5",
+      "n": 141,
+      "projected": 2.3,
+      "actual": 3.75,
+      "bias": 1.45,
+      "mae": 2.91
+    },
+    {
+      "bucket": "5–10",
+      "n": 87,
+      "projected": 7.26,
+      "actual": 9.43,
+      "bias": 2.16,
+      "mae": 4.77
+    },
+    {
+      "bucket": "10–15",
+      "n": 44,
+      "projected": 12.1,
+      "actual": 12.43,
+      "bias": 0.33,
+      "mae": 6.87
+    },
+    {
+      "bucket": "15–20",
+      "n": 26,
+      "projected": 17.26,
+      "actual": 16.55,
+      "bias": -0.71,
+      "mae": 4.51
+    },
+    {
+      "bucket": "20+",
+      "n": 4,
+      "projected": 20.81,
+      "actual": 18.4,
+      "bias": -2.42,
+      "mae": 2.6
+    }
+  ],
+  "availability": [],
+  "class_counts": [
+    {
+      "boom": 13,
+      "bust": 5,
+      "met": 127
+    }
+  ],
+  "beats": [
+    {
+      "player": "Tetairoa McMillan",
+      "position": "WR",
+      "team": "CAR",
+      "proj": 10.5,
+      "actual": 38.2,
+      "surprise": 27.7,
+      "class": "boom"
+    },
+    {
+      "player": "CeeDee Lamb",
+      "position": "WR",
+      "team": "DAL",
+      "proj": 12,
+      "actual": 32.8,
+      "surprise": 20.8,
+      "class": "boom"
+    },
+    {
+      "player": "Kyle Monangai",
+      "position": "RB",
+      "team": "CHI",
+      "proj": 8.1,
+      "actual": 27.5,
+      "surprise": 19.4,
+      "class": "boom"
+    },
+    {
+      "player": "Emanuel Wilson",
+      "position": "RB",
+      "team": "SEA",
+      "proj": 6.5,
+      "actual": 25.5,
+      "surprise": 19,
+      "class": "boom"
+    },
+    {
+      "player": "Brian Robinson",
+      "position": "RB",
+      "team": "ATL",
+      "proj": 6.4,
+      "actual": 25.2,
+      "surprise": 18.8,
+      "class": "boom"
+    },
+    {
+      "player": "Kyren Williams",
+      "position": "RB",
+      "team": "LA",
+      "proj": 13.2,
+      "actual": 31.7,
+      "surprise": 18.5,
+      "class": "boom"
+    },
+    {
+      "player": "Javonte Williams",
+      "position": "RB",
+      "team": "DAL",
+      "proj": 12.8,
+      "actual": 28.8,
+      "surprise": 16,
+      "class": "boom"
+    },
+    {
+      "player": "Romeo Doubs",
+      "position": "WR",
+      "team": "NE",
+      "proj": 6.7,
+      "actual": 20.8,
+      "surprise": 14.1,
+      "class": "boom"
+    },
+    {
+      "player": "Alvin Kamara",
+      "position": "RB",
+      "team": "NO",
+      "proj": 6.4,
+      "actual": 20.3,
+      "surprise": 13.9,
+      "class": "boom"
+    },
+    {
+      "player": "Zay Flowers",
+      "position": "WR",
+      "team": "BAL",
+      "proj": 8.4,
+      "actual": 21.8,
+      "surprise": 13.4,
+      "class": "boom"
+    },
+    {
+      "player": "Chuba Hubbard",
+      "position": "RB",
+      "team": "CAR",
+      "proj": 12.3,
+      "actual": 25.4,
+      "surprise": 13.1,
+      "class": "boom"
+    },
+    {
+      "player": "Kenneth Walker III",
+      "position": "RB",
+      "team": "KC",
+      "proj": 18.7,
+      "actual": 30.4,
+      "surprise": 11.7,
+      "class": "met"
+    }
+  ],
+  "misses": [
+    {
+      "player": "Saquon Barkley",
+      "position": "RB",
+      "team": "PHI",
+      "proj": 12,
+      "actual": 1.5,
+      "surprise": -10.5,
+      "class": "bust"
+    },
+    {
+      "player": "Ja'Marr Chase",
+      "position": "WR",
+      "team": "CIN",
+      "proj": 14.1,
+      "actual": 4.2,
+      "surprise": -9.9,
+      "class": "met"
+    },
+    {
+      "player": "Marcus Mariota",
+      "position": "QB",
+      "team": "WAS",
+      "proj": 15,
+      "actual": 5.3,
+      "surprise": -9.7,
+      "class": "met"
+    },
+    {
+      "player": "Daniel Jones",
+      "position": "QB",
+      "team": "IND",
+      "proj": 17.2,
+      "actual": 7.9,
+      "surprise": -9.3,
+      "class": "met"
+    },
+    {
+      "player": "Parker Washington",
+      "position": "WR",
+      "team": "JAX",
+      "proj": 10.6,
+      "actual": 1.5,
+      "surprise": -9.1,
+      "class": "met"
+    },
+    {
+      "player": "Dalton Kincaid",
+      "position": "TE",
+      "team": "BUF",
+      "proj": 10.1,
+      "actual": 1.2,
+      "surprise": -8.9,
+      "class": "bust"
+    },
+    {
+      "player": "Malik Willis",
+      "position": "QB",
+      "team": "MIA",
+      "proj": 11.2,
+      "actual": 2.5,
+      "surprise": -8.7,
+      "class": "met"
+    },
+    {
+      "player": "Matthew Stafford",
+      "position": "QB",
+      "team": "LA",
+      "proj": 17.9,
+      "actual": 9.7,
+      "surprise": -8.2,
+      "class": "met"
+    },
+    {
+      "player": "Emeka Egbuka",
+      "position": "WR",
+      "team": "TB",
+      "proj": 10.2,
+      "actual": 2.3,
+      "surprise": -7.9,
+      "class": "met"
+    },
+    {
+      "player": "Josh Downs",
+      "position": "WR",
+      "team": "IND",
+      "proj": 10.7,
+      "actual": 3.1,
+      "surprise": -7.6,
+      "class": "met"
+    },
+    {
+      "player": "Garrett Wilson",
+      "position": "WR",
+      "team": "NYJ",
+      "proj": 11.6,
+      "actual": 4.2,
+      "surprise": -7.4,
+      "class": "met"
+    },
+    {
+      "player": "D'Andre Swift",
+      "position": "RB",
+      "team": "CHI",
+      "proj": 13.4,
+      "actual": 6.4,
+      "surprise": -7,
+      "class": "met"
+    }
+  ],
+  "ecr": [
+    {
+      "position": "ALL",
+      "n": 252,
+      "model": 0.61,
+      "ecr": 0.625
+    },
+    {
+      "position": "QB",
+      "n": 31,
+      "model": 0.492,
+      "ecr": 0.527
+    },
+    {
+      "position": "RB",
+      "n": 72,
+      "model": 0.686,
+      "ecr": 0.727
+    },
+    {
+      "position": "TE",
+      "n": 44,
+      "model": 0.559,
+      "ecr": 0.611
+    },
+    {
+      "position": "WR",
+      "n": 105,
+      "model": 0.444,
+      "ecr": 0.607
+    }
+  ],
+  "ecr_kind": "weekly"
+}
