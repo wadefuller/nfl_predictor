@@ -1,0 +1,39 @@
+<!doctype html>
+<!--
+  Redirect stub for retired copies of the NFL Predictor site.
+  Published to: GitHub Pages (wadefuller.github.io/nfl_predictor, via
+  .github/workflows/pages.yml) and the old Cloudflare Pages project
+  "nfl-predictor" (nfl-predictor-mf4.pages.dev, which also has a _redirects 301).
+  The live site is deployed by weekly_run to project "nfl-predictor-mf4" at
+  https://nfl-predictor-mf4-cjl.pages.dev — the only copy anything updates.
+  The script keeps the path and the #/view/season/week hash so deep links land
+  on the same page of the live site; the meta refresh is a no-JS fallback.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NFL Predictor has moved</title>
+  <link rel="canonical" href="https://nfl-predictor-mf4-cjl.pages.dev/">
+  <meta name="robots" content="noindex">
+  <script>
+    (function () {
+      var target = 'https://nfl-predictor-mf4-cjl.pages.dev';
+      // GitHub Pages serves this under /nfl_predictor/; drop that prefix.
+      var path = location.pathname.replace(/^\/nfl_predictor(?=\/|$)/, '') || '/';
+      location.replace(target + path + location.search + location.hash);
+    })();
+  </script>
+  <meta http-equiv="refresh" content="2; url=https://nfl-predictor-mf4-cjl.pages.dev/">
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center;
+           background: #0d1117; color: #e6edf3;
+           font: 16px/1.5 system-ui, -apple-system, sans-serif; padding: 16px; }
+    a { color: #58a6ff; }
+  </style>
+</head>
+<body>
+  <p>NFL Predictor has moved to
+    <a href="https://nfl-predictor-mf4-cjl.pages.dev/">nfl-predictor-mf4-cjl.pages.dev</a>.</p>
+</body>
+</html>

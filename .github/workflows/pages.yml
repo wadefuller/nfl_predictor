@@ -1,10 +1,21 @@
 name: Deploy site to GitHub Pages
 
+# GitHub Pages is RETIRED as a copy of the site (2026-11-24). It only ever
+# updated when site data was committed and pushed by hand, so it drifted
+# weeks behind (it was serving week 5 in week 12). The live site is deployed
+# by weekly_run to Cloudflare Pages at https://nfl-predictor-mf4-cjl.pages.dev.
+#
+# This workflow now publishes a single redirect page
+# (.github/pages-redirect/index.html) that forwards any wadefuller.github.io/
+# nfl_predictor/... URL — including its #/view/season/week hash — to the same
+# page on the live site. To bring back a full GitHub Pages copy instead, restore
+# the npm build job from git history and add a step that pushes site data.
+
 on:
   push:
     branches: [main]
     paths:
-      - 'website/**'
+      - '.github/pages-redirect/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -13,8 +24,6 @@ permissions:
   pages: write
   id-token: write
 
-# Let an in-flight deploy finish rather than cancelling it, so a run never
-# leaves Pages serving a half-published build.
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -22,30 +31,21 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: website
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-          cache-dependency-path: website/package-lock.json
-
-      - run: npm ci
-
-      # tsc -b && vite build. The typecheck is part of the gate on purpose:
-      # `tsc --noEmit` alone has passed over a syntax error in this project before.
-      - run: npm run build
-        env:
-          # Project site lives at /<repo>/, not the domain root.
-          VITE_BASE: /${{ github.event.repository.name }}/
+      # index.html for the site root; 404.html so any deeper path (old asset
+      # or data URLs) is redirected too instead of showing GitHub's 404 page.
+      - name: Assemble redirect site
+        run: |
+          mkdir -p _site
+          cp .github/pages-redirect/index.html _site/index.html
+          cp .github/pages-redirect/index.html _site/404.html
+          touch _site/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: website/dist
+          path: _site
 
   deploy:
     needs: build
