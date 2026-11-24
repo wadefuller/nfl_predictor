@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 810" role="img" aria-label="Pipeline from public play-by-play data to the published site, with row counts at each stage.">
+<style>
+.bg{fill:#ffffff}.card{fill:#f6f8fa}.ink{fill:#1f2328}.muted{fill:#59636e}
+.ink-s{stroke:#1f2328}.grid{stroke:#d1d9e0}.axis{stroke:#8c959f}
+.model{fill:#2f6fd0}.model-s{stroke:#2f6fd0}.vegas{fill:#6e7781}.vegas-s{stroke:#6e7781}
+.warn{fill:#b4532a}.warn-s{stroke:#b4532a}.none{fill:none}.hollow{fill:#ffffff}
+.pQB{fill:#2f6fd0}.pQB-s{stroke:#2f6fd0}.pRB{fill:#1a7f64}.pRB-s{stroke:#1a7f64}
+.pWR{fill:#8250df}.pWR-s{stroke:#8250df}.pTE{fill:#b4532a}.pTE-s{stroke:#b4532a}
+.empty{fill:#e3e8ee}.test{fill:#1f2328}
+text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.h{font-size:25px;font-weight:700}.sub{font-size:15px}.lab{font-size:13px;font-weight:700;letter-spacing:1.2px}
+.t{font-size:15px}.tb{font-size:15px;font-weight:700}.s{font-size:14px}.sb{font-size:14px;font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+@media (prefers-color-scheme: dark){
+.bg{fill:#0d1117}.card{fill:#161b22}.ink{fill:#e6edf3}.muted{fill:#9198a1}
+.ink-s{stroke:#e6edf3}.grid{stroke:#30363d}.axis{stroke:#6e7681}
+.model{fill:#58a6ff}.model-s{stroke:#58a6ff}.vegas{fill:#9aa3ad}.vegas-s{stroke:#9aa3ad}
+.warn{fill:#e58a5f}.warn-s{stroke:#e58a5f}.hollow{fill:#0d1117}
+.pQB{fill:#58a6ff}.pQB-s{stroke:#58a6ff}.pRB{fill:#3fb950}.pRB-s{stroke:#3fb950}
+.pWR{fill:#bc8cff}.pWR-s{stroke:#bc8cff}.pTE{fill:#e58a5f}.pTE-s{stroke:#e58a5f}
+.empty{fill:#262d36}.test{fill:#e6edf3}
+}
+</style>
+<rect width="640" height="810" rx="14" class="bg"/>
+<text x="28.0" y="46.0" class="h ink">From public data to a published forecast</text>
+<text x="28.0" y="72.0" class="sub muted">Row counts are from the files on disk when this figure was generated.</text>
+<rect x="16.0" y="94.0" width="608.0" height="104.0" rx="12" class="card"/>
+<text x="36.0" y="122.0" class="lab muted">1 · PUBLIC SOURCES</text>
+<line x1="320.0" y1="202.0" x2="320.0" y2="222.0" class="axis" stroke-width="2"/>
+<path d="M314.0,216 l6,8 l6,-8 z" class="muted"/>
+<rect x="36.0" y="134.0" width="180.0" height="50.0" rx="8" class="hollow" stroke-width="1"/>
+<rect x="36" y="134" width="180" height="50" rx="8" class="none axis" stroke-width="1"/>
+<text x="48.0" y="156.0" class="tb ink">Play-by-play</text>
+<text x="48.0" y="176.0" class="s muted num">1,308,095 plays</text>
+<rect x="230.0" y="134.0" width="180.0" height="50.0" rx="8" class="hollow" stroke-width="1"/>
+<rect x="230" y="134" width="180" height="50" rx="8" class="none axis" stroke-width="1"/>
+<text x="242.0" y="156.0" class="tb ink">Rosters, game info</text>
+<text x="242.0" y="176.0" class="s muted num">685,960 roster-weeks</text>
+<rect x="424.0" y="134.0" width="180.0" height="50.0" rx="8" class="hollow" stroke-width="1"/>
+<rect x="424" y="134" width="180" height="50" rx="8" class="none axis" stroke-width="1"/>
+<text x="436.0" y="156.0" class="tb ink">Betting lines</text>
+<text x="436.0" y="176.0" class="s muted num">spread, total, moneyline</text>
+<rect x="16.0" y="228.0" width="608.0" height="104.0" rx="12" class="card"/>
+<text x="36.0" y="256.0" class="lab muted">2 · WAREHOUSE (SQLITE)</text>
+<line x1="320.0" y1="336.0" x2="320.0" y2="356.0" class="axis" stroke-width="2"/>
+<path d="M314.0,350 l6,8 l6,-8 z" class="muted"/>
+<rect x="36.0" y="268.0" width="277.0" height="50.0" rx="8" class="hollow" stroke-width="1"/>
+<rect x="36" y="268" width="277" height="50" rx="8" class="none axis" stroke-width="1"/>
+<text x="48.0" y="290.0" class="tb ink">Plays, 1999–2026</text>
+<text x="48.0" y="310.0" class="s muted num">28 seasons, one pinned schema</text>
+<rect x="327.0" y="268.0" width="277.0" height="50.0" rx="8" class="hollow" stroke-width="1"/>
+<rect x="327" y="268" width="277" height="50" rx="8" class="none axis" stroke-width="1"/>
+<text x="339.0" y="290.0" class="tb ink">Player-games, 2010–2026</text>
+<text x="339.0" y="310.0" class="s muted num">298,526 stat rows, one ID per player</text>
+<rect x="16.0" y="362.0" width="608.0" height="124.0" rx="12" class="card"/>
+<text x="36.0" y="390.0" class="lab muted">3 · FEATURES (known before kickoff only)</text>
+<line x1="320.0" y1="490.0" x2="320.0" y2="510.0" class="axis" stroke-width="2"/>
+<path d="M314.0,504 l6,8 l6,-8 z" class="muted"/>
+<rect x="36.0" y="402.0" width="277.0" height="70.0" rx="8" class="hollow" stroke-width="1"/>
+<rect x="36" y="402" width="277" height="70" rx="8" class="none axis" stroke-width="1"/>
+<text x="48.0" y="424.0" class="tb ink">Game table</text>
+<text x="48.0" y="444.0" class="s muted num">7,196 games</text>
+<text x="48.0" y="464.0" class="s muted num">2000–2026</text>
+<rect x="327.0" y="402.0" width="277.0" height="50.0" rx="8" class="hollow" stroke-width="1"/>
+<rect x="327" y="402" width="277" height="50" rx="8" class="none axis" stroke-width="1"/>
+<text x="339.0" y="424.0" class="tb ink">Player-week table</text>
+<text x="339.0" y="444.0" class="s muted num">89,977 player-weeks in the backtest</text>
+<rect x="16.0" y="516.0" width="608.0" height="144.0" rx="12" class="card"/>
+<text x="36.0" y="544.0" class="lab muted">4 · MODELS</text>
+<line x1="320.0" y1="664.0" x2="320.0" y2="684.0" class="axis" stroke-width="2"/>
+<path d="M314.0,678 l6,8 l6,-8 z" class="muted"/>
+<rect x="36.0" y="556.0" width="277.0" height="70.0" rx="8" class="hollow" stroke-width="1"/>
+<rect x="36" y="556" width="277" height="70" rx="8" class="none axis" stroke-width="1"/>
+<text x="48.0" y="578.0" class="tb ink">Game: penalised regression</text>
+<text x="48.0" y="598.0" class="s muted num">margin → calibrated win probability</text>
+<text x="48.0" y="618.0" class="s muted num">benchmark: Vegas closing line</text>
+<rect x="327.0" y="556.0" width="277.0" height="90.0" rx="8" class="hollow" stroke-width="1"/>
+<rect x="327" y="556" width="277" height="90" rx="8" class="none axis" stroke-width="1"/>
+<text x="339.0" y="578.0" class="tb ink">Player: boosted quantile trees</text>
+<text x="339.0" y="598.0" class="s muted num">one model per position and quantile</text>
+<text x="339.0" y="618.0" class="s muted num">plus a will-he-play classifier</text>
+<text x="339.0" y="638.0" class="s muted num">benchmark: preseason projection</text>
+<rect x="16.0" y="690.0" width="608.0" height="104.0" rx="12" class="card"/>
+<text x="36.0" y="718.0" class="lab muted">5 · PUBLISHED</text>
+<rect x="36.0" y="730.0" width="568.0" height="50.0" rx="8" class="hollow" stroke-width="1"/>
+<rect x="36" y="730" width="568" height="50" rx="8" class="none axis" stroke-width="1"/>
+<text x="48.0" y="752.0" class="tb ink">Static site, rebuilt at 06:30 and 17:30 every day</text>
+<text x="48.0" y="772.0" class="s muted num">the finished week is graded against results every Tuesday</text>
+</svg>

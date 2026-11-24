@@ -16,7 +16,7 @@ ELO_MODULE <- feature_module(
     # Regenerate if missing OR if hyperparams overridden (sweep mode).
     if (!file.exists(elo_path) || nzchar(Sys.getenv("ELO_PARAMS_JSON", ""))) {
       message("  Rebuilding elo_per_game.csv")
-      system2("Rscript", "build_elo.R")
+      system2("Rscript", file.path(PROJECT_DIR, "scripts/build_elo.R"))
     }
     read_csv(elo_path, show_col_types = FALSE) %>%
       transmute(

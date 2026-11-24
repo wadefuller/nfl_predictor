@@ -36,7 +36,7 @@ missing inputs are withheld too**, not just Chicago. Resolving the input coverag
 and validating replacement-QB effects is required to restore full coverage;
 do not clear flags manually or substitute zeros for missing values.
 
-`refresh_availability_exports.R SEASON WEEK` updates existing derived web files
+`scripts/refresh_availability_exports.R SEASON WEEK` updates existing derived web files
 without changing forecasts or historical grades. This is for refreshing safety
 metadata without a full model/export run. Regular exports persist the same
 metadata through `export_json.R` and `weekly_run/run_pre.R`.

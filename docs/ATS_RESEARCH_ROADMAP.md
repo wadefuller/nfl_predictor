@@ -305,7 +305,7 @@ this as a direct ATS margin-model addition. The metric remains useful as a
 descriptive diagnostic for distinguishing wins despite little control from
 losses after sustained control; reconsider it in a trust-gate experiment only
 with a predeclared hypothesis. Implementation and research output:
-[`ats_wp_control_feature.R`](../ats_wp_control_feature.R) and
+[`research/ats_wp_control_feature.R`](../ats_wp_control_feature.R) and
 `../data/ats_experiments/feature-candidates/wp-control-prior4.csv` (ignored).
 
 ## Tranche 2 — new information, not more versions of old information

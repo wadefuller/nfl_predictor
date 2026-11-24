@@ -76,16 +76,16 @@ odds are not proof those prices were executable at the decision time.
 
 ## Reproduction and checks
 
-`ats_trust_gate.R` reads frozen fold artifacts; it does not retrain the game
+`research/ats_trust_gate.R` reads frozen fold artifacts; it does not retrain the game
 model for each gate. The baseline refresh had 4 cache hits and 10 misses to
 populate all 14 years with the calibration metadata required by this experiment.
 All policy arms then reused those same forecasts.
 
 ```sh
 ATS_PROFILE=confirm ATS_HOLDOUT_SEASONS=2012-2025 ATS_WORKERS=2 STACK_MODE=glm_only GLM_LAMBDA_RULE=min ATS_OUTPUT_DIR=data/ats_experiments/trust-gate/base Rscript walk_forward_eval.R
-Rscript ats_trust_gate.R --run data/ats_experiments/trust-gate/base --out data/ats_experiments/trust-gate/probe --profile probe
-Rscript ats_trust_gate.R --run data/ats_experiments/trust-gate/base --out data/ats_experiments/trust-gate/screen --profile screen
-Rscript ats_trust_gate.R --run data/ats_experiments/trust-gate/base --out data/ats_experiments/trust-gate/confirm --profile confirm --screen data/ats_experiments/trust-gate/screen
+Rscript research/ats_trust_gate.R --run data/ats_experiments/trust-gate/base --out data/ats_experiments/trust-gate/probe --profile probe
+Rscript research/ats_trust_gate.R --run data/ats_experiments/trust-gate/base --out data/ats_experiments/trust-gate/screen --profile screen
+Rscript research/ats_trust_gate.R --run data/ats_experiments/trust-gate/base --out data/ats_experiments/trust-gate/confirm --profile confirm --screen data/ats_experiments/trust-gate/screen
 Rscript tests/test_ats_trust_gate.R
 ```
 

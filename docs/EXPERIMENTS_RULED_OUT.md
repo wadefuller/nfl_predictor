@@ -12,7 +12,7 @@ earlier "trees have nothing to contribute" conclusion was measured with the
 task — so it was not a fair test. This gave XGB everything it was missing:
 `base_margin` offsets, monotone constraints, `colsample_bytree` (never swept
 before), the heavy-regularization corner, and gain-based feature selection.
-Harness: `xgb_challenge.R`, `xgb_holdout_check.R`.
+Harness: `research/xgb_challenge.R`, `xgb_holdout_check.R`.
 
 **What genuinely improved (KEEP THIS):** the production XGB params score
 **9.8667** on rolling-origin folds 2020-23 — *worse than simply quoting Vegas*
@@ -48,9 +48,9 @@ loss. Adjacent windows gave opposite answers. **Never conclude an architecture
 comparison from a sub-window; only the full 10-season walk-forward decides.**
 
 **CORRECTION (same day): that 2020-23 "win" was mostly a leak, not a window
-effect.** `xgb_challenge.R::eval_config` early-stops on the same fold it then
+effect.** `research/xgb_challenge.R::eval_config` early-stops on the same fold it then
 scores, so the stopping round is chosen using validation data. Quantified in
-`tune_hyperparams.R` by running the identical grid with and without nesting on
+`scripts/tune_hyperparams.R` by running the identical grid with and without nesting on
 2015-2020 folds:
 
 | eval method | best MAE | configs beating market (of 32) |
@@ -76,7 +76,7 @@ actively destructive at this cal-set size — this is now a well-evidenced
 property, not a one-off.
 
 **Revisit if:**
-- `tune_hyperparams.R` is fixed. It is currently producing params that lose to
+- `scripts/tune_hyperparams.R` is fixed. It is currently producing params that lose to
   the market (CV-RMSE objective on a 2008-2020 window, no monotone constraint,
   no `colsample_bytree`, grid does not reach the depth-2 / high-lambda corner).
   Any future XGB work should start from `train_xgb_direct()`, not from it.
@@ -417,7 +417,7 @@ of player-level data is too noisy without snap-count weighting.
 - You replace `starter_pass_epa` features with the PFR pressure features
   entirely (so substitution doesn't have a displacement cost). Risk: pre-2018
   walk-forward folds become NA-heavy.
-- You add a SUBSET of features that pass `feature_audit.R`'s gain threshold
+- You add a SUBSET of features that pass `research/feature_audit.R`'s gain threshold
   (drop the 5 PFR cols that landed at rank > 100 in v1)
 - PFR releases a longer historical archive (back to 2010+) — coverage from
   2018 cuts walk-forward fold quality on the earliest seasons.
@@ -559,7 +559,7 @@ The May 24 tune params are restored; no code changes were needed for revert.
 
 ## Elo (team + QB-adjusted)
 
-**Tried (2026-05-21):** `build_elo.R` walks all games chronologically. Tested team-only, QB-adjusted with various K_TEAM, K_QB, HOME_ADV, regression rates.
+**Tried (2026-05-21):** `scripts/build_elo.R` walks all games chronologically. Tested team-only, QB-adjusted with various K_TEAM, K_QB, HOME_ADV, regression rates.
 
 **Result:** Team-only Elo edged baseline by 0.015 MAE / 0.0004 Brier. QB-adjusted variants worse than baseline. Even team-only didn't justify the added complexity.
 
@@ -712,8 +712,8 @@ should differ are a bug signature, not a null result.**
 
 **Tried (2026-09-02):** the GLM is now 100% of production, and its alpha was
 picked on 2026-05-24 by a *single 544-game split*, under the old multi-stacker
-that amplified GLM output by 1.23x. Rewrote `tune_glm.R` with rolling-origin
-folds (2015-2020, matching `tune_hyperparams.R`), a 10-value grid, and a
+that amplified GLM output by 1.23x. Rewrote `research/tune_glm.R` with rolling-origin
+folds (2015-2020, matching `scripts/tune_hyperparams.R`), a 10-value grid, and a
 per-fold winner table.
 
 **Result — alpha is not determined by the data:**
@@ -741,8 +741,8 @@ retained.
 **The real finding was a safety hazard, now fixed.** The tuner overwrote
 production's alpha 0.25 -> 0.95 *while printing "prefer the incumbent"* — a
 script that computes the correct warning and then does the wrong thing anyway,
-the same shape as the old `tune_hyperparams.R` shipping params 0.445 MAE worse
-than the market. `tune_glm.R` now **keeps the incumbent alpha when the sweep is
+the same shape as the old `scripts/tune_hyperparams.R` shipping params 0.445 MAE worse
+than the market. `research/tune_glm.R` now **keeps the incumbent alpha when the sweep is
 undetermined** and saves the sweep for inspection only. A 0.00007 Brier margin
 is how an arbitrary choice acquires the appearance of having been tuned.
 

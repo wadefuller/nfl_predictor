@@ -1,4 +1,4 @@
-source("qb_availability.R")
+source("R/lib/qb_availability.R")
 g <- data.frame(season=2026,week=3,home_team="CHI",away_team="PHI",qb_features_ready=TRUE,
  expected_qb_id_home="chi",expected_qb_id_away="phi",
  inj_qb_starter_out_home=0,new_starter_home=0,inj_qb_starter_out_away=0,new_starter_away=0)

@@ -64,8 +64,8 @@ is the R1.2-specific decision (the generic comparator has different thresholds);
 ```sh
 # Repeat for expanding, window8, window12, half4, half8, half12, hybrid:
 ATS_TRAINING_ARM=half4 ATS_PROFILE=screen ATS_HOLDOUT_SEASONS=2016,2019,2022-2025 ATS_WORKERS=2 STACK_MODE=glm_only ATS_OUTPUT_DIR=data/ats_experiments/training-window/half4 Rscript walk_forward_eval.R
-Rscript ats_compare.R --incumbent data/ats_experiments/training-window/expanding --candidate data/ats_experiments/training-window/half4 --out data/ats_experiments/training-window/compare-half4 --bootstrap 2000
+Rscript research/ats_compare.R --incumbent data/ats_experiments/training-window/expanding --candidate data/ats_experiments/training-window/half4 --out data/ats_experiments/training-window/compare-half4 --bootstrap 2000
 # After all six comparisons:
-Rscript ats_window_review.R
+Rscript research/ats_window_review.R
 Rscript tests/test_glm_lambda_rules.R
 ```

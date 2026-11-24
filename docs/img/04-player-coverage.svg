@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 826" role="img" aria-label="Quantile calibration for player forecasts over 46161 player-weeks. The 10th to 90th percentile band covered 79.4 percent.">
+<style>
+.bg{fill:#ffffff}.card{fill:#f6f8fa}.ink{fill:#1f2328}.muted{fill:#59636e}
+.ink-s{stroke:#1f2328}.grid{stroke:#d1d9e0}.axis{stroke:#8c959f}
+.model{fill:#2f6fd0}.model-s{stroke:#2f6fd0}.vegas{fill:#6e7781}.vegas-s{stroke:#6e7781}
+.warn{fill:#b4532a}.warn-s{stroke:#b4532a}.none{fill:none}.hollow{fill:#ffffff}
+.pQB{fill:#2f6fd0}.pQB-s{stroke:#2f6fd0}.pRB{fill:#1a7f64}.pRB-s{stroke:#1a7f64}
+.pWR{fill:#8250df}.pWR-s{stroke:#8250df}.pTE{fill:#b4532a}.pTE-s{stroke:#b4532a}
+.empty{fill:#e3e8ee}.test{fill:#1f2328}
+text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.h{font-size:25px;font-weight:700}.sub{font-size:15px}.lab{font-size:13px;font-weight:700;letter-spacing:1.2px}
+.t{font-size:15px}.tb{font-size:15px;font-weight:700}.s{font-size:14px}.sb{font-size:14px;font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+@media (prefers-color-scheme: dark){
+.bg{fill:#0d1117}.card{fill:#161b22}.ink{fill:#e6edf3}.muted{fill:#9198a1}
+.ink-s{stroke:#e6edf3}.grid{stroke:#30363d}.axis{stroke:#6e7681}
+.model{fill:#58a6ff}.model-s{stroke:#58a6ff}.vegas{fill:#9aa3ad}.vegas-s{stroke:#9aa3ad}
+.warn{fill:#e58a5f}.warn-s{stroke:#e58a5f}.hollow{fill:#0d1117}
+.pQB{fill:#58a6ff}.pQB-s{stroke:#58a6ff}.pRB{fill:#3fb950}.pRB-s{stroke:#3fb950}
+.pWR{fill:#bc8cff}.pWR-s{stroke:#bc8cff}.pTE{fill:#e58a5f}.pTE-s{stroke:#e58a5f}
+.empty{fill:#262d36}.test{fill:#e6edf3}
+}
+</style>
+<rect width="640" height="826" rx="14" class="bg"/>
+<text x="28.0" y="46.0" class="h ink">Are the player ranges honest?</text>
+<text x="28.0" y="72.0" class="sub muted">46,161 player-weeks where the player played, 2017–2025. Run Sep 27, 2026.</text>
+<rect x="16.0" y="92.0" width="608.0" height="372.0" rx="12" class="card"/>
+<text x="36.0" y="122.0" class="lab muted">PREDICTED QUANTILE VS HOW OFTEN THE SCORE FELL BELOW IT</text>
+<line x1="92.0" y1="396.0" x2="470.0" y2="396.0" class="grid" stroke-width="1"/>
+<text x="84.0" y="401.0" class="s muted num" text-anchor="end">−8</text>
+<line x1="92.0" y1="333.5" x2="470.0" y2="333.5" class="grid" stroke-width="1"/>
+<text x="84.0" y="338.5" class="s muted num" text-anchor="end">−4</text>
+<line x1="92.0" y1="271.0" x2="470.0" y2="271.0" class="axis" stroke-width="1.5"/>
+<text x="84.0" y="276.0" class="s muted num" text-anchor="end">0</text>
+<line x1="92.0" y1="208.5" x2="470.0" y2="208.5" class="grid" stroke-width="1"/>
+<text x="84.0" y="213.5" class="s muted num" text-anchor="end">+4</text>
+<line x1="92.0" y1="146.0" x2="470.0" y2="146.0" class="grid" stroke-width="1"/>
+<text x="84.0" y="151.0" class="s muted num" text-anchor="end">+8</text>
+<line x1="110.9" y1="396.0" x2="110.9" y2="401.0" class="axis" stroke-width="1"/>
+<line x1="129.8" y1="396.0" x2="129.8" y2="401.0" class="axis" stroke-width="1"/>
+<line x1="186.5" y1="396.0" x2="186.5" y2="401.0" class="axis" stroke-width="1"/>
+<line x1="281.0" y1="396.0" x2="281.0" y2="401.0" class="axis" stroke-width="1"/>
+<line x1="375.5" y1="396.0" x2="375.5" y2="401.0" class="axis" stroke-width="1"/>
+<line x1="432.2" y1="396.0" x2="432.2" y2="401.0" class="axis" stroke-width="1"/>
+<line x1="451.1" y1="396.0" x2="451.1" y2="401.0" class="axis" stroke-width="1"/>
+<text x="110.9" y="418.0" class="s muted num" text-anchor="middle">5%</text>
+<text x="186.5" y="418.0" class="s muted num" text-anchor="middle">25%</text>
+<text x="281.0" y="418.0" class="s muted num" text-anchor="middle">50%</text>
+<text x="375.5" y="418.0" class="s muted num" text-anchor="middle">75%</text>
+<text x="451.1" y="418.0" class="s muted num" text-anchor="middle">95%</text>
+<text x="281.0" y="440.0" class="s ink" text-anchor="middle">Predicted quantile</text>
+<text x="36.0" y="271.0" class="s ink" text-anchor="middle" transform="rotate(-90 36 271.0)">Observed minus predicted (% points)</text>
+<text x="466.0" y="162.0" class="s muted" text-anchor="end">scores too low</text>
+<text x="466.0" y="388.0" class="s muted" text-anchor="end">scores too high</text>
+<path d="M110.9,196.8 L129.8,209.7 L186.5,227.9 L281.0,256.2 L375.5,267.7 L432.2,275.0 L451.1,275.2" class="none pQB-s" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="110.9" cy="196.8" r="3.5" class="pQB"/>
+<circle cx="129.8" cy="209.7" r="3.5" class="pQB"/>
+<circle cx="186.5" cy="227.9" r="3.5" class="pQB"/>
+<circle cx="281.0" cy="256.2" r="3.5" class="pQB"/>
+<circle cx="375.5" cy="267.7" r="3.5" class="pQB"/>
+<circle cx="432.2" cy="275.0" r="3.5" class="pQB"/>
+<circle cx="451.1" cy="275.2" r="3.5" class="pQB"/>
+<path d="M110.9,263.4 L129.8,263.7 L186.5,254.9 L281.0,258.7 L375.5,268.9 L432.2,270.9 L451.1,273.0" class="none pRB-s" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="110.9" cy="263.4" r="3.5" class="pRB"/>
+<circle cx="129.8" cy="263.7" r="3.5" class="pRB"/>
+<circle cx="186.5" cy="254.9" r="3.5" class="pRB"/>
+<circle cx="281.0" cy="258.7" r="3.5" class="pRB"/>
+<circle cx="375.5" cy="268.9" r="3.5" class="pRB"/>
+<circle cx="432.2" cy="270.9" r="3.5" class="pRB"/>
+<circle cx="451.1" cy="273.0" r="3.5" class="pRB"/>
+<path d="M110.9,181.0 L129.8,227.6 L186.5,270.4 L281.0,263.1 L375.5,263.5 L432.2,266.9 L451.1,273.5" class="none pWR-s" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="110.9" cy="181.0" r="3.5" class="pWR"/>
+<circle cx="129.8" cy="227.6" r="3.5" class="pWR"/>
+<circle cx="186.5" cy="270.4" r="3.5" class="pWR"/>
+<circle cx="281.0" cy="263.1" r="3.5" class="pWR"/>
+<circle cx="375.5" cy="263.5" r="3.5" class="pWR"/>
+<circle cx="432.2" cy="266.9" r="3.5" class="pWR"/>
+<circle cx="451.1" cy="273.5" r="3.5" class="pWR"/>
+<path d="M110.9,162.9 L129.8,228.2 L186.5,277.9 L281.0,275.7 L375.5,262.5 L432.2,261.1 L451.1,270.1" class="none pTE-s" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="110.9" cy="162.9" r="3.5" class="pTE"/>
+<circle cx="129.8" cy="228.2" r="3.5" class="pTE"/>
+<circle cx="186.5" cy="277.9" r="3.5" class="pTE"/>
+<circle cx="281.0" cy="275.7" r="3.5" class="pTE"/>
+<circle cx="375.5" cy="262.5" r="3.5" class="pTE"/>
+<circle cx="432.2" cy="261.1" r="3.5" class="pTE"/>
+<circle cx="451.1" cy="270.1" r="3.5" class="pTE"/>
+<rect x="484.0" y="260.1" width="12.0" height="12.0" rx="2" class="pTE"/>
+<text x="502.0" y="271.1" class="tb ink">TE</text>
+<text x="502.0" y="287.1" class="s muted num">n = 9,405</text>
+<rect x="484.0" y="294.1" width="12.0" height="12.0" rx="2" class="pRB"/>
+<text x="502.0" y="305.1" class="tb ink">RB</text>
+<text x="502.0" y="321.1" class="s muted num">n = 12,114</text>
+<rect x="484.0" y="328.1" width="12.0" height="12.0" rx="2" class="pWR"/>
+<text x="502.0" y="339.1" class="tb ink">WR</text>
+<text x="502.0" y="355.1" class="s muted num">n = 18,889</text>
+<rect x="484.0" y="362.1" width="12.0" height="12.0" rx="2" class="pQB"/>
+<text x="502.0" y="373.1" class="tb ink">QB</text>
+<text x="502.0" y="389.1" class="s muted num">n = 5,753</text>
+<rect x="16.0" y="478.0" width="608.0" height="332.0" rx="12" class="card"/>
+<text x="36.0" y="508.0" class="lab muted">WHERE ACTUAL SCORES LANDED INSIDE THE FORECAST (PIT)</text>
+<text x="36.0" y="532.0" class="s muted">If the forecasts were perfect, every bar would sit on the dashed line.</text>
+<line x1="92.0" y1="706.0" x2="600.0" y2="706.0" class="grid" stroke-width="1"/>
+<text x="84.0" y="711.0" class="s muted num" text-anchor="end">0.0</text>
+<line x1="92.0" y1="670.1" x2="600.0" y2="670.1" class="grid" stroke-width="1"/>
+<text x="84.0" y="675.1" class="s muted num" text-anchor="end">0.5</text>
+<line x1="92.0" y1="634.1" x2="600.0" y2="634.1" class="grid" stroke-width="1"/>
+<text x="84.0" y="639.1" class="s muted num" text-anchor="end">1.0</text>
+<line x1="92.0" y1="598.2" x2="600.0" y2="598.2" class="grid" stroke-width="1"/>
+<text x="84.0" y="603.2" class="s muted num" text-anchor="end">1.5</text>
+<rect x="93.0" y="569.6" width="23.4" height="136.4" rx="0" class="model"/>
+<rect x="118.4" y="665.5" width="23.4" height="40.5" rx="0" class="model"/>
+<rect x="143.8" y="642.6" width="74.2" height="63.4" rx="0" class="model"/>
+<rect x="220.0" y="634.3" width="125.0" height="71.7" rx="0" class="model"/>
+<rect x="347.0" y="634.4" width="125.0" height="71.6" rx="0" class="model"/>
+<rect x="474.0" y="634.9" width="74.2" height="71.1" rx="0" class="model"/>
+<rect x="550.2" y="638.8" width="23.4" height="67.2" rx="0" class="model"/>
+<rect x="575.6" y="632.4" width="23.4" height="73.6" rx="0" class="model"/>
+<line x1="92.0" y1="634.1" x2="600.0" y2="634.1" class="ink-s" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="117.4" y="724.0" class="s muted num" text-anchor="middle">5%</text>
+<text x="219.0" y="724.0" class="s muted num" text-anchor="middle">25%</text>
+<text x="346.0" y="724.0" class="s muted num" text-anchor="middle">50%</text>
+<text x="473.0" y="724.0" class="s muted num" text-anchor="middle">75%</text>
+<text x="574.6" y="724.0" class="s muted num" text-anchor="middle">95%</text>
+<text x="346.0" y="746.0" class="s ink" text-anchor="middle">Forecast percentile of the actual score</text>
+<text x="36.0" y="631.0" class="s ink" text-anchor="middle" transform="rotate(-90 36 631.0)">Density</text>
+<text x="36.0" y="772.0" class="tb ink num">10th–90th band: 79.4% covered (target 80%; 95% interval 79.0–79.8).</text>
+<text x="36.0" y="794.0" class="s muted num">Including players who sat out and scored 0: 88.7% of 89,977. Flattering, so not used.</text>
+</svg>

@@ -30,8 +30,8 @@ suppressPackageStartupMessages({
 PROJECT_DIR <- Sys.getenv("NFL_PROJECT_DIR",
                           unset = path.expand("~/Projects/R/nfl_predictor"))
 DATA_DIR    <- file.path(PROJECT_DIR, "data")
-source(file.path(PROJECT_DIR, "qb_availability.R"))
-source(file.path(PROJECT_DIR, "qb_features.R"))
+source(file.path(PROJECT_DIR, "R/lib/qb_availability.R"))
+source(file.path(PROJECT_DIR, "R/lib/qb_features.R"))
 MODELS_DIR  <- file.path(PROJECT_DIR, "models")
 
 # Columns that must NOT be features (outcomes, leakage). SINGLE source of

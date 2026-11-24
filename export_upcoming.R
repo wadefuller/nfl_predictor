@@ -23,8 +23,8 @@ suppressPackageStartupMessages({ library(tidyverse) })
 
 source(file.path(
   Sys.getenv("NFL_PROJECT_DIR", "~/Projects/R/nfl_predictor"), "ensemble_lib.R"))
-source(file.path(PROJECT_DIR, "polymarket_lib.R"))
-source(file.path(PROJECT_DIR, "kalshi_lib.R"))
+source(file.path(PROJECT_DIR, "R/lib/polymarket_lib.R"))
+source(file.path(PROJECT_DIR, "R/lib/kalshi_lib.R"))
 
 # ---- resolve target season/week --------------------------------------------
 args <- commandArgs(trailingOnly = TRUE)
@@ -66,13 +66,13 @@ if (nrow(games) == 0)
 # ---- predict ----------------------------------------------------------------
 # Read-only status refresh; failed or stale feeds remain explicitly unverified.
 status_rc <- system2(file.path(R.home("bin"),"Rscript"),
-  c(shQuote(file.path(PROJECT_DIR,"capture_qb_availability.R")), target_season, target_week))
+  c(shQuote(file.path(PROJECT_DIR,"scripts/capture_qb_availability.R")), target_season, target_week))
 if (status_rc != 0) warning("QB availability refresh failed; recommendations fail closed")
 history_rc <- system2(file.path(R.home("bin"),"Rscript"),
-  c(shQuote(file.path(PROJECT_DIR,"refresh_qb_history.R")),target_season))
+  c(shQuote(file.path(PROJECT_DIR,"scripts/refresh_qb_history.R")),target_season))
 if (history_rc != 0) warning("QB history refresh failed; coverage checks will withhold incomplete forecasts")
 live_rc <- system2(file.path(R.home("bin"),"Rscript"),
-  c(shQuote(file.path(PROJECT_DIR,"refresh_live_features.R")),target_season,target_week))
+  c(shQuote(file.path(PROJECT_DIR,"scripts/refresh_live_features.R")),target_season,target_week))
 if (live_rc != 0) stop("Current injury/snap feature refresh failed; refusing to export a stale slate")
 game_w_features <- read.csv(file.path(DATA_DIR, "game_w_features.csv"))
 games <- game_w_features %>% filter(season == target_season, week == target_week)

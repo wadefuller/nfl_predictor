@@ -1,4 +1,4 @@
-source("ats_trust_gate.R")
+source("research/ats_trust_gate.R")
 d <- load_gate_rows("data/ats_experiments/trust-gate/base",
                     "data/ats_experiment_cache/folds")
 a <- gate_fold(d, 2019)

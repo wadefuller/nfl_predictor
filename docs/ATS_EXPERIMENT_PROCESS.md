@@ -107,7 +107,7 @@ including package startup, metric aggregation, betting rescoring, and output.
 Once incumbent and candidate runs exist, compare them without fitting again:
 
 ```bash
-Rscript ats_compare.R \
+Rscript research/ats_compare.R \
   --incumbent path/to/incumbent-run \
   --candidate path/to/candidate-run \
   --out path/to/comparison
@@ -124,7 +124,7 @@ diagnostics: greater coefficient stability is useful only when paired holdout
 predictions also improve.
 
 Bet thresholds, Kelly sizing, EV calibration, and reporting belong after this
-step. Rescore `walk_forward_predictions.csv` with `strategy_sweep.R` or the
+step. Rescore `walk_forward_predictions.csv` with `research/strategy_sweep.R` or the
 portfolio tools; do not retrain the game model for a policy-only change.
 
 ## Promotion standard
@@ -150,7 +150,7 @@ The prioritized research portfolio and experiment backlog live in
 
 ## Cached trust-policy experiments
 
-`ats_trust_gate.R` evaluates R1.4 without retraining the margin model per policy.
+`research/ats_trust_gate.R` evaluates R1.4 without retraining the margin model per policy.
 Populate earlier outer-fold forecasts for gate warm-up, then fit each evaluation
 year's gate on strictly earlier OOF seasons. Never use the current evaluation
 fold to train, normalize, or choose thresholds. Confirmation requires the

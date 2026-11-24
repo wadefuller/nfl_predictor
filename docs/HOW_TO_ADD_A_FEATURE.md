@@ -82,7 +82,7 @@ cp models/ensemble_latest.rds /tmp/bundle_pre_X.rds   # snapshot for diff
 ./run_pipeline.sh features            # ~7 min
 ./run_pipeline.sh eval                # ~15 min — walk_forward + retrain
 ./run_pipeline.sh diagnose            # ~2 sec — slice-by-slice MAE breakdown
-Rscript feature_diff.R /tmp/bundle_pre_X.rds models/ensemble_latest.rds
+Rscript research/feature_diff.R /tmp/bundle_pre_X.rds models/ensemble_latest.rds
 ```
 
 ## 8. Decide: keep or revert
@@ -104,7 +104,7 @@ If you decide to revert: just remove the registry entry + delete the file, then 
 - **`load_officials` uses `old_game_id` (YYYYMMDD)**, not the modern `game_id`. Join via `games$old_game_id`.
 - **XGB rejects redundant interaction-flag binaries** (e.g., `rest_short_at_home = rest_short_week AND was_home`). It can learn AND interactions natively from raw flags. Don't add explicit AND-flags.
 - **Cumulative season counts duplicate `games_played`.** XGB will reject them.
-- **Sourcing `build_features.R` is safe** — the auto-run is gated by `sys.nframe() == 0L`. Same for `build_elo.R`.
+- **Sourcing `build_features.R` is safe** — the auto-run is gated by `sys.nframe() == 0L`. Same for `scripts/build_elo.R`.
 
 ## Reference modules to copy from
 

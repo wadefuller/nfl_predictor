@@ -190,7 +190,7 @@ if (file.exists(wf_preds_path)) {
   t0 <- Sys.time()
   # Absolute path: a relative one resolves against the caller's working
   # directory, which is only nfl_predictor/ when run_pipeline.sh is the caller.
-  rc <- system2("Rscript", file.path(PROJECT_DIR, "recalibrate_ev.R"),
+  rc <- system2("Rscript", file.path(PROJECT_DIR, "scripts/recalibrate_ev.R"),
                 stdout = TRUE, stderr = TRUE)
   status <- attr(rc, "status") %||% 0L
   # The refit's exit code was captured into `rc` and never read. A failed refit

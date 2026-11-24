@@ -66,7 +66,7 @@ case "$MODE" in
     run_step build_features.R         "Build features"
     run_step walk_forward_eval.R      "Walk-forward eval"
     run_step train_and_save_ensemble.R "Train + save bundle"
-    run_step portfolio_sim.R          "Portfolio simulation"
+    run_step scripts/portfolio_sim.R          "Portfolio simulation"
     ;;
   eval)
     run_step walk_forward_eval.R      "Walk-forward eval"
@@ -95,7 +95,7 @@ case "$MODE" in
     run_step tests/test_features.R    "Feature test suite"
     ;;
   diagnose)
-    run_step model_diagnostic.R       "Model success/failure diagnostic"
+    run_step research/model_diagnostic.R       "Model success/failure diagnostic"
     ;;
   ats-probe)
     ATS_PROFILE=probe run_step walk_forward_eval.R "ATS fast probe"
@@ -107,10 +107,10 @@ case "$MODE" in
     ATS_PROFILE=confirm run_step walk_forward_eval.R "ATS full confirmation"
     ;;
   learners)
-    run_step learner_diagnostic.R     "Base-learner diagnostic (why GLM dominates)"
+    run_step research/learner_diagnostic.R     "Base-learner diagnostic (why GLM dominates)"
     ;;
   census)
-    run_step feature_census.R         "Feature census (provenance + per-learner usage)"
+    run_step research/feature_census.R         "Feature census (provenance + per-learner usage)"
     ;;
   fantasy)
     run_step export_fantasy.R         "Fantasy market index + league export"

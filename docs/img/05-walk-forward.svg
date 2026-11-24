@@ -1,0 +1,441 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 894" role="img" aria-label="Walk-forward evaluation folds for both models, with the per-season difference against the benchmark and bootstrap intervals.">
+<style>
+.bg{fill:#ffffff}.card{fill:#f6f8fa}.ink{fill:#1f2328}.muted{fill:#59636e}
+.ink-s{stroke:#1f2328}.grid{stroke:#d1d9e0}.axis{stroke:#8c959f}
+.model{fill:#2f6fd0}.model-s{stroke:#2f6fd0}.vegas{fill:#6e7781}.vegas-s{stroke:#6e7781}
+.warn{fill:#b4532a}.warn-s{stroke:#b4532a}.none{fill:none}.hollow{fill:#ffffff}
+.pQB{fill:#2f6fd0}.pQB-s{stroke:#2f6fd0}.pRB{fill:#1a7f64}.pRB-s{stroke:#1a7f64}
+.pWR{fill:#8250df}.pWR-s{stroke:#8250df}.pTE{fill:#b4532a}.pTE-s{stroke:#b4532a}
+.empty{fill:#e3e8ee}.test{fill:#1f2328}
+text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.h{font-size:25px;font-weight:700}.sub{font-size:15px}.lab{font-size:13px;font-weight:700;letter-spacing:1.2px}
+.t{font-size:15px}.tb{font-size:15px;font-weight:700}.s{font-size:14px}.sb{font-size:14px;font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+@media (prefers-color-scheme: dark){
+.bg{fill:#0d1117}.card{fill:#161b22}.ink{fill:#e6edf3}.muted{fill:#9198a1}
+.ink-s{stroke:#e6edf3}.grid{stroke:#30363d}.axis{stroke:#6e7681}
+.model{fill:#58a6ff}.model-s{stroke:#58a6ff}.vegas{fill:#9aa3ad}.vegas-s{stroke:#9aa3ad}
+.warn{fill:#e58a5f}.warn-s{stroke:#e58a5f}.hollow{fill:#0d1117}
+.pQB{fill:#58a6ff}.pQB-s{stroke:#58a6ff}.pRB{fill:#3fb950}.pRB-s{stroke:#3fb950}
+.pWR{fill:#bc8cff}.pWR-s{stroke:#bc8cff}.pTE{fill:#e58a5f}.pTE-s{stroke:#e58a5f}
+.empty{fill:#262d36}.test{fill:#e6edf3}
+}
+</style>
+<rect width="640" height="894" rx="14" class="bg"/>
+<text x="28.0" y="46.0" class="h ink">Train on the past, test on the next season</text>
+<text x="28.0" y="72.0" class="sub muted">One row per fold. Right: model minus benchmark; left of 0 = model better.</text>
+<rect x="16.0" y="92.0" width="608.0" height="398.0" rx="12" class="card"/>
+<text x="36.0" y="122.0" class="lab muted">GAME MODEL · 2,638 TEST GAMES</text>
+<text x="82.0" y="172.0" class="s muted num">2008</text>
+<text x="332.0" y="172.0" class="s muted num" text-anchor="end">2025</text>
+<line x1="392.0" y1="180.0" x2="392.0" y2="452.0" class="grid" stroke-width="1"/>
+<text x="392.0" y="470.0" class="s muted num" text-anchor="middle">−0.01</text>
+<line x1="496.0" y1="180.0" x2="496.0" y2="452.0" class="axis" stroke-width="1.5"/>
+<text x="496.0" y="470.0" class="s muted num" text-anchor="middle">0</text>
+<line x1="600.0" y1="180.0" x2="600.0" y2="452.0" class="grid" stroke-width="1"/>
+<text x="600.0" y="470.0" class="s muted num" text-anchor="middle">+0.01</text>
+<text x="496.0" y="490.0" class="s ink" text-anchor="middle">Brier score, model − Vegas</text>
+<text x="74.0" y="199.0" class="s ink num" text-anchor="end">2016</text>
+<rect x="82.0" y="187.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="95.9" y="187.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="109.8" y="187.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="123.7" y="187.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="137.6" y="187.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="151.4" y="187.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="187.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="179.2" y="187.0" width="12.4" height="17.0" rx="1.5" class="vegas"/>
+<rect x="193.1" y="187.0" width="12.4" height="17.0" rx="1.5" class="test"/>
+<rect x="207.0" y="187.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="220.9" y="187.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="234.8" y="187.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="248.7" y="187.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="262.6" y="187.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="276.4" y="187.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="290.3" y="187.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="304.2" y="187.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="318.1" y="187.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<line x1="452.1" y1="195.0" x2="519.6" y2="195.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="484.0" cy="195.0" r="4" class="model"/>
+<text x="74.0" y="223.0" class="s ink num" text-anchor="end">2017</text>
+<rect x="82.0" y="211.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="95.9" y="211.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="109.8" y="211.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="123.7" y="211.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="137.6" y="211.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="151.4" y="211.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="211.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="179.2" y="211.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="193.1" y="211.0" width="12.4" height="17.0" rx="1.5" class="vegas"/>
+<rect x="207.0" y="211.0" width="12.4" height="17.0" rx="1.5" class="test"/>
+<rect x="220.9" y="211.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="234.8" y="211.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="248.7" y="211.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="262.6" y="211.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="276.4" y="211.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="290.3" y="211.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="304.2" y="211.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="318.1" y="211.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<line x1="472.1" y1="219.0" x2="561.4" y2="219.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="519.0" cy="219.0" r="4" class="warn"/>
+<text x="74.0" y="247.0" class="s ink num" text-anchor="end">2018</text>
+<rect x="82.0" y="235.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="95.9" y="235.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="109.8" y="235.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="123.7" y="235.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="137.6" y="235.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="151.4" y="235.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="235.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="179.2" y="235.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="193.1" y="235.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="207.0" y="235.0" width="12.4" height="17.0" rx="1.5" class="vegas"/>
+<rect x="220.9" y="235.0" width="12.4" height="17.0" rx="1.5" class="test"/>
+<rect x="234.8" y="235.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="248.7" y="235.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="262.6" y="235.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="276.4" y="235.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="290.3" y="235.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="304.2" y="235.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="318.1" y="235.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<line x1="471.3" y1="243.0" x2="533.9" y2="243.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="502.7" cy="243.0" r="4" class="warn"/>
+<text x="74.0" y="271.0" class="s ink num" text-anchor="end">2019</text>
+<rect x="82.0" y="259.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="95.9" y="259.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="109.8" y="259.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="123.7" y="259.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="137.6" y="259.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="151.4" y="259.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="259.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="179.2" y="259.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="193.1" y="259.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="207.0" y="259.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="220.9" y="259.0" width="12.4" height="17.0" rx="1.5" class="vegas"/>
+<rect x="234.8" y="259.0" width="12.4" height="17.0" rx="1.5" class="test"/>
+<rect x="248.7" y="259.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="262.6" y="259.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="276.4" y="259.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="290.3" y="259.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="304.2" y="259.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="318.1" y="259.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<line x1="480.8" y1="267.0" x2="526.2" y2="267.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="503.4" cy="267.0" r="4" class="warn"/>
+<text x="74.0" y="295.0" class="s ink num" text-anchor="end">2020</text>
+<rect x="82.0" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="95.9" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="109.8" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="123.7" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="137.6" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="151.4" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="179.2" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="193.1" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="207.0" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="220.9" y="283.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="234.8" y="283.0" width="12.4" height="17.0" rx="1.5" class="vegas"/>
+<rect x="248.7" y="283.0" width="12.4" height="17.0" rx="1.5" class="test"/>
+<rect x="262.6" y="283.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="276.4" y="283.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="290.3" y="283.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="304.2" y="283.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="318.1" y="283.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<line x1="432.4" y1="291.0" x2="506.9" y2="291.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="468.7" cy="291.0" r="4" class="model"/>
+<text x="74.0" y="319.0" class="s ink num" text-anchor="end">2021</text>
+<rect x="82.0" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="95.9" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="109.8" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="123.7" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="137.6" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="151.4" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="179.2" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="193.1" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="207.0" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="220.9" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="234.8" y="307.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="248.7" y="307.0" width="12.4" height="17.0" rx="1.5" class="vegas"/>
+<rect x="262.6" y="307.0" width="12.4" height="17.0" rx="1.5" class="test"/>
+<rect x="276.4" y="307.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="290.3" y="307.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="304.2" y="307.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="318.1" y="307.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<line x1="430.0" y1="315.0" x2="547.6" y2="315.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="491.0" cy="315.0" r="4" class="model"/>
+<text x="74.0" y="343.0" class="s ink num" text-anchor="end">2022</text>
+<rect x="82.0" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="95.9" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="109.8" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="123.7" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="137.6" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="151.4" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="179.2" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="193.1" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="207.0" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="220.9" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="234.8" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="248.7" y="331.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="262.6" y="331.0" width="12.4" height="17.0" rx="1.5" class="vegas"/>
+<rect x="276.4" y="331.0" width="12.4" height="17.0" rx="1.5" class="test"/>
+<rect x="290.3" y="331.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="304.2" y="331.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="318.1" y="331.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<line x1="474.1" y1="339.0" x2="570.6" y2="339.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="522.3" cy="339.0" r="4" class="warn"/>
+<text x="74.0" y="367.0" class="s ink num" text-anchor="end">2023</text>
+<rect x="82.0" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="95.9" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="109.8" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="123.7" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="137.6" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="151.4" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="179.2" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="193.1" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="207.0" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="220.9" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="234.8" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="248.7" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="262.6" y="355.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="276.4" y="355.0" width="12.4" height="17.0" rx="1.5" class="vegas"/>
+<rect x="290.3" y="355.0" width="12.4" height="17.0" rx="1.5" class="test"/>
+<rect x="304.2" y="355.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<rect x="318.1" y="355.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<line x1="439.3" y1="363.0" x2="526.1" y2="363.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="481.6" cy="363.0" r="4" class="model"/>
+<text x="74.0" y="391.0" class="s ink num" text-anchor="end">2024</text>
+<rect x="82.0" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="95.9" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="109.8" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="123.7" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="137.6" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="151.4" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="179.2" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="193.1" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="207.0" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="220.9" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="234.8" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="248.7" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="262.6" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="276.4" y="379.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="290.3" y="379.0" width="12.4" height="17.0" rx="1.5" class="vegas"/>
+<rect x="304.2" y="379.0" width="12.4" height="17.0" rx="1.5" class="test"/>
+<rect x="318.1" y="379.0" width="12.4" height="17.0" rx="1.5" class="empty"/>
+<line x1="426.3" y1="387.0" x2="499.3" y2="387.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="465.3" cy="387.0" r="4" class="model"/>
+<text x="74.0" y="415.0" class="s ink num" text-anchor="end">2025</text>
+<rect x="82.0" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="95.9" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="109.8" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="123.7" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="137.6" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="151.4" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="179.2" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="193.1" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="207.0" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="220.9" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="234.8" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="248.7" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="262.6" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="276.4" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="290.3" y="403.0" width="12.4" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="304.2" y="403.0" width="12.4" height="17.0" rx="1.5" class="vegas"/>
+<rect x="318.1" y="403.0" width="12.4" height="17.0" rx="1.5" class="test"/>
+<line x1="456.3" y1="411.0" x2="554.1" y2="411.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="504.9" cy="411.0" r="4" class="warn"/>
+<text x="74.0" y="443.0" class="sb ink" text-anchor="end">all</text>
+<text x="82.0" y="443.0" class="sb ink num">pooled: −0.0002 (−0.0015 to +0.0012)</text>
+<line x1="480.7" y1="439.0" x2="508.3" y2="439.0" class="ink-s" stroke-width="3"/>
+<path d="M494.2,431 l7,8 l-7,8 l-7,-8 z" class="model"/>
+<rect x="36.0" y="133.0" width="12.0" height="12.0" rx="2" class="model" opacity=".55"/>
+<text x="53.0" y="144.0" class="s ink">train</text>
+<rect x="100.0" y="133.0" width="12.0" height="12.0" rx="2" class="vegas"/>
+<text x="117.0" y="144.0" class="s ink">calibrate</text>
+<rect x="192.0" y="133.0" width="12.0" height="12.0" rx="2" class="test"/>
+<text x="209.0" y="144.0" class="s ink">test</text>
+<text x="600.0" y="144.0" class="s muted" text-anchor="end">benchmark: Vegas moneyline</text>
+<rect x="16.0" y="504.0" width="608.0" height="374.0" rx="12" class="card"/>
+<text x="36.0" y="534.0" class="lab muted">PLAYER MODEL · 46,161 TEST PLAYER-WEEKS</text>
+<text x="82.0" y="584.0" class="s muted num">2011</text>
+<text x="332.0" y="584.0" class="s muted num" text-anchor="end">2025</text>
+<line x1="392.0" y1="592.0" x2="392.0" y2="840.0" class="grid" stroke-width="1"/>
+<text x="392.0" y="858.0" class="s muted num" text-anchor="middle">−0.7</text>
+<line x1="496.0" y1="592.0" x2="496.0" y2="840.0" class="axis" stroke-width="1.5"/>
+<text x="496.0" y="858.0" class="s muted num" text-anchor="middle">0</text>
+<line x1="600.0" y1="592.0" x2="600.0" y2="840.0" class="grid" stroke-width="1"/>
+<text x="600.0" y="858.0" class="s muted num" text-anchor="middle">+0.7</text>
+<text x="496.0" y="878.0" class="s ink" text-anchor="middle">Error in points, model − naive</text>
+<text x="74.0" y="611.0" class="s ink num" text-anchor="end">2017</text>
+<rect x="82.0" y="599.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="98.7" y="599.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="115.3" y="599.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="132.0" y="599.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="148.7" y="599.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="599.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="182.0" y="599.0" width="15.2" height="17.0" rx="1.5" class="test"/>
+<rect x="198.7" y="599.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="215.3" y="599.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="232.0" y="599.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="248.7" y="599.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="265.3" y="599.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="282.0" y="599.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="298.7" y="599.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="315.3" y="599.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<line x1="419.7" y1="607.0" x2="444.6" y2="607.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="431.7" cy="607.0" r="4" class="model"/>
+<text x="74.0" y="635.0" class="s ink num" text-anchor="end">2018</text>
+<rect x="82.0" y="623.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="98.7" y="623.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="115.3" y="623.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="132.0" y="623.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="148.7" y="623.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="623.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="182.0" y="623.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="198.7" y="623.0" width="15.2" height="17.0" rx="1.5" class="test"/>
+<rect x="215.3" y="623.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="232.0" y="623.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="248.7" y="623.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="265.3" y="623.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="282.0" y="623.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="298.7" y="623.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="315.3" y="623.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<line x1="440.4" y1="631.0" x2="470.4" y2="631.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="454.1" cy="631.0" r="4" class="model"/>
+<text x="74.0" y="659.0" class="s ink num" text-anchor="end">2019</text>
+<rect x="82.0" y="647.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="98.7" y="647.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="115.3" y="647.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="132.0" y="647.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="148.7" y="647.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="647.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="182.0" y="647.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="198.7" y="647.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="215.3" y="647.0" width="15.2" height="17.0" rx="1.5" class="test"/>
+<rect x="232.0" y="647.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="248.7" y="647.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="265.3" y="647.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="282.0" y="647.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="298.7" y="647.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="315.3" y="647.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<line x1="428.2" y1="655.0" x2="445.7" y2="655.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="436.2" cy="655.0" r="4" class="model"/>
+<text x="74.0" y="683.0" class="s ink num" text-anchor="end">2020</text>
+<rect x="82.0" y="671.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="98.7" y="671.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="115.3" y="671.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="132.0" y="671.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="148.7" y="671.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="671.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="182.0" y="671.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="198.7" y="671.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="215.3" y="671.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="232.0" y="671.0" width="15.2" height="17.0" rx="1.5" class="test"/>
+<rect x="248.7" y="671.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="265.3" y="671.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="282.0" y="671.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="298.7" y="671.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="315.3" y="671.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<line x1="431.4" y1="679.0" x2="454.3" y2="679.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="442.9" cy="679.0" r="4" class="model"/>
+<text x="74.0" y="707.0" class="s ink num" text-anchor="end">2021</text>
+<rect x="82.0" y="695.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="98.7" y="695.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="115.3" y="695.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="132.0" y="695.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="148.7" y="695.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="695.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="182.0" y="695.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="198.7" y="695.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="215.3" y="695.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="232.0" y="695.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="248.7" y="695.0" width="15.2" height="17.0" rx="1.5" class="test"/>
+<rect x="265.3" y="695.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="282.0" y="695.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="298.7" y="695.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="315.3" y="695.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<line x1="433.6" y1="703.0" x2="457.2" y2="703.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="444.6" cy="703.0" r="4" class="model"/>
+<text x="74.0" y="731.0" class="s ink num" text-anchor="end">2022</text>
+<rect x="82.0" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="98.7" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="115.3" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="132.0" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="148.7" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="182.0" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="198.7" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="215.3" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="232.0" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="248.7" y="719.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="265.3" y="719.0" width="15.2" height="17.0" rx="1.5" class="test"/>
+<rect x="282.0" y="719.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="298.7" y="719.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="315.3" y="719.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<line x1="429.7" y1="727.0" x2="448.2" y2="727.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="438.6" cy="727.0" r="4" class="model"/>
+<text x="74.0" y="755.0" class="s ink num" text-anchor="end">2023</text>
+<rect x="82.0" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="98.7" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="115.3" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="132.0" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="148.7" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="182.0" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="198.7" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="215.3" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="232.0" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="248.7" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="265.3" y="743.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="282.0" y="743.0" width="15.2" height="17.0" rx="1.5" class="test"/>
+<rect x="298.7" y="743.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<rect x="315.3" y="743.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<line x1="416.5" y1="751.0" x2="438.0" y2="751.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="427.2" cy="751.0" r="4" class="model"/>
+<text x="74.0" y="779.0" class="s ink num" text-anchor="end">2024</text>
+<rect x="82.0" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="98.7" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="115.3" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="132.0" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="148.7" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="182.0" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="198.7" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="215.3" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="232.0" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="248.7" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="265.3" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="282.0" y="767.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="298.7" y="767.0" width="15.2" height="17.0" rx="1.5" class="test"/>
+<rect x="315.3" y="767.0" width="15.2" height="17.0" rx="1.5" class="empty"/>
+<line x1="428.0" y1="775.0" x2="444.5" y2="775.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="436.2" cy="775.0" r="4" class="model"/>
+<text x="74.0" y="803.0" class="s ink num" text-anchor="end">2025</text>
+<rect x="82.0" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="98.7" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="115.3" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="132.0" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="148.7" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="165.3" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="182.0" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="198.7" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="215.3" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="232.0" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="248.7" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="265.3" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="282.0" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="298.7" y="791.0" width="15.2" height="17.0" rx="1.5" class="model" opacity=".55"/>
+<rect x="315.3" y="791.0" width="15.2" height="17.0" rx="1.5" class="test"/>
+<line x1="430.6" y1="799.0" x2="446.9" y2="799.0" class="ink-s" stroke-width="1.5"/>
+<circle cx="439.0" cy="799.0" r="4" class="model"/>
+<text x="74.0" y="831.0" class="sb ink" text-anchor="end">all</text>
+<text x="82.0" y="831.0" class="sb ink num">pooled: −0.38 (−0.41 to −0.36)</text>
+<line x1="434.9" y1="827.0" x2="442.8" y2="827.0" class="ink-s" stroke-width="3"/>
+<path d="M438.9,819 l7,8 l-7,8 l-7,-8 z" class="model"/>
+<rect x="36.0" y="545.0" width="12.0" height="12.0" rx="2" class="model" opacity=".55"/>
+<text x="53.0" y="556.0" class="s ink">train</text>
+<rect x="100.0" y="545.0" width="12.0" height="12.0" rx="2" class="test"/>
+<text x="117.0" y="556.0" class="s ink">test</text>
+<text x="600.0" y="556.0" class="s muted" text-anchor="end">benchmark: preseason projection</text>
+</svg>

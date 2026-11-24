@@ -10,7 +10,7 @@ Last updated: 2026-06-07
 - **Architecture change (2026-06-07):** **GLM-only stack** is now the default. The cv.glmnet learner is the only one carrying real signal; XGB and RF were getting stacking weight 0 in every recent bundle. The multi-stacker was also AMPLIFYING GLM by ~1.23× which over-fit cal-set residuals — disastrous on walk-forward, especially close games. Switching to pure unamplified GLM dropped MAE 9.832 → 9.778, Brier 0.21075 → 0.21033, LogLoss 0.60967 → 0.60871, Cover 52.91% → 53.36% — **the largest single improvement in project history**. The structural close-game overshoot (+0.225 MAE) that survived 7 feature experiments is now **−0.036 MAE BETTER than Vegas** in that bucket. Set `STACK_FULL=1` to fall back.
 - **Production bundle defaults (post-2026-06-07):** `R/features/pace_total.R` (kept 2026-06-01), GLM-only stack, no carryover, no Elo, no NGS. The walk-forward runner now skips zero-weight XGB/RF fits; `STACK_MODE=full` still exercises the full architecture explicitly.
 - **Pipeline:** `./run_pipeline.sh {full|eval|train|features|predict|test|diagnose|ats-probe|ats-screen|ats-confirm|learners|census}` is the entry point. Don't run the four `Rscript` commands manually. `learners` explains *why* the stack is GLM-dominated; `census` shows feature provenance + per-learner usage (see EXPERIMENTS_RULED_OUT.md).
-- **`tune_hyperparams.R` was rewritten 2026-06-07.** The old version silently shipped params that lost to the market by 0.445 MAE (wrong objective, no monotone constraint, no colsample sweep, grid missed the depth-2 corner). It now tunes the direct-xgboost path with nested early stopping and a market gate that refuses to bless params which lose to the closing line — `load_xgb_direct_params()` ignores any file tagged `gate="fail"`. Output moved to `data/tune_best_xgb_direct.rds`; the tidymodels path in `train_xgb_model()` is legacy (it cannot express a monotone constraint).
+- **`scripts/tune_hyperparams.R` was rewritten 2026-06-07.** The old version silently shipped params that lost to the market by 0.445 MAE (wrong objective, no monotone constraint, no colsample sweep, grid missed the depth-2 corner). It now tunes the direct-xgboost path with nested early stopping and a market gate that refuses to bless params which lose to the closing line — `load_xgb_direct_params()` ignores any file tagged `gate="fail"`. Output moved to `data/tune_best_xgb_direct.rds`; the tidymodels path in `train_xgb_model()` is legacy (it cannot express a monotone constraint).
 - **Features:** modular under `R/features/`. Add one = new file + one line in `_registry.R`. See `docs/HOW_TO_ADD_A_FEATURE.md`.
 - **Tuning:** XGB, GLM alpha, RF mtry/min_n, stacking λ all have their own scripts. Auto-loaded by `ensemble_lib::load_tuned_*`.
 - **Live model serving:** `predict_week.rmd` for weekly bet card, `export_json.R` for website. Both use bundle-baked EV calibration.
@@ -71,7 +71,7 @@ In priority order:
    (Thursday +0.111, home_short_rest +0.134) may benefit but lift ceiling is
    much lower.
 
-5. **Re-tune `tune_glm.R`** (5 min) — current `alpha=0.25, lambda=1.88` was
+5. **Re-tune `research/tune_glm.R`** (5 min) — current `alpha=0.25, lambda=1.88` was
    tuned against the multi-stacker. Marginal expected improvement (all alphas
    in the prior sweep landed within Brier ±0.0001).
 
@@ -80,7 +80,7 @@ Do NOT try: re-testing PFR (just done, failed cleanly).
 Closed since last handoff:
 - **Pace/total close-game features** (2026-06-01) — landed as `R/features/pace_total.R`. Improved all 4 core metrics. Didn't directly close the close-game gap but broad-lifted the slate.
 - **Hyperparameter re-tune** (2026-06-04, REVERTED) — see EXPERIMENTS_RULED_OUT.md. CV-RMSE-tuned XGB params don't translate to walk-forward Brier.
-- **Wide-deep DNN POC** (2026-06-04, NOT WIRED) — `dnn_poc.R` test showed DNN can't match GLM on this dataset (MAE 9.69 vs 9.59). Existing stack already gives XGB+RF weight 0 (GLM dominates) — non-linear models add no signal here. POC file remains as reference.
+- **Wide-deep DNN POC** (2026-06-04, NOT WIRED) — `research/dnn_poc.R` test showed DNN can't match GLM on this dataset (MAE 9.69 vs 9.59). Existing stack already gives XGB+RF weight 0 (GLM dominates) — non-linear models add no signal here. POC file remains as reference.
 - **Opening line / line-movement features via nfelo** (2026-06-06, REVERTED both v1 and v2) — see EXPERIMENTS_RULED_OUT.md. `line_open` is 93% redundant with `spread_line`; `line_move` alone too noisy at slate level.
 - **PFR advanced stats** (2026-06-06, REVERTED) — see EXPERIMENTS_RULED_OUT.md. Pressure rate landed at rank 41 (real signal) but displaced `starter_pass_epa` features; substitution, not net addition. LogLoss crossed real-regression threshold.
 - **ESPN QBR** (2026-06-06, REVERTED) — see EXPERIMENTS_RULED_OUT.md. 0.79 cor with `qb_epa_r4_home` predicted substitution; result confirmed (0 of 4 metrics improved, LogLoss and Cover both crossed real-regression threshold). Pre-flight correlation check now established as a discipline.
@@ -109,7 +109,7 @@ See `docs/EXPERIMENTS_RULED_OUT.md` for details. Quick list:
 - REPLACEMENT pattern (drop the displaced feature, add the new one) — confirmed to be WORSE than ADDITION. The "displacement" was XGB combinatorial use, not duplicate signal. Future work needs ARCHITECTURE CHANGE only.
 - Reviving XGB/RF via residual targeting, edge shrinkage, or mixed-regime stacking — all measured, none beat pure GLM. Run `./run_pipeline.sh learners` for the full diagnostic.
 - **XGB-only, even properly tuned** — full 10-season walk-forward: GLM 9.7783 / XGB 9.8228 / stack 9.8393. GLM wins all four metrics; tuned XGB doesn't even beat Vegas. With honest nested early stopping, **0 of 32 tuned configs beat the market** on 2015-2020. See EXPERIMENTS_RULED_OUT.md.
-- **Trusting any number out of `xgb_challenge.R`** — it early-stops on the fold it scores (~0.069 MAE optimistic). Its "XGB beats GLM by 0.088 on 2020-23" was a leak artifact. `tune_hyperparams.R::eval_config` has the correct nested pattern; copy from there.
+- **Trusting any number out of `research/xgb_challenge.R`** — it early-stops on the fold it scores (~0.069 MAE optimistic). Its "XGB beats GLM by 0.088 on 2020-23" was a leak artifact. `scripts/tune_hyperparams.R::eval_config` has the correct nested pattern; copy from there.
 - **NNLS stacking on the 544-game cal set** — now three documented failures (1.23x amplification, mixed-regime picking the wrong learner, full stack worse than both its components). Treat learned stacking weights at this cal size as unreliable.
 
 ## Loose ends
@@ -117,7 +117,7 @@ See `docs/EXPERIMENTS_RULED_OUT.md` for details. Quick list:
 - **Production bundle:** `models/ensemble_latest.rds`, trained on 2008-2025. Active stack is exactly 0.00·xgb + 1.00·glm + 0.00·rf (`glm_only`); inspect bundle metadata for the current artifact timestamp and EV calibration fit.
 - **Cached external data:** `data/external/nfelo_games.csv` (3.5 MB, 1999-2024 opening + closing spreads). Kept for the queued subset-conditional line-movement experiment. Refresh via re-running the deleted `etl_nfelo_lines.R` pattern (URL: github.com/greerreNFL/nfelo, file `nfelo/Data/Formatted Data/nfelo_games.csv`).
 - **Failure buckets pace_total did NOT fix** (despite aggregate-metric gains): home_short rest (+0.310 MAE), big road favorites 7.5-10pt (+0.273), close games 0-3 actual margin (+0.244), Thursday games (+0.257). Each is an open lead for targeted future work.
-- **`dnn_poc.R`** at repo root — standalone DNN attempt from 2026-06-04. Reference for any future DNN exploration.
+- **`research/dnn_poc.R`** at repo root — standalone DNN attempt from 2026-06-04. Reference for any future DNN exploration.
 
 ## File map for quick orientation
 
@@ -127,15 +127,15 @@ walk_forward_eval.R               # 10-fold walk-forward eval
 train_and_save_ensemble.R         # production bundle trainer (auto-bakes EV cal)
 ensemble_lib.R                    # canonical helpers (paths, LEAKAGE_VARS_REG,
                                   #   load_tuned_*, fit_stacking, predict_with_ensemble)
-sweep_harness.R                   # shared sweep machinery
-recalibrate_ev.R                  # refit EV calibration constants from current preds
-tune_hyperparams.R                # XGB tune (~1 min)
-tune_glm.R                        # GLM alpha tune
-tune_rf.R                         # RF mtry/min_n tune
-tune_stacking_lambda.R            # stacking objective mix tune
+research/sweep_harness.R                   # shared sweep machinery
+scripts/recalibrate_ev.R                  # refit EV calibration constants from current preds
+scripts/tune_hyperparams.R                # XGB tune (~1 min)
+research/tune_glm.R                        # GLM alpha tune
+research/tune_rf.R                         # RF mtry/min_n tune
+scripts/tune_stacking_lambda.R            # stacking objective mix tune
 run_pipeline.sh                   # entry point — use this, not raw Rscript
-model_diagnostic.R                # ./run_pipeline.sh diagnose
-feature_diff.R                    # Rscript feature_diff.R old.rds new.rds
+research/model_diagnostic.R                # ./run_pipeline.sh diagnose
+research/feature_diff.R                    # Rscript research/feature_diff.R old.rds new.rds
 tests/test_features.R             # ./run_pipeline.sh test
 R/features/                       # one file per feature group, registered in _registry.R
 R/infra/                          # shared infra (data_loaders, rolling, carryover, etc.)

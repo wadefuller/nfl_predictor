@@ -1,6 +1,6 @@
 suppressPackageStartupMessages(library(dplyr))
-source("qb_availability.R")
-source("qb_features.R")
+source("R/lib/qb_availability.R")
+source("R/lib/qb_features.R")
 source("R/features/_module_base.R")
 source("R/features/qb_starter.R")
 ids <- data.frame(sleeper_id=c("1","2","2"),gsis_id=c("a","b","c"))

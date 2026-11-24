@@ -76,4 +76,4 @@ not use it for cover probabilities without new evidence.
 Generated artifacts are under `data/ats_experiments/conditional-scale/` and
 include frozen calibration/holdout rows, per-fold scale diagnostics,
 reliability tables, interval coverage, paired bootstrap results, and charts.
-The reusable evaluator is `ats_scale_experiment.R`.
+The reusable evaluator is `research/ats_scale_experiment.R`.
